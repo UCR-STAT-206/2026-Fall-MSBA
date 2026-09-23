@@ -1,0 +1,15 @@
+---
+title: "Final Project"
+subtitle: "Due Finals Week (TBD)"
+format:
+  html:
+    theme: cosmo
+    css: ../assets/styles.css
+    toc: false
+    code-copy: true
+    code-block-background: true
+execute:
+  freeze: auto
+---
+
+To be announced at a later date.

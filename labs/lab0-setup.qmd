@@ -1,0 +1,100 @@
+---
+title: "Lab 0: Setting Up Your Workspace"
+date: "2026-09-24"
+eval: false
+format:
+  html:
+    theme: cosmo
+    css: ../assets/styles.css
+    toc: true
+    code-copy: true
+    code-block-background: true
+engine: markdown
+---
+
+## Goals
+
+1. Access a virtualized computing environment as a local Docker container.
+2. Integrate your computing environment with VS Code.
+3. Configure Git for documenting your work and submitting assignments.
+4. Practice setting up software in a Unix-like environment.
+
+## The Tools
+
+You are responsible for installing the following on your machine:
+
+1. [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+2. [VS Code](https://code.visualstudio.com/download)
+
+Once you create a container using the class image, you will have access to:
+
+1. a [Unix Shell](https://en.wikipedia.org/wiki/Unix_shell) (we will use `zsh` by default),
+2. [Git](https://en.wikipedia.org/wiki/Git),
+3. [Quarto](https://en.wikipedia.org/wiki/Quarto_(software)), and
+4. [Python 3.14](https://en.wikipedia.org/wiki/Python_(programming_language))
+
+In addition to various tools installed on the image (i.e. Unix utilities), you also have access to
+
+1. [R 4.5](https://en.wikipedia.org/wiki/R_(programming_language)), and
+2. [DuckDB 1.5.5](https://en.wikipedia.org/wiki/DuckDB).
+
+## On Your Own
+
+### 1. Get the class Docker image working on your computer
+
+Read the guide on [how to use Docker](/howto/use_docker.qmd) in this class.
+
+### 2. Practice using the terminal
+
+Read the notes on [the Unix shell](/notes/module01/unix.qmd) and experiment inside a container.
+
+### 3. Read up Git, GitHub, the SSH protocol
+
+Read up about these tools and try setting up Git on your container + create your GitHub account.
+
+1. [What is Git?](../notes/module01/git.qmd) and [How to configure Git](../howto/configure_git.qmd).
+2. [How to set up your GitHub account](../howto/setup_github.qmd).
+3. [What is SSH?](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh).
+
+
+
+## In Person
+
+The following tasks involve using the class Docker image.
+Instructions are to be carried out inside a running container unless otherwise specified.
+
+### 1. Download and install Quarto
+
+1. Inside your terminal, run `uname -m` to determine whether your container is setup with an `arm64` or `x86_64` architecture.
+
+2. Based on the result in the previous step, download Quarto using `curl`:
+
+    ```default
+    curl -fL -o quarto.tar.gz \
+    https://github.com/quarto-dev/quarto-cli/releases/download/v1.10.18/quarto-1.10.18-linux-arm64.tar.gz
+    ```
+
+    or
+
+    ```default
+    curl -fL -o quarto.tar.gz \
+    https://github.com/quarto-dev/quarto-cli/releases/download/v1.10.18/quarto-1.10.18-linux-amd64.tar.gz
+    ```
+
+3. Next, unpack files from the tarball into `/home/student/.local`:
+
+    ```default
+    tar -xvzf quarto.tar.gz --strip-components=1 -C ~/.local
+    ```
+
+4. Finally, check that Quarto can be run from your terminal (and therefore seen by other programs) with
+
+    ```default
+    quarto check
+    ```
+
+### 2. Let us know your GitHub username
+
+### 3. Fill out the class survey
+
+### 4. Practice creating your first Quarto document

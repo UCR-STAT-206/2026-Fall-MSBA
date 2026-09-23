@@ -1,0 +1,170 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  sidebar:
+    style: docked
+    title: "STAT 206 (MSBA)"
+    logo: assets/UC_Riverside_Horiz_WhtBG.png
+    logo-alt: "UC Riverside monogram logo"
+    collapse-level: 1
+    contents:
+      - text: Home
+        href: index.qmd
+      - text: Office Hours
+        href: office_hours.qmd
+      # - text: Schedule
+      #   href: schedule.qmd
+      - text: "---"
+      - section: Module 1 (Fundamentals)
+        contents:
+          - text: The Unix Shell
+            href: notes/module01/unix.qmd
+          - text: The File System
+            href: notes/module01/filesystem.qmd
+          - text: Quarto
+            href: notes/module01/quarto.qmd
+          - text: Git
+            href: notes/module01/git.qmd
+      # - section: Module 2 (Programming)
+      #   contents:
+      #     - text: Python Objects and Data Types
+      #     - text: Basic Arithmic, Comparisons, and Boolean Algebra
+      #     - text: The Python Standard Library
+      #     - text: Writing Programs and Scripts
+      #     - text: Control Flow
+      #       href: notes/module02/control.qmd
+      #     - text: Functions
+      #       href: notes/module02/functions.qmd
+      #     - text: Modules, Classes, and Namespaces
+      # - section: Module 3 (Best Practices)
+      #   contents:
+      #     - text: Error Handling
+      #     - text: Debugging
+      #     - text: Defensive Programming
+      #     - text: Testing
+      #     - text: Refactoring
+      #       href: notes/module03/refactoring.qmd
+      # - section: Module 4 (Numerical Python)
+      #   contents:
+      #     - text: Introduction to Numpy
+      #     - text: Working with Numpy Arrays
+      #     - text: Vectorization and Broadcasting
+      #     - text: Working with Probability Distributions
+      #     - text: Computer Arithmetic
+      #       href: notes/module04/numbers.qmd
+      #     - text: Computer Architecture
+      #       href: notes/module04/computers.qmd
+      # - section: Module 5 (Tabular Data)
+      #   contents:
+      #     - text: Introduction to Pandas
+      #     - text: Data Input/Output
+      #     - text: Working with Series and DataFrames
+      #     - text: Indexing and Filtering
+      #     - text: Data Cleaning
+      #     - text: Split-Apply-Combine
+      # - section: Module 6 (Simulation)
+      #   contents:
+      #     - text: RNG and PRNGs
+      #     - text: Inverse Method
+      #     - text: Rejection Sampling
+      #     - text: Simulating Random Variables
+      #     - text: Monte Carlo Methods
+      # - section: Module 7 (Data Visualization)
+      #   contents:
+      #     - text: Introduction to Matplotlib
+      #     - text: Principles of Effective Visualization
+      # - section: Module 8 (Managing Computing Environments)
+      #   contents:
+      #     - text: Conda/Micromamba
+      #     - text: Deploying Applications
+      # - section: Module 9 (Resampling and Randomization)
+      #   contents:
+      #     - text: Randomization Techniques
+      #     - text: The Bootstrap
+      #     - text: Permutation Tests
+      #     - text: Hypothesis Testing
+      #     - text: A/B Testing
+      # - section: Module 10 (Building Analysis Pipelines)
+      #   contents:
+      #     - text: Introduction to Statsmodels
+      #     - text: Introduction to Scikit-Learn
+      #     - text: Regression Analysis in Python
+      #     - text: Using Pipelines in Scikit-Learn
+      #     - text: Model Zoo
+      # - section: Module 11 (Data Technologies)
+      #   contents:
+      #     - text: Plaintext and Binary Formats
+      #     - text: Working with Text
+      #     - text: Manipulation Frameworks for Tabular Data
+      #     - text: Databases, SQL, and DuckDB
+      - text: "---"
+      - section: "Labs"
+        contents:
+          - text: Lab 0 (Getting Started)
+            href: labs/lab0-setup.qmd
+          # - text: Lab 1 (Submitting Assignments)
+          #   href: labs/lab1-submit.qmd
+          # - text: Lab 2 (Errors and Debugging)
+          #   href: labs/lab2-debug.qmd
+          # - text: Lab 3 (I/O Handling)
+          #   href: labs/lab3-io.qmd
+          # - text: Lab 4 (Reproducibility)
+          #   href: labs/lab4-reproducibility.qmd
+          # - text: Lab 5 (Code Review)
+          #   href: labs/lab5-codereview.qmd
+          # - text: Lab 6 (TBD)
+          #   href: labs/lab6-tbd.qmd
+          # - text: Lab 7 (Simulation)
+          #   href: labs/lab7-simulation.qmd
+          # - text: Lab 8 (Collaboration using Git)
+          #   href: labs/lab8-collab.qmd
+      - section: "Homework"
+        contents:
+          - text: Homework 1
+          #   href: hw/hw1.qmd
+          # - text: Homework 2
+          #   href: hw/hw2.qmd
+          # - text: Homework 3
+          #   href: hw/hw3.qmd
+          # - text: Homework 4
+          #   href: hw/hw4.qmd
+          # - text: Homework 5
+          #   href: hw/hw5.qmd
+          # - text: Homework 6
+          #   href: hw/hw6.qmd
+          # - text: Homework 7
+          #   href: hw/hw7.qmd
+          # - text: Homework 8
+          #   href: hw/hw8.qmd
+      - text: "Final Project"
+        href: project/project.qmd
+      - text: "---"
+      - section: "How to..."
+        contents:
+          - text: Use Docker
+            href: howto/use_docker.qmd
+          - text: Use VSCode with a Container
+            href: howto/use_vscode.qmd
+          - text: Configure Git
+            href: howto/configure_git.qmd
+          - text: Set Up Your GitHub Account
+            href: howto/setup_github.qmd
+          - text: Use Git
+            href: howto/use_git.qmd
+          - text: Submit Assignments
+            href: howto/submit_hw.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: assets/styles.css
+    toc: true
+    code-line-numbers: true
+    grid:
+      sidebar-width: 350px
+
+execute:
+  engine: markdown
+  freeze: auto

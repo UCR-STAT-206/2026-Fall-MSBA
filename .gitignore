@@ -1,0 +1,11 @@
+.DS_Store
+
+*.docx
+*.pdf
+
+/.quarto/
+/_site/
+*~
+.*
+
+**/*.quarto_ipynb
