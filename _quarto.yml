@@ -14,8 +14,8 @@ website:
         href: index.qmd
       - text: Office Hours
         href: office_hours.qmd
-      # - text: Schedule
-      #   href: schedule.qmd
+      - text: Schedule
+        href: schedule.qmd
       - text: "---"
       - section: Module 1 (Fundamentals)
         contents:
@@ -153,8 +153,8 @@ website:
             href: howto/setup_github.qmd
           - text: Use Git
             href: howto/use_git.qmd
-          - text: Submit Assignments
-            href: howto/submit_hw.qmd
+          # - text: Submit Assignments
+            # href: howto/submit_hw.qmd
 
 format:
   html:

@@ -45,4 +45,4 @@ You can sign up using your favorite browser, but all the command line instructio
 
 ## Let us know your GitHub username!
 
-Fill out the [Google form]() to record the username you wish to use for this course. It will be used to set up your private repository for this class.
+Fill out the [Google form](https://forms.gle/QNpQNWufgXrvoXx27) to record the username you wish to use for this course. It will be used to set up your private repository for this class.

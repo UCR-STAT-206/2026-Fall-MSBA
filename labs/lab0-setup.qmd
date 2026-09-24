@@ -95,6 +95,12 @@ Instructions are to be carried out inside a running container unless otherwise s
 
 ### 2. Let us know your GitHub username
 
+Fill out the [Google form](https://forms.gle/QNpQNWufgXrvoXx27) to record the username you wish to use for this course. It will be used to set up your private repository for this class.
+
 ### 3. Fill out the class survey
 
+See [this Google form](https://forms.gle/9xjFqgJr9NVqY2Qw7) to answer a few questions. It will help the instructors understand everyone's background.
+
 ### 4. Practice creating your first Quarto document
+
+See the notes on [Quarto](../notes/module01/quarto.qmd) and explore Quarto's features.
