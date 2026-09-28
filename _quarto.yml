@@ -27,9 +27,10 @@ website:
             href: notes/module01/quarto.qmd
           - text: Git
             href: notes/module01/git.qmd
-      # - section: Module 2 (Programming)
-      #   contents:
-      #     - text: Python Objects and Data Types
+      - section: Module 2 (Programming)
+        contents:
+          - text: Python Objects and Data Types
+          - href: notes/module02/intro.qmd
       #     - text: Basic Arithmic, Comparisons, and Boolean Algebra
       #     - text: The Python Standard Library
       #     - text: Writing Programs and Scripts
