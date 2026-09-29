@@ -33,7 +33,8 @@ website:
             href: notes/module02/intro.qmd
           - text: Objects and Data Types
             href: notes/module02/types.qmd
-      #     - text: Basic Arithmic, Comparisons, and Boolean Algebra
+          - text: Arithmetic, Comparisons, and Boolean Algebra
+            href: notes/module02/basics.qmd
       #     - text: The Python Standard Library
       #     - text: Writing Programs and Scripts
       #     - text: Control Flow

@@ -1,0 +1,245 @@
+---
+title: Arithmetic, Comparisons, and Boolean Algebra
+---
+
+## Goals
+
+
+
+
+## Arithmetic
+
+The numeric types support arithmetic operations using (mostly) recognizable notation.
+
+### Operators for `int`
+
+|       Operation       | Symbol |
+|:---------------------:|:------:|
+|  Positive, Addition   |  `+`   |
+| Negation, Subtraction |  `-`   |
+|    Multiplication     |  `*`   |
+|       Division        |  `/`   |
+|  Euclidean Division   |  `//`  |
+|  Modulo / Remainder   |  `%`   |
+|    Exponentiation     |  `**`  |
+
+
+```{python}
+5/2
+```
+
+```{python}
+type(5/2)
+```
+
+```{python}
+5//2 # Euclidean/floor division discards the fractional part
+```
+
+```{python}
+type(5//2) # still int
+```
+
+```{python}
+-5//2
+```
+
+```{python}
+5.0//2.0
+```
+
+```{python}
+5 % 3 # modulo operator returns the remainder of the division 
+```
+
+```{python}
+4 ** 3 # 4 to the power of 3
+```
+
+### Operators for `float`
+
+|       Operation       | Symbol |
+|:---------------------:|:-------|
+|  Positive, Addition   | `+`    |
+| Negation, Subtraction | `-`    |
+|    Multiplication     | `*`    |
+|       Division        | `/`    |
+|    Exponentiation     | `**`   |
+
+The future value of a financial instrument under compound interest is
+
+$$
+\text{FV} = \text{PV} \times (1 + r)^{n},
+$$
+
+where $r$ is the rate of return and $n$ denotes the number of periods.
+We can use Python to do this calculation:
+
+```{python}
+pv = 100.0 # one lump-sum investment
+r = 0.07   # annual rate
+n = 10     # 10 years
+
+fv = pv * (1 + r) ** n
+fv
+```
+
+
+
+
+## Logic and Boolean algebra
+
+Logical operations in Python are designed around binary-valued logic: `True` and
+`False` (note capitalization)
+
+|          Operation           |   Symbol   |
+|:----------------------------:|:----------:|
+|         Logical AND          | `and`, `&` |
+|          Logical OR          | `or`, `|`  |
+|         Logical NOT          |   `not`    |
+
+```{python}
+True and False
+```
+
+```{python}
+True | False
+```
+
+The following tables illustrate the outputs of logical operations given certain inputs.
+Note that `not` takes one argument while `or` and `and` are binary operators.
+You should try filling out the incomplete tables, especially if you have never worked with Boolean algebra before.
+
+
+
+### Logical NOT
+
+Negates the input.
+
+| `not` | `True`  | `False` |
+|:-----:|:-------:|:-------:|
+|       | `False` | `True`  |
+
+### Logical OR
+
+`True` if at least one of its arguments is `True`.
+
+|  `or`   | `True` | `False` |
+|:-------:|:------:|:-------:|
+| `True`  | `True` |         |
+| `False` |        |         |
+
+### Logical AND
+
+`False` if at least one of its arguments is `False`.
+
+|  `and`  | `True` | `False` |
+|:-------:|:------:|:-------:|
+| `True`  |        |         |
+| `False` |        | `False` |
+
+### Logical XOR
+
+`True` if **one and only one** of its arguments is `True`.
+
+|   `^`   | `True` | `False` |
+|:-------:|:------:|:-------:|
+| `True`  |        |         |
+| `False` | `True` |         |
+
+
+
+## Comparisons
+
+|          Operation           |   Symbol   |
+|:----------------------------:|:----------:|
+|     Equality (in value)      |    `==`    |
+|          Not Equal           |    `!=`    |
+|     Greater (Less) Than      |  `>`, `<`  |
+| Greater (Less) Than or Equal | `>=`, `<=` |
+|        Exact Equality        |    `is`    |
+
+Boolean algebra provides a mechanism to **combine** logical statements.
+Comparisons on data types allow us to check various conditions.
+This functionality will become important later in using conditional code.
+
+```{python}
+5 > 4
+```
+
+```{python}
+5 >= 5
+```
+
+As an example application, suppose you run an e-commerce business and want to extend a promotion to certain customers.
+You have a few requirements:
+
+- The customer should **NOT** be blacklisted by your business.
+- For free shipping: The customer meets a minimum spend threshold **AND** is known to be a repeat customer.
+- For an extra discount: The customer is a repeat customer **OR** is already using a coupon.
+
+These checks can be implemented using comparison + Boolean operators.
+
+```{python}
+# data
+is_blacklisted = False
+is_loyalty_member = True
+order_total = 74.89
+has_coupon = False
+
+# checks
+is_safe_customer = not is_blacklisted
+qualifies_for_shipping = order_total >= 75 and is_loyalty_member
+qualifies_for_discount = is_loyalty_member or has_coupon
+final_approval = is_safe_customer and (qualifies_for_shipping or qualifies_for_discount)
+```
+
+```{python}
+print(f"Is this a safe customer? {is_safe_customer}")
+print(f"Do they qualify for free shipping? {qualifies_for_shipping}")
+print(f"Do they qualify for a discount? {qualifies_for_discount}")
+print(f"Do they receive the promotional offer? {final_approval}")
+```
+
+### Notions of Equality
+
+Python distinguishes between two notions of equality.
+
+```{python}
+x = [1, 2, 3] # this is a list
+y = [1, 2, 3] # also a list
+```
+
+The `==` operator is for *equality in value*:
+
+```{python}
+x == y
+```
+
+The `is` operator is for *exact equality* (meaning a computer cannot distinguish these two objects):
+
+```{python}
+x is y
+```
+
+The reason the last example is `False` is that `x` and `y` are bound to *different instances* of a `list` object.
+The two objects therefore differ in how they are stored in memory.
+
+In contrast, the same comparisons all evaluate to `True` in the following example.
+
+```{python}
+x = 1
+y = 1
+```
+
+
+```{python}
+x == y
+```
+
+
+```{python}
+x is y
+```
+
+The reason is that `int` objects are completely determined by their bits, so it is impossible for Python to distinguish *that* `1` from *that other* `1`.
