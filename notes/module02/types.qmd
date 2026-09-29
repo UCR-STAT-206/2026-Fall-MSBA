@@ -1,0 +1,231 @@
+---
+title: Objects and Types
+---
+
+## Goals
+
+1. Understand that everything in Python is an object that can be examined.
+2. Develop an awareness of types in general and recognize numeric, Boolean, and string types.
+
+
+## Everything is an object
+
+Numbers, strings, and other data you encounter in the Python language are **objects**.
+This has 3 important consequences for us as programmers:
+
+- Objects have *identity*, which we can verify with `id()`.
+- Objects are said to be of a certain *type*, which we inspect with `type()`.
+- Objects store *value*; that is, a particular instance of a type is an object that represents data or state.
+
+```{python}
+x = 206 # the value of this number is self-evident
+```
+
+```{python}
+id(x) # we'll have to care about this too much
+```
+
+```{python}
+type(x) # you need to be able to reason about types
+```
+
+
+
+## Fundamental data types
+
+### Numbers
+
+See <https://docs.python.org/3/library/stdtypes.html#typesnumeric>.
+
+Python supports two main types of numbers
+
+- `int` (intergers, whole numbers), and
+- `float` (floating point numbers, decimals).
+
+```{python}
+x = 1
+x
+print(type(x))
+type(x)
+```
+
+Python supports specifying `float` objects via scientific notation.
+
+```{python}
+3.14e2
+```
+
+Python also supports complex numbers, which will not be used in this class.
+
+```{python}
+z = 1+2j
+type(z)
+```
+
+Non-finite floating point values are available but somewhat awkward to use.
+
+```{python}
+#| error: true
+1/0 # not standard! 
+```
+
+```{python}
+float("nan") # not a number
+```
+
+```{python}
+float("-inf") # negative infinity
+```
+
+```{python}
+5 > float("inf")
+```
+
+```{python}
+5 > float("-inf")
+```
+
+:::::::::::::::::::::::::::::::: callout-note
+
+### Missing values
+
+By default Python does not support missing values, like the `NA` value in R.
+We will discuss missing values later in working with tabular data.
+
+::::::::::::::::::::::::::::::::
+
+
+
+### Truth values
+
+The `bool` class is a subclass of `int`. It only has two instances: `True` and
+`False`. **Mind the capitalization**.
+
+```{python}
+x = True
+type(x)
+```
+
+```{python}
+#| error: true
+x = TRUE
+type(x)
+```
+
+
+
+### Text data
+
+Strings can be defined either with a single quote or a double quotes.
+
+```{python}
+y = "test"
+type(y)
+```
+
+```{python}
+print('allows embedded "double" quotes')
+```
+
+```{python}
+print("allows embedded 'single' quotes")
+```
+
+Strings can also be triple quoted, using single or double quotes, which allows
+the string to span multiple lines
+
+```{python}
+s = """line 1
+line 2
+line 3"""
+print(s)
+```
+
+```{python}
+"STRING" == "string"
+```
+
+```{python}
+"STRING" < "string"
+```
+
+
+
+## Dynamic typing
+
+Python is a dynamically typed language.
+This means that the Python interpreter does type checking only as code runs, and the type of a variable is allowed to
+change over its lifetime.
+
+Most basic operations will attempt to coerce objects to a consistent type
+appropriate for the operation.
+
+```{python}
+1 + True # add int and bool
+```
+
+```{python}
+1 and True # logic on int and bool
+```
+
+Python treats `0`s and `1`s treated as `False` and `True`.
+
+```{python}
+0 or 1
+```
+
+```{python}
+not 0
+```
+
+Why does this example evaluate to something?
+
+```{python}
+1 > True
+```
+
+Why does the following throw an error?
+
+```{python}
+#| error: true
+"abc" > 5
+```
+
+
+
+## Casting
+
+Explicit casting between types can be achieved via using the types as functions,
+eg., `int()`, `float()`, `bool()`, or `str()`.
+
+```{python}
+float("0.5")
+```
+
+```{python}
+float(True)
+```
+
+```{python}
+int(1.1)
+```
+
+```{python}
+int("2")
+```
+
+```{python}
+bool(0)
+```
+
+```{python}
+bool("hello")
+```
+
+```{python}
+str(3.1415926)
+```
+
+```{python}
+str(True)
+```
