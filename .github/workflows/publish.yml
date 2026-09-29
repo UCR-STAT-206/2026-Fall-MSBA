@@ -14,6 +14,14 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Set up Micromamba
+        uses: mamba-org/setup-micromamba@v1
+        with:
+          environment-file: environment.yml
+          environment-name: base
+          cache-environment: true
+          init-shell: bash
+
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
