@@ -1,4 +1,4 @@
-name: base
+name: msba_website
 channels:
   - conda-forge
 dependencies:

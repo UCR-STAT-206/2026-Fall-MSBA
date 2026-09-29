@@ -18,7 +18,7 @@ jobs:
         uses: mamba-org/setup-micromamba@v1
         with:
           environment-file: environment.yml
-          environment-name: base
+          environment-name: msba_website
           cache-environment: true
           init-shell: bash
 
