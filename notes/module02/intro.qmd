@@ -24,14 +24,16 @@ title: Introduction to Python
 The Python runtime can only understand your instructions through the rules of the language. The language is composed of:
 
 **Syntax**: What you can say and how you represent ideas.
-    - The syntax in a language defines rules. Break them and Julia will complain.
-    - Might feel arbitrary… because it is!
-    - These are deliberate design decisions that make trade-offs between competing requirements.
-    - Tools built into integrated development environments (IDE) such as VSCode can often help catch these mistakes.
+
+- The syntax in a language defines rules. Break them and Julia will complain.
+- Might feel arbitrary… because it is!
+- These are deliberate design decisions that make trade-offs between competing requirements.
+- Tools built into integrated development environments (IDE) such as VSCode can often help catch these mistakes.
+
 **Semantics**: The intended meaning of symbols and rules.
-    - Requires lots of exposure and practice to master.
-    - Julia’s syntax is quite clean at the surface level, but implications at the semantics level run deep.
-    - IDE tools are less likely to catch semantic errors, which often surface as unexpected behavior or incorrect results when your code runs.
+- Requires lots of exposure and practice to master.
+- Julia’s syntax is quite clean at the surface level, but implications at the semantics level run deep.
+- IDE tools are less likely to catch semantic errors, which often surface as unexpected behavior or incorrect results when your code runs.
 
 We will focus heavily on syntax in the beginning to learn how we can represent data and concepts within the language.
 
