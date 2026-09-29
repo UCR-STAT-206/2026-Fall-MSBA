@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Schedule</title>
+<title>Introduction to Python</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,28 +26,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-42984134f797fdc8b1dddc8d1d96fd6e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-42984134f797fdc8b1dddc8d1d96fd6e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -75,67 +108,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-schedule .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-week','listing-days',{ data: ['index'] },{ data: ['categories'] }],
-      
-      searchColumns: ["listing-week","listing-days"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-schedule'] = new List('listing-schedule', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="../../assets/styles.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -147,7 +122,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./schedule.html">Schedule</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module02/intro.html">Module 2 (Programming)</a></li><li class="breadcrumb-item"><a href="../../notes/module02/intro.html">Introduction to Python</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -161,12 +136,12 @@ window.Quarto = {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./assets/UC_Riverside_Horiz_WhtBG.png" alt="UC Riverside monogram logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="./assets/UC_Riverside_Horiz_WhtBG.png" alt="UC Riverside monogram logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../assets/UC_Riverside_Horiz_WhtBG.png" alt="UC Riverside monogram logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../assets/UC_Riverside_Horiz_WhtBG.png" alt="UC Riverside monogram logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">STAT 206 (MSBA)</a> 
+      <a href="../../">STAT 206 (MSBA)</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -178,19 +153,19 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./office_hours.html" class="sidebar-item-text sidebar-link">
+  <a href="../../office_hours.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Office Hours</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./schedule.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../schedule.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Schedule</span></a>
   </div>
 </li>
@@ -206,25 +181,25 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notes/module01/unix.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notes/module01/unix.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The Unix Shell</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notes/module01/filesystem.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notes/module01/filesystem.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The File System</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notes/module01/quarto.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notes/module01/quarto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Quarto</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notes/module01/git.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notes/module01/git.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Git</span></a>
   </div>
 </li>
@@ -232,28 +207,28 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Module 2 (Programming)</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notes/module02/intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notes/module02/intro.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Introduction to Python</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notes/module02/types.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notes/module02/types.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Objects and Data Types</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notes/module02/basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notes/module02/basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Arithmetic, Comparisons, and Boolean Algebra</span></a>
   </div>
 </li>
@@ -271,7 +246,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./labs/lab0-setup.html" class="sidebar-item-text sidebar-link">
+  <a href="../../labs/lab0-setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lab 0 (Getting Started)</span></a>
   </div>
 </li>
@@ -293,7 +268,7 @@ window.Quarto = {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./project/project.html" class="sidebar-item-text sidebar-link">
+  <a href="../../project/project.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Final Project</span></a>
   </div>
 </li>
@@ -309,31 +284,31 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto/use_docker.html" class="sidebar-item-text sidebar-link">
+  <a href="../../howto/use_docker.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Use Docker</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto/use_vscode.html" class="sidebar-item-text sidebar-link">
+  <a href="../../howto/use_vscode.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Use VSCode with a Container</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto/configure_git.html" class="sidebar-item-text sidebar-link">
+  <a href="../../howto/configure_git.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Configure Git</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto/setup_github.html" class="sidebar-item-text sidebar-link">
+  <a href="../../howto/setup_github.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Set Up Your GitHub Account</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto/use_git.html" class="sidebar-item-text sidebar-link">
+  <a href="../../howto/use_git.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Use Git</span></a>
   </div>
 </li>
@@ -344,15 +319,31 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#goals" id="toc-goals" class="nav-link active" data-scroll-target="#goals">Goals</a></li>
+  <li><a href="#what-is-a-programming-language" id="toc-what-is-a-programming-language" class="nav-link" data-scroll-target="#what-is-a-programming-language">What is a programming language?</a></li>
+  <li><a href="#syntax-and-semantics" id="toc-syntax-and-semantics" class="nav-link" data-scroll-target="#syntax-and-semantics">Syntax and Semantics</a></li>
+  <li><a href="#basic-python-syntax" id="toc-basic-python-syntax" class="nav-link" data-scroll-target="#basic-python-syntax">Basic Python Syntax</a>
+  <ul class="collapse">
+  <li><a href="#literals" id="toc-literals" class="nav-link" data-scroll-target="#literals">Literals</a></li>
+  <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a></li>
+  <li><a href="#assignment" id="toc-assignment" class="nav-link" data-scroll-target="#assignment">Assignment</a></li>
+  <li><a href="#functions-and-operators" id="toc-functions-and-operators" class="nav-link" data-scroll-target="#functions-and-operators">Functions and Operators</a></li>
+  <li><a href="#special-constructors" id="toc-special-constructors" class="nav-link" data-scroll-target="#special-constructors">Special Constructors</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module02/intro.html">Module 2 (Programming)</a></li><li class="breadcrumb-item"><a href="../../notes/module02/intro.html">Introduction to Python</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Schedule</h1>
+<h1 class="title">Introduction to Python</h1>
 </div>
 
 
@@ -369,201 +360,130 @@ window.Quarto = {
 </header>
 
 
-<div id="listing-schedule" class="quarto-listing quarto-listing-container-custom">
-<h4 class="anchored">Week 0</h4>
-
-   <table class="table" data-quarto-disable-processing="true">
-   <!-- 'table' class causes use of quarto styling for tables, seemingly from bootstrap.min.css -->
-   <!-- data-quarto-disable-processing="true" prevents Quarto processing of tables (https://quarto.org/docs/authoring/tables.html#disabling-quarto-table-processing) -->
-   
-   <tbody>
-   
-
-        
-
-           <tr>
-           
-           <th scope="row" rowspan="4">Thu Sept 24:</th>
-           
-           <td><strong class="label label-Class">Class 1a</strong> <a href="./notes/module01/unix.html" target="_blank">The Unix Shell</a></td>
-           
-                <td></td>
-           
-                
-           </tr>
-        
-
-           <tr>
-           
-           <td><strong class="label label-Class">Class 1b</strong> <a href="./notes/module01/filesystem.html" target="_blank">The File System</a></td>
-           
-                <td></td>
-           
-                
-           </tr>
-        
-
-           <tr>
-           
-           <td><strong class="label label-Class">Class 1c</strong> <a href="./notes/module01/git.html" target="_blank">Git</a></td>
-           
-                <td></td>
-           
-                
-           </tr>
-        
-
-           <tr>
-           
-           <td><strong class="label label-Class">Class 1d</strong> <a href="./notes/module01/quarto.html" target="_blank">Quarto</a></td>
-           
-                <td></td>
-           
-                
-           </tr>
-        
-   
-
-        
-
-           <tr>
-           
-           <th scope="row" rowspan="1">Thu Sept 24:</th>
-           
-           <td><strong class="label label-Lab">Lab 0</strong> <a href="labs/lab0-setup.html" target="_blank">Getting Started</a></td>
-           
-                <td></td>
-           
-                
-           </tr>
-        
-   
-   </tbody>
-   </table>
-  
-
-   <h4 class="anchored">Week 1</h4>
-
-   <table class="table" data-quarto-disable-processing="true">
-   <!-- 'table' class causes use of quarto styling for tables, seemingly from bootstrap.min.css -->
-   <!-- data-quarto-disable-processing="true" prevents Quarto processing of tables (https://quarto.org/docs/authoring/tables.html#disabling-quarto-table-processing) -->
-   
-   <tbody>
-   
-
-        
-
-           <tr>
-           
-           <th scope="row" rowspan="2">Tue Sept 29:</th>
-           
-           <td><strong class="label label-Class">Class 2a</strong> <a href="" target="_blank">Python Objects and Data Types</a></td>
-           
-                <td></td>
-           
-                
-           </tr>
-        
-
-           <tr>
-           
-           <td><strong class="label label-Class">Class 2b</strong> <a href="" target="_blank">Basic Arithmetic, Comoparisons, Boolean Algebra</a></td>
-           
-                <td></td>
-           
-                
-           </tr>
-        
-   
-
-        
-
-           <tr>
-           
-           <th scope="row" rowspan="2">Thu Oct 1:</th>
-           
-           <td><strong class="label label-Class">Class 3a</strong> <a href="" target="_blank">The Python Standard Library</a></td>
-           
-                <td></td>
-           
-                
-           </tr>
-        
-
-           <tr>
-           
-           <td><strong class="label label-Class">Class 3b</strong> <a href="" target="_blank">Writing Programs and Scripts</a></td>
-           
-                <td></td>
-           
-                
-           </tr>
-        
-   
-
-        
-
-           <tr>
-           
-           <th scope="row" rowspan="1">Thu Oct 1:</th>
-           
-           <td><strong class="label label-Lab">Lab 1</strong> <a href="" target="_blank">Submitting Assignments</a></td>
-           
-                <td></td>
-           
-                
-           </tr>
-        
-   
-   </tbody>
-   </table>
-  
-
-   <h4 class="anchored">Week 2</h4>
-
-   <table class="table" data-quarto-disable-processing="true">
-   <!-- 'table' class causes use of quarto styling for tables, seemingly from bootstrap.min.css -->
-   <!-- data-quarto-disable-processing="true" prevents Quarto processing of tables (https://quarto.org/docs/authoring/tables.html#disabling-quarto-table-processing) -->
-   
-   <tbody>
-   
-
-        
-
-           <tr>
-           
-           <th scope="row" rowspan="1">Mon Oct 5:</th>
-           
-           <td><strong class="label label-Assignment">Assignment</strong> <a href="" target="_blank">Homework 1</a></td>
-           
-                <td></td>
-           
-                
-           </tr>
-        
-   
-
-        
-
-           <tr>
-           
-           <th scope="row" rowspan="1">Thu Oct 8:</th>
-           
-           <td><strong class="label label-Lab">Lab 2</strong> <a href="" target="_blank"></a></td>
-           
-                <td></td>
-           
-                
-           </tr>
-        
-   
-   </tbody>
-   </table>
-<div class="listing-no-matching d-none">No matching items</div>
+<section id="goals" class="level2">
+<h2 class="anchored" data-anchor-id="goals">Goals</h2>
+<ol type="1">
+<li>Understand that programs are run in some context: file system, operating system, hardware, and so on.</li>
+<li>Develop a mental model for programming.</li>
+<li>Introduce basic syntax and its semantics: variables, literals, functions, and assignment.</li>
+</ol>
+</section>
+<section id="what-is-a-programming-language" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-programming-language">What is a programming language?</h2>
+<ul>
+<li>A system of notation by which a programmer communicates a program to a computer.</li>
+<li>A program is a sequence of instructions that computes something; there are inputs and outputs.</li>
+<li>In contrast, a machine language is a formal system by which a computer understands and executes a program.</li>
+<li>The term computer language is a broader term that includes programming, machine, markup, and other languages used in computing.</li>
+</ul>
+</section>
+<section id="syntax-and-semantics" class="level2">
+<h2 class="anchored" data-anchor-id="syntax-and-semantics">Syntax and Semantics</h2>
+<p>The Python runtime can only understand your instructions through the rules of the language. The language is composed of:</p>
+<p><strong>Syntax</strong>: What you can say and how you represent ideas.</p>
+<ul>
+<li>The syntax in a language defines rules. Break them and Julia will complain.</li>
+<li>Might feel arbitrary… because it is!</li>
+<li>These are deliberate design decisions that make trade-offs between competing requirements.</li>
+<li>Tools built into integrated development environments (IDE) such as VSCode can often help catch these mistakes.</li>
+</ul>
+<p><strong>Semantics</strong>: The intended meaning of symbols and rules. - Requires lots of exposure and practice to master. - Julia’s syntax is quite clean at the surface level, but implications at the semantics level run deep. - IDE tools are less likely to catch semantic errors, which often surface as unexpected behavior or incorrect results when your code runs.</p>
+<p>We will focus heavily on syntax in the beginning to learn how we can represent data and concepts within the language.</p>
+</section>
+<section id="basic-python-syntax" class="level2">
+<h2 class="anchored" data-anchor-id="basic-python-syntax">Basic Python Syntax</h2>
+<section id="literals" class="level3">
+<h3 class="anchored" data-anchor-id="literals">Literals</h3>
+<p>A literal is a symbol (or collection of symbols) used to denote a particular value. The symbols following symbols are all literals for specific types of data.</p>
+<div id="95874376" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="dv">1</span> <span class="co">#int</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>1</code></pre>
 </div>
+</div>
+<div id="2cf24332" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="fl">3.14</span> <span class="co"># float</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>3.14</code></pre>
+</div>
+</div>
+<div id="fa1c6015" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a><span class="co">'STAT 206'</span> <span class="co"># str</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>'STAT 206'</code></pre>
+</div>
+</div>
+</section>
+<section id="variables" class="level3">
+<h3 class="anchored" data-anchor-id="variables">Variables</h3>
+<p>A variable is an identifier used to reference a particular value.</p>
+<div id="cc00b471" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-label="1"></a>sales_sept <span class="op">=</span> <span class="dv">10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="9e234447" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a>sales_oct <span class="op">=</span> <span class="dv">13</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="2642a4d9" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a>sales_sept <span class="op">+</span> sales_oct</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>23</code></pre>
+</div>
+</div>
+</section>
+<section id="assignment" class="level3">
+<h3 class="anchored" data-anchor-id="assignment">Assignment</h3>
+<p>Creating variables requires assignment with <code>=</code>. In Python, you can bind a variable to</p>
+<ul>
+<li>a literal,</li>
+<li>another variable,</li>
+<li>a function, or</li>
+<li>just about any object in the language.</li>
+</ul>
+<p>The specific meaning of <code>=</code> is determined by context but it is <em>always</em> binding a value to a symbol. What changes is the <em>namespace</em> or <em>scope</em> in which that symbol is defined.</p>
+</section>
+<section id="functions-and-operators" class="level3">
+<h3 class="anchored" data-anchor-id="functions-and-operators">Functions and Operators</h3>
+<p>If variables and literals are nouns in a programming language, then functions are the verbs. Python comes with many built-in functions, though foundational mathematical operations are split between built-ins (like <code>sum()</code>, <code>abs()</code>, and <code>pow()</code>) and the standard math module (like <code>math.exp()</code> and <code>math.log()</code>).</p>
+<p>Operators such as <code>+</code> are linked to special functions called <em>methods</em> that we will cover much later in the course. It is enough to understand that <code>+</code> is just a function that supports infix notation.</p>
+<div id="b7b73b14" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a><span class="dv">1</span> <span class="op">+</span> <span class="dv">3</span> <span class="co"># infix notation</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>4</code></pre>
+</div>
+</div>
+<div id="ce5a063b" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-label="1"></a><span class="im">import</span> operator</span>
+<span id="cb13-2"><a href="#cb13-2" aria-label="2"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-label="3"></a>operator.add(<span class="dv">1</span>, <span class="dv">3</span>) <span class="co"># this is what `+` actually is in the language</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>4</code></pre>
+</div>
+</div>
+</section>
+<section id="special-constructors" class="level3">
+<h3 class="anchored" data-anchor-id="special-constructors">Special Constructors</h3>
+<p>Virtually every object in Python has a <strong>constructor</strong> to create an object from given inputs. As a matter of convention:</p>
+<ul>
+<li>these functions always start with an uppercase letter, and</li>
+<li>have names aligned to the type of object they construct.</li>
+</ul>
+<div id="9d50914f" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-label="1"></a><span class="bu">int</span>(<span class="st">"3"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>3</code></pre>
+</div>
+</div>
+<div id="3d47a4ed" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-label="1"></a><span class="bu">str</span>(<span class="dv">206</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>'206'</code></pre>
+</div>
+</div>
+<p>You will encounter many objects and their constructors as you progress through this course.</p>
 
 
-
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The File System</title>
+<title>Objects and Types</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -122,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module01/unix.html">Module 1 (Fundamentals)</a></li><li class="breadcrumb-item"><a href="../../notes/module01/filesystem.html">The File System</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module02/intro.html">Module 2 (Programming)</a></li><li class="breadcrumb-item"><a href="../../notes/module02/types.html">Objects and Data Types</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -172,13 +172,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Module 1 (Fundamentals)</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notes/module01/unix.html" class="sidebar-item-text sidebar-link">
@@ -187,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notes/module01/filesystem.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../notes/module01/filesystem.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The File System</span></a>
   </div>
 </li>
@@ -207,13 +207,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Module 2 (Programming)</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notes/module02/intro.html" class="sidebar-item-text sidebar-link">
@@ -222,7 +222,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notes/module02/types.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notes/module02/types.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Objects and Data Types</span></a>
   </div>
 </li>
@@ -324,26 +324,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#additional-materials" id="toc-additional-materials" class="nav-link active" data-scroll-target="#additional-materials">Additional Materials</a></li>
-  <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals</a></li>
-  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#absolute-vs-relative-paths" id="toc-absolute-vs-relative-paths" class="nav-link" data-scroll-target="#absolute-vs-relative-paths">Absolute vs Relative Paths</a>
+  <li><a href="#goals" id="toc-goals" class="nav-link active" data-scroll-target="#goals">Goals</a></li>
+  <li><a href="#everything-is-an-object" id="toc-everything-is-an-object" class="nav-link" data-scroll-target="#everything-is-an-object">Everything is an object</a></li>
+  <li><a href="#fundamental-data-types" id="toc-fundamental-data-types" class="nav-link" data-scroll-target="#fundamental-data-types">Fundamental data types</a>
   <ul class="collapse">
-  <li><a href="#use-in-programming-and-data-analysis" id="toc-use-in-programming-and-data-analysis" class="nav-link" data-scroll-target="#use-in-programming-and-data-analysis">Use in Programming and Data Analysis</a></li>
+  <li><a href="#numbers" id="toc-numbers" class="nav-link" data-scroll-target="#numbers">Numbers</a></li>
+  <li><a href="#truth-values" id="toc-truth-values" class="nav-link" data-scroll-target="#truth-values">Truth values</a></li>
+  <li><a href="#text-data" id="toc-text-data" class="nav-link" data-scroll-target="#text-data">Text data</a></li>
   </ul></li>
-  <li><a href="#special-locations-on-linux-file-systems" id="toc-special-locations-on-linux-file-systems" class="nav-link" data-scroll-target="#special-locations-on-linux-file-systems">Special Locations on Linux File Systems</a>
-  <ul class="collapse">
-  <li><a href="#our-docker-image" id="toc-our-docker-image" class="nav-link" data-scroll-target="#our-docker-image">Our Docker Image</a></li>
-  </ul></li>
+  <li><a href="#dynamic-typing" id="toc-dynamic-typing" class="nav-link" data-scroll-target="#dynamic-typing">Dynamic typing</a></li>
+  <li><a href="#casting" id="toc-casting" class="nav-link" data-scroll-target="#casting">Casting</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module01/unix.html">Module 1 (Fundamentals)</a></li><li class="breadcrumb-item"><a href="../../notes/module01/filesystem.html">The File System</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module02/intro.html">Module 2 (Programming)</a></li><li class="breadcrumb-item"><a href="../../notes/module02/types.html">Objects and Data Types</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">The File System</h1>
+<h1 class="title">Objects and Types</h1>
 </div>
 
 
@@ -360,173 +359,304 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="additional-materials" class="level2">
-<h2 class="anchored" data-anchor-id="additional-materials">Additional Materials</h2>
-<ul>
-<li><a href="https://swcarpentry.github.io/shell-novice/02-filedir.html">Software Carpentry</a> has an excellent tutorial on navigating files and directories.</li>
-</ul>
-</section>
 <section id="goals" class="level2">
 <h2 class="anchored" data-anchor-id="goals">Goals</h2>
 <ol type="1">
-<li>Understand the organizational structure of a file system on Linux.</li>
-<li>Understand relative and absolute paths.</li>
-<li>Develop awareness of key locations on a Linux system and the class Docker image.</li>
-<li>Understand that programs, regardless of operating system, operate in a context.</li>
+<li>Understand that everything in Python is an object that can be examined.</li>
+<li>Develop an awareness of types in general and recognize numeric, Boolean, and string types.</li>
 </ol>
 </section>
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>Files on computers are generally arranged in a hierarchical manner, specifically as a <a href="https://en.wikipedia.org/wiki/Tree_(graph_theory)#Rooted_tree"><strong>rooted tree</strong></a>. The following is the output of <code>tree -L 1 /</code> on a machine with macOS Sequoia. This command displays a file system, one level deep, starting from the <strong>root directory</strong> <code>/</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a>/</span>
-<span id="cb1-2"><a href="#cb1-2" aria-label="2"></a>├── Applications</span>
-<span id="cb1-3"><a href="#cb1-3" aria-label="3"></a>├── bin</span>
-<span id="cb1-4"><a href="#cb1-4" aria-label="4"></a>├── cores</span>
-<span id="cb1-5"><a href="#cb1-5" aria-label="5"></a>├── dev</span>
-<span id="cb1-6"><a href="#cb1-6" aria-label="6"></a>├── etc -&gt; private/etc</span>
-<span id="cb1-7"><a href="#cb1-7" aria-label="7"></a>├── home -&gt; /System/Volumes/Data/home</span>
-<span id="cb1-8"><a href="#cb1-8" aria-label="8"></a>├── Library</span>
-<span id="cb1-9"><a href="#cb1-9" aria-label="9"></a>├── opt</span>
-<span id="cb1-10"><a href="#cb1-10" aria-label="10"></a>├── private</span>
-<span id="cb1-11"><a href="#cb1-11" aria-label="11"></a>├── sbin</span>
-<span id="cb1-12"><a href="#cb1-12" aria-label="12"></a>├── System</span>
-<span id="cb1-13"><a href="#cb1-13" aria-label="13"></a>├── tmp -&gt; private/tmp</span>
-<span id="cb1-14"><a href="#cb1-14" aria-label="14"></a>├── Users</span>
-<span id="cb1-15"><a href="#cb1-15" aria-label="15"></a>├── usr</span>
-<span id="cb1-16"><a href="#cb1-16" aria-label="16"></a>├── var -&gt; private/var</span>
-<span id="cb1-17"><a href="#cb1-17" aria-label="17"></a>└── Volumes</span>
-<span id="cb1-18"><a href="#cb1-18" aria-label="18"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-label="19"></a>17 directories, 0 files</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><a href="https://en.wikipedia.org/wiki/Everything_is_a_file">Everything is a file</a> in the Unix world, yet the output above clearly distinguishes between <strong>files</strong> and <strong>directories</strong>. Files are data on your computer. Directories are, too, but their role is to act as <em>folders</em> connecting one level of a tree to other parts in the system. In brief, directories are branches and files are leaves in the rooted tree structure.</p>
-<div class="callout callout-style-default callout-important callout-titled">
+<section id="everything-is-an-object" class="level2">
+<h2 class="anchored" data-anchor-id="everything-is-an-object">Everything is an object</h2>
+<p>Numbers, strings, and other data you encounter in the Python language are <strong>objects</strong>. This has 3 important consequences for us as programmers:</p>
+<ul>
+<li>Objects have <em>identity</em>, which we can verify with <code>id()</code>.</li>
+<li>Objects are said to be of a certain <em>type</em>, which we inspect with <code>type()</code>.</li>
+<li>Objects store <em>value</em>; that is, a particular instance of a type is an object that represents data or state.</li>
+</ul>
+<div id="cbaac4b4" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a>x <span class="op">=</span> <span class="dv">206</span> <span class="co"># the value of this number is self-evident</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="0fe1e3da" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a><span class="bu">id</span>(x) <span class="co"># we'll have to care about this too much</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>94882628182704</code></pre>
+</div>
+</div>
+<div id="4f90e6fd" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a><span class="bu">type</span>(x) <span class="co"># you need to be able to reason about types</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>int</code></pre>
+</div>
+</div>
+</section>
+<section id="fundamental-data-types" class="level2">
+<h2 class="anchored" data-anchor-id="fundamental-data-types">Fundamental data types</h2>
+<section id="numbers" class="level3">
+<h3 class="anchored" data-anchor-id="numbers">Numbers</h3>
+<p>See <a href="https://docs.python.org/3/library/stdtypes.html#typesnumeric" class="uri">https://docs.python.org/3/library/stdtypes.html#typesnumeric</a>.</p>
+<p>Python supports two main types of numbers</p>
+<ul>
+<li><code>int</code> (intergers, whole numbers), and</li>
+<li><code>float</code> (floating point numbers, decimals).</li>
+</ul>
+<div id="46ec7eb9" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-label="2"></a>x</span>
+<span id="cb6-3"><a href="#cb6-3" aria-label="3"></a><span class="bu">print</span>(<span class="bu">type</span>(x))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-label="4"></a><span class="bu">type</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'int'&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>int</code></pre>
+</div>
+</div>
+<p>Python supports specifying <code>float</code> objects via scientific notation.</p>
+<div id="90b1086a" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a><span class="fl">3.14e2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>314.0</code></pre>
+</div>
+</div>
+<p>Python also supports complex numbers, which will not be used in this class.</p>
+<div id="714f3e20" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a>z <span class="op">=</span> <span class="dv">1</span><span class="op">+</span><span class="ot">2j</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-label="2"></a><span class="bu">type</span>(z)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>complex</code></pre>
+</div>
+</div>
+<p>Non-finite floating point values are available but somewhat awkward to use.</p>
+<div id="f89f25e3" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-label="1"></a><span class="dv">1</span><span class="op">/</span><span class="dv">0</span> <span class="co"># not standard! </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ZeroDivisionError</span>                         Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[7]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-green-fg">1</span>/<span class="ansi-green-fg">0</span> <span style="font-style:italic;color:rgb(95,135,135)"># not standard!</span>
+
+<span class="ansi-red-fg">ZeroDivisionError</span>: division by zero</pre>
+</div>
+</div>
+</div>
+<div id="5e9e74b0" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-label="1"></a><span class="bu">float</span>(<span class="st">"nan"</span>) <span class="co"># not a number</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>nan</code></pre>
+</div>
+</div>
+<div id="30584745" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-label="1"></a><span class="bu">float</span>(<span class="st">"-inf"</span>) <span class="co"># negative infinity</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>-inf</code></pre>
+</div>
+</div>
+<div id="45e0ad9e" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-label="1"></a><span class="dv">5</span> <span class="op">&gt;</span> <span class="bu">float</span>(<span class="st">"inf"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>False</code></pre>
+</div>
+</div>
+<div id="742f2970" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-label="1"></a><span class="dv">5</span> <span class="op">&gt;</span> <span class="bu">float</span>(<span class="st">"-inf"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>True</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Symbolic Links
+<span class="screen-reader-only">Note</span>Missing values
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You might notice a few of the labels in the <code>tree</code> output above have arrows; for example <code>home -&gt; /System/Volumes/Data/home</code>. These are examples of <strong>symbolic links</strong>, which are files that point to a location elsewhere. Symbolic links are useful for introducing indirection and decoupling an interface from an implementation.</p>
-<ul>
-<li><strong>Indirection</strong>, as a concept, can be useful for creating shortcuts. For example, say you have multiple projects that need access to a particular resource nested deeply within your file system. A single symbolic link can provide access at a convenient location and allow each project to inherit access without writing out cumbersome paths.</li>
-<li>To give another example, symbolic links can be used to manage versions of a resource. If two projects need access to two versions of <code>FANCY_DATASET</code>, each project can use its own symbolic link <code>FANCY_DATASET</code> which points to the appropriate version. This simplifies any scripts operating on that resource without having to introduce version information into the code.</li>
-</ul>
+<p>By default Python does not support missing values, like the <code>NA</code> value in R. We will discuss missing values later in working with tabular data.</p>
 </div>
 </div>
-<p>The following is mock output of <code>tree</code> on a directory named <code>repo</code>. Your Git repository for this class will resemble this structure over time.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>repo/</span>
-<span id="cb2-2"><a href="#cb2-2" aria-label="2"></a>├── hw/</span>
-<span id="cb2-3"><a href="#cb2-3" aria-label="3"></a>│&nbsp;&nbsp; ├── hw1/</span>
-<span id="cb2-4"><a href="#cb2-4" aria-label="4"></a>│&nbsp;&nbsp; │&nbsp;&nbsp; ├── complex_data.arrow</span>
-<span id="cb2-5"><a href="#cb2-5" aria-label="5"></a>│&nbsp;&nbsp; │&nbsp;&nbsp; ├── fancy_algorithm.py</span>
-<span id="cb2-6"><a href="#cb2-6" aria-label="6"></a>│&nbsp;&nbsp; │&nbsp;&nbsp; ├── report.qmd</span>
-<span id="cb2-7"><a href="#cb2-7" aria-label="7"></a>│   │   ├── environment.yml</span>
-<span id="cb2-8"><a href="#cb2-8" aria-label="8"></a>│&nbsp;&nbsp; │&nbsp;&nbsp; └── &lt;other code or files&gt;</span>
-<span id="cb2-9"><a href="#cb2-9" aria-label="9"></a>│&nbsp;&nbsp; ├── hw2/</span>
-<span id="cb2-10"><a href="#cb2-10" aria-label="10"></a>│   │</span>
-<span id="cb2-11"><a href="#cb2-11" aria-label="11"></a>│   ...</span>
-<span id="cb2-12"><a href="#cb2-12" aria-label="12"></a>│&nbsp;&nbsp; └── hw8/</span>
-<span id="cb2-13"><a href="#cb2-13" aria-label="13"></a>└── labs/</span>
-<span id="cb2-14"><a href="#cb2-14" aria-label="14"></a>    ├── lab1/</span>
-<span id="cb2-15"><a href="#cb2-15" aria-label="15"></a>    │&nbsp;&nbsp; ├── report.qmd</span>
-<span id="cb2-16"><a href="#cb2-16" aria-label="16"></a>    │&nbsp;&nbsp; ├── environment.yml</span>
-<span id="cb2-17"><a href="#cb2-17" aria-label="17"></a>    │&nbsp;&nbsp; └── test.py</span>
-<span id="cb2-18"><a href="#cb2-18" aria-label="18"></a>    ...</span>
-<span id="cb2-19"><a href="#cb2-19" aria-label="19"></a>    └── lab8</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Here <code>repo/</code> is the top level, so we can say these files are rooted at <code>repo/</code>, but it is <em>not</em> <strong>the root directory</strong>. The <em>root directory</em> is unique because Unix/Linux file systems are generally rooted trees. By definition, there can only be one root that serves as the <em>absolute</em> top level.</p>
 </section>
-<section id="absolute-vs-relative-paths" class="level2">
-<h2 class="anchored" data-anchor-id="absolute-vs-relative-paths">Absolute vs Relative Paths</h2>
-<p>Virtually every operating system operates on <strong>file paths</strong>. A file path is a sequence of names/labels of specific files/directories in a file system that point to a specific location. On Linux, file paths are formatted by the file separator <code>/</code>. Let’s revisit the <code>repo/</code> example:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a>repo/</span>
-<span id="cb3-2"><a href="#cb3-2" aria-label="2"></a>├── hw/</span>
-<span id="cb3-3"><a href="#cb3-3" aria-label="3"></a>│&nbsp;&nbsp; ├── hw1/</span>
-<span id="cb3-4"><a href="#cb3-4" aria-label="4"></a>│&nbsp;&nbsp; │&nbsp;&nbsp; ├── complex_data.arrow</span>
-<span id="cb3-5"><a href="#cb3-5" aria-label="5"></a>│&nbsp;&nbsp; │&nbsp;&nbsp; ├── fancy_algorithm.py</span>
-<span id="cb3-6"><a href="#cb3-6" aria-label="6"></a>│&nbsp;&nbsp; │&nbsp;&nbsp; ├── report.qmd</span>
-<span id="cb3-7"><a href="#cb3-7" aria-label="7"></a>│   │   ├── environment.yml</span>
-<span id="cb3-8"><a href="#cb3-8" aria-label="8"></a>│&nbsp;&nbsp; │&nbsp;&nbsp; └── &lt;other code or files&gt;</span>
-<span id="cb3-9"><a href="#cb3-9" aria-label="9"></a>│&nbsp;&nbsp; ├── hw2/</span>
-<span id="cb3-10"><a href="#cb3-10" aria-label="10"></a>...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>The file path <code>repo/</code> leads from wherever <code>repo/</code> exists to <code>repo/</code>. Equivalently, <code>./repo</code>.</li>
-<li>The file path <code>repo/hw</code> is similar, but points one directory down towards <code>hw/</code>. Equivalently, <code>./repo/hw</code>.</li>
-<li>The file path <code>repo/hw/hw1/report.qmd</code> is a file path that leads from wherever <code>repo/</code> exists to <code>report.qmd</code>. Equivalently, <code>./reop/hw/hw1/report.qmd</code>.</li>
-</ul>
-<p>All these examples are <strong>relative paths</strong> because they depend on context. That context is <code>.</code>, a symbolic file path that points <em>here</em> which is wherever you might be. From <em>here</em> you can reference the parent directory using <code>..</code> which is whatever the parent might be.</p>
-<p>In contrast, <strong>absolute paths</strong> do not depend on context because they’re absolute! On a Linux system, <code>/repo/hw/hw1/report.qmd</code> is an example of an absolute path (that probably does not exist). Let’s modify the example so that <code>repo/</code> resides inside a <code>stat206/</code> directory somewhere on the file system:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a>/</span>
-<span id="cb4-2"><a href="#cb4-2" aria-label="2"></a>├──Documents</span>
-<span id="cb4-3"><a href="#cb4-3" aria-label="3"></a>│   └──stat206</span>
-<span id="cb4-4"><a href="#cb4-4" aria-label="4"></a>│       └── repo</span>
-<span id="cb4-5"><a href="#cb4-5" aria-label="5"></a>...         ├── hw</span>
-<span id="cb4-6"><a href="#cb4-6" aria-label="6"></a>            │&nbsp;&nbsp; ├── hw1/</span>
-<span id="cb4-7"><a href="#cb4-7" aria-label="7"></a>            │&nbsp;&nbsp; │&nbsp;&nbsp; ├── complex_data.arrow</span>
-<span id="cb4-8"><a href="#cb4-8" aria-label="8"></a>            │&nbsp;&nbsp; │&nbsp;&nbsp; ├── fancy_algorithm.py</span>
-<span id="cb4-9"><a href="#cb4-9" aria-label="9"></a>            │&nbsp;&nbsp; │&nbsp;&nbsp; ├── report.qmd</span>
-<span id="cb4-10"><a href="#cb4-10" aria-label="10"></a>            │   │   ├── environment.yml</span>
-<span id="cb4-11"><a href="#cb4-11" aria-label="11"></a>            │&nbsp;&nbsp; │&nbsp;&nbsp; └── &lt;other code or files&gt;</span>
-<span id="cb4-12"><a href="#cb4-12" aria-label="12"></a>            │&nbsp;&nbsp; ├── hw2/</span>
-<span id="cb4-13"><a href="#cb4-13" aria-label="13"></a>            ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Here <code>/Documents/stat206/repo/</code> is an absolute path that references <code>repo</code>. On Linux, all absolute paths <em>must</em> begin with the root directory, <code>/</code>. This eliminates any ambiguity.</p>
-<section id="use-in-programming-and-data-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="use-in-programming-and-data-analysis">Use in Programming and Data Analysis</h3>
-<p>In practice, we rarely, if ever, use absolute paths. Relative paths are preferred because two machines rarely share the same structure in their file systems. This is all the more relevant if we consider machines that have completely different operating systems. We conclude with the following advice that ought to ring true in many contexts.</p>
-<ul>
-<li>Be thoughtful about how you organize files for a project. Stick to conventions, where possible, and aim for simplicity whenever guidance is scarce.</li>
-<li>Prepend your file paths with <code>.</code> and <code>..</code> to communicate your intent in references. It might help you or other catch mistakes.</li>
-<li>Place scripts close to the top level of a project’s directory. This often simplifies relative paths.</li>
-<li>Avoid <em>hard-coding</em> file separators into your code source files. Most programming languages provide tools to handle file separators correctly across operating systems.</li>
-</ul>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Aside: What about Windows?
+<section id="truth-values" class="level3">
+<h3 class="anchored" data-anchor-id="truth-values">Truth values</h3>
+<p>The <code>bool</code> class is a subclass of <code>int</code>. It only has two instances: <code>True</code> and <code>False</code>. <strong>Mind the capitalization</strong>.</p>
+<div id="6e41926b" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-label="1"></a>x <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-label="2"></a><span class="bu">type</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>bool</code></pre>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<ul>
-<li><p>There is no “root directory” in Windows, at least not in the same sense as Unix-like file systems. Windows file systems use <em>drive letters</em> as the root node; for example, the <code>C:\</code> drive. Unix-like/Linux-like systems support working with multiple drives, too, but do not anchor their file systems to specific drives.</p></li>
-<li><p>Windows uses the backslash <code>\</code> as a file separator. It is one of the reasons (but not the only reason) we cannot hard-code file paths in scripts.</p></li>
-</ul>
+<div id="55a5dba3" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-label="1"></a>x <span class="op">=</span> TRUE</span>
+<span id="cb24-2"><a href="#cb24-2" aria-label="2"></a><span class="bu">type</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[13]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> x = TRUE
+<span class="ansi-green-fg">      2</span> type(x)
+
+<span class="ansi-red-fg">NameError</span>: name 'TRUE' is not defined</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="text-data" class="level3">
+<h3 class="anchored" data-anchor-id="text-data">Text data</h3>
+<p>Strings can be defined either with a single quote or a double quotes.</p>
+<div id="5e0d68f4" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-label="1"></a>y <span class="op">=</span> <span class="st">"test"</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-label="2"></a><span class="bu">type</span>(y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>str</code></pre>
+</div>
+</div>
+<div id="f368af1c" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-label="1"></a><span class="bu">print</span>(<span class="st">'allows embedded "double" quotes'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>allows embedded "double" quotes</code></pre>
+</div>
+</div>
+<div id="d8d4d005" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-label="1"></a><span class="bu">print</span>(<span class="st">"allows embedded 'single' quotes"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>allows embedded 'single' quotes</code></pre>
+</div>
+</div>
+<p>Strings can also be triple quoted, using single or double quotes, which allows the string to span multiple lines</p>
+<div id="03215cdc" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-label="1"></a>s <span class="op">=</span> <span class="st">"""line 1</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-label="2"></a><span class="st">line 2</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-label="3"></a><span class="st">line 3"""</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-label="4"></a><span class="bu">print</span>(s)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>line 1
+line 2
+line 3</code></pre>
+</div>
+</div>
+<div id="03871c6b" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-label="1"></a><span class="co">"STRING"</span> <span class="op">==</span> <span class="st">"string"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>False</code></pre>
+</div>
+</div>
+<div id="52684100" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-label="1"></a><span class="co">"STRING"</span> <span class="op">&lt;</span> <span class="st">"string"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>True</code></pre>
 </div>
 </div>
 </section>
 </section>
-<section id="special-locations-on-linux-file-systems" class="level2">
-<h2 class="anchored" data-anchor-id="special-locations-on-linux-file-systems">Special Locations on Linux File Systems</h2>
-<p>Most operating systems exploit the hierarchical nature of file systems to organize sensitive information and tools so that permission settings can readily provide a level of security. The following are useful locations for you to be <em>aware</em> about:</p>
-<ul>
-<li><code>/</code>: The root directory. User accounts typically do not have file permissions here, <em>and you should keep it that way</em>.</li>
-<li><code>/usr</code>: Home to <em>user-level</em> resources. These are common to all users on a machine.
-<ul>
-<li><code>/usr/bin</code>: Home to essential <strong>binaries</strong>, or programs, for the operating system. Commands like <code>mv</code> and <code>cd</code> exist here.</li>
-<li><code>/usr/lib</code>: Home to <strong>libraries</strong> required by applications. Can be source code, scripts, or compiled objects.</li>
-</ul></li>
-<li><code>/etc</code>: Home to system-wide configuration files.</li>
-<li><code>/home</code>: Contains the home directories for individual users. Your home directory on our Docker image is <code>/home/student</code>. Your shell sessions always start here.
-<ul>
-<li><code>~</code>: Same as <code>/home/${USERNAME}</code>.</li>
-</ul></li>
-<li><code>/var</code>: A <em>variable</em> directory that holds files changing continuously during operation; for example, log files for applications can be found here under <code>/var/log</code>.</li>
-<li><code>/tmp</code>: A volatile workspace for <em>temporary</em> files. Treat it as a workspace, as systems are typically configured to periodically clean up (delete files) this workspace.</li>
-</ul>
-<section id="our-docker-image" class="level3">
-<h3 class="anchored" data-anchor-id="our-docker-image">Our Docker Image</h3>
-<p>There are a few directories in the home directory <code>/home/student</code> that you should be aware of:</p>
-<ul>
-<li><code>/home/student/.config</code>: We will use this to store configuration files; for example, your Git identity.</li>
-<li><code>/home/student/.ssh</code>: We will use this to store keys for SSH authentication, mainly for GitHub.</li>
-<li><code>/home/student/.local</code>: We will use this to install software not included by default. <em>No need for <code>sudo</code>!</em></li>
-</ul>
+<section id="dynamic-typing" class="level2">
+<h2 class="anchored" data-anchor-id="dynamic-typing">Dynamic typing</h2>
+<p>Python is a dynamically typed language. This means that the Python interpreter does type checking only as code runs, and the type of a variable is allowed to change over its lifetime.</p>
+<p>Most basic operations will attempt to coerce objects to a consistent type appropriate for the operation.</p>
+<div id="0a3929f6" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-label="1"></a><span class="dv">1</span> <span class="op">+</span> <span class="va">True</span> <span class="co"># add int and bool</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>2</code></pre>
+</div>
+</div>
+<div id="b1e0d7f6" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-label="1"></a><span class="dv">1</span> <span class="kw">and</span> <span class="va">True</span> <span class="co"># logic on int and bool</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>True</code></pre>
+</div>
+</div>
+<p>Python treats <code>0</code>s and <code>1</code>s treated as <code>False</code> and <code>True</code>.</p>
+<div id="959a5b6e" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-label="1"></a><span class="dv">0</span> <span class="kw">or</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>1</code></pre>
+</div>
+</div>
+<div id="866d3bcc" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-label="1"></a><span class="kw">not</span> <span class="dv">0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>True</code></pre>
+</div>
+</div>
+<p>Why does this example evaluate to something?</p>
+<div id="9308bfbd" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-label="1"></a><span class="dv">1</span> <span class="op">&gt;</span> <span class="va">True</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<pre><code>False</code></pre>
+</div>
+</div>
+<p>Why does the following throw an error?</p>
+<div id="e7385ad2" class="cell" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-label="1"></a><span class="co">"abc"</span> <span class="op">&gt;</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[25]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span class="ansi-yellow-fg">"abc"</span> &gt; <span class="ansi-green-fg">5</span>
+
+<span class="ansi-red-fg">TypeError</span>: '&gt;' not supported between instances of 'str' and 'int'</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="casting" class="level2">
+<h2 class="anchored" data-anchor-id="casting">Casting</h2>
+<p>Explicit casting between types can be achieved via using the types as functions, eg., <code>int()</code>, <code>float()</code>, <code>bool()</code>, or <code>str()</code>.</p>
+<div id="2f26fabd" class="cell" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-label="1"></a><span class="bu">float</span>(<span class="st">"0.5"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>0.5</code></pre>
+</div>
+</div>
+<div id="5106a6eb" class="cell" data-execution_count="27">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-label="1"></a><span class="bu">float</span>(<span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>1.0</code></pre>
+</div>
+</div>
+<div id="fbeffc7e" class="cell" data-execution_count="28">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-label="1"></a><span class="bu">int</span>(<span class="fl">1.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<pre><code>1</code></pre>
+</div>
+</div>
+<div id="7ae27e62" class="cell" data-execution_count="29">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-label="1"></a><span class="bu">int</span>(<span class="st">"2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>2</code></pre>
+</div>
+</div>
+<div id="1bb2f6d1" class="cell" data-execution_count="30">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-label="1"></a><span class="bu">bool</span>(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<pre><code>False</code></pre>
+</div>
+</div>
+<div id="dd364196" class="cell" data-execution_count="31">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-label="1"></a><span class="bu">bool</span>(<span class="st">"hello"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<pre><code>True</code></pre>
+</div>
+</div>
+<div id="c2f1bbd0" class="cell" data-execution_count="32">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-label="1"></a><span class="bu">str</span>(<span class="fl">3.1415926</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<pre><code>'3.1415926'</code></pre>
+</div>
+</div>
+<div id="2c522a3b" class="cell" data-execution_count="33">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-label="1"></a><span class="bu">str</span>(<span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<pre><code>'True'</code></pre>
+</div>
+</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
