@@ -506,7 +506,7 @@
     "href": "labs/lab1-submit.html#clone-your-personal-repository-to-the-container",
     "title": "Lab 1: Submitting Assignments",
     "section": "2. Clone your personal repository to the container",
-    "text": "2. Clone your personal repository to the container\n\nMake sure you are in /home/student; e.g. check the output of pwd.\nRun git clone git@github.com:UCR-STAT-206/landeros_alfonso_MSBA.git work. Be sure to edit LASTNAME and FIRSTNAME; we used the information on Canvas.\ncd into the newly created work directory and check the files with ls. It should match what is currently on GitHub.\n\n\n\n\n\n\n\nNote\n\n\n\nYou only need to clone your repo from GitHub once.",
+    "text": "2. Clone your personal repository to the container\n\nMake sure you are in /home/student; e.g. check the output of pwd.\nRun git clone git@github.com:UCR-STAT-206/LASTNAME_FIRSTNAME.git work. Be sure to edit LASTNAME and FIRSTNAME; we used the information on Canvas.\ncd into the newly created work directory and check the files with ls. It should match what is currently on GitHub.\n\n\n\n\n\n\n\nNote\n\n\n\nYou only need to clone your repo from GitHub once.",
     "crumbs": [
       "Labs",
       "Lab 1 (Submitting Assignments)"
@@ -980,7 +980,7 @@
     "href": "notes/module02/types.html#everything-is-an-object",
     "title": "Objects and Types",
     "section": "Everything is an object",
-    "text": "Everything is an object\nNumbers, strings, and other data you encounter in the Python language are objects. This has 3 important consequences for us as programmers:\n\nObjects have identity, which we can verify with id().\nObjects are said to be of a certain type, which we inspect with type().\nObjects store value; that is, a particular instance of a type is an object that represents data or state.\n\n\nx = 206 # the value of this number is self-evident\n\n\nid(x) # we'll have to care about this too much\n\n94811242373808\n\n\n\ntype(x) # you need to be able to reason about types\n\nint",
+    "text": "Everything is an object\nNumbers, strings, and other data you encounter in the Python language are objects. This has 3 important consequences for us as programmers:\n\nObjects have identity, which we can verify with id().\nObjects are said to be of a certain type, which we inspect with type().\nObjects store value; that is, a particular instance of a type is an object that represents data or state.\n\n\nx = 206 # the value of this number is self-evident\n\n\nid(x) # we'll have to care about this too much\n\n94678356402864\n\n\n\ntype(x) # you need to be able to reason about types\n\nint",
     "crumbs": [
       "Module 2 (Programming)",
       "Objects and Data Types"
