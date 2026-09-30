@@ -432,7 +432,7 @@
     "href": "howto/use_vscode.html#installing-extensions",
     "title": "How to Use VSCode with a Container",
     "section": "Installing extensions",
-    "text": "Installing extensions\nAny VSCode extensions you like must be installed on the container side. Recommended extensions for this class:\n\nPython\nQuarto",
+    "text": "Installing extensions\nAny VSCode extensions you like must be installed on the container side. Recommended extensions for this class:\n\nPython\nQuarto\nJupyter\n\n\n\n\n\n\n\nImportant\n\n\n\nInstalling the Python extension also installs 3 other tools: Python Debugger, Pylance, and Python Environments. Currently, Pylance and Python Environments trigger several false positives when working with our container environment. We recommend uninstalling or disabling these tools (Pylance and Pythong Environments).",
     "crumbs": [
       "How to...",
       "Use VSCode with a Container"
@@ -466,6 +466,83 @@
     "text": "Taking this class\nThe first three weeks involve learning several software tools at once. Use the schedule to help plan your reading of the course notes ahead of class.",
     "crumbs": [
       "Home"
+    ]
+  },
+  {
+    "objectID": "labs/lab1-submit.html",
+    "href": "labs/lab1-submit.html",
+    "title": "Lab 1: Submitting Assignments",
+    "section": "",
+    "text": "By the end of this lab, you should:\n\nHave your local repository set up on your computer within the Docker container.\nBe able to git pull and git push to your remote repository, hosted on GitHub.\nUnderstand the workflow of drafting your solutions using version control and submitting to GitHub.",
+    "crumbs": [
+      "Labs",
+      "Lab 1 (Submitting Assignments)"
+    ]
+  },
+  {
+    "objectID": "labs/lab1-submit.html#goals",
+    "href": "labs/lab1-submit.html#goals",
+    "title": "Lab 1: Submitting Assignments",
+    "section": "",
+    "text": "By the end of this lab, you should:\n\nHave your local repository set up on your computer within the Docker container.\nBe able to git pull and git push to your remote repository, hosted on GitHub.\nUnderstand the workflow of drafting your solutions using version control and submitting to GitHub.",
+    "crumbs": [
+      "Labs",
+      "Lab 1 (Submitting Assignments)"
+    ]
+  },
+  {
+    "objectID": "labs/lab1-submit.html#log-in-to-the-container-environment",
+    "href": "labs/lab1-submit.html#log-in-to-the-container-environment",
+    "title": "Lab 1: Submitting Assignments",
+    "section": "1. Log in to the container environment",
+    "text": "1. Log in to the container environment\n\nMake sure the Docker container is running.\nConnect VSCode to the container.\nOpen a terminal.",
+    "crumbs": [
+      "Labs",
+      "Lab 1 (Submitting Assignments)"
+    ]
+  },
+  {
+    "objectID": "labs/lab1-submit.html#clone-your-personal-repository-to-the-container",
+    "href": "labs/lab1-submit.html#clone-your-personal-repository-to-the-container",
+    "title": "Lab 1: Submitting Assignments",
+    "section": "2. Clone your personal repository to the container",
+    "text": "2. Clone your personal repository to the container\n\nMake sure you are in /home/student; e.g. check the output of pwd.\nRun git clone git@github.com:UCR-STAT-206/landeros_alfonso_MSBA.git work. Be sure to edit LASTNAME and FIRSTNAME; we used the information on Canvas.\ncd into the newly created work directory and check the files with ls. It should match what is currently on GitHub.\n\n\n\n\n\n\n\nNote\n\n\n\nYou only need to clone your repo from GitHub once.",
+    "crumbs": [
+      "Labs",
+      "Lab 1 (Submitting Assignments)"
+    ]
+  },
+  {
+    "objectID": "labs/lab1-submit.html#organize-the-files",
+    "href": "labs/lab1-submit.html#organize-the-files",
+    "title": "Lab 1: Submitting Assignments",
+    "section": "3. Organize the files",
+    "text": "3. Organize the files\n\nEdit README.md by adding yourself as an author. For example, add a line like Author: FIRSTNAME LASTNAME.\nCreate a new directory named lab1. Use this name exactly as printed here.\nMove all the files (except README.md) into lab1.\nVerify the file structure inside lab1 using the tree command. You should see the following:\n.\n├── lab1\n│   └── demo.py\n└── README.md\nStage all the changes you’ve made and commit them. Use the message Completed Step 3 of Lab 1.\n\n\n\n\n\n\n\nNoteMake it a habit to check your work\n\n\n\nDepending on how you use git add, Git may not detect the file movements accurately. Verify with git status before you commit. You should see\nOn branch main\nYour branch is up to date with 'origin/main'.\n\nChanges to be committed:\n  (use \"git restore --staged &lt;file&gt;...\" to unstage)\n    modified:   README.md\n    renamed:    demo.py -&gt; lab1/demo.py",
+    "crumbs": [
+      "Labs",
+      "Lab 1 (Submitting Assignments)"
+    ]
+  },
+  {
+    "objectID": "labs/lab1-submit.html#create-a-quarto-document-based-on-the-script",
+    "href": "labs/lab1-submit.html#create-a-quarto-document-based-on-the-script",
+    "title": "Lab 1: Submitting Assignments",
+    "section": "4. Create a Quarto document based on the script",
+    "text": "4. Create a Quarto document based on the script\n\nCall the file demo.qmd. Name yourself as the author.\n\nMost of the comments in demo.py should become regular text in your Quarto document.\nTest it out as you work using quarto preview demo.qmd.\n\nCreate a new snapshot once you’ve finished working on demo.qmd.\n\nBe sure to only commit demo.qmd. Exclude everything else.\nUse the message Completed Step 4 of Lab 1.",
+    "crumbs": [
+      "Labs",
+      "Lab 1 (Submitting Assignments)"
+    ]
+  },
+  {
+    "objectID": "labs/lab1-submit.html#review-your-work-and-submit",
+    "href": "labs/lab1-submit.html#review-your-work-and-submit",
+    "title": "Lab 1: Submitting Assignments",
+    "section": "5. Review your work and submit",
+    "text": "5. Review your work and submit\n\nReview your work.\n\nDoes the code run in the REPL?\nDoes the Quarto document render successfully?\nWhat does git log look like?\n\nRun the command git tag Lab1 to tag a specific version with an easy-to-read label.\nRun the command git push to push all your work to GitHub.\nRun the command git push --tags to push the easy-to-read label.",
+    "crumbs": [
+      "Labs",
+      "Lab 1 (Submitting Assignments)"
     ]
   },
   {
@@ -517,7 +594,7 @@
     "href": "labs/lab0-setup.html#in-person",
     "title": "Lab 0: Setting Up Your Workspace",
     "section": "In Person",
-    "text": "In Person\nThe following tasks involve using the class Docker image. Instructions are to be carried out inside a running container unless otherwise specified.\n\n1. Download and install Quarto\n\nInside your terminal, run uname -m to determine whether your container is setup with an arm64 or x86_64 architecture.\nBased on the result in the previous step, download Quarto using curl:\ncurl -fL -o quarto.tar.gz \\\nhttps://github.com/quarto-dev/quarto-cli/releases/download/v1.10.18/quarto-1.10.18-linux-arm64.tar.gz\nor\ncurl -fL -o quarto.tar.gz \\\nhttps://github.com/quarto-dev/quarto-cli/releases/download/v1.10.18/quarto-1.10.18-linux-amd64.tar.gz\nNext, unpack files from the tarball into /home/student/.local:\ntar -xvzf quarto.tar.gz --strip-components=1 -C ~/.local\nFinally, check that Quarto can be run from your terminal (and therefore seen by other programs) with\nquarto check\n\n\n\n2. Let us know your GitHub username\nFill out the Google form to record the username you wish to use for this course. It will be used to set up your private repository for this class.\n\n\n3. Fill out the class survey\nSee this Google form to answer a few questions. It will help the instructors understand everyone’s background.\n\n\n4. Practice creating your first Quarto document\nSee the notes on Quarto and explore Quarto’s features.",
+    "text": "In Person\nThe following tasks involve using the class Docker image. Instructions are to be carried out inside a running container unless otherwise specified.\n\n0. Install a missing dependency\nThe container environment is missing a critical tool, jupyter, which we meant to have installed beforehand. Rather than rebuilding the image and having everyone update, you can install this tool by running the following in the terminal:\nmicromamba install jupyter # Type `Y` when prompted to accept\nThis is required for rendering documents with Quarto.\n\n\n1. Download and install Quarto\n\nInside your terminal, run uname -m to determine whether your container is setup with an arm64 or x86_64 architecture.\nBased on the result in the previous step, download Quarto using curl:\ncurl -fL -o quarto.tar.gz \\\nhttps://github.com/quarto-dev/quarto-cli/releases/download/v1.10.18/quarto-1.10.18-linux-arm64.tar.gz\nor\ncurl -fL -o quarto.tar.gz \\\nhttps://github.com/quarto-dev/quarto-cli/releases/download/v1.10.18/quarto-1.10.18-linux-amd64.tar.gz\nNext, unpack files from the tarball into /home/student/.local:\ntar -xvzf quarto.tar.gz --strip-components=1 -C ~/.local\nFinally, check that Quarto can be run from your terminal (and therefore seen by other programs) with\nquarto check\n\n\n\n2. Let us know your GitHub username\nFill out the Google form to record the username you wish to use for this course. It will be used to set up your private repository for this class.\n\n\n3. Fill out the class survey\nSee this Google form to answer a few questions. It will help the instructors understand everyone’s background.\n\n\n4. Practice creating your first Quarto document\nSee the notes on Quarto and explore Quarto’s features.",
     "crumbs": [
       "Labs",
       "Lab 0 (Getting Started)"
@@ -903,7 +980,7 @@
     "href": "notes/module02/types.html#everything-is-an-object",
     "title": "Objects and Types",
     "section": "Everything is an object",
-    "text": "Everything is an object\nNumbers, strings, and other data you encounter in the Python language are objects. This has 3 important consequences for us as programmers:\n\nObjects have identity, which we can verify with id().\nObjects are said to be of a certain type, which we inspect with type().\nObjects store value; that is, a particular instance of a type is an object that represents data or state.\n\n\nx = 206 # the value of this number is self-evident\n\n\nid(x) # we'll have to care about this too much\n\n94882628182704\n\n\n\ntype(x) # you need to be able to reason about types\n\nint",
+    "text": "Everything is an object\nNumbers, strings, and other data you encounter in the Python language are objects. This has 3 important consequences for us as programmers:\n\nObjects have identity, which we can verify with id().\nObjects are said to be of a certain type, which we inspect with type().\nObjects store value; that is, a particular instance of a type is an object that represents data or state.\n\n\nx = 206 # the value of this number is self-evident\n\n\nid(x) # we'll have to care about this too much\n\n94811242373808\n\n\n\ntype(x) # you need to be able to reason about types\n\nint",
     "crumbs": [
       "Module 2 (Programming)",
       "Objects and Data Types"

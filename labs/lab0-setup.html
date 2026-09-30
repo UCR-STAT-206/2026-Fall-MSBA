@@ -251,6 +251,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Lab 0 (Getting Started)</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/lab1-submit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 1 (Submitting Assignments)</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -335,6 +341,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#in-person" id="toc-in-person" class="nav-link" data-scroll-target="#in-person">In Person</a>
   <ul class="collapse">
+  <li><a href="#install-a-missing-dependency" id="toc-install-a-missing-dependency" class="nav-link" data-scroll-target="#install-a-missing-dependency">0. Install a missing dependency</a></li>
   <li><a href="#download-and-install-quarto" id="toc-download-and-install-quarto" class="nav-link" data-scroll-target="#download-and-install-quarto">1. Download and install Quarto</a></li>
   <li><a href="#let-us-know-your-github-username" id="toc-let-us-know-your-github-username" class="nav-link" data-scroll-target="#let-us-know-your-github-username">2. Let us know your GitHub username</a></li>
   <li><a href="#fill-out-the-class-survey" id="toc-fill-out-the-class-survey" class="nav-link" data-scroll-target="#fill-out-the-class-survey">3. Fill out the class survey</a></li>
@@ -423,20 +430,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="in-person" class="level2">
 <h2 class="anchored" data-anchor-id="in-person">In Person</h2>
 <p>The following tasks involve using the class Docker image. Instructions are to be carried out inside a running container unless otherwise specified.</p>
+<section id="install-a-missing-dependency" class="level3">
+<h3 class="anchored" data-anchor-id="install-a-missing-dependency">0. Install a missing dependency</h3>
+<p>The container environment is missing a critical tool, <code>jupyter</code>, which we meant to have installed beforehand. Rather than rebuilding the image and having everyone update, you can install this tool by running the following in the terminal:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a>micromamba install jupyter # Type `Y` when prompted to accept</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is <strong>required</strong> for rendering documents with Quarto.</p>
+</section>
 <section id="download-and-install-quarto" class="level3">
 <h3 class="anchored" data-anchor-id="download-and-install-quarto">1. Download and install Quarto</h3>
 <ol type="1">
 <li><p>Inside your terminal, run <code>uname -m</code> to determine whether your container is setup with an <code>arm64</code> or <code>x86_64</code> architecture.</p></li>
 <li><p>Based on the result in the previous step, download Quarto using <code>curl</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a>curl -fL -o quarto.tar.gz \</span>
-<span id="cb1-2"><a href="#cb1-2" aria-label="2"></a>https://github.com/quarto-dev/quarto-cli/releases/download/v1.10.18/quarto-1.10.18-linux-arm64.tar.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>or</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>curl -fL -o quarto.tar.gz \</span>
-<span id="cb2-2"><a href="#cb2-2" aria-label="2"></a>https://github.com/quarto-dev/quarto-cli/releases/download/v1.10.18/quarto-1.10.18-linux-amd64.tar.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<span id="cb2-2"><a href="#cb2-2" aria-label="2"></a>https://github.com/quarto-dev/quarto-cli/releases/download/v1.10.18/quarto-1.10.18-linux-arm64.tar.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>or</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a>curl -fL -o quarto.tar.gz \</span>
+<span id="cb3-2"><a href="#cb3-2" aria-label="2"></a>https://github.com/quarto-dev/quarto-cli/releases/download/v1.10.18/quarto-1.10.18-linux-amd64.tar.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>Next, unpack files from the tarball into <code>/home/student/.local</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a>tar -xvzf quarto.tar.gz --strip-components=1 -C ~/.local</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a>tar -xvzf quarto.tar.gz --strip-components=1 -C ~/.local</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>Finally, check that Quarto can be run from your terminal (and therefore seen by other programs) with</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a>quarto check</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a>quarto check</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 </ol>
 </section>
 <section id="let-us-know-your-github-username" class="level3">

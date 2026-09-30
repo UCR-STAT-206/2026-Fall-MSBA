@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-10-01">
 
-<title>Quarto</title>
+<title>Lab 1: Submitting Assignments</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,26 +27,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-42984134f797fdc8b1dddc8d1d96fd6e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-5a76141f77d867fb867d14d57f46a0f6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -75,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../../assets/styles.css">
+<link rel="stylesheet" href="../assets/styles.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -87,7 +123,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module01/unix.html">Module 1 (Fundamentals)</a></li><li class="breadcrumb-item"><a href="../../notes/module01/quarto.html">Quarto</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../labs/lab0-setup.html">Labs</a></li><li class="breadcrumb-item"><a href="../labs/lab1-submit.html">Lab 1 (Submitting Assignments)</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -101,12 +137,12 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="../../index.html" class="sidebar-logo-link">
-      <img src="../../assets/UC_Riverside_Horiz_WhtBG.png" alt="UC Riverside monogram logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="../../assets/UC_Riverside_Horiz_WhtBG.png" alt="UC Riverside monogram logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/UC_Riverside_Horiz_WhtBG.png" alt="UC Riverside monogram logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../assets/UC_Riverside_Horiz_WhtBG.png" alt="UC Riverside monogram logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="../../">STAT 206 (MSBA)</a> 
+      <a href="../">STAT 206 (MSBA)</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -118,53 +154,53 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../office_hours.html" class="sidebar-item-text sidebar-link">
+  <a href="../office_hours.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Office Hours</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../schedule.html" class="sidebar-item-text sidebar-link">
+  <a href="../schedule.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Schedule</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Module 1 (Fundamentals)</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notes/module01/unix.html" class="sidebar-item-text sidebar-link">
+  <a href="../notes/module01/unix.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The Unix Shell</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notes/module01/filesystem.html" class="sidebar-item-text sidebar-link">
+  <a href="../notes/module01/filesystem.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The File System</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notes/module01/quarto.html" class="sidebar-item-text sidebar-link active">
+  <a href="../notes/module01/quarto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Quarto</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notes/module01/git.html" class="sidebar-item-text sidebar-link">
+  <a href="../notes/module01/git.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Git</span></a>
   </div>
 </li>
@@ -181,19 +217,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notes/module02/intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../notes/module02/intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to Python</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notes/module02/types.html" class="sidebar-item-text sidebar-link">
+  <a href="../notes/module02/types.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Objects and Data Types</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notes/module02/basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../notes/module02/basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Arithmetic, Comparisons, and Boolean Algebra</span></a>
   </div>
 </li>
@@ -202,22 +238,22 @@ ul.task-list li input[type="checkbox"] {
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Labs</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../labs/lab0-setup.html" class="sidebar-item-text sidebar-link">
+  <a href="../labs/lab0-setup.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lab 0 (Getting Started)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../labs/lab1-submit.html" class="sidebar-item-text sidebar-link">
+  <a href="../labs/lab1-submit.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Lab 1 (Submitting Assignments)</span></a>
   </div>
 </li>
@@ -239,7 +275,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../project/project.html" class="sidebar-item-text sidebar-link">
+  <a href="../project/project.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Final Project</span></a>
   </div>
 </li>
@@ -255,31 +291,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../howto/use_docker.html" class="sidebar-item-text sidebar-link">
+  <a href="../howto/use_docker.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Use Docker</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../howto/use_vscode.html" class="sidebar-item-text sidebar-link">
+  <a href="../howto/use_vscode.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Use VSCode with a Container</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../howto/configure_git.html" class="sidebar-item-text sidebar-link">
+  <a href="../howto/configure_git.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Configure Git</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../howto/setup_github.html" class="sidebar-item-text sidebar-link">
+  <a href="../howto/setup_github.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Set Up Your GitHub Account</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../howto/use_git.html" class="sidebar-item-text sidebar-link">
+  <a href="../howto/use_git.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Use Git</span></a>
   </div>
 </li>
@@ -295,27 +331,21 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#additional-materials" id="toc-additional-materials" class="nav-link active" data-scroll-target="#additional-materials">Additional Materials</a></li>
-  <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals</a></li>
-  <li><a href="#literate-programming" id="toc-literate-programming" class="nav-link" data-scroll-target="#literate-programming">Literate Programming</a></li>
-  <li><a href="#your-first-quarto-document" id="toc-your-first-quarto-document" class="nav-link" data-scroll-target="#your-first-quarto-document">Your First Quarto Document</a>
-  <ul class="collapse">
-  <li><a href="#open-the-stat-206-folder" id="toc-open-the-stat-206-folder" class="nav-link" data-scroll-target="#open-the-stat-206-folder">Open the STAT 206 Folder</a></li>
-  <li><a href="#create-a-new-file" id="toc-create-a-new-file" class="nav-link" data-scroll-target="#create-a-new-file">Create a new file</a></li>
-  <li><a href="#add-the-front-matter" id="toc-add-the-front-matter" class="nav-link" data-scroll-target="#add-the-front-matter">Add the front matter</a></li>
-  <li><a href="#add-some-headings" id="toc-add-some-headings" class="nav-link" data-scroll-target="#add-some-headings">Add some headings</a></li>
-  <li><a href="#add-a-python-code-cell" id="toc-add-a-python-code-cell" class="nav-link" data-scroll-target="#add-a-python-code-cell">Add a Python code cell</a></li>
-  <li><a href="#previewrender-your-work" id="toc-previewrender-your-work" class="nav-link" data-scroll-target="#previewrender-your-work">Preview/Render your work</a></li>
-  </ul></li>
+  <li><a href="#goals" id="toc-goals" class="nav-link active" data-scroll-target="#goals">Goals</a></li>
+  <li><a href="#log-in-to-the-container-environment" id="toc-log-in-to-the-container-environment" class="nav-link" data-scroll-target="#log-in-to-the-container-environment">1. Log in to the container environment</a></li>
+  <li><a href="#clone-your-personal-repository-to-the-container" id="toc-clone-your-personal-repository-to-the-container" class="nav-link" data-scroll-target="#clone-your-personal-repository-to-the-container">2. Clone your personal repository to the container</a></li>
+  <li><a href="#organize-the-files" id="toc-organize-the-files" class="nav-link" data-scroll-target="#organize-the-files">3. Organize the files</a></li>
+  <li><a href="#create-a-quarto-document-based-on-the-script" id="toc-create-a-quarto-document-based-on-the-script" class="nav-link" data-scroll-target="#create-a-quarto-document-based-on-the-script">4. Create a Quarto document based on the script</a></li>
+  <li><a href="#review-your-work-and-submit" id="toc-review-your-work-and-submit" class="nav-link" data-scroll-target="#review-your-work-and-submit">5. Review your work and submit</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module01/unix.html">Module 1 (Fundamentals)</a></li><li class="breadcrumb-item"><a href="../../notes/module01/quarto.html">Quarto</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../labs/lab0-setup.html">Labs</a></li><li class="breadcrumb-item"><a href="../labs/lab1-submit.html">Lab 1 (Submitting Assignments)</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Quarto</h1>
+<h1 class="title">Lab 1: Submitting Assignments</h1>
 </div>
 
 
@@ -323,6 +353,12 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 1, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -332,82 +368,108 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="additional-materials" class="level2">
-<h2 class="anchored" data-anchor-id="additional-materials">Additional Materials</h2>
-<ul>
-<li><a href="https://quarto.org/docs/get-started/hello/vscode.html">(Tutorial) Hello, Quarto</a></li>
-<li><a href="https://quarto.org/docs/get-started/computations/vscode.html">(Tutorial) Computations</a></li>
-<li><a href="https://quarto.org/docs/get-started/authoring/vscode.html">(Tutorial) Authoring</a></li>
-<li><a href="https://quarto-tdg.org/">(Book) Quarto: The Practical Guide</a></li>
-</ul>
-</section>
 <section id="goals" class="level2">
 <h2 class="anchored" data-anchor-id="goals">Goals</h2>
+<p>By the end of this lab, you should:</p>
+<ol type="1">
+<li>Have your <strong>local repository</strong> set up on your computer within the Docker container.</li>
+<li>Be able to <code>git pull</code> and <code>git push</code> to your <strong>remote repository</strong>, hosted on GitHub.</li>
+<li>Understand the workflow of drafting your solutions using version control and submitting to GitHub.</li>
+</ol>
 </section>
-<section id="literate-programming" class="level2">
-<h2 class="anchored" data-anchor-id="literate-programming">Literate Programming</h2>
-<blockquote class="blockquote">
-<p>I believe that the time is ripe for significantly better documentation of programs, and that we can best achieve this by considering programs to be works of literature. Hence, my title: “Literate Programming.”</p>
-<p>Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to human beings what we want a computer to do.</p>
-<p>The practitioner of literate programming can be regarded as an essayist, whose main concern is with exposition and excellence of style. Such an author, with thesaurus in hand, chooses the names of variables carefully and explains what each variable means. He or she strives for a program that is comprehensible because its concepts have been introduced in an order that is best for human understanding, using a mixture of formal and informal methods that reinforce each other.</p>
-</blockquote>
-<p>— <a href="http://www.literateprogramming.com/">Donald Knuth. “Literate Programming (1984)” in Literate Programming. CSLI, 1992, pg. 99.</a></p>
+<section id="log-in-to-the-container-environment" class="level2">
+<h2 class="anchored" data-anchor-id="log-in-to-the-container-environment">1. Log in to the container environment</h2>
+<ol type="a">
+<li>Make sure the Docker container is running.</li>
+<li>Connect VSCode to the container.</li>
+<li>Open a terminal.</li>
+</ol>
 </section>
-<section id="your-first-quarto-document" class="level2">
-<h2 class="anchored" data-anchor-id="your-first-quarto-document">Your First Quarto Document</h2>
-<p>This assumes you are connected to the VM over VSCode. You are encouraged to render your document throughout each step using <code>&gt; Quarto: Preview</code> from the Command Palette.</p>
-<section id="open-the-stat-206-folder" class="level3">
-<h3 class="anchored" data-anchor-id="open-the-stat-206-folder">Open the STAT 206 Folder</h3>
-<p>Navigate to <code>File</code> &gt; <code>Open Folder</code>. This will show directories <em>on the guest machine</em>.</p>
-<p><img src="assets/Quarto1.png" class="img-fluid"></p>
-<p>A window will pop up for you to select your folder. Choose <code>STAT206</code>. You will use this to store your work.</p>
-<p><img src="assets/Quarto2.png" class="img-fluid"></p>
-<p>The File Browser on the left hand side will now show the folder contents.</p>
-<p><img src="assets/Quarto3.png" class="img-fluid"></p>
+<section id="clone-your-personal-repository-to-the-container" class="level2">
+<h2 class="anchored" data-anchor-id="clone-your-personal-repository-to-the-container">2. Clone your personal repository to the container</h2>
+<ol type="a">
+<li>Make sure you are in <code>/home/student</code>; e.g.&nbsp;check the output of <code>pwd</code>.</li>
+<li>Run <code>git clone git@github.com:UCR-STAT-206/landeros_alfonso_MSBA.git work</code>. Be sure to edit <code>LASTNAME</code> and <code>FIRSTNAME</code>; we used the information on Canvas.</li>
+<li><code>cd</code> into the newly created <code>work</code> directory and check the files with <code>ls</code>. It should match what is currently on GitHub.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You only need to clone your repo from GitHub once.</p>
+</div>
+</div>
 </section>
-<section id="create-a-new-file" class="level3">
-<h3 class="anchored" data-anchor-id="create-a-new-file">Create a new file</h3>
-<p>Name the file <code>Test.qmd</code>. Quarto files use the <code>.qmd</code> file extension.</p>
-<p><img src="assets/Quarto4.png" class="img-fluid"></p>
+<section id="organize-the-files" class="level2">
+<h2 class="anchored" data-anchor-id="organize-the-files">3. Organize the files</h2>
+<ol type="a">
+<li><p>Edit <code>README.md</code> by adding yourself as an author. For example, add a line like <code>Author: FIRSTNAME LASTNAME</code>.</p></li>
+<li><p>Create a new directory named <code>lab1</code>. Use this name exactly as printed here.</p></li>
+<li><p>Move all the files (except <code>README.md</code>) into <code>lab1</code>.</p></li>
+<li><p>Verify the file structure inside <code>lab1</code> using the <code>tree</code> command. You should see the following:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a>.</span>
+<span id="cb1-2"><a href="#cb1-2" aria-label="2"></a>├── lab1</span>
+<span id="cb1-3"><a href="#cb1-3" aria-label="3"></a>│&nbsp;&nbsp; └── demo.py</span>
+<span id="cb1-4"><a href="#cb1-4" aria-label="4"></a>└── README.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Stage</strong> all the changes you’ve made and <strong>commit</strong> them. Use the message <code>Completed Step 3 of Lab 1</code>.</p></li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Make it a habit to check your work
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Depending on how you use <code>git add</code>, Git may not detect the file movements accurately. Verify with <code>git status</code> <strong>before</strong> you commit. You should see</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>On branch main</span>
+<span id="cb2-2"><a href="#cb2-2" aria-label="2"></a>Your branch is up to date with 'origin/main'.</span>
+<span id="cb2-3"><a href="#cb2-3" aria-label="3"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-label="4"></a>Changes to be committed:</span>
+<span id="cb2-5"><a href="#cb2-5" aria-label="5"></a>  (use "git restore --staged &lt;file&gt;..." to unstage)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-label="6"></a>    modified:   README.md</span>
+<span id="cb2-7"><a href="#cb2-7" aria-label="7"></a>    renamed:    demo.py -&gt; lab1/demo.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
 </section>
-<section id="add-the-front-matter" class="level3">
-<h3 class="anchored" data-anchor-id="add-the-front-matter">Add the front matter</h3>
-<p>The ‘front matter’ is the header located at the top of every Quarto document, beginning and ending with exactly three dashes, <code>---</code>. It specifies various metadata about your document as well as how it should be rendered. Parameters are given as key-value pairs delimited by colons <code>:</code>; that is, <code>parameter-name: parameter-value</code>. Some parameters are nested, and so it is crucial that you mind the whitespace used.</p>
-<p><img src="assets/Quarto5.png" class="img-fluid"></p>
+<section id="create-a-quarto-document-based-on-the-script" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-quarto-document-based-on-the-script">4. Create a Quarto document based on the script</h2>
+<ol type="a">
+<li>Call the file <code>demo.qmd</code>. Name yourself as the author.
 <ul>
-<li><code>title</code>, <code>author</code>, <code>date</code>: self-explanatory</li>
-<li><code>engine</code>: It specifies the engine used to render your document. We will always use <code>jupyter</code> for this class.</li>
-<li><code>execute</code>: Various execution options. We recommend using <code>cache: true</code> to avoid running code whenever you only edit text.</li>
-<li><code>format</code>: Various format options. You can specify settings for other document types (e.g.&nbsp;PDF), but we will use HTML for this class.
-<ul>
-<li>Always make sure <code>embed-resources: true</code> is set! This makes it easy to share your reports as a single self-contained document.</li>
+<li>Most of the comments in <code>demo.py</code> should become regular text in your Quarto document.</li>
+<li><strong>Test it out as you work</strong> using <code>quarto preview demo.qmd</code>.</li>
 </ul></li>
-<li><code>editor</code>: Various editor preferences. I prefer to write in <code>source</code> mode, but a <code>visual</code> editor is also available.
+<li>Create a new snapshot once you’ve finished working on <code>demo.qmd</code>.
 <ul>
-<li><code>render-on-save: true</code> is useful if you like refreshing your preview every time you save your work.</li>
+<li>Be sure to <strong>only</strong> commit <code>demo.qmd</code>. Exclude everything else.</li>
+<li>Use the message <code>Completed Step 4 of Lab 1</code>.</li>
 </ul></li>
-</ul>
+</ol>
 </section>
-<section id="add-some-headings" class="level3">
-<h3 class="anchored" data-anchor-id="add-some-headings">Add some headings</h3>
-<p>Copy and paste the following <a href="https://www.markdownguide.org/cheat-sheet/">Markdown</a> into the body of your document.</p>
-<pre><code># Welcome!
-
-## Level 2
-
-### Level 3</code></pre>
-</section>
-<section id="add-a-python-code-cell" class="level3">
-<h3 class="anchored" data-anchor-id="add-a-python-code-cell">Add a Python code cell</h3>
-<p>Code cells are delimited with triple backticks, ```. Use <code>{python}</code> to specify the Python language for a code cell.</p>
-<p>Add the following Python code in a cell anywhere in your document: <code>print("STAT 206")</code>.</p>
-</section>
-<section id="previewrender-your-work" class="level3">
-<h3 class="anchored" data-anchor-id="previewrender-your-work">Preview/Render your work</h3>
-<p>Open the Command Palette (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>) and select <code>Quarto: Preview</code> or <code>Quarto: Render</code>. This will create the HTML report of your document. Notice that the preview opens on your browser, on the host machine.</p>
+<section id="review-your-work-and-submit" class="level2">
+<h2 class="anchored" data-anchor-id="review-your-work-and-submit">5. Review your work and submit</h2>
+<ol type="a">
+<li><p>Review your work.</p>
+<ul>
+<li>Does the code run in the REPL?</li>
+<li>Does the Quarto document render successfully?</li>
+<li>What does <code>git log</code> look like?</li>
+</ul></li>
+<li><p>Run the command <code>git tag Lab1</code> to tag a specific version with an easy-to-read label.</p></li>
+<li><p>Run the command <code>git push</code> to push all your work to GitHub.</p></li>
+<li><p>Run the command <code>git push --tags</code> to push the easy-to-read label.</p></li>
+</ol>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
