@@ -63,6 +63,17 @@ Read up about these tools and try setting up Git on your container + create your
 The following tasks involve using the class Docker image.
 Instructions are to be carried out inside a running container unless otherwise specified.
 
+### 0. Install a missing dependency
+
+The container environment is missing a critical tool, `jupyter`, which we meant to have installed beforehand.
+Rather than rebuilding the image and having everyone update, you can install this tool by running the following in the terminal:
+
+```default
+micromamba install jupyter # Type `Y` when prompted to accept
+```
+
+This is **required** for rendering documents with Quarto.
+
 ### 1. Download and install Quarto
 
 1. Inside your terminal, run `uname -m` to determine whether your container is setup with an `arm64` or `x86_64` architecture.
