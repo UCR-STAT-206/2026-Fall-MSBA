@@ -85,7 +85,17 @@ To **upload** a file or directory *to* the container, you can drag and drop it o
 
 ## Installing extensions
 
-Any VSCode extensions you like must be installed on the container side. Recommended extensions for this class:
+Any VSCode extensions you like must be installed on the container side.
+Recommended extensions for this class:
 
 1. [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 2. [Quarto](https://marketplace.visualstudio.com/items?itemName=quarto.quarto)
+3. [Jupyter](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter)
+
+:::::::::::::::::::::::::::::::: callout-important
+
+Installing the Python extension also installs 3 other tools: Python Debugger, Pylance, and Python Environments.
+Currently, Pylance and Python Environments trigger several false positives when working with our container environment.
+We recommend uninstalling or disabling these tools (Pylance and Pythong Environments).
+
+::::::::::::::::::::::::::::::::
