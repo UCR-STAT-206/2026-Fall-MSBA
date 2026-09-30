@@ -125,15 +125,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#format" id="toc-format" class="nav-link active" data-scroll-target="#format">Format</a></li>
-  <li><a href="#workflows" id="toc-workflows" class="nav-link" data-scroll-target="#workflows">Workflows</a></li>
-  <li><a href="#github" id="toc-github" class="nav-link" data-scroll-target="#github">GitHub</a>
+  <li><a href="#format" id="toc-format" class="nav-link active" data-scroll-target="#format">Format</a>
   <ul class="collapse">
-  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
   <li><a href="#file-structure" id="toc-file-structure" class="nav-link" data-scroll-target="#file-structure">File structure</a></li>
-  <li><a href="#pushingpulling" id="toc-pushingpulling" class="nav-link" data-scroll-target="#pushingpulling">Pushing/Pulling</a></li>
+  </ul></li>
+  <li><a href="#other-requirements" id="toc-other-requirements" class="nav-link" data-scroll-target="#other-requirements">Other requirements</a>
+  <ul class="collapse">
+  <li><a href="#environment-section" id="toc-environment-section" class="nav-link" data-scroll-target="#environment-section">Environment Section</a></li>
+  <li><a href="#code-and-report-quality" id="toc-code-and-report-quality" class="nav-link" data-scroll-target="#code-and-report-quality">Code and report quality</a></li>
+  <li><a href="#tagging-final-submissions" id="toc-tagging-final-submissions" class="nav-link" data-scroll-target="#tagging-final-submissions">Tagging final submissions</a></li>
   </ul></li>
   <li><a href="#grading-and-feedback" id="toc-grading-and-feedback" class="nav-link" data-scroll-target="#grading-and-feedback">Grading and feedback</a></li>
+  <li><a href="#the-process-itself" id="toc-the-process-itself" class="nav-link" data-scroll-target="#the-process-itself">The process itself</a></li>
   </ul>
 </nav>
     </div>
@@ -164,24 +167,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Solutions to lab and homework assignments will consist of several files.</p>
 <ul>
 <li><strong>Quarto Markdown</strong>. Your main report must be prepared using Quarto Markdown (.qmd) source files. <em>Other formats, such as Jupyter notebooks (.ipynb) will not be accepted</em>. These files combine code, code outputs, and explanatory texts to answer problem prompts.</li>
-<li><strong>Project.toml</strong>. Each assignment is a mini-project with its own computing environment. Later in the course, you must carefully manage that environment using Micromamba to specify each dependency from the package ecosystem.</li>
-<li><strong>Python Source</strong>. Later in the course, your solutions will involve code spanning several lines, multiple functions, custom types, and possibly custom modules. These must be defined in separate Python source files (.py).</li>
+<li><strong>environment.yml</strong>. Each assignment is a mini-project with its own computing environment. Later in the course, you must carefully manage that environment using Micromamba to specify each dependency from the package ecosystem.</li>
+<li><strong>Python Source</strong>. Later in the course, your solutions will involve code spanning several lines, multiple functions, custom types, and possibly custom modules. These must be defined in separate Python source files (<code>.py</code>).</li>
 <li><strong>Inputs and Outputs</strong>. Some assignments will require external data and generate outputs, such as data subsets, summary tables, benchmarking results, or graphics. These must be included as part of your submissions.</li>
 </ul>
 <p>You will use Git to version control these files and upload your work to a remote repository on GitHub.</p>
-</section>
-<section id="workflows" class="level2">
-<h2 class="anchored" data-anchor-id="workflows">Workflows</h2>
-</section>
-<section id="github" class="level2">
-<h2 class="anchored" data-anchor-id="github">GitHub</h2>
-<section id="setup" class="level3">
-<h3 class="anchored" data-anchor-id="setup">Setup</h3>
-</section>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The environment.yml requirement is relaxed for the first few assignments in the course. We first need to know how to use <code>micromamba</code>!</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Make use of <code>.gitignore</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Setting this up, for any project, will prevent you from accidentally committing irrelevant files or sensitive data. Avoid the following (unless explicitly instructed to include):</p>
+<ul>
+<li>Manifest.toml</li>
+<li>Any large PNG, JPEG, or other image type.</li>
+<li>Any HTML or PDF files.</li>
+</ul>
+</div>
+</div>
 <section id="file-structure" class="level3">
 <h3 class="anchored" data-anchor-id="file-structure">File structure</h3>
 <ul>
 <li>Each assignment must be organized into directories, subdirectories, and files with specific names.</li>
+<li>The expectation is that each assignment is self-contained. That means each project must handle its own dependencies, if any, and not rely on some external configuration.</li>
 <li>Part of your grade will be for reproducibility of your work; that is, how well <code>quarto run hw/hw1/report.qmd</code> faithfully reproduces the outputs in your report.</li>
 <li>All names are case-sensitive, so please stick to lowercase to avoid issues.</li>
 </ul>
@@ -205,12 +231,102 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-18"><a href="#cb1-18" aria-label="18"></a>    ...</span>
 <span id="cb1-19"><a href="#cb1-19" aria-label="19"></a>    └── lab8</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="pushingpulling" class="level3">
-<h3 class="anchored" data-anchor-id="pushingpulling">Pushing/Pulling</h3>
+</section>
+<section id="other-requirements" class="level2">
+<h2 class="anchored" data-anchor-id="other-requirements">Other requirements</h2>
+<section id="environment-section" class="level3">
+<h3 class="anchored" data-anchor-id="environment-section">Environment Section</h3>
+<p>Place this code block at the very end of the main Quarto file:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource {python} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>#| eval: false</span>
+<span id="cb2-2"><a href="#cb2-2" aria-label="2"></a>import session_info</span>
+<span id="cb2-3"><a href="#cb2-3" aria-label="3"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-label="4"></a>session_info.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This requirement is relaxed for the first few assignments in the course. We first need to know how to install <code>session_info</code>!</p>
+</div>
+</div>
+</section>
+<section id="code-and-report-quality" class="level3">
+<h3 class="anchored" data-anchor-id="code-and-report-quality">Code and report quality</h3>
+<ul>
+<li>Large units of code should be organized into Python source files.</li>
+<li>Document your code. The standard should be to help your future self remember what you did.</li>
+<li>The Quarto report is for communicating your work. Use complete sentences and appropriate prose in describing your approach or thought process.</li>
+</ul>
+</section>
+<section id="tagging-final-submissions" class="level3">
+<h3 class="anchored" data-anchor-id="tagging-final-submissions">Tagging final submissions</h3>
+<ul>
+<li>Use the <a href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">git tag</a> feature to label the final version of your work that should be graded. See the end of <a href="../labs/lab1-submit.html">Lab 1</a> for an example.</li>
+<li>Tags should be lowercase and match the assignment directory; e.g.&nbsp;the assignment in <code>hw1</code> should be tagged as <code>git tag hw1</code> <em>after</em> you’ve made the final commit.</li>
+</ul>
 </section>
 </section>
 <section id="grading-and-feedback" class="level2">
 <h2 class="anchored" data-anchor-id="grading-and-feedback">Grading and feedback</h2>
+<ul>
+<li>The lab assignments are graded as complete/incomplete.</li>
+<li>Homework assignments are graded on a 6-point scale (see below).</li>
+<li>The instructors will create a separate branch, <code>grading</code>, in which you will receive a grade with any relevant feedback. Look for a <code>GRADING.md</code> file within an assignment.</li>
+</ul>
+<p>We will use the following grading scale for homework assignments</p>
+<ul>
+<li><strong>5</strong>
+<ul>
+<li>All relevant code runs and Quarto report is reproducible.</li>
+<li>Complete, working solutions that demonstrate mastery of relevant concepts.</li>
+<li>No lapses in code style, communication, or procedural elements.</li>
+</ul></li>
+<li><strong>4</strong>
+<ul>
+<li>All relevant code runs and Quarto report is reproducible.</li>
+<li>Working solutions with only minor performance issues.</li>
+<li>Minor lapses in code style, communication, or procedural elements.</li>
+</ul></li>
+<li><strong>3</strong>
+<ul>
+<li>All relevant code runs and Quarto report is reproducible.</li>
+<li>Working solutions with only minor performance issues or errors.</li>
+<li>Minor lapses in code style, communication, or procedural elements.</li>
+</ul></li>
+<li><strong>2</strong>
+<ul>
+<li>All relevant code runs and Quarto report is reproducible.</li>
+<li>Solutions or report contain a few major errors.</li>
+<li>Minor lapses in code style, communication, or procedural elements.</li>
+</ul></li>
+<li><strong>1</strong>
+<ul>
+<li>All relevant code runs and Quarto report is reproducible.</li>
+<li>Solutions or report contain several significant errors.</li>
+<li>Significant lapses in code style, communication, or procedural elements</li>
+</ul></li>
+<li><strong>0</strong>
+<ul>
+<li>Code does not run and/or Quarto report is not reproducible.</li>
+<li>Any work submitted after the 24-hour grace period, without permission from the instructor, will also receive this score.</li>
+</ul></li>
+</ul>
+<p>Clarification of terminology:</p>
+<ul>
+<li><strong>Performance issues</strong>: Your code uses more memory or is much slower than it should be.</li>
+<li><strong>Code style</strong>: Choice of variables, formatting, use of comments, and any other elements that make your code readable and easy to reason about.</li>
+<li><strong>Communication</strong>: The Quarto report quality. It needs to be readable, must address any relevant prompts, and adequately convey technical results.</li>
+<li><strong>Procedural elements</strong>: Poor commit discipline (e.g.&nbsp;only 1 commit for the entire assignment), missing Git tag, missing or inadequate commit messages.</li>
+</ul>
+</section>
+<section id="the-process-itself" class="level2">
+<h2 class="anchored" data-anchor-id="the-process-itself">The process itself</h2>
+<p>Review <a href="../labs/lab1-submit.html">Lab 1</a> for a guided tour of the process.</p>
 
 
 </section>
