@@ -1,0 +1,138 @@
+---
+title: "Homework 1"
+subtitle: "Due 10am on October 5, 2026"
+---
+
+## Instructions
+
+## Formatting Requirements
+
+1. Your work should be in the form of a Quarto file named `hw1.qmd`. Python code should appear in code chunks.
+2. You are responsible for ensuring your work is reproducible on someone else's computer. That means:
+    - Verifying that `hw1.qmd` renders properly as an HTML report.
+3. Feel free to strip away instructions or hints in your `hw1.qmd` file. Leave the problem descriptions and prompts intact.
+4. Your homework solutions must be more than code. Most prompts in this assignment, if not all, should have text describing how you approached a problem. Other students in the class should be able to understand your reasoning by reading the text and code comments.
+
+## Problem 1
+
+Before we do any computational work, let's format your Quarto document.
+
+- Quarto's headers are especially sensitive to formatting. This is the place to be nitpicky about spacing and indentation.
+- Make sure your `.qmd` file has your name in the header.
+- Be sure to list any collaborators.
+- Double-check that `engine: jupyter` is set!
+
+## Problem 2
+
+The following small Python programs store values in variables and use the `print()` function to produce an output.
+Treat each code block as a self-contained unit, meaning the code in the first code block has no influence on any subsequent code blocks.
+
+### Tracing the flow of a program
+
+In each case, determine what each program outputs.
+
+```{python}
+#| eval: false
+nephew = 'Jack'
+print(nephew)
+```
+
+```{python}
+#| eval: false
+nephew = 'Jack'
+print('nephew')
+```
+
+```{python}
+#| eval: false
+nephew = 'Jack'
+nephew = 'Albert'
+print(nephew)
+```
+
+```{python}
+#| eval: false
+nephew = 'Jack'
+Nephew = 'Albert'
+print(nephew)
+```
+
+
+
+### Reasoning about errors
+
+The following programs will produce errors in a fresh Python session.
+In each case, explain why each *self-contained* block produces an error.
+
+:::::::::::::::::::::::::::::::: callout-tip
+
+## Hint
+
+To produce the errors yourself, start a fresh Python session in a terminal, copy a code block, and paste it into your Python session.
+Do this for each example to make the code self-contained.
+
+::::::::::::::::::::::::::::::::
+
+```{python}
+#| eval: false
+nephew = Jack
+print(nephew)
+```
+
+```{python}
+#| eval: false
+nephew = 'Jack'
+print(Jack)
+```
+
+```{python}
+#| eval: false
+nephew = 'Jack'
+print(NEPHEW)
+```
+
+```{python}
+#| eval: false
+print(nephew)
+```
+
+
+
+## Problem 3
+
+In this exercise you're going to write some code to help you cook a brilliant lasagna from your favorite cooking book.
+You have four tasks, all related to the time spent cooking the lasagna.
+
+### 1. Store the expected bake time in a constant
+
+Define the `expected_bake_time` constant that returns how many minutes the lasagna should bake in the oven.
+According to the cooking book, lasagna needs to be in the oven for a total of 60 minutes.
+
+### 2. Calculate the preparation time in minutes
+
+Define the `preparation_time` function that takes the number of layers you added to the lasagna as an argument and returns how many minutes you spent preparing the lasagna, assuming each layer takes you 2 minutes to prepare.
+
+### 3. Calculate the remaining oven time in minutes
+
+Define the `remaining_time` function that takes the actual minutes the lasagna has been in the oven as a parameter and returns how many minutes the lasagna still has to remain in the oven.
+
+### 4. Calculate the total working time in minutes
+
+Define the `total_working_time` function that takes two arguments: the first argument is the number of layers you added to the lasagna, and the second argument is the number of minutes the lasagna has been in the oven.
+The function should return how many minutes in total you've worked on cooking the lasagna, which is the sum of the preparation time in minutes, and the time in minutes the lasagna has spent in the oven at the moment.
+
+
+
+## Problem 4
+
+### Checking your work
+
+- Render/preview your report from scratch.
+- Verify that each piece of code executes free of errors.
+    + Do the results match what you saw while working interactively?
+- Verify that the report itself is readable.
+    + Figures (if any) render properly.
+    + Any math set in $\LaTeX$ displays correctly.
+- Polish the report.
+    + Use inline code to report results rather than hard-coding them into the file; e.g. \`\{python\} x\` to reference the value of `x` inline.
+    + Reorganize your code to ensure your thought process is transparent to a reader.
