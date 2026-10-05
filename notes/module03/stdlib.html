@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Arithmetic, Comparisons, and Boolean Algebra</title>
+<title>The Python Standard Library</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -108,36 +108,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../../assets/styles.css">
 </head>
@@ -151,7 +125,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module02/intro.html">Module 2 (Programming)</a></li><li class="breadcrumb-item"><a href="../../notes/module02/basics.html">Arithmetic, Comparisons, and Boolean Algebra</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module03/collections.html">Module 3 (Beyond Basics)</a></li><li class="breadcrumb-item"><a href="../../notes/module03/stdlib.html">The Python Standard Library</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -236,13 +210,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">Module 2 (Programming)</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notes/module02/intro.html" class="sidebar-item-text sidebar-link">
@@ -257,7 +231,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notes/module02/basics.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../notes/module02/basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Arithmetic, Comparisons, and Boolean Algebra</span></a>
   </div>
 </li>
@@ -277,13 +251,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Module 3 (Beyond Basics)</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notes/module03/collections.html" class="sidebar-item-text sidebar-link">
@@ -292,7 +266,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notes/module03/stdlib.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notes/module03/stdlib.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">The Python Standard Library</span></a>
   </div>
 </li>
@@ -483,21 +457,17 @@ window.Quarto = {
    
   <ul>
   <li><a href="#goals" id="toc-goals" class="nav-link active" data-scroll-target="#goals">Goals</a></li>
-  <li><a href="#arithmetic" id="toc-arithmetic" class="nav-link" data-scroll-target="#arithmetic">Arithmetic</a>
+  <li><a href="#what-is-the-python-standard-library" id="toc-what-is-the-python-standard-library" class="nav-link" data-scroll-target="#what-is-the-python-standard-library">What is the Python standard library?</a>
   <ul class="collapse">
-  <li><a href="#operators-for-int" id="toc-operators-for-int" class="nav-link" data-scroll-target="#operators-for-int">Operators for <code>int</code></a></li>
-  <li><a href="#operators-for-float" id="toc-operators-for-float" class="nav-link" data-scroll-target="#operators-for-float">Operators for <code>float</code></a></li>
+  <li><a href="#what-is-a-python-module" id="toc-what-is-a-python-module" class="nav-link" data-scroll-target="#what-is-a-python-module">What is a Python module?</a></li>
+  <li><a href="#what-is-a-python-package" id="toc-what-is-a-python-package" class="nav-link" data-scroll-target="#what-is-a-python-package">What is a Python package?</a></li>
+  <li><a href="#how-do-we-use-them" id="toc-how-do-we-use-them" class="nav-link" data-scroll-target="#how-do-we-use-them">How do we use them?</a></li>
   </ul></li>
-  <li><a href="#logic-and-boolean-algebra" id="toc-logic-and-boolean-algebra" class="nav-link" data-scroll-target="#logic-and-boolean-algebra">Logic and Boolean algebra</a>
+  <li><a href="#numerical-computation" id="toc-numerical-computation" class="nav-link" data-scroll-target="#numerical-computation">Numerical computation</a>
   <ul class="collapse">
-  <li><a href="#logical-not" id="toc-logical-not" class="nav-link" data-scroll-target="#logical-not">Logical NOT</a></li>
-  <li><a href="#logical-or" id="toc-logical-or" class="nav-link" data-scroll-target="#logical-or">Logical OR</a></li>
-  <li><a href="#logical-and" id="toc-logical-and" class="nav-link" data-scroll-target="#logical-and">Logical AND</a></li>
-  <li><a href="#logical-xor" id="toc-logical-xor" class="nav-link" data-scroll-target="#logical-xor">Logical XOR</a></li>
-  </ul></li>
-  <li><a href="#comparisons" id="toc-comparisons" class="nav-link" data-scroll-target="#comparisons">Comparisons</a>
-  <ul class="collapse">
-  <li><a href="#notions-of-equality" id="toc-notions-of-equality" class="nav-link" data-scroll-target="#notions-of-equality">Notions of Equality</a></li>
+  <li><a href="#math" id="toc-math" class="nav-link" data-scroll-target="#math"><code>math</code></a></li>
+  <li><a href="#statistics" id="toc-statistics" class="nav-link" data-scroll-target="#statistics"><code>statistics</code></a></li>
+  <li><a href="#random" id="toc-random" class="nav-link" data-scroll-target="#random"><code>random</code></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -505,9 +475,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module02/intro.html">Module 2 (Programming)</a></li><li class="breadcrumb-item"><a href="../../notes/module02/basics.html">Arithmetic, Comparisons, and Boolean Algebra</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module03/collections.html">Module 3 (Beyond Basics)</a></li><li class="breadcrumb-item"><a href="../../notes/module03/stdlib.html">The Python Standard Library</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Arithmetic, Comparisons, and Boolean Algebra</h1>
+<h1 class="title">The Python Standard Library</h1>
 </div>
 
 
@@ -526,400 +496,261 @@ window.Quarto = {
 
 <section id="goals" class="level2">
 <h2 class="anchored" data-anchor-id="goals">Goals</h2>
+<ol type="1">
+<li>Understand what a Python package is and how to <code>import</code> it in a script or interactive environment.</li>
+<li>Become familiar with a few Python packages relevant to data analysis.</li>
+<li>Learn about the help system in Python, which is useful in learning about functions and objects defined by packages.</li>
+</ol>
 </section>
-<section id="arithmetic" class="level2">
-<h2 class="anchored" data-anchor-id="arithmetic">Arithmetic</h2>
-<p>The numeric types support arithmetic operations using (mostly) recognizable notation.</p>
-<section id="operators-for-int" class="level3">
-<h3 class="anchored" data-anchor-id="operators-for-int">Operators for <code>int</code></h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Operation</th>
-<th style="text-align: center;">Symbol</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Positive, Addition</td>
-<td style="text-align: center;"><code>+</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Negation, Subtraction</td>
-<td style="text-align: center;"><code>-</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Multiplication</td>
-<td style="text-align: center;"><code>*</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Division</td>
-<td style="text-align: center;"><code>/</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Euclidean Division</td>
-<td style="text-align: center;"><code>//</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Modulo / Remainder</td>
-<td style="text-align: center;"><code>%</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Exponentiation</td>
-<td style="text-align: center;"><code>**</code></td>
-</tr>
-</tbody>
-</table>
-<div id="9046cdc6" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="dv">5</span><span class="op">/</span><span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>2.5</code></pre>
-</div>
-</div>
-<div id="d5e2dbf5" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="bu">type</span>(<span class="dv">5</span><span class="op">/</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
-<pre><code>float</code></pre>
-</div>
-</div>
-<div id="d1b6c4a5" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a><span class="dv">5</span><span class="op">//</span><span class="dv">2</span> <span class="co"># Euclidean/floor division discards the fractional part</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>2</code></pre>
-</div>
-</div>
-<div id="fde434f6" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-label="1"></a><span class="bu">type</span>(<span class="dv">5</span><span class="op">//</span><span class="dv">2</span>) <span class="co"># still int</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>int</code></pre>
-</div>
-</div>
-<div id="3dd71725" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a><span class="op">-</span><span class="dv">5</span><span class="op">//</span><span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>-3</code></pre>
-</div>
-</div>
-<div id="d06f753b" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a><span class="fl">5.0</span><span class="op">//</span><span class="fl">2.0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
-<pre><code>2.0</code></pre>
-</div>
-</div>
-<div id="7f22df59" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-label="1"></a><span class="dv">5</span> <span class="op">%</span> <span class="dv">3</span> <span class="co"># modulo operator returns the remainder of the division </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>2</code></pre>
-</div>
-</div>
-<div id="a994f164" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-label="1"></a><span class="dv">4</span> <span class="op">**</span> <span class="dv">3</span> <span class="co"># 4 to the power of 3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>64</code></pre>
-</div>
-</div>
-</section>
-<section id="operators-for-float" class="level3">
-<h3 class="anchored" data-anchor-id="operators-for-float">Operators for <code>float</code></h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Operation</th>
-<th style="text-align: left;">Symbol</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Positive, Addition</td>
-<td style="text-align: left;"><code>+</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Negation, Subtraction</td>
-<td style="text-align: left;"><code>-</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Multiplication</td>
-<td style="text-align: left;"><code>*</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Division</td>
-<td style="text-align: left;"><code>/</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Exponentiation</td>
-<td style="text-align: left;"><code>**</code></td>
-</tr>
-</tbody>
-</table>
-<p>The future value of a financial instrument under compound interest is</p>
-<p><span class="math display">\[
-\text{FV} = \text{PV} \times (1 + r)^{n},
-\]</span></p>
-<p>where <span class="math inline">\(r\)</span> is the rate of return and <span class="math inline">\(n\)</span> denotes the number of periods. We can use Python to do this calculation:</p>
-<div id="d44725b1" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-label="1"></a>pv <span class="op">=</span> <span class="fl">100.0</span> <span class="co"># one lump-sum investment</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-label="2"></a>r <span class="op">=</span> <span class="fl">0.07</span>   <span class="co"># annual rate</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-label="3"></a>n <span class="op">=</span> <span class="dv">10</span>     <span class="co"># 10 years</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-label="4"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-label="5"></a>fv <span class="op">=</span> pv <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> r) <span class="op">**</span> n</span>
-<span id="cb17-6"><a href="#cb17-6" aria-label="6"></a>fv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>196.71513572895665</code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="logic-and-boolean-algebra" class="level2">
-<h2 class="anchored" data-anchor-id="logic-and-boolean-algebra">Logic and Boolean algebra</h2>
-<p>Logical operations in Python are designed around binary-valued logic: <code>True</code> and <code>False</code> (note capitalization)</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Operation</th>
-<th style="text-align: center;">Symbol</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Logical AND</td>
-<td style="text-align: center;"><code>and</code>, <code>&amp;</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Logical OR</td>
-<td style="text-align: center;"><code>or</code>, <code>|</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Logical NOT</td>
-<td style="text-align: center;"><code>not</code></td>
-</tr>
-</tbody>
-</table>
-<div id="b32b5cb7" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a><span class="va">True</span> <span class="kw">and</span> <span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>False</code></pre>
-</div>
-</div>
-<div id="6f626cc0" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-label="1"></a><span class="va">True</span> <span class="op">|</span> <span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
-<pre><code>True</code></pre>
-</div>
-</div>
-<p>The following tables illustrate the outputs of logical operations given certain inputs. Note that <code>not</code> takes one argument while <code>or</code> and <code>and</code> are binary operators. You should try filling out the incomplete tables, especially if you have never worked with Boolean algebra before.</p>
-<section id="logical-not" class="level3">
-<h3 class="anchored" data-anchor-id="logical-not">Logical NOT</h3>
-<p>Negates the input.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;"><code>not</code></th>
-<th style="text-align: center;"><code>True</code></th>
-<th style="text-align: center;"><code>False</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><code>False</code></td>
-<td style="text-align: center;"><code>True</code></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="logical-or" class="level3">
-<h3 class="anchored" data-anchor-id="logical-or">Logical OR</h3>
-<p><code>True</code> if at least one of its arguments is <code>True</code>.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;"><code>or</code></th>
-<th style="text-align: center;"><code>True</code></th>
-<th style="text-align: center;"><code>False</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><code>True</code></td>
-<td style="text-align: center;"><code>True</code></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><code>False</code></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="logical-and" class="level3">
-<h3 class="anchored" data-anchor-id="logical-and">Logical AND</h3>
-<p><code>False</code> if at least one of its arguments is <code>False</code>.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;"><code>and</code></th>
-<th style="text-align: center;"><code>True</code></th>
-<th style="text-align: center;"><code>False</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><code>True</code></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><code>False</code></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><code>False</code></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="logical-xor" class="level3">
-<h3 class="anchored" data-anchor-id="logical-xor">Logical XOR</h3>
-<p><code>True</code> if <strong>one and only one</strong> of its arguments is <code>True</code>.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;"><code>^</code></th>
-<th style="text-align: center;"><code>True</code></th>
-<th style="text-align: center;"><code>False</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><code>True</code></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><code>False</code></td>
-<td style="text-align: center;"><code>True</code></td>
-<td style="text-align: center;"></td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="comparisons" class="level2">
-<h2 class="anchored" data-anchor-id="comparisons">Comparisons</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Operation</th>
-<th style="text-align: center;">Symbol</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Equality (in value)</td>
-<td style="text-align: center;"><code>==</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Not Equal</td>
-<td style="text-align: center;"><code>!=</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Greater (Less) Than</td>
-<td style="text-align: center;"><code>&gt;</code>, <code>&lt;</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Greater (Less) Than or Equal</td>
-<td style="text-align: center;"><code>&gt;=</code>, <code>&lt;=</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Exact Equality</td>
-<td style="text-align: center;"><code>is</code></td>
-</tr>
-</tbody>
-</table>
-<p>Boolean algebra provides a mechanism to <strong>combine</strong> logical statements. Comparisons on data types allow us to check various conditions. This functionality will become important later in using conditional code.</p>
-<div id="9ccc468c" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-label="1"></a><span class="dv">5</span> <span class="op">&gt;</span> <span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>True</code></pre>
-</div>
-</div>
-<div id="790961e9" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-label="1"></a><span class="dv">5</span> <span class="op">&gt;=</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
-<pre><code>True</code></pre>
-</div>
-</div>
-<p>As an example application, suppose you run an e-commerce business and want to extend a promotion to certain customers. You have a few requirements:</p>
+<section id="what-is-the-python-standard-library" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-the-python-standard-library">What is the Python standard library?</h2>
+<p>By now we have encountered various symbols in the Python language representing language constructs, built-in functions, and type constructors. In principle, you could use these tools to build up <em>almost</em> any tools you might need; for example, you could write a tool to read a spreadsheet file and represent its data within Python. Fortunately, many important functions for analytics have already been written by experts and are available as *modules</p>
+<p>It behooves any programmer to become familiar with <em>the standard library</em> of any language, which is a collection of code modules that are part of the language but kept separate for several reasons.</p>
 <ul>
-<li>The customer should <strong>NOT</strong> be blacklisted by your business.</li>
-<li>For free shipping: The customer meets a minimum spend threshold <strong>AND</strong> is known to be a repeat customer.</li>
-<li>For an extra discount: The customer is a repeat customer <strong>OR</strong> is already using a coupon.</li>
+<li><strong>Keeping an uncluttered namespace by default</strong>.
+<ul>
+<li>When you start up an interactive Python session, you have access to various functions and object types by default.</li>
+<li>Separating some functionality into modules lets a user opt-in to features they would like to use.</li>
+<li>This helps keep names as simple as possible.</li>
+</ul></li>
+<li><strong>Ease of maintenance</strong>.
+<ul>
+<li>Several developers work on the core Python language.</li>
+<li>Keeping some features, like the <code>math</code> module, separate from the core language allows people to work on the core language without blocking improvements and bug fixes in the <code>math</code> module, and <em>vice versa</em>.</li>
+</ul></li>
+<li><strong>Code organization</strong>.
+<ul>
+<li>The details of how to compute <code>sin(x)</code> within the <code>math</code> module has little to do with how a computer reads a comma-separated values (CSV) file.</li>
+<li>Grouping related concepts under a particular module creates a <strong>namespace</strong>, a universe of related symbols.</li>
+<li>Namespaces make it easier for people to discover and use functions.</li>
+</ul></li>
 </ul>
-<p>These checks can be implemented using comparison + Boolean operators.</p>
-<div id="7ad91577" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-label="1"></a><span class="co"># data</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-label="2"></a>is_blacklisted <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-label="3"></a>is_loyalty_member <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-label="4"></a>order_total <span class="op">=</span> <span class="fl">74.89</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-label="5"></a>has_coupon <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-label="6"></a></span>
-<span id="cb27-7"><a href="#cb27-7" aria-label="7"></a><span class="co"># checks</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-label="8"></a>is_safe_customer <span class="op">=</span> <span class="kw">not</span> is_blacklisted</span>
-<span id="cb27-9"><a href="#cb27-9" aria-label="9"></a>qualifies_for_shipping <span class="op">=</span> order_total <span class="op">&gt;=</span> <span class="dv">75</span> <span class="kw">and</span> is_loyalty_member</span>
-<span id="cb27-10"><a href="#cb27-10" aria-label="10"></a>qualifies_for_discount <span class="op">=</span> is_loyalty_member <span class="kw">or</span> has_coupon</span>
-<span id="cb27-11"><a href="#cb27-11" aria-label="11"></a>final_approval <span class="op">=</span> is_safe_customer <span class="kw">and</span> (qualifies_for_shipping <span class="kw">or</span> qualifies_for_discount)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="what-is-a-python-module" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-a-python-module">What is a Python module?</h3>
+<p>A <strong>Python module</strong> is a <em>file</em> of Python code written to implement a set of related functions and objects.</p>
+<ul>
+<li>Can be (but not always) implemented as a simple <code>.py</code> file.</li>
+<li>Defines a namespace so that function names are relatively simple, at least within a module.</li>
+<li>Can use functionality from other modules.</li>
+<li>We will write our own Python modules in the future.</li>
+</ul>
+</section>
+<section id="what-is-a-python-package" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-a-python-package">What is a Python package?</h3>
+<p>A <strong>Python package</strong> is a collection of related <em>Python modules</em>.</p>
+<ul>
+<li>Can be a single directory containing modules, or a directory with subdirectories.</li>
+<li>Again, the purpose is to organize related concepts, functions, and objects while controlling namespaces.</li>
+<li>There is an additional structure to packages that we will discuss at a later date.</li>
+</ul>
+</section>
+<section id="how-do-we-use-them" class="level3">
+<h3 class="anchored" data-anchor-id="how-do-we-use-them">How do we use them?</h3>
+<p>Conceptually, a Python <em>module</em> and a Python <em>package</em> are nearly identical and this is essentially the case from a user perspective. Any time we want to use one of these tools, we must <strong>import</strong> the module/package. The syntax for using functions and objects from an imported module/package will depend on <em>how</em> we import it.</p>
+<p>The following examples illustrate the most common ways programmers import code from modules/packages.</p>
+<section id="example-1-import" class="level4">
+<h4 class="anchored" data-anchor-id="example-1-import">Example 1: <code>import</code></h4>
+<p>The following makes the <code>math</code> module available in the current scope.</p>
+<div id="d4eb0b0b" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="im">import</span> math</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="3af371df" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-label="1"></a><span class="bu">print</span>(<span class="ss">f"Is this a safe customer? </span><span class="sc">{</span>is_safe_customer<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-label="2"></a><span class="bu">print</span>(<span class="ss">f"Do they qualify for free shipping? </span><span class="sc">{</span>qualifies_for_shipping<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-label="3"></a><span class="bu">print</span>(<span class="ss">f"Do they qualify for a discount? </span><span class="sc">{</span>qualifies_for_discount<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb28-4"><a href="#cb28-4" aria-label="4"></a><span class="bu">print</span>(<span class="ss">f"Do they receive the promotional offer? </span><span class="sc">{</span>final_approval<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now we can reference functions and objects by prepending <code>math.</code> to calls and references.</p>
+<div id="ff65a53f" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>math.sqrt(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>1.4142135623730951</code></pre>
+</div>
+</div>
+<p>If you do this with a <em>package</em>, you only import functions and object types defined directly within the named package. For performance reasons, you must specifically import any submodules you wish to use. The following code fails because <code>request</code> is a submodule of <code>urllib</code>, which is not imported below.</p>
+<div id="029c2f6b" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a><span class="im">import</span> urllib</span>
+<span id="cb4-2"><a href="#cb4-2" aria-label="2"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-label="3"></a>urllib.request.urlopen(<span class="st">"https://example.com"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[3]</span><span class="ansi-green-fg">, line 3</span>
+<span class="ansi-green-fg">      1</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> urllib
+<span class="ansi-green-fg">      2</span> 
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">3</span> urllib.request.urlopen(<span class="ansi-yellow-fg">"https://example.com"</span>)
+
+<span class="ansi-red-fg">AttributeError</span>: module 'urllib' has no attribute 'request'</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="example-2-from-module-import-function-or-class" class="level4">
+<h4 class="anchored" data-anchor-id="example-2-from-module-import-function-or-class">Example 2: <code>from &lt;module&gt; import &lt;function or class&gt;</code></h4>
+<p>If you want to import specific functions or object types, use the <code>from X import Y, Z</code> syntax. This lets you use imports without qualification.</p>
+<div id="0fcd9bae" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a><span class="im">from</span> statistics <span class="im">import</span> mean, median</span>
+<span id="cb5-2"><a href="#cb5-2" aria-label="2"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-label="3"></a>mydata <span class="op">=</span> [<span class="dv">100</span>, <span class="dv">92</span>, <span class="dv">79</span>, <span class="dv">85</span>]</span>
+<span id="cb5-4"><a href="#cb5-4" aria-label="4"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-label="5"></a><span class="bu">print</span>(<span class="ss">f"The mean is </span><span class="sc">{</span>mean(mydata)<span class="sc">}</span><span class="ss"> and the median is </span><span class="sc">{</span>median(mydata)<span class="sc">}</span><span class="ss">."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Is this a safe customer? True
-Do they qualify for free shipping? False
-Do they qualify for a discount? True
-Do they receive the promotional offer? True</code></pre>
+<pre><code>The mean is 89 and the median is 88.5.</code></pre>
 </div>
 </div>
-<section id="notions-of-equality" class="level3">
-<h3 class="anchored" data-anchor-id="notions-of-equality">Notions of Equality</h3>
-<p>Python distinguishes between two notions of equality.</p>
-<div id="9c12a353" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-label="1"></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>] <span class="co"># this is a list</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-label="2"></a>y <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>] <span class="co"># also a list</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="example-3-import-...-as-..." class="level4">
+<h4 class="anchored" data-anchor-id="example-3-import-...-as-...">Example 3: <code>import ... as ...</code></h4>
+<p>Use this import style to <em>alias</em> a module name to a shorter one. Many Python modules/packages have canonical aliases. The following is a common shorthand for the Pandas package, which we will learn about later in the course. It has already been installed for you when you set up the class Docker container.</p>
+<div id="b266c8a7" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-label="1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb7-2"><a href="#cb7-2" aria-label="2"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-label="3"></a>pd.DataFrame({<span class="st">'name'</span>: [<span class="st">'Alice'</span>, <span class="st">'Bob'</span>, <span class="st">'Carlos'</span>], <span class="st">'age'</span>: [<span class="dv">28</span>, <span class="dv">29</span>, <span class="dv">35</span>]})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">age</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Alice</td>
+<td>28</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Bob</td>
+<td>29</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Carlos</td>
+<td>35</td>
+</tr>
+</tbody>
+</table>
+
 </div>
-<p>The <code>==</code> operator is for <em>equality in value</em>:</p>
-<div id="8fe9ed4a" class="cell" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-label="1"></a>x <span class="op">==</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+<section id="example-4-from-module-import-submodule" class="level4">
+<h4 class="anchored" data-anchor-id="example-4-from-module-import-submodule">Example 4: <code>from &lt;module&gt; import &lt;submodule&gt;</code></h4>
+<p>Similar to Example 2 above, this lets you import submodules without qualification.</p>
+<div id="ee377f6e" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a><span class="im">from</span> urllib <span class="im">import</span> request</span>
+<span id="cb8-2"><a href="#cb8-2" aria-label="2"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-label="3"></a>request.urlopen(<span class="st">"https://example.com"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>&lt;http.client.HTTPResponse at 0x7f7a3fbed660&gt;</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="numerical-computation" class="level2">
+<h2 class="anchored" data-anchor-id="numerical-computation">Numerical computation</h2>
+<section id="math" class="level3">
+<h3 class="anchored" data-anchor-id="math"><code>math</code></h3>
+<p>Various math-related functions.</p>
+<div id="3e6fe3a5" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a><span class="co"># A = P * e^(r*t), continuously compunded interest formula</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-label="2"></a><span class="kw">def</span> future_value_cts(principal, rate, time):</span>
+<span id="cb10-3"><a href="#cb10-3" aria-label="3"></a>  <span class="cf">return</span> principal <span class="op">*</span> math.exp(rate <span class="op">*</span> time)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-label="4"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-label="5"></a>future_value_cts(<span class="fl">100.0</span>, <span class="fl">0.05</span>, <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>110.51709180756477</code></pre>
+</div>
+</div>
+<div id="10e3068a" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a><span class="kw">def</span> circle_area(radius):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-label="2"></a>  <span class="cf">return</span> math.pi <span class="op">*</span> radius<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-label="3"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-label="4"></a>circle_area(<span class="fl">1.</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>3.141592653589793</code></pre>
+</div>
+</div>
+<div id="26490c1c" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-label="1"></a>math.log(math.exp(<span class="dv">1</span>)) <span class="co"># natural logarithm</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>1.0</code></pre>
+</div>
+</div>
+<div id="cc9e420a" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-label="1"></a>math.log10(<span class="fl">10.0</span>) <span class="co"># base 10 logarithm</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>1.0</code></pre>
+</div>
+</div>
+</section>
+<section id="statistics" class="level3">
+<h3 class="anchored" data-anchor-id="statistics"><code>statistics</code></h3>
+<p>Implements various concepts in statistics. We will use this package sparingly as there is a much richer functionality implemented in other Python packages.</p>
+<div id="c4589932" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-label="1"></a><span class="im">from</span> statistics <span class="im">import</span> mean, median, variance, stdev, quantiles</span>
+<span id="cb18-2"><a href="#cb18-2" aria-label="2"></a>salaries <span class="op">=</span> [<span class="dv">100000</span>, <span class="dv">110000</span>, <span class="dv">80000</span>, <span class="dv">320000</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="e8a86b98" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a>mean(salaries)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>152500</code></pre>
+</div>
+</div>
+<div id="17a8358f" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-label="1"></a>variance(salaries)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>12625000000</code></pre>
+</div>
+</div>
+<div id="63aff218" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-label="1"></a>stdev(salaries)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>112361.02527122117</code></pre>
+</div>
+</div>
+<div id="4f88ce48" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-label="1"></a>quantiles(salaries, n <span class="op">=</span> <span class="dv">2</span>) <span class="co"># returns median</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>[105000.0]</code></pre>
+</div>
+</div>
+<div id="afeae7d0" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-label="1"></a>quantiles(salaries, n <span class="op">=</span> <span class="dv">4</span>) <span class="co"># returns quartiles, Q1, Q2 (median), Q3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>[85000.0, 105000.0, 267500.0]</code></pre>
+</div>
+</div>
+</section>
+<section id="random" class="level3">
+<h3 class="anchored" data-anchor-id="random"><code>random</code></h3>
+<p>Used to sample from “brand name” distributions or collections in Python. We will later defer to <code>numpy.random</code> once we discuss the Numpy package.</p>
+<div id="45ac73b7" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-label="1"></a><span class="im">import</span> random</span>
+<span id="cb29-2"><a href="#cb29-2" aria-label="2"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-label="3"></a><span class="co"># Normal distribution with mean 10 and standard deviation 1</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-label="4"></a>random.normalvariate(mu <span class="op">=</span> <span class="fl">10.0</span>, sigma <span class="op">=</span> <span class="fl">1.0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
-<pre><code>True</code></pre>
+<pre><code>9.507470636967993</code></pre>
 </div>
 </div>
-<p>The <code>is</code> operator is for <em>exact equality</em> (meaning a computer cannot distinguish these two objects):</p>
-<div id="2f3dad91" class="cell" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-label="1"></a>x <span class="kw">is</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
-<pre><code>False</code></pre>
+<div id="4d029df7" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-label="1"></a><span class="co"># make it reproducible with a seed</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-label="2"></a>random.seed(<span class="dv">1234</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-label="3"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-label="4"></a>x <span class="op">=</span> [<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Carlos"</span>]</span>
+<span id="cb31-5"><a href="#cb31-5" aria-label="5"></a><span class="bu">print</span>(random.choice(x))</span>
+<span id="cb31-6"><a href="#cb31-6" aria-label="6"></a><span class="bu">print</span>(random.choice(x))</span>
+<span id="cb31-7"><a href="#cb31-7" aria-label="7"></a><span class="bu">print</span>(random.choice(x))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Bob
+Alice
+Alice</code></pre>
 </div>
 </div>
-<p>The reason the last example is <code>False</code> is that <code>x</code> and <code>y</code> are bound to <em>different instances</em> of a <code>list</code> object. The two objects therefore differ in how they are stored in memory.</p>
-<p>In contrast, the same comparisons all evaluate to <code>True</code> in the following example.</p>
-<div id="1279a2a6" class="cell" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-label="1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-label="2"></a>y <span class="op">=</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="f4fb654d" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-label="1"></a>x <span class="op">==</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
-<pre><code>True</code></pre>
-</div>
-</div>
-<div id="d3d94b59" class="cell" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-label="1"></a>x <span class="kw">is</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>True</code></pre>
-</div>
-</div>
-<p>The reason is that <code>int</code> objects are completely determined by their bits, so it is impossible for Python to distinguish <em>that</em> <code>1</code> from <em>that other</em> <code>1</code>.</p>
 
 
 </section>

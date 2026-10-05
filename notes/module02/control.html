@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Arithmetic, Comparisons, and Boolean Algebra</title>
+<title>Control Flow</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -109,35 +109,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../../assets/styles.css">
 </head>
@@ -151,7 +122,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module02/intro.html">Module 2 (Programming)</a></li><li class="breadcrumb-item"><a href="../../notes/module02/basics.html">Arithmetic, Comparisons, and Boolean Algebra</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module02/intro.html">Module 2 (Programming)</a></li><li class="breadcrumb-item"><a href="../../notes/module02/control.html">Control Flow</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -257,7 +228,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notes/module02/basics.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../notes/module02/basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Arithmetic, Comparisons, and Boolean Algebra</span></a>
   </div>
 </li>
@@ -269,7 +240,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notes/module02/control.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notes/module02/control.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Control Flow</span></a>
   </div>
 </li>
@@ -483,31 +454,32 @@ window.Quarto = {
    
   <ul>
   <li><a href="#goals" id="toc-goals" class="nav-link active" data-scroll-target="#goals">Goals</a></li>
-  <li><a href="#arithmetic" id="toc-arithmetic" class="nav-link" data-scroll-target="#arithmetic">Arithmetic</a>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#conditional-statements" id="toc-conditional-statements" class="nav-link" data-scroll-target="#conditional-statements">Conditional statements</a>
   <ul class="collapse">
-  <li><a href="#operators-for-int" id="toc-operators-for-int" class="nav-link" data-scroll-target="#operators-for-int">Operators for <code>int</code></a></li>
-  <li><a href="#operators-for-float" id="toc-operators-for-float" class="nav-link" data-scroll-target="#operators-for-float">Operators for <code>float</code></a></li>
+  <li><a href="#example-checking-for-an-empty-collection" id="toc-example-checking-for-an-empty-collection" class="nav-link" data-scroll-target="#example-checking-for-an-empty-collection">Example: Checking for an empty collection</a></li>
+  <li><a href="#example-a-coin-flip" id="toc-example-a-coin-flip" class="nav-link" data-scroll-target="#example-a-coin-flip">Example: A coin flip</a></li>
+  <li><a href="#shorthands" id="toc-shorthands" class="nav-link" data-scroll-target="#shorthands">Shorthands</a></li>
+  <li><a href="#example-writing-a-quick-message" id="toc-example-writing-a-quick-message" class="nav-link" data-scroll-target="#example-writing-a-quick-message">Example: Writing a quick message</a></li>
   </ul></li>
-  <li><a href="#logic-and-boolean-algebra" id="toc-logic-and-boolean-algebra" class="nav-link" data-scroll-target="#logic-and-boolean-algebra">Logic and Boolean algebra</a>
+  <li><a href="#repeated-evaluation" id="toc-repeated-evaluation" class="nav-link" data-scroll-target="#repeated-evaluation">Repeated Evaluation</a>
   <ul class="collapse">
-  <li><a href="#logical-not" id="toc-logical-not" class="nav-link" data-scroll-target="#logical-not">Logical NOT</a></li>
-  <li><a href="#logical-or" id="toc-logical-or" class="nav-link" data-scroll-target="#logical-or">Logical OR</a></li>
-  <li><a href="#logical-and" id="toc-logical-and" class="nav-link" data-scroll-target="#logical-and">Logical AND</a></li>
-  <li><a href="#logical-xor" id="toc-logical-xor" class="nav-link" data-scroll-target="#logical-xor">Logical XOR</a></li>
+  <li><a href="#for-loop" id="toc-for-loop" class="nav-link" data-scroll-target="#for-loop"><code>for</code> Loop</a></li>
+  <li><a href="#while-loop" id="toc-while-loop" class="nav-link" data-scroll-target="#while-loop"><code>while</code> Loop</a></li>
+  <li><a href="#loop-overrides" id="toc-loop-overrides" class="nav-link" data-scroll-target="#loop-overrides">Loop Overrides</a></li>
+  <li><a href="#compatibility-with-iterators" id="toc-compatibility-with-iterators" class="nav-link" data-scroll-target="#compatibility-with-iterators">Compatibility with Iterators</a></li>
   </ul></li>
-  <li><a href="#comparisons" id="toc-comparisons" class="nav-link" data-scroll-target="#comparisons">Comparisons</a>
-  <ul class="collapse">
-  <li><a href="#notions-of-equality" id="toc-notions-of-equality" class="nav-link" data-scroll-target="#notions-of-equality">Notions of Equality</a></li>
-  </ul></li>
+  <li><a href="#example-displaying-a-tic-tac-toe-board" id="toc-example-displaying-a-tic-tac-toe-board" class="nav-link" data-scroll-target="#example-displaying-a-tic-tac-toe-board">Example: Displaying a Tic-Tac-Toe board</a></li>
+  <li><a href="#example-for-vs-while" id="toc-example-for-vs-while" class="nav-link" data-scroll-target="#example-for-vs-while">Example: <code>for</code> vs <code>while</code></a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module02/intro.html">Module 2 (Programming)</a></li><li class="breadcrumb-item"><a href="../../notes/module02/basics.html">Arithmetic, Comparisons, and Boolean Algebra</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module02/intro.html">Module 2 (Programming)</a></li><li class="breadcrumb-item"><a href="../../notes/module02/control.html">Control Flow</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Arithmetic, Comparisons, and Boolean Algebra</h1>
+<h1 class="title">Control Flow</h1>
 </div>
 
 
@@ -526,403 +498,339 @@ window.Quarto = {
 
 <section id="goals" class="level2">
 <h2 class="anchored" data-anchor-id="goals">Goals</h2>
+<ol type="1">
+<li>Use conditional statements to implement conditional logic in a script or function.</li>
+<li>Use <code>for</code> and <code>while</code> for repeated evaluation in a script or function.</li>
+<li>Practice combining various language constructs in examples.</li>
+</ol>
 </section>
-<section id="arithmetic" class="level2">
-<h2 class="anchored" data-anchor-id="arithmetic">Arithmetic</h2>
-<p>The numeric types support arithmetic operations using (mostly) recognizable notation.</p>
-<section id="operators-for-int" class="level3">
-<h3 class="anchored" data-anchor-id="operators-for-int">Operators for <code>int</code></h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Operation</th>
-<th style="text-align: center;">Symbol</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Positive, Addition</td>
-<td style="text-align: center;"><code>+</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Negation, Subtraction</td>
-<td style="text-align: center;"><code>-</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Multiplication</td>
-<td style="text-align: center;"><code>*</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Division</td>
-<td style="text-align: center;"><code>/</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Euclidean Division</td>
-<td style="text-align: center;"><code>//</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Modulo / Remainder</td>
-<td style="text-align: center;"><code>%</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Exponentiation</td>
-<td style="text-align: center;"><code>**</code></td>
-</tr>
-</tbody>
-</table>
-<div id="9046cdc6" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="dv">5</span><span class="op">/</span><span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>2.5</code></pre>
-</div>
-</div>
-<div id="d5e2dbf5" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="bu">type</span>(<span class="dv">5</span><span class="op">/</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
-<pre><code>float</code></pre>
-</div>
-</div>
-<div id="d1b6c4a5" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a><span class="dv">5</span><span class="op">//</span><span class="dv">2</span> <span class="co"># Euclidean/floor division discards the fractional part</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>2</code></pre>
-</div>
-</div>
-<div id="fde434f6" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-label="1"></a><span class="bu">type</span>(<span class="dv">5</span><span class="op">//</span><span class="dv">2</span>) <span class="co"># still int</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>int</code></pre>
-</div>
-</div>
-<div id="3dd71725" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a><span class="op">-</span><span class="dv">5</span><span class="op">//</span><span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>-3</code></pre>
-</div>
-</div>
-<div id="d06f753b" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a><span class="fl">5.0</span><span class="op">//</span><span class="fl">2.0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
-<pre><code>2.0</code></pre>
-</div>
-</div>
-<div id="7f22df59" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-label="1"></a><span class="dv">5</span> <span class="op">%</span> <span class="dv">3</span> <span class="co"># modulo operator returns the remainder of the division </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>2</code></pre>
-</div>
-</div>
-<div id="a994f164" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-label="1"></a><span class="dv">4</span> <span class="op">**</span> <span class="dv">3</span> <span class="co"># 4 to the power of 3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>64</code></pre>
-</div>
-</div>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Literals, variables, and built-in/package functions are quite useful but insufficient for writing complex scripts and programs. Here we briefly review syntax for conditional statements and repeated evaluation. Along with functions, these two concepts vastly increase the expressiveness of any programming language.</p>
 </section>
-<section id="operators-for-float" class="level3">
-<h3 class="anchored" data-anchor-id="operators-for-float">Operators for <code>float</code></h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Operation</th>
-<th style="text-align: left;">Symbol</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Positive, Addition</td>
-<td style="text-align: left;"><code>+</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Negation, Subtraction</td>
-<td style="text-align: left;"><code>-</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Multiplication</td>
-<td style="text-align: left;"><code>*</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Division</td>
-<td style="text-align: left;"><code>/</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Exponentiation</td>
-<td style="text-align: left;"><code>**</code></td>
-</tr>
-</tbody>
-</table>
-<p>The future value of a financial instrument under compound interest is</p>
-<p><span class="math display">\[
-\text{FV} = \text{PV} \times (1 + r)^{n},
-\]</span></p>
-<p>where <span class="math inline">\(r\)</span> is the rate of return and <span class="math inline">\(n\)</span> denotes the number of periods. We can use Python to do this calculation:</p>
-<div id="d44725b1" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-label="1"></a>pv <span class="op">=</span> <span class="fl">100.0</span> <span class="co"># one lump-sum investment</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-label="2"></a>r <span class="op">=</span> <span class="fl">0.07</span>   <span class="co"># annual rate</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-label="3"></a>n <span class="op">=</span> <span class="dv">10</span>     <span class="co"># 10 years</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-label="4"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-label="5"></a>fv <span class="op">=</span> pv <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> r) <span class="op">**</span> n</span>
-<span id="cb17-6"><a href="#cb17-6" aria-label="6"></a>fv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>196.71513572895665</code></pre>
+<section id="conditional-statements" class="level2">
+<h2 class="anchored" data-anchor-id="conditional-statements">Conditional statements</h2>
+<p>Conditional statements allow a program to change its behavior based on some state, usually captured by one or more variables.</p>
+<div id="79cdaba1" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="cf">if</span> condition1:</span>
+<span id="cb1-2"><a href="#cb1-2" aria-label="2"></a>  <span class="co"># do something</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-label="3"></a><span class="cf">elif</span> condition2: <span class="co"># else if</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-label="4"></a>  <span class="co"># do something</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-label="5"></a><span class="cf">else</span>:</span>
+<span id="cb1-6"><a href="#cb1-6" aria-label="6"></a>  <span class="co"># do something</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
-</section>
-</section>
-<section id="logic-and-boolean-algebra" class="level2">
-<h2 class="anchored" data-anchor-id="logic-and-boolean-algebra">Logic and Boolean algebra</h2>
-<p>Logical operations in Python are designed around binary-valued logic: <code>True</code> and <code>False</code> (note capitalization)</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Operation</th>
-<th style="text-align: center;">Symbol</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Logical AND</td>
-<td style="text-align: center;"><code>and</code>, <code>&amp;</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Logical OR</td>
-<td style="text-align: center;"><code>or</code>, <code>|</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Logical NOT</td>
-<td style="text-align: center;"><code>not</code></td>
-</tr>
-</tbody>
-</table>
-<div id="b32b5cb7" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a><span class="va">True</span> <span class="kw">and</span> <span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>False</code></pre>
-</div>
-</div>
-<div id="6f626cc0" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-label="1"></a><span class="va">True</span> <span class="op">|</span> <span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
-<pre><code>True</code></pre>
-</div>
-</div>
-<p>The following tables illustrate the outputs of logical operations given certain inputs. Note that <code>not</code> takes one argument while <code>or</code> and <code>and</code> are binary operators. You should try filling out the incomplete tables, especially if you have never worked with Boolean algebra before.</p>
-<section id="logical-not" class="level3">
-<h3 class="anchored" data-anchor-id="logical-not">Logical NOT</h3>
-<p>Negates the input.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;"><code>not</code></th>
-<th style="text-align: center;"><code>True</code></th>
-<th style="text-align: center;"><code>False</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><code>False</code></td>
-<td style="text-align: center;"><code>True</code></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="logical-or" class="level3">
-<h3 class="anchored" data-anchor-id="logical-or">Logical OR</h3>
-<p><code>True</code> if at least one of its arguments is <code>True</code>.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;"><code>or</code></th>
-<th style="text-align: center;"><code>True</code></th>
-<th style="text-align: center;"><code>False</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><code>True</code></td>
-<td style="text-align: center;"><code>True</code></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><code>False</code></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="logical-and" class="level3">
-<h3 class="anchored" data-anchor-id="logical-and">Logical AND</h3>
-<p><code>False</code> if at least one of its arguments is <code>False</code>.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;"><code>and</code></th>
-<th style="text-align: center;"><code>True</code></th>
-<th style="text-align: center;"><code>False</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><code>True</code></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><code>False</code></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><code>False</code></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="logical-xor" class="level3">
-<h3 class="anchored" data-anchor-id="logical-xor">Logical XOR</h3>
-<p><code>True</code> if <strong>one and only one</strong> of its arguments is <code>True</code>.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;"><code>^</code></th>
-<th style="text-align: center;"><code>True</code></th>
-<th style="text-align: center;"><code>False</code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><code>True</code></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><code>False</code></td>
-<td style="text-align: center;"><code>True</code></td>
-<td style="text-align: center;"></td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="comparisons" class="level2">
-<h2 class="anchored" data-anchor-id="comparisons">Comparisons</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Operation</th>
-<th style="text-align: center;">Symbol</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Equality (in value)</td>
-<td style="text-align: center;"><code>==</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Not Equal</td>
-<td style="text-align: center;"><code>!=</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Greater (Less) Than</td>
-<td style="text-align: center;"><code>&gt;</code>, <code>&lt;</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Greater (Less) Than or Equal</td>
-<td style="text-align: center;"><code>&gt;=</code>, <code>&lt;=</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Exact Equality</td>
-<td style="text-align: center;"><code>is</code></td>
-</tr>
-</tbody>
-</table>
-<p>Boolean algebra provides a mechanism to <strong>combine</strong> logical statements. Comparisons on data types allow us to check various conditions. This functionality will become important later in using conditional code.</p>
-<div id="9ccc468c" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-label="1"></a><span class="dv">5</span> <span class="op">&gt;</span> <span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>True</code></pre>
-</div>
-</div>
-<div id="790961e9" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-label="1"></a><span class="dv">5</span> <span class="op">&gt;=</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
-<pre><code>True</code></pre>
-</div>
-</div>
-<p>As an example application, suppose you run an e-commerce business and want to extend a promotion to certain customers. You have a few requirements:</p>
+<p>Here, <code>condition1</code> and <code>condition2</code> must be Python expressions <em>that evaluate to</em> <code>True</code> or <code>False</code>. There are a few points to be aware of:</p>
 <ul>
-<li>The customer should <strong>NOT</strong> be blacklisted by your business.</li>
-<li>For free shipping: The customer meets a minimum spend threshold <strong>AND</strong> is known to be a repeat customer.</li>
-<li>For an extra discount: The customer is a repeat customer <strong>OR</strong> is already using a coupon.</li>
+<li>Most programming languages treat <code>True</code> and <code>False</code> as <code>1</code> and <code>0</code> (integers), respectively. Python will silently allow you to pass a <code>0</code> or <code>1</code> in a conditional blocks.</li>
+<li>You are free to exclude the <code>elif</code> and/or <code>else</code> clauses.</li>
+<li>Conditional statements can be chained and nested.</li>
+<li><strong>Whitespace is important in Python!</strong> Not optional, so mind the indentation in your code.</li>
+<li><strong>The order in which you check conditions matters!</strong></li>
 </ul>
-<p>These checks can be implemented using comparison + Boolean operators.</p>
-<div id="7ad91577" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-label="1"></a><span class="co"># data</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-label="2"></a>is_blacklisted <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-label="3"></a>is_loyalty_member <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-label="4"></a>order_total <span class="op">=</span> <span class="fl">74.89</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-label="5"></a>has_coupon <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-label="6"></a></span>
-<span id="cb27-7"><a href="#cb27-7" aria-label="7"></a><span class="co"># checks</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-label="8"></a>is_safe_customer <span class="op">=</span> <span class="kw">not</span> is_blacklisted</span>
-<span id="cb27-9"><a href="#cb27-9" aria-label="9"></a>qualifies_for_shipping <span class="op">=</span> order_total <span class="op">&gt;=</span> <span class="dv">75</span> <span class="kw">and</span> is_loyalty_member</span>
-<span id="cb27-10"><a href="#cb27-10" aria-label="10"></a>qualifies_for_discount <span class="op">=</span> is_loyalty_member <span class="kw">or</span> has_coupon</span>
-<span id="cb27-11"><a href="#cb27-11" aria-label="11"></a>final_approval <span class="op">=</span> is_safe_customer <span class="kw">and</span> (qualifies_for_shipping <span class="kw">or</span> qualifies_for_discount)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div id="3af371df" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-label="1"></a><span class="bu">print</span>(<span class="ss">f"Is this a safe customer? </span><span class="sc">{</span>is_safe_customer<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-label="2"></a><span class="bu">print</span>(<span class="ss">f"Do they qualify for free shipping? </span><span class="sc">{</span>qualifies_for_shipping<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-label="3"></a><span class="bu">print</span>(<span class="ss">f"Do they qualify for a discount? </span><span class="sc">{</span>qualifies_for_discount<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb28-4"><a href="#cb28-4" aria-label="4"></a><span class="bu">print</span>(<span class="ss">f"Do they receive the promotional offer? </span><span class="sc">{</span>final_approval<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Is this a safe customer? True
-Do they qualify for free shipping? False
-Do they qualify for a discount? True
-Do they receive the promotional offer? True</code></pre>
+<div class="callout-title-container flex-fill">
+Important
 </div>
 </div>
-<section id="notions-of-equality" class="level3">
-<h3 class="anchored" data-anchor-id="notions-of-equality">Notions of Equality</h3>
-<p>Python distinguishes between two notions of equality.</p>
-<div id="9c12a353" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-label="1"></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>] <span class="co"># this is a list</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-label="2"></a>y <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>] <span class="co"># also a list</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>The <code>==</code> operator is for <em>equality in value</em>:</p>
-<div id="8fe9ed4a" class="cell" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-label="1"></a>x <span class="op">==</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
-<pre><code>True</code></pre>
+<div class="callout-body-container callout-body">
+<p>Every conditional statement introduces a branch in your code. Excessive branching may obscure intended meaning and potentially slow down your code.</p>
+<p>Write for clarity and correctness first, then worry about performance optimization.</p>
 </div>
 </div>
-<p>The <code>is</code> operator is for <em>exact equality</em> (meaning a computer cannot distinguish these two objects):</p>
-<div id="2f3dad91" class="cell" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-label="1"></a>x <span class="kw">is</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
-<pre><code>False</code></pre>
+<section id="example-checking-for-an-empty-collection" class="level3">
+<h3 class="anchored" data-anchor-id="example-checking-for-an-empty-collection">Example: Checking for an empty collection</h3>
+<div id="918a50f3" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>mydata <span class="op">=</span> []  <span class="co"># list of ints</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-label="2"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-label="3"></a><span class="cf">if</span> <span class="kw">not</span> mydata:</span>
+<span id="cb2-4"><a href="#cb2-4" aria-label="4"></a>  mydata.append(<span class="dv">100</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-label="5"></a><span class="cf">else</span>:</span>
+<span id="cb2-6"><a href="#cb2-6" aria-label="6"></a>  mydata[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">100</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
-<p>The reason the last example is <code>False</code> is that <code>x</code> and <code>y</code> are bound to <em>different instances</em> of a <code>list</code> object. The two objects therefore differ in how they are stored in memory.</p>
-<p>In contrast, the same comparisons all evaluate to <code>True</code> in the following example.</p>
-<div id="1279a2a6" class="cell" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-label="1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-label="2"></a>y <span class="op">=</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="f4fb654d" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-label="1"></a>x <span class="op">==</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
-<pre><code>True</code></pre>
-</div>
-</div>
-<div id="d3d94b59" class="cell" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-label="1"></a>x <span class="kw">is</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>True</code></pre>
-</div>
-</div>
-<p>The reason is that <code>int</code> objects are completely determined by their bits, so it is impossible for Python to distinguish <em>that</em> <code>1</code> from <em>that other</em> <code>1</code>.</p>
-
-
+<ul>
+<li>The cell <em>modifies</em> <code>mydata</code> by appending 1 element to it. In general, variables can be bound to new values within an <code>if</code> statement.</li>
+<li>Which branch was executed?</li>
+<li>Why don’t we see any return value at all?</li>
+</ul>
 </section>
+<section id="example-a-coin-flip" class="level3">
+<h3 class="anchored" data-anchor-id="example-a-coin-flip">Example: A coin flip</h3>
+<div id="f184bc2d" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="im">import</span> random</span>
+<span id="cb3-2"><a href="#cb3-2" aria-label="2"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-label="3"></a>u <span class="op">=</span> random.random()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-label="4"></a><span class="cf">if</span> u <span class="op">&lt;</span> <span class="dv">1</span><span class="op">/</span><span class="dv">3</span>:</span>
+<span id="cb3-5"><a href="#cb3-5" aria-label="5"></a>  <span class="bu">print</span>(<span class="st">"Heads"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-label="6"></a><span class="cf">else</span>:</span>
+<span id="cb3-7"><a href="#cb3-7" aria-label="7"></a>  <span class="bu">print</span>(<span class="st">"Tails"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Tails</code></pre>
+</div>
+</div>
+<p>The code above behaves randomly because the printed message depends on the value of <code>u</code>.</p>
+<ul>
+<li>What is the probability of seeing the outcome <code>"Tails"</code>?</li>
+<li>Justify your answer to the question above.</li>
+<li>What about the probability of seeing <code>"heads"</code>?</li>
+</ul>
+</section>
+<section id="shorthands" class="level3">
+<h3 class="anchored" data-anchor-id="shorthands">Shorthands</h3>
+<p>Python supports certain shorthands for conditional statements that are convenient, but also prone to abuse. Use these sparingly, as it becomes unreadable if you chain too many of these statements together.</p>
+<div id="e17d54e9" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a>alternativeA <span class="cf">if</span> conditionA <span class="cf">else</span> alternativeB</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="example-writing-a-quick-message" class="level3">
+<h3 class="anchored" data-anchor-id="example-writing-a-quick-message">Example: Writing a quick message</h3>
+<div id="5d39796c" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a>emotion <span class="op">=</span> <span class="st">"jubilant"</span> <span class="cf">if</span> <span class="bu">abs</span>(random.gauss(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="op">&gt;</span> <span class="fl">1.96</span> <span class="cf">else</span> <span class="st">"downtrodden"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-label="2"></a>explanation <span class="op">=</span> <span class="st">""</span> <span class="cf">if</span> emotion <span class="op">==</span> <span class="st">"jubilant"</span> <span class="cf">else</span> <span class="st">"failed to"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-label="3"></a><span class="bu">print</span>(<span class="ss">f"Just so you know, the finance team is absolutely </span><span class="sc">{</span>emotion<span class="sc">}</span><span class="ch">\n</span><span class="ss">because their Q3 simulation </span><span class="sc">{</span>explanation<span class="sc">}</span><span class="ss"> converge."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Just so you know, the finance team is absolutely jubilant
+because their Q3 simulation  converge.</code></pre>
+</div>
+</div>
+<ul>
+<li>Explain why there is an extra space whenever the team’s mood is <code>jubilant</code>.</li>
+<li>The <code>\n</code> in the example above is an example of an <strong>escape sequence</strong>. It introduces a newline in text.</li>
+</ul>
+</section>
+</section>
+<section id="repeated-evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="repeated-evaluation">Repeated Evaluation</h2>
+<section id="for-loop" class="level3">
+<h3 class="anchored" data-anchor-id="for-loop"><code>for</code> Loop</h3>
+<p>A <code>for</code> loop relies on a <em>predictable</em> sequence of values. Predictable simply means there is a procedure that tells us exactly when we are done with a loop.</p>
+<div id="b6a207c2" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-label="2"></a>  <span class="bu">print</span>(i)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Here the sequence is defined by a <code>range</code> object.</li>
+<li>In principle, the sequence can be defined by <em>any</em> Python iterator; for example, a <code>list</code> object.</li>
+<li>The code inside a <code>for</code> loop may or may not depend on the sequence of values you loop over.</li>
+</ul>
+<p>Just like conditional statements, loops can be nested.</p>
+<div id="eacbe31f" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-label="2"></a>  <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>):</span>
+<span id="cb9-3"><a href="#cb9-3" aria-label="3"></a>    <span class="bu">print</span>(i <span class="op">*</span> j)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="while-loop" class="level3">
+<h3 class="anchored" data-anchor-id="while-loop"><code>while</code> Loop</h3>
+<p>A <code>while</code> loop relies on some state to carry out repeated evaluation. That state is usually, but not always, captured by a variable.</p>
+<div id="fdffc0fc" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a><span class="cf">while</span> condition1:</span>
+<span id="cb10-2"><a href="#cb10-2" aria-label="2"></a>  <span class="co"># do something</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>The loop should include code that eventually modifies <code>condition1</code> to false, otherwise you’ll get stuck in an infinite loop.</li>
+<li>Like <code>for</code>, the code inside a <code>while</code> loop can be just about anything.</li>
+</ul>
+</section>
+<section id="loop-overrides" class="level3">
+<h3 class="anchored" data-anchor-id="loop-overrides">Loop Overrides</h3>
+<p>You can <code>break</code> out of <strong>innermost</strong> loop.</p>
+<div id="3cafb70b" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-label="2"></a>  <span class="co"># do something</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-label="3"></a>  <span class="cf">if</span> condition1:</span>
+<span id="cb11-4"><a href="#cb11-4" aria-label="4"></a>    <span class="cf">break</span>  <span class="co"># exit the innermost loop</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You can also <code>continue</code> to skip over a particular iteration.</p>
+<div id="41505e10" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-label="2"></a>  <span class="co"># do something</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-label="3"></a>  <span class="cf">if</span> condition1:</span>
+<span id="cb12-4"><a href="#cb12-4" aria-label="4"></a>    <span class="cf">continue</span>  <span class="co"># skip to the next iteration</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-label="5"></a>  <span class="co"># do something</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="compatibility-with-iterators" class="level3">
+<h3 class="anchored" data-anchor-id="compatibility-with-iterators">Compatibility with Iterators</h3>
+<p>Loops in Python are compatible with any iterable object that defines a sequence. For example, the built-in collection <code>list</code> will work in a loop.</p>
+<div id="1062416a" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-label="1"></a>x <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-label="2"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-label="3"></a><span class="cf">for</span> item <span class="kw">in</span> x:</span>
+<span id="cb13-4"><a href="#cb13-4" aria-label="4"></a>  <span class="bu">print</span>(item)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>10
+20
+30</code></pre>
+</div>
+</div>
+<p>The <code>enumerate()</code> function is helpful if you need to track of the number of items in the collection along with the values. It’s a nice way to avoid <code>x[i]</code> syntax, but not strictly necessary.</p>
+<div id="11e40982" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-label="1"></a><span class="co"># can also specify starting point; e.g. enumerate(x, start = 1)</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-label="2"></a><span class="cf">for</span> i, item <span class="kw">in</span> <span class="bu">enumerate</span>(x):</span>
+<span id="cb15-3"><a href="#cb15-3" aria-label="3"></a>  <span class="bu">print</span>(<span class="st">"index: "</span>, i, <span class="st">", value: "</span>, item)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>index:  0 , value:  10
+index:  1 , value:  20
+index:  2 , value:  30</code></pre>
+</div>
+</div>
+<p>There are other functions that help you manipulate sequences, such as the <code>revsersed()</code> function:</p>
+<div id="a0e707fc" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-label="1"></a><span class="cf">for</span> item <span class="kw">in</span> <span class="bu">reversed</span>(x):</span>
+<span id="cb17-2"><a href="#cb17-2" aria-label="2"></a>  <span class="bu">print</span>(item)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>30
+20
+10</code></pre>
+</div>
+</div>
+<div id="009a1e89" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a>d <span class="op">=</span> {<span class="st">"Alice"</span>: <span class="dv">4</span>, <span class="st">"Bob"</span>: <span class="dv">2</span>}</span>
+<span id="cb19-2"><a href="#cb19-2" aria-label="2"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-label="3"></a><span class="cf">for</span> key, val <span class="kw">in</span> d.items():</span>
+<span id="cb19-4"><a href="#cb19-4" aria-label="4"></a>    <span class="bu">print</span>(<span class="ss">f"They key </span><span class="sc">{</span>key<span class="sc">}</span><span class="ss"> maps to value </span><span class="sc">{</span>val<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>They key Alice maps to value 4
+They key Bob maps to value 2</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Laziness is a virtue
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>reversed()</code> function above does not <code>sort()</code> the array <code>x</code>! Instead, it exploits the structure of the underlying data type to reverse the iteration. This avoids memory allocation and extra computation.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Iteration style
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The proper style for iterating over collections is to use the <code>for item in collection</code> syntax whenever possible. The reasoning is that the developers of whatever <code>collection</code> you are working with designed the iteration protocol in a specific manner for compatibility with <code>for</code> loops. If that does not work, you may be misusing the object.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="example-displaying-a-tic-tac-toe-board" class="level2">
+<h2 class="anchored" data-anchor-id="example-displaying-a-tic-tac-toe-board">Example: Displaying a Tic-Tac-Toe board</h2>
+<p>A Tic-Tac-Toe board consists of 9 spaces arranged in a 3 by 3 grid. If we include characters to represent the grid, then we need 5 characters per row for a total of 25 characters. Let’s display an empty board:</p>
+<div id="f815f92f" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-label="1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-label="2"></a>  row_i <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-label="3"></a>  <span class="cf">if</span> i <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb21-4"><a href="#cb21-4" aria-label="4"></a>    row_i <span class="op">+=</span> <span class="st">"─┼─┼─"</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-label="5"></a>  <span class="cf">else</span>:</span>
+<span id="cb21-6"><a href="#cb21-6" aria-label="6"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>):</span>
+<span id="cb21-7"><a href="#cb21-7" aria-label="7"></a>      row_i <span class="op">+=</span> <span class="st">"│"</span> <span class="cf">if</span> j <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">" "</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-label="8"></a>  <span class="bu">print</span>(row_i)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> │ │ 
+─┼─┼─
+ │ │ 
+─┼─┼─
+ │ │ </code></pre>
+</div>
+</div>
+</section>
+<section id="example-for-vs-while" class="level2">
+<h2 class="anchored" data-anchor-id="example-for-vs-while">Example: <code>for</code> vs <code>while</code></h2>
+<p>Every <code>for</code> loop can be written as a <code>while</code> loop, but the reverse is not true. Here’s an example of the first statement:</p>
+<div id="aad0ac2f" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-label="1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>):</span>
+<span id="cb23-2"><a href="#cb23-2" aria-label="2"></a>  <span class="bu">print</span>(i)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1
+2
+3
+4
+5
+6
+7
+8
+9</code></pre>
+</div>
+</div>
+<div id="329d1006" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-label="1"></a>i <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-label="2"></a><span class="cf">while</span> i <span class="op">&lt;</span> <span class="dv">10</span>:</span>
+<span id="cb25-3"><a href="#cb25-3" aria-label="3"></a>  <span class="bu">print</span>(i)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-label="4"></a>  i <span class="op">=</span> i <span class="op">+</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1
+2
+3
+4
+5
+6
+7
+8
+9</code></pre>
+</div>
+</div>
+<p>Can you rewrite the following as a <code>for</code> loop?</p>
+<div id="576d67d8" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-label="1"></a><span class="im">import</span> random</span>
+<span id="cb27-2"><a href="#cb27-2" aria-label="2"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-label="3"></a>rolls <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-label="4"></a>dice <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-label="5"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-label="6"></a><span class="cf">while</span> dice <span class="op">!=</span> <span class="dv">6</span>:</span>
+<span id="cb27-7"><a href="#cb27-7" aria-label="7"></a>  rolls <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-label="8"></a>  dice <span class="op">=</span> random.randint(<span class="dv">1</span>, <span class="dv">6</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-label="9"></a>  <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>rolls<span class="sc">}</span><span class="ss"> rolls so far, just rolled a </span><span class="sc">{</span>dice<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-label="10"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-label="11"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">It took </span><span class="sc">{</span>rolls<span class="sc">}</span><span class="ss"> rolls to get a 6."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1 rolls so far, just rolled a 4
+2 rolls so far, just rolled a 3
+3 rolls so far, just rolled a 3
+4 rolls so far, just rolled a 3
+5 rolls so far, just rolled a 3
+6 rolls so far, just rolled a 4
+7 rolls so far, just rolled a 3
+8 rolls so far, just rolled a 1
+9 rolls so far, just rolled a 5
+10 rolls so far, just rolled a 1
+11 rolls so far, just rolled a 4
+12 rolls so far, just rolled a 6
+
+It took 12 rolls to get a 6.</code></pre>
+</div>
+</div>
+<p>What about the following example? The basic rule is to divide the current number <code>x</code> by <code>2</code> whenever it is even, otherwise we update it as <code>3*x + 1</code>. <a href="https://en.wikipedia.org/wiki/Collatz_conjecture">You’ll be famous</a> if you can write it as a proper <code>for</code> loop.</p>
+<div id="8b982eb3" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-label="1"></a>x <span class="op">=</span> <span class="dv">17</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-label="2"></a>seq <span class="op">=</span> [x]</span>
+<span id="cb29-3"><a href="#cb29-3" aria-label="3"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-label="4"></a><span class="cf">while</span> x <span class="op">!=</span> <span class="dv">1</span>:</span>
+<span id="cb29-5"><a href="#cb29-5" aria-label="5"></a>  <span class="cf">if</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb29-6"><a href="#cb29-6" aria-label="6"></a>    x <span class="op">/=</span> <span class="dv">2</span> <span class="co"># shorthand for x = x / 2</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-label="7"></a>  <span class="cf">else</span>:</span>
+<span id="cb29-8"><a href="#cb29-8" aria-label="8"></a>    x <span class="op">=</span> <span class="dv">3</span><span class="op">*</span>x <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-label="9"></a>  seq.append(x)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-label="10"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-label="11"></a>seq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>[17, 52, 26.0, 13.0, 40.0, 20.0, 10.0, 5.0, 16.0, 8.0, 4.0, 2.0, 1.0]</code></pre>
+</div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->
