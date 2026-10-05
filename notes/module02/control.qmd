@@ -1,0 +1,305 @@
+---
+title: Control Flow
+error: true
+---
+
+## Goals
+
+1. Use conditional statements to implement conditional logic in a script or function.
+2. Use `for` and `while` for repeated evaluation in a script or function.
+3. Practice combining various language constructs in examples.
+
+
+## Overview
+
+Literals, variables, and built-in/package functions are quite useful but insufficient for writing complex scripts and programs. Here we briefly review syntax for conditional statements and repeated evaluation. Along with functions, these two concepts vastly increase the expressiveness of any programming language.
+
+
+
+## Conditional statements
+
+Conditional statements allow a program to change its behavior based on some state, usually captured by one or more variables.
+
+```{python}
+#| eval: false
+if condition1:
+  # do something
+elif condition2: # else if
+  # do something
+else:
+  # do something
+```
+
+Here, `condition1` and `condition2` must be Python expressions *that evaluate to* `True` or `False`. There are a few points to be aware of:
+
+- Most programming languages treat `True` and `False` as `1` and `0` (integers), respectively. Python will silently allow you to pass a `0` or `1` in a conditional blocks.
+- You are free to exclude the `elif` and/or `else` clauses.
+- Conditional statements can be chained and nested.
+- **Whitespace is important in Python!** Not optional, so mind the indentation in your code.
+- **The order in which you check conditions matters!**
+
+
+:::::::::::::::::::::::::::::::: callout-important
+
+Every conditional statement introduces a branch in your code. Excessive branching may obscure intended meaning and potentially slow down your code.
+
+Write for clarity and correctness first, then worry about performance optimization.
+
+::::::::::::::::::::::::::::::::
+
+
+
+### Example: Checking for an empty collection
+
+```{python}
+mydata = []  # list of ints
+
+if not mydata:
+  mydata.append(100)
+else:
+  mydata[0] = 100
+```
+
+- The cell *modifies* `mydata` by appending 1 element to it. In general, variables can be bound to new values within an `if` statement.
+- Which branch was executed?
+- Why don't we see any return value at all?
+
+
+
+### Example: A coin flip
+
+```{python}
+import random
+
+u = random.random()
+if u < 1/3:
+  print("Heads")
+else:
+  print("Tails")
+```
+
+The code above behaves randomly because the printed message depends on the value of `u`.
+
+- What is the probability of seeing the outcome `"Tails"`?
+- Justify your answer to the question above.
+- What about the probability of seeing `"heads"`?
+
+
+
+### Shorthands
+
+Python supports certain shorthands for conditional statements that are convenient, but also prone to abuse.
+Use these sparingly, as it becomes unreadable if you chain too many of these statements together.
+
+```{python}
+#| eval: false
+alternativeA if conditionA else alternativeB
+```
+
+
+
+### Example: Writing a quick message
+
+```{python}
+emotion = "jubilant" if abs(random.gauss(0, 1)) > 1.96 else "downtrodden"
+explanation = "" if emotion == "jubilant" else "failed to"
+print(f"Just so you know, the finance team is absolutely {emotion}\nbecause their Q3 simulation {explanation} converge.")
+```
+
+- Explain why there is an extra space whenever the team's mood is `jubilant`.
+- The `\n` in the example above is an example of an **escape sequence**. It introduces a newline in text.
+
+
+
+## Repeated Evaluation
+
+### `for` Loop
+
+A `for` loop relies on a *predictable* sequence of values.
+Predictable simply means there is a procedure that tells us exactly when we are done with a loop.
+
+```{python}
+#| eval: false
+for i in range(1, 11):
+  print(i)
+```
+
+- Here the sequence is defined by a `range` object.
+- In principle, the sequence can be defined by *any* Python iterator; for example, a `list` object.
+- The code inside a `for` loop may or may not depend on the sequence of values you loop over.
+
+Just like conditional statements, loops can be nested.
+
+```{python}
+#| eval: false
+for i in range(1, 11):
+  for j in range(1, 6):
+    print(i * j)
+```
+
+
+
+### `while` Loop
+
+A `while` loop relies on some state to carry out repeated evaluation.
+That state is usually, but not always, captured by a variable.
+
+```{python}
+#| eval: false
+while condition1:
+  # do something
+```
+
+- The loop should include code that eventually modifies `condition1` to false, otherwise you'll get stuck in an infinite loop.
+- Like `for`, the code inside a `while` loop can be just about anything.
+
+### Loop Overrides
+
+You can `break` out of **innermost** loop.
+
+```{python}
+#| eval: false
+for i in range(1, 11):
+  # do something
+  if condition1:
+    break  # exit the innermost loop
+```
+
+You can also `continue` to skip over a particular iteration.
+
+```{python}
+#| eval: false
+for i in range(1, 11):
+  # do something
+  if condition1:
+    continue  # skip to the next iteration
+  # do something
+```
+
+
+
+### Compatibility with Iterators
+
+Loops in Python are compatible with any iterable object that defines a sequence. For example, the built-in collection `list` will work in a loop.
+
+```{python}
+x = [10, 20, 30]
+
+for item in x:
+  print(item)
+```
+
+The `enumerate()` function is helpful if you need to track of the number of items in the collection along with the values.
+It's a nice way to avoid `x[i]` syntax, but not strictly necessary.
+
+```{python}
+# can also specify starting point; e.g. enumerate(x, start = 1)
+for i, item in enumerate(x):
+  print("index: ", i, ", value: ", item)
+```
+
+There are other functions that help you manipulate sequences, such as the `revsersed()` function:
+
+```{python}
+for item in reversed(x):
+  print(item)
+```
+
+```{python}
+d = {"Alice": 4, "Bob": 2}
+
+for key, val in d.items():
+    print(f"They key {key} maps to value {val}")
+```
+
+:::::::::::::::::::::::::::::::: callout-tip
+
+## Laziness is a virtue
+
+The `reversed()` function above does not `sort()` the array `x`! Instead, it exploits the structure of the underlying data type to reverse the iteration.
+This avoids memory allocation and extra computation.
+
+::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::: callout-tip
+
+## Iteration style
+
+The proper style for iterating over collections is to use the `for item in collection` syntax whenever possible.
+The reasoning is that the developers of whatever `collection` you are working with designed the iteration protocol in a specific manner for compatibility with `for` loops.
+If that does not work, you may be misusing the object.
+
+::::::::::::::::::::::::::::::::
+
+
+
+## Example: Displaying a Tic-Tac-Toe board
+
+A Tic-Tac-Toe board consists of 9 spaces arranged in a 3 by 3 grid.
+If we include characters to represent the grid, then we need 5 characters per row for a total of 25 characters.
+Let's display an empty board:
+
+```{python}
+for i in range(1, 6):
+  row_i = ""
+  if i % 2 == 0:
+    row_i += "─┼─┼─"
+  else:
+    for j in range(1, 6):
+      row_i += "│" if j % 2 == 0 else " "
+  print(row_i)
+```
+
+
+## Example: `for` vs `while`
+
+Every `for` loop can be written as a `while` loop, but the reverse is not true.
+Here's an example of the first statement:
+
+```{python}
+for i in range(1, 10):
+  print(i)
+```
+
+
+```{python}
+i = 1
+while i < 10:
+  print(i)
+  i = i + 1
+```
+
+Can you rewrite the following as a `for` loop?
+
+```{python}
+import random
+
+rolls = 0
+dice = 0
+
+while dice != 6:
+  rolls += 1
+  dice = random.randint(1, 6)
+  print(f"{rolls} rolls so far, just rolled a {dice}")
+
+print(f"\nIt took {rolls} rolls to get a 6.")
+```
+
+What about the following example?
+The basic rule is to divide the current number `x` by `2` whenever it is even, otherwise we update it as `3*x + 1`.
+[You'll be famous](https://en.wikipedia.org/wiki/Collatz_conjecture) if you can write it as a proper `for` loop.
+
+
+```{python}
+x = 17
+seq = [x]
+
+while x != 1:
+  if x % 2 == 0:
+    x /= 2 # shorthand for x = x / 2
+  else:
+    x = 3*x + 1
+  seq.append(x)
+
+seq
+```

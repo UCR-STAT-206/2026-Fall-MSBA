@@ -1,0 +1,217 @@
+---
+title: The Python Standard Library
+---
+
+## Goals
+
+1. Understand what a Python package is and how to `import` it in a script or interactive environment.
+2. Become familiar with a few Python packages relevant to data analysis.
+3. Learn about the help system in Python, which is useful in learning about functions and objects defined by packages.
+
+
+
+## What is the Python standard library?
+
+By now we have encountered various symbols in the Python language representing language constructs, built-in functions, and type constructors.
+In principle, you could use these tools to build up *almost* any tools you might need; for example, you could write a tool to read a spreadsheet file and represent its data within Python.
+Fortunately, many important functions for analytics have already been written by experts and are available as *modules
+
+It behooves any programmer to become familiar with *the standard library* of any language, which is a collection of code modules that are part of the language but kept separate for several reasons.
+
+- **Keeping an uncluttered namespace by default**.
+    + When you start up an interactive Python session, you have access to various functions and object types by default. 
+    + Separating some functionality into modules lets a user opt-in to features they would like to use.
+    + This helps keep names as simple as possible.
+
+- **Ease of maintenance**.
+    + Several developers work on the core Python language.
+    + Keeping some features, like the `math` module, separate from the core language allows people to work on the core language without blocking improvements and bug fixes in the `math` module, and *vice versa*.
+
+- **Code organization**.
+    + The details of how to compute `sin(x)` within the `math` module has little to do with how a computer reads a comma-separated values (CSV) file.
+    + Grouping related concepts under a particular module creates a **namespace**, a universe of related symbols.
+    + Namespaces make it easier for people to discover and use functions.
+
+
+
+### What is a Python module?
+
+A **Python module** is a *file* of Python code written to implement a set of related functions and objects.
+
+- Can be (but not always) implemented as a simple `.py` file.
+- Defines a namespace so that function names are relatively simple, at least within a module.
+- Can use functionality from other modules.
+- We will write our own Python modules in the future.
+
+
+
+### What is a Python package?
+
+A **Python package** is a collection of related *Python modules*.
+
+- Can be a single directory containing modules, or a directory with subdirectories.
+- Again, the purpose is to organize related concepts, functions, and objects while controlling namespaces.
+- There is an additional structure to packages that we will discuss at a later date.
+
+
+
+### How do we use them?
+
+Conceptually, a Python *module* and a Python *package* are nearly identical and this is essentially the case from a user perspective.
+Any time we want to use one of these tools, we must **import** the module/package.
+The syntax for using functions and objects from an imported module/package will depend on *how* we import it.
+
+The following examples illustrate the most common ways programmers import code from modules/packages.
+
+
+
+#### Example 1: `import`
+
+The following makes the `math` module available in the current scope.
+
+```{python}
+import math
+```
+
+Now we can reference functions and objects by prepending `math.` to calls and references.
+
+```{python}
+math.sqrt(2)
+```
+
+If you do this with a *package*, you only import functions and object types defined directly within the named package.
+For performance reasons, you must specifically import any submodules you wish to use.
+The following code fails because `request` is a submodule of `urllib`, which is not imported below.
+
+```{python}
+#| error: true
+import urllib
+
+urllib.request.urlopen("https://example.com")
+```
+
+
+
+#### Example 2: `from <module> import <function or class>`
+
+If you want to import specific functions or object types, use the `from X import Y, Z` syntax.
+This lets you use imports without qualification.
+
+```{python}
+from statistics import mean, median
+
+mydata = [100, 92, 79, 85]
+
+print(f"The mean is {mean(mydata)} and the median is {median(mydata)}.")
+```
+
+
+
+#### Example 3: `import ... as ...`
+
+Use this import style to *alias* a module name to a shorter one.
+Many Python modules/packages have canonical aliases.
+The following is a common shorthand for the Pandas package, which we will learn about later in the course.
+It has already been installed for you when you set up the class Docker container.
+
+```{python}
+import pandas as pd
+
+pd.DataFrame({'name': ['Alice', 'Bob', 'Carlos'], 'age': [28, 29, 35]})
+```
+
+
+#### Example 4: `from <module> import <submodule>`
+
+Similar to Example 2 above, this lets you import submodules without qualification.
+
+```{python}
+from urllib import request
+
+request.urlopen("https://example.com")
+```
+
+
+
+## Numerical computation
+
+### `math`
+
+Various math-related functions.
+
+```{python}
+# A = P * e^(r*t), continuously compunded interest formula
+def future_value_cts(principal, rate, time):
+  return principal * math.exp(rate * time)
+
+future_value_cts(100.0, 0.05, 2)
+```
+
+```{python}
+def circle_area(radius):
+  return math.pi * radius**2
+
+circle_area(1.)
+```
+
+```{python}
+math.log(math.exp(1)) # natural logarithm
+```
+
+```{python}
+math.log10(10.0) # base 10 logarithm
+```
+
+
+
+### `statistics`
+
+Implements various concepts in statistics.
+We will use this package sparingly as there is a much richer functionality implemented in other Python packages.
+
+```{python}
+from statistics import mean, median, variance, stdev, quantiles
+salaries = [100000, 110000, 80000, 320000]
+```
+
+```{python}
+mean(salaries)
+```
+
+```{python}
+variance(salaries)
+```
+
+```{python}
+stdev(salaries)
+```
+
+```{python}
+quantiles(salaries, n = 2) # returns median
+```
+
+```{python}
+quantiles(salaries, n = 4) # returns quartiles, Q1, Q2 (median), Q3
+```
+
+### `random`
+
+Used to sample from "brand name" distributions or collections in Python.
+We will later defer to `numpy.random` once we discuss the Numpy package.
+
+```{python}
+import random
+
+# Normal distribution with mean 10 and standard deviation 1
+random.normalvariate(mu = 10.0, sigma = 1.0)
+```
+
+```{python}
+# make it reproducible with a seed
+random.seed(1234)
+
+x = ["Alice", "Bob", "Carlos"]
+print(random.choice(x))
+print(random.choice(x))
+print(random.choice(x))
+```

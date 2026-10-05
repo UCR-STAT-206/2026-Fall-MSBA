@@ -1,0 +1,335 @@
+---
+title: Built-in Python Collections
+---
+
+## Goals
+
+1. Understand how to use basic `list` and `dict` types for representing collections of data.
+2. Programmatically retrieve, append, delete, and manipulate basic Python collections.
+3. Use `list` and `dict` to carry out basic computations on data.
+
+
+
+## Sequence types
+
+Sequence types in Python are *ordered* collections.
+That means it makes sense to ask about the *length* of a sequence and *the n-th object* in a sequence.
+
+### `list`
+
+A Python `list` is a heterogeneous, ordered, *mutable* collection of objects.
+We create a `list` object using square brackets, `[]`.
+These are similar to the `list` type in R.
+
+An empty list:
+
+```{python}
+my_list = []
+my_list
+```
+
+Another list where each item has the same type:
+
+```{python}
+another_list = [1, 2, 3, 4]
+another_list
+```
+
+A heterogeneous list. Notice that we can nest `list`s:
+
+```{python}
+[1., True, "False", my_list]
+```
+
+These objects have the `list` type:
+
+```{python}
+type(my_list)
+```
+
+Because they are mutable, we can modify the contents of a list:
+
+```{python}
+my_list.append(206)
+my_list
+```
+
+```{python}
+another_list[3] = 2026
+another_list
+```
+
+### `tuple`
+
+A Python `tuple` is a heterogeneous, ordered, **immutable** collection of objects.
+We create a `tuple` using parentheses, `()`.
+
+An empty tuple:
+
+```{python}
+my_tuple = ()
+my_tuple
+```
+
+```{python}
+another_tuple = (1, 2, 3, 4)
+another_tuple
+```
+
+These objects have the `tuple` type:
+
+```{python}
+type(my_tuple)
+```
+
+Unlike `list`, we cannot modify the contents of a `tuple`:
+
+```{python}
+#| error: true
+another_tuple[3] = 206
+```
+
+
+
+### `range`
+
+A `range` object is used to represent a predictable, linear, **immutable** sequence of values.
+These are *lazy* objects in the sense that they do not actually use up any memory to represent a sequence.
+Rather, it uses a simple rule to generate values on the fly, as needed.
+
+A `range` object starts at `0` by default and stops at `n-1`.
+We cast to a `list` object to see the values represented.
+
+```{python}
+myrange = range(10)
+```
+
+```{python}
+list(myrange)
+```
+
+You can also specify both the start and stop point.
+
+```{python}
+list(range(1, 6)) # start at 1, end at 5
+```
+
+You can also specify an increment or decrement.
+
+```{python}
+list(range(10, -1, -2))
+```
+
+
+
+### `str`
+
+Python treats `str` objects as **immutable** linear sequences of characters.
+
+```{python}
+my_sentence = "The quick brown fox jumps over the yellow lazy dog."
+print(my_sentence)
+```
+
+```{python}
+for letter in my_sentence:
+  print(letter.upper(), ' ', sep = '', end = '')
+```
+
+```{python}
+my_sentence[4:9] # index starts at 0!
+```
+
+
+
+
+### Common operations
+
+- Sequences have a notion of length, which we can query with the `len()` function.
+- We can check if a value occurs `in` a collection.
+- If it makes sense for the objects in a collection, we can ask about the largest (`max`), smallest (`min`), or `sum` of the objects.
+- We can concatenate collections with `+` or repeat them with `*`.
+- We can `.count(x)` then number of times the value `x` occurs in a collection.
+- We can **subset** specific elements in a collection using `collection[index]` syntax.
+
+```{python}
+my_sentence = my_sentence.lower()
+print(my_sentence)
+as_list = list(my_sentence)
+as_tuple = list(my_sentence)
+```
+
+**Indexing starts at 0 in Python**, so it is better to think of it as offsets relative to the first position.
+
+```{python}
+my_sentence[0]
+```
+
+```{python}
+as_list[0]
+```
+
+The `len()` function works the same across the sequence types we introduced.
+
+```{python}
+len(as_tuple)
+```
+
+```{python}
+len(my_sentence)
+```
+
+Ditto for the `.count()` **method**, though the acceptable argument types will change if you use it to query a string object, `str`.
+
+```{python}
+my_sentence.count('t')
+```
+
+:::::::::::::::::::::::::::::::: callout-note
+
+### Function vs method
+
+Python **functions** are called using the syntax `f(x, y)`.
+A **method** for the type of `x` object is intrinsic to that type, and its calling syntax reflects that.
+We call a method, which is a kind of function, as `x.f(y)`.
+
+::::::::::::::::::::::::::::::::
+
+The `in` keyword can be used in conjunction with `not` to check for ocurrences of specific values.
+
+```{python}
+'t' in my_sentence
+```
+
+```{python}
+'.' not in as_list
+```
+
+
+
+
+### Modifying collections
+
+Only **mutable collections** can have their contents changed.
+Modification combines the indexing + assignment syntax.
+
+```{python}
+as_list[0] = "T"
+for letter in as_list:
+  print(letter, sep = '', end = '')
+```
+
+```{python}
+#| error: true
+my_sentence[0] = "T" # this fails
+```
+
+
+
+## Map types
+
+Map types in Python **associate** unique keys to specific values.
+
+:::::::::::::::::::::::::::::::: callout-warning
+
+### Warning!
+
+It is critical that you only use **immutable** objects as keys for a map type.
+Fortunately, Python will throw an error if you attempt to do this, saving you from many inscrutable errors and headaches.
+
+::::::::::::::::::::::::::::::::
+
+The main map type we will work with is the mutable `dict` type, shorthand for dictionary.
+You can instantiate `dict` using curly braces, `{}`.
+
+```{python}
+my_graph = {(1, 2): "Edge 1", (2, 3): "Edge 2", (3, 1): "Edge 3"}
+for edge, label in my_graph.items():
+  print(f"Edge is {edge} with label {label}")
+```
+
+- Requires key-value pairs. Using the literal syntax above, separate keys (immutable) from values (mutable or immutable) using a colon `:`.
+- Can be used in a `for` loop; for example, using the `.items()` method.
+- Many of the operations for sequence types work for `dict` objects; for example, indexing and `len()` work as before.
+
+There are many ways to create these objects.
+The following is a *safe*, *idiomatic* way to create a `dict` from other collections.
+
+```{python}
+some_keys = ['Alice', 'Bob', 'Carlos']
+some_ages = [24, 25, 26]
+
+# zip() guarantees we pull the same number of values from each collection
+dict(zip(some_keys, some_ages))
+```
+
+Using a `for` loop with indexing syntax:
+
+```{python}
+d = {}
+for name, age in zip(some_keys, some_ages):
+  d[name] = age
+d
+```
+
+What can go wrong in the following approach?
+
+```{python}
+d = {}
+for i in range(len(some_keys)):
+  name = some_keys[i]
+  age = some_ages[i]
+  d[name] = age
+d
+```
+
+Dictionary objects are versatile and used to model structured data, handle tabulation, represent configurations, and performing fast lookups.
+Here is an example of how we can use a dictionary to count how many types each letter appears in a sentence.
+
+```{python}
+print(type(my_sentence))
+print(my_sentence)
+```
+
+```{python}
+my_counter = {}                     # <1>
+for letter in my_sentence.lower():  # <2>
+  if letter.isalpha():              # <3>
+    my_counter[letter] = my_counter.get(letter, 0) + 1 # <4>
+
+my_counter
+```
+
+1. Create an empty `dict`.
+2. Iterate over the collection of interest.
+3. Perform a check to make sure we only count objects of interest.
+4. Safely retrieve the previous value, defaulting to 0 if we've never seen that `letter`. Then, we increment the count by 1.
+
+
+## Other collections
+
+The `collections` module contains a few additional data structures.
+The most relevant for our purposes is the `Counter` class, which is just a `dict` specialized to fast tabulation.
+
+```{python}
+from collections import Counter # <1>
+import csv                      # <1>
+
+freq = Counter() # <2>
+with open('assets/purchases.csv', mode='r', encoding='utf-8') as file: # <3>
+  csv_reader = csv.reader(file) # <4>
+  for row in csv_reader:        # <5>
+    # product is in the first column, so position 0
+    product = row[0]            # <6>
+    freq[product] += 1          # <7>
+
+freq
+```
+
+1. First we load the required modules/packages.
+2. Initialize a fresh counter.
+3. We use the `with ... as ...:` syntax to help manage the file stream we open up. Specifically, this ensures the file is closed after we exit the code block, freeing up any consumed resources.
+4. We pass the file stream to a reader object.
+5. Iterate over each row *detected by* the reader object.
+6. Retrieve an element in the current row.
+7. Increment our `Counter`.

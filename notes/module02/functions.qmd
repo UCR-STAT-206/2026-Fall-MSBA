@@ -1,0 +1,471 @@
+---
+title: Functions
+error: true
+---
+
+## Goals
+
+1. Be able to write a Python function with or without inputs and/or return values.
+2. Become familiar with optional arguments, both the positional and keyword varieties.
+3. Understand the basics of Python's variable scoping rules.
+4. Develop some strategies for writing and using functions to express more complex computations.
+
+## Syntax and Semantics
+
+```{python}
+#| eval: false
+def func(req1, req2, *, key1="dflt1", key2="dflt2"):
+  # do stuff
+  out1, out2, out3 = req1, req2, key1
+  return out1, out2, out3  # Returns a tuple implicitly
+```
+
+- **Required arguments** are separated by a comma and use *positional notation*.
+- **Asterisks** are not required in a function call. They separate positional arguments from strictly **keyword arguments** that have default values.
+- **The whitespace is not optional**. Python uses indentation syntactically, meaning the use of indentation nests code within constructs like `def` blocks.
+- A `return` statement is optional, but *highly encouraged in STAT 206*.
+- If you `return` multiple values, the values are treated as a `tuple` object.
+
+## Writing Functions
+
+We write Python functions to **encapsulate** a specific computation, formula, or concept.
+A programmer usually (but not always) has an answer to the following questions:
+
+- What are the *required* inputs?
+- What are the *required* outputs?
+- Are there any ways in which the caller can break the function?
+
+Here is an example that calculates the area of a triangle using the familiar formula
+
+$$
+\text{Area} = \frac{1}{2} \times \text{Base} \times \text{Height}.
+$$
+
+```{python}
+def triangle_area(base, height):
+    return 0.5 * base * height
+```
+
+You "call" or "evaluate" a function with specific arguments using the usual syntax.
+
+```{python}
+triangle_area(1, 2)
+```
+
+**Python cannot catch logical errors for you**. What happens if we attempt to compute an area with a negative base?
+
+```{python}
+triangle_area(-1, 2)
+```
+
+In such cases, it is often helpful to add sanity checks or error handling to let a user of the function, the caller, know what went wrong.
+Let's *redefine* the `triangle_area()` function with a couple of checks on the inputs.
+
+```{python}
+def triangle_area(base, height):
+  if base < 0 or height < 0:
+    raise ValueError("Base and height must be non-negative")
+  return 0.5 * base * height
+```
+
+Now Python can catch errors when a user provides bad inputs and displays a helpful error message in such cases.
+
+```{python}
+triangle_area(-1, 2)
+```
+
+## Important concepts
+
+### Anonymous functions
+
+**Anonymous functions** are functions without a name.
+Python lets you declare anonymous functions with the `lambda` keyword.
+
+- These are short functions in terms of code length.
+- Used only once and have no reuse value.
+- Are commonly used in collection functions or list comprehensions.
+
+#### Example: Squaring numbers in a collection
+
+```{python}
+y = range(1, 10) # numbers 1 through 9
+```
+
+Use an anonymous function for this straightforward calculation:
+
+```{python}
+squared = list(map(lambda x: x**2, y))
+```
+
+Better yet, Python supports *list comprehensions* which are preferred style for these types of computations.
+
+```{python}
+squared_comp = [x**2 for x in y]
+```
+
+This feature relies on a user to provide a well-defined rule enumerating elements in a `list`, similar to the `map()` example above.
+
+
+
+### Pass by sharing
+
+In Python, all arguments to functions are **passed by sharing**, in contrast to R.
+This means that modifying a **mutable object** like a `list` *inside* a function results in an observable change *outside* a function.
+
+Let's see this with an example.
+The following code arbitrarily moves people on and off an invitation list, represented by a `dict` object.
+Notice that the original list is *modified by the function call*.
+
+```{python}
+import random
+
+def throw_a_fit(invitees):
+  target_of_my_ire = random.choice(list(invitees))
+  invited = invitees[target_of_my_ire]
+  invitees[target_of_my_ire] = not invited
+  return
+```
+
+```{python}
+my_invitees = {'Alice': True, 'Bob': True, 'Carlos': False}
+my_invitees
+```
+
+```{python}
+throw_a_fit(my_invitees)
+my_invitees
+```
+
+- Any operation that modifies the original *mutable object* persists outside the function call.
+- Has nothing to do with what `return` does.
+
+
+### Variable scope and rules
+
+**Variable scope** and the associated rules defining scope are all about what functions can "see" and "do".
+
+- Each function has its own environment, or *local scope*.
+- Names here override names in the *global scope*.
+- Internal environment starts with the *named arguments*.
+- If your computer encounters an undefined name in a function, it looks for it in the environment of the next outer scope *where the function was defined*. This is known as **lexical scope**.
+
+You can commit the rules of variable scope to memory using the **LEGB rule**:
+
+- **Local**: Names assigned inside the current function/block.
+- **Enclosing**: Names in the local scope of any and all enclosing (nested) functions.
+- **Global**: Names assigned at the top level of a module script.
+- **Built-in**: Names preassigned by Python (e.g., print, `len`).
+
+:::::::::::::::::::::::::::::::: callout-tip
+
+### Avoid global variables!
+
+- Reduces risk of confusion and error.
+- Exception: Reserve global variables for true universal concepts like $\pi$.
+
+::::::::::::::::::::::::::::::::
+
+#### Example: Using a global variable
+
+If you truly need a *global reference*, you must use the `global` keyword to designate a symbol as coming from *outside the current scope*.
+
+```{python}
+x = 7
+y = ['A', 'C', 'G', 'T', 'U']
+
+def adder(y):
+    global x  # Specify a global reference
+    x = x + y
+    return x
+```
+
+Let's see what happens to `x` and `y` when we call the function with a particular value.
+
+```{python}
+adder(1)
+```
+
+```{python}
+x # oh the humanity!
+```
+
+```{python}
+y
+```
+
+Outside the `adder()` function:
+
+- `x` is a symbol that binds the scalar value `7`.
+- `y` is a symbol that binds the specified `Array` value.
+
+Inside the `adder()` function:
+
+- The symbol `y` is declared as a local variable; specifically it is the name of the first (and only) argument to the function.
+- The symbol `x` is declared as a global reference. We pull its value from the next outer scope.
+- Surprisingly, we manage to modify `x` but not `y`!
+
+
+
+## Using functions
+
+### Nesting
+
+Functions can be nested.
+In the example below, the `outerfunction()` can be invoked in the enclosing scope, whereas the `innerfunction()` is only visible within `outerfunction()`.
+
+```{python}
+#| eval: false
+def outerfunction():
+    # do some outer stuff
+    def innerfunction():
+        # do inner stuff
+        # can access prior outer definitions
+
+    # do more outer stuff
+```
+
+
+#### What's the use case?
+
+It is sometimes advantageous to hide helper functions where they are used, especially if they are not used elsewhere.
+Inner functions are also used to create *closures*, functions that "fix" some arguments to another function.
+This idea will be useful much later in the course, but here is an example.
+
+```{python}
+def process_order(order_amount, customer_tier):
+  # The following helper function lives inside the scope
+  # of process_order, so it has access to the input variables.
+  def get_discount():
+    if customer_tier == "Enterprise":
+      return 0.25
+    elif customer_tier == "Partner":
+      return 0.15
+    else:
+      return 0.0
+
+  # Back in process_order(), we can use get_discount()
+  # as many times as we want without providing any arguments.
+  discount_rate = get_discount()
+  final_price = order_amount * (1 - discount_rate)
+
+  return round(final_price, 2)
+```
+
+```{python}
+process_order(1000, "Enterprise")
+```
+
+- What are some ways to rewrite this function?
+- What are the circumstances in which one version might be preferred over the other(s)?
+- Which version do you find easiest to reason about?
+
+
+
+### Recursion
+
+Python supports recursive function definitions.
+
+A successful recursive implementation of a function requires two key ingredients:
+
+1. A **base case**. How do we know when to stop recursion?
+2. A **recursive step**. How do we build the next item in the recursion?
+
+Without a base case, a recursive function may fail to terminate and crash Python altogether.
+Python limits recursion to 1000 invocations to prevent this scenario.
+
+#### Example: Factorial
+
+The following code implements the factorial function, $n! = n \times (n-1) \times \ldots \times 2 \times 1$.
+
+```{python}
+def myfactorial(n):
+  if n > 1:
+    # Recursive step
+    return n * myfactorial(n - 1)
+  else:
+    # Base case
+    return 1
+```
+
+```{python}
+myfactorial(3)
+```
+
+```{python}
+myfactorial(6)
+```
+
+```{python}
+#| eval: false
+myfactorial(1000) # will not work
+```
+
+
+
+### Multiple inputs
+
+Python functions clearly support having multiple arguments.
+But what if the number of arguments is unknown?
+
+- You can use a **variadic argument**, denoted by `*`, which captures multiple inputs.
+- A function definition supports only **one** variadic argument.
+
+```{python}
+def mysum(*summands):
+  total = 0
+  for s in summands:
+    total = total + s
+  return total
+```
+
+Here's an example of how it can be used:
+
+```{python}
+mysum(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+```
+
+This is distinct from `sum()` which operates on *a collection*; i.e. one input.
+
+```{python}
+sum([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+```
+
+- What happens if you use the syntax in the `mysum()` example with Python's built-in `sum()` function?
+- Try calling `mysum(x)` where `x` with `x = [1, 2, 3]`.
+- Try calling `mysum(*x)` where `x = [1, 2, 3,]`.
+
+The same ideas apply to *keyword arguments*, except the syntax changes to `**`:
+
+```{python}
+def fun1(option="default", **kwargs):
+  print(f"The value of `option` is the {option}")
+
+def fun2(choice="obvious", **kwargs):
+  print(f"We made the {choice} choice")
+
+def mainfun(**kwargs):
+  fun1(**kwargs) # need to unpack the key-value pairs with **
+  fun2(**kwargs) # ditto
+```
+
+```{python}
+mainfun()
+```
+
+```{python}
+mainfun(option="best one")
+```
+
+
+## More on writing functions
+
+### Treat function signatures as interfaces
+
+**Interfaces** are the inputs or arguments; the **outputs** or **return value**.
+
+- An interface tells the caller what is required.
+- Outside perspective: Try to avoid caring about *what* is inside a function or *how* it carries out its work.
+  - Calls other functions: `ifelse()`, `abs()`, operators `^` and `>`, and could also call other functions we've written.
+  - Keep the internals orthogonal to the external; that's **encapsulation**.
+- `return` says what the output is; alternately, return the last evaluation.
+  - We often do not need to care about this; just use `return` to be explicit!
+- **Comments**: Not required but a good idea.
+  - Helps document what kinds of inputs are required.
+  - Python and R are dynamic languages. No constructs to enforce types in signatures.
+  - Documentation/comments should signal what is/isn't allowed.
+
+### What should be a function?
+
+- Things you're going to re-run, especially if it will be re-run with changes.
+- Chunks of code you keep highlighting and hitting return on.
+- Chunks of code which are small parts of a larger analysis or process.
+- Chunks of code which are very similar to other chunks.
+
+### Named and default arguments
+
+Consider the "robust" loss function
+
+$$
+\psi(x) = \begin{cases}
+  2 |x| - 1, & x^{2} > 1 \\
+  x^{2}, & x^{2} \le 1
+\end{cases}.
+$$
+
+We define two versions of this function below:
+
+```{python}
+# Robust loss function for outlier-resistant regression
+# Inputs: vector of numbers (x)
+# Outputs: vector with x^2 for small entries, |x| for large ones
+def psi1(x):
+  psi = 2 * abs(x) - 1 if x**2 > 1 else x**2
+  return psi
+
+# Robust loss function for outlier-resistant regression
+# Inputs: vector of numbers (x), scale for crossover (c)
+# Outputs: vector with x^2 for small entries, 2c|x|-c^2 for large ones
+def psi2(x, c = 1.0):
+  psi = 2 * c * abs(x) - c**2 if x**2 > 1 else x**2
+  return psi
+```
+
+Let's check that they are the same when $c=1$:
+
+```{python}
+import math
+
+z = 1.3
+math.isclose(psi1(z), psi2(z, c = 1.0))
+```
+
+Notice that default values are used whenever named arguments are missing:
+
+```{python}
+math.isclose(psi2(z, c = 1.0), psi2(z))
+```
+
+### Checking arguments
+
+**Problem**: We see odd behavior when arguments are not specified as expected.
+
+```{python}
+psi2(z, c = [1., 1., 1., 10.])
+```
+
+**Solution**: Put sanity checks in the code.
+Ideally, put any input validation at the top of the function body.
+
+```{python}
+import numbers
+
+def psi3(x, *, c=1):
+    # Check if c is a real number
+    if not isinstance(c, numbers.Real):
+        raise TypeError(f"Parameter `c` should be given as a number. Got type {type(c).__name__}.")
+    elif c < 0:
+        raise ValueError(f"Parameter `c` should be positive. Got {c}.")
+        
+    return psi2(x, c=c)
+```
+
+- The `TypeError()` will stop execution when a user tries to pass anything not considered a `Real` number by Python.
+- The `ValueError()` is used to handle non-positive values in the `c` argument.
+
+```{python}
+psi3(z, c = -1.0)
+```
+
+
+### Encapsulation: Respect the interfaces!
+
+- Interfaces mark out a controlled environment for our code.
+- A function interacts with the rest of a system *only at the interface*.
+- Similarly, the "output" should only be through the return value.
+  - That means avoiding *side-effects*, which are modifications to some external state not defined inside a function.
+
+Your goal in writing a function is to achieve **encapsulation**: separate *what* your function does from *how* it implements its task.
+
+- It should do one and only one thing as well as possible.
+- If your function needs to modify some state/data, then that state/data ought to be arguments to the function.
+- Information that is unrelated to what a function does should be minimized as much as possible.

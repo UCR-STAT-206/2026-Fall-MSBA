@@ -35,31 +35,37 @@ website:
             href: notes/module02/types.qmd
           - text: Arithmetic, Comparisons, and Boolean Algebra
             href: notes/module02/basics.qmd
-      #     - text: The Python Standard Library
-      #     - text: Writing Programs and Scripts
-      #     - text: Control Flow
-      #       href: notes/module02/control.qmd
-      #     - text: Functions
-      #       href: notes/module02/functions.qmd
-      #     - text: Modules, Classes, and Namespaces
-      # - section: Module 3 (Best Practices)
-      #   contents:
-      #     - text: Error Handling
-      #     - text: Debugging
-      #     - text: Defensive Programming
-      #     - text: Testing
-      #     - text: Refactoring
-      #       href: notes/module03/refactoring.qmd
-      # - section: Module 4 (Numerical Python)
-      #   contents:
-      #     - text: Introduction to Numpy
-      #     - text: Working with Numpy Arrays
-      #     - text: Vectorization and Broadcasting
-      #     - text: Working with Probability Distributions
-      #     - text: Computer Arithmetic
-      #       href: notes/module04/numbers.qmd
-      #     - text: Computer Architecture
-      #       href: notes/module04/computers.qmd
+          - text: Functions
+            href: notes/module02/functions.qmd
+          - text: Control Flow
+            href: notes/module02/control.qmd
+      - section: Module 3 (Beyond Basics)
+        contents:
+          - text: Collections
+            href: notes/module03/collections.qmd
+          - text: The Python Standard Library
+            href: notes/module03/stdlib.qmd
+          - text: Modules, Classes, and Namespaces
+            href: notes/module03/modules.qmd
+          - text: Input and Output
+            href: notes/module03/io.qmd
+      - section: Module 4 (Best Practices)
+        contents:
+          - text: Error Handling
+          - text: Debugging
+          - text: Defensive Programming
+          - text: Testing
+          - text: Refactoring
+      - section: Module 5 (Numerical Python)
+        contents:
+          - text: Introduction to Numpy
+          - text: Working with Numpy Arrays
+          - text: Vectorization and Broadcasting
+          - text: Working with Probability Distributions
+          - text: Computer Arithmetic
+            # href: notes/module05/numbers.qmd
+          - text: Computer Architecture
+            # href: notes/module05/computers.qmd
       # - section: Module 5 (Tabular Data)
       #   contents:
       #     - text: Introduction to Pandas
@@ -110,8 +116,8 @@ website:
             href: labs/lab0-setup.qmd
           - text: Lab 1 (Submitting Assignments)
             href: labs/lab1-submit.qmd
-          # - text: Lab 2 (Errors and Debugging)
-          #   href: labs/lab2-debug.qmd
+          - text: Lab 2 (Errors and Debugging)
+            href: labs/lab2-debug.qmd
           # - text: Lab 3 (I/O Handling)
           #   href: labs/lab3-io.qmd
           # - text: Lab 4 (Reproducibility)
@@ -128,8 +134,8 @@ website:
         contents:
           - text: Homework 1
             href: hw/hw1.qmd
-          # - text: Homework 2
-          #   href: hw/hw2.qmd
+          - text: Homework 2
+            href: hw/hw2.qmd
           # - text: Homework 3
           #   href: hw/hw3.qmd
           # - text: Homework 4
