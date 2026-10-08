@@ -318,10 +318,11 @@ import csv                      # <1>
 freq = Counter() # <2>
 with open('assets/purchases.csv', mode='r', encoding='utf-8') as file: # <3>
   csv_reader = csv.reader(file) # <4>
-  for row in csv_reader:        # <5>
+  header = next(csv_reader)     # <5>
+  for row in csv_reader:        # <6>
     # product is in the first column, so position 0
-    product = row[0]            # <6>
-    freq[product] += 1          # <7>
+    product = row[0]            # <7>
+    freq[product] += 1          # <8>
 
 freq
 ```
@@ -330,6 +331,7 @@ freq
 2. Initialize a fresh counter.
 3. We use the `with ... as ...:` syntax to help manage the file stream we open up. Specifically, this ensures the file is closed after we exit the code block, freeing up any consumed resources.
 4. We pass the file stream to a reader object.
+5. Read the header in the file; we'll skip over it.
 5. Iterate over each row *detected by* the reader object.
 6. Retrieve an element in the current row.
 7. Increment our `Counter`.

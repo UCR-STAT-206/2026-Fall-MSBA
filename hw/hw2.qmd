@@ -1,0 +1,118 @@
+---
+title: "Homework 2"
+subtitle: "Due 10am on October 12, 2026"
+---
+
+## Instructions
+
+1. There are 3 problems in this assignment.  Each problem must be completed for full credit, unless otherwise indicated.
+2. Follow the prompts in each problem closely as they contain multiple parts.
+3. Problem 2 requires a dataset posted on Canvas, `2026_q2_sales.csv`. Please download it from there.
+4. Problem 3 has an optional part for you to test yourself. **It is difficult.**
+
+## Problem 1
+
+###  Part A
+
+Given the `list`
+
+```{python}
+#| eval: false
+sales = [120, 85, 300, 450, 60, 510]
+```
+
+write a short script that
+
+- iterates through the list,
+- counts how many values are greater than or equal 300, and
+- prints the final count.
+
+You may **not** use the `.count()` method
+
+
+
+### Part B
+
+Translate your code in Part A into a function that accepts an arbitrary `list` of numbers, `sales`, and threshold `goal`, which does the following:
+
+- returns the number of entries greater than or equal `goal`,
+- returns the *total sales*, and
+- returns the *total sales based on the given* `goal`.
+
+
+## Problem 2
+
+The following code is based on an example from the notes on [Python collections](../notes/module03/collections.qmd):
+
+```{python}
+#| eval: false
+import csv
+
+with open('purchases.csv', mode='r', encoding='utf-8') as file:
+  csv_reader = csv.reader(file)
+  header = next(csv_reader)
+
+  for row in csv_reader:
+    product = row[0]
+```
+
+Use this as starter code for implementing a function named `sales_report()` that summarizes the sales data in `2026_q2_sales.csv`.
+This file contains sales on several consumer electronics and their sale amounts.
+Each row represents a particular product sold for a specific price.
+
+- The function should accept a `filename`, which you may safely assume ends in `.csv`.
+- Your function should open the CSV file and walks through it row by row (as in the starter code).
+- For each product in the sales data, tally the number of sales of that product.
+- Also record the total sales amount for each product.
+- Report (however you choose) each product name along with the number of sales and the sales amount. Also report the total number of products and total sales.
+
+
+
+## Problem 3
+
+[Fizz buzz](https://en.wikipedia.org/wiki/Fizz_buzz) is, historically, a common interview question for jobs that require programming skills.
+You will implement a function, `fizzbuzz()`, in increasing levels of difficulty.
+The last part of this problem is an optional challenge question.
+
+
+
+### Part A: Basic Problem
+
+Write a Python function named `fizzbuzz(n)` which accepts an `int` `n` as input and iterates through the integers `1` through `n`.
+For each number `j`, the function:
+
+- Prints the word `"fizz"` if the number is divisible by `3`. We'll refer to `3` as *a* FizzBuzz number and `"fizz"` as a FizzBuzz word.
+- Prints the word `"buzz"` if the number is divisible by `5`.
+- Prints `"fizzbuzz"` is the number is divisible by both `3` and `5`. We'll refer to this as *the concatenation rule*.
+- Prints the number `j` by itself if it is not a FizzBuzz number.
+
+Include at least 2 test cases demonstrating that your function works as intended.
+Explain how you know your test cases prove the function works as intended.
+
+
+
+### Part B: Additional Complexity
+
+Now let's add another rule:
+
+- If the current number is divisible by FizzBuzz number `7`, print the FizzBuzz word `bazz`.
+- The concatenation rule continues to apply. That means you must print all 3 words if a number is divisible by all 3 FizzBuzz numbers so far (`3`, `5`, and `7`).
+- The concatenation rule extends to other combinations; for example, print `fizzbazz` if a number is divisible by `3` and `7`.
+
+Implement this in a separate function called `fizzbuzzbazz()` and provide a test case demonstrating that it works.
+Justify your test case as before.
+
+
+
+### Part C: General Case (Optional)
+
+Now we'll generalize the solution to an arbitrary set of FizzBuzz numbers and words.
+Write a function named `fizzbuzzmaster()` which accepts three inputs:
+
+- `n`, a number defining the sequence `1` through `n`.
+- `fbnums`, short for FizzBuzz numbers.
+- `fbwords`, short for FizzBuzz words.
+
+You may assume `fbnums` and `fbwords` are `list` objects of the same length, and that `fbnums` only contains integers strictly greater than `1`.
+Your solution must satisfy the concatenation rule.
+Demonstrate that your solution works as advertised and explain why you know the solution is correct in general.
