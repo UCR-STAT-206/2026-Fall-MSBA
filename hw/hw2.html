@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Homework 1</title>
+<title>Homework 2</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -109,35 +109,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -151,7 +122,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../hw/hw1.html">Homework</a></li><li class="breadcrumb-item"><a href="../hw/hw1.html">Homework 1</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../hw/hw1.html">Homework</a></li><li class="breadcrumb-item"><a href="../hw/hw2.html">Homework 2</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -406,13 +377,13 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../hw/hw1.html" class="sidebar-item-text sidebar-link active">
+  <a href="../hw/hw1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../hw/hw2.html" class="sidebar-item-text sidebar-link">
+  <a href="../hw/hw2.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Homework 2</span></a>
   </div>
 </li>
@@ -483,23 +454,17 @@ window.Quarto = {
    
   <ul>
   <li><a href="#instructions" id="toc-instructions" class="nav-link active" data-scroll-target="#instructions">Instructions</a></li>
-  <li><a href="#formatting-requirements" id="toc-formatting-requirements" class="nav-link" data-scroll-target="#formatting-requirements">Formatting Requirements</a></li>
-  <li><a href="#problem-1" id="toc-problem-1" class="nav-link" data-scroll-target="#problem-1">Problem 1</a></li>
-  <li><a href="#problem-2" id="toc-problem-2" class="nav-link" data-scroll-target="#problem-2">Problem 2</a>
+  <li><a href="#problem-1" id="toc-problem-1" class="nav-link" data-scroll-target="#problem-1">Problem 1</a>
   <ul class="collapse">
-  <li><a href="#tracing-the-flow-of-a-program" id="toc-tracing-the-flow-of-a-program" class="nav-link" data-scroll-target="#tracing-the-flow-of-a-program">Tracing the flow of a program</a></li>
-  <li><a href="#reasoning-about-errors" id="toc-reasoning-about-errors" class="nav-link" data-scroll-target="#reasoning-about-errors">Reasoning about errors</a></li>
+  <li><a href="#part-a" id="toc-part-a" class="nav-link" data-scroll-target="#part-a">Part A</a></li>
+  <li><a href="#part-b" id="toc-part-b" class="nav-link" data-scroll-target="#part-b">Part B</a></li>
   </ul></li>
+  <li><a href="#problem-2" id="toc-problem-2" class="nav-link" data-scroll-target="#problem-2">Problem 2</a></li>
   <li><a href="#problem-3" id="toc-problem-3" class="nav-link" data-scroll-target="#problem-3">Problem 3</a>
   <ul class="collapse">
-  <li><a href="#store-the-expected-bake-time-in-a-constant" id="toc-store-the-expected-bake-time-in-a-constant" class="nav-link" data-scroll-target="#store-the-expected-bake-time-in-a-constant">1. Store the expected bake time in a constant</a></li>
-  <li><a href="#calculate-the-preparation-time-in-minutes" id="toc-calculate-the-preparation-time-in-minutes" class="nav-link" data-scroll-target="#calculate-the-preparation-time-in-minutes">2. Calculate the preparation time in minutes</a></li>
-  <li><a href="#calculate-the-remaining-oven-time-in-minutes" id="toc-calculate-the-remaining-oven-time-in-minutes" class="nav-link" data-scroll-target="#calculate-the-remaining-oven-time-in-minutes">3. Calculate the remaining oven time in minutes</a></li>
-  <li><a href="#calculate-the-total-working-time-in-minutes" id="toc-calculate-the-total-working-time-in-minutes" class="nav-link" data-scroll-target="#calculate-the-total-working-time-in-minutes">4. Calculate the total working time in minutes</a></li>
-  </ul></li>
-  <li><a href="#problem-4" id="toc-problem-4" class="nav-link" data-scroll-target="#problem-4">Problem 4</a>
-  <ul class="collapse">
-  <li><a href="#checking-your-work" id="toc-checking-your-work" class="nav-link" data-scroll-target="#checking-your-work">Checking your work</a></li>
+  <li><a href="#part-a-basic-problem" id="toc-part-a-basic-problem" class="nav-link" data-scroll-target="#part-a-basic-problem">Part A: Basic Problem</a></li>
+  <li><a href="#part-b-additional-complexity" id="toc-part-b-additional-complexity" class="nav-link" data-scroll-target="#part-b-additional-complexity">Part B: Additional Complexity</a></li>
+  <li><a href="#part-c-general-case-optional" id="toc-part-c-general-case-optional" class="nav-link" data-scroll-target="#part-c-general-case-optional">Part C: General Case (Optional)</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -507,10 +472,10 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../hw/hw1.html">Homework</a></li><li class="breadcrumb-item"><a href="../hw/hw1.html">Homework 1</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../hw/hw1.html">Homework</a></li><li class="breadcrumb-item"><a href="../hw/hw2.html">Homework 2</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Homework 1</h1>
-<p class="subtitle lead">Due 10am on October 5, 2026</p>
+<h1 class="title">Homework 2</h1>
+<p class="subtitle lead">Due 10am on October 12, 2026</p>
 </div>
 
 
@@ -529,128 +494,94 @@ window.Quarto = {
 
 <section id="instructions" class="level2">
 <h2 class="anchored" data-anchor-id="instructions">Instructions</h2>
-</section>
-<section id="formatting-requirements" class="level2">
-<h2 class="anchored" data-anchor-id="formatting-requirements">Formatting Requirements</h2>
 <ol type="1">
-<li>Your work should be in the form of a Quarto file named <code>hw1.qmd</code>. Python code should appear in code chunks.</li>
-<li>You are responsible for ensuring your work is reproducible on someone else’s computer. That means:
-<ul>
-<li>Verifying that <code>hw1.qmd</code> renders properly as an HTML report.</li>
-</ul></li>
-<li>Feel free to strip away instructions or hints in your <code>hw1.qmd</code> file. Leave the problem descriptions and prompts intact.</li>
-<li>Your homework solutions must be more than code. Most prompts in this assignment, if not all, should have text describing how you approached a problem. Other students in the class should be able to understand your reasoning by reading the text and code comments.</li>
+<li>There are 3 problems in this assignment. Each problem must be completed for full credit, unless otherwise indicated.</li>
+<li>Follow the prompts in each problem closely as they contain multiple parts.</li>
+<li>Problem 2 requires a dataset posted on Canvas, <code>2026_q2_sales.csv</code>. Please download it from there.</li>
+<li>Problem 3 has an optional part for you to test yourself. <strong>It is difficult.</strong></li>
 </ol>
 </section>
 <section id="problem-1" class="level2">
 <h2 class="anchored" data-anchor-id="problem-1">Problem 1</h2>
-<p>Before we do any computational work, let’s format your Quarto document.</p>
+<section id="part-a" class="level3">
+<h3 class="anchored" data-anchor-id="part-a">Part A</h3>
+<p>Given the <code>list</code></p>
+<div id="902c5185" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a>sales <span class="op">=</span> [<span class="dv">120</span>, <span class="dv">85</span>, <span class="dv">300</span>, <span class="dv">450</span>, <span class="dv">60</span>, <span class="dv">510</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>write a short script that</p>
 <ul>
-<li>Quarto’s headers are especially sensitive to formatting. This is the place to be nitpicky about spacing and indentation.</li>
-<li>Make sure your <code>.qmd</code> file has your name in the header.</li>
-<li>Be sure to list any collaborators.</li>
-<li>Double-check that <code>engine: jupyter</code> is set!</li>
+<li>iterates through the list,</li>
+<li>counts how many values are greater than or equal 300, and</li>
+<li>prints the final count.</li>
 </ul>
+<p>You may <strong>not</strong> use the <code>.count()</code> method</p>
+</section>
+<section id="part-b" class="level3">
+<h3 class="anchored" data-anchor-id="part-b">Part B</h3>
+<p>Translate your code in Part A into a function that accepts an arbitrary <code>list</code> of numbers, <code>sales</code>, and threshold <code>goal</code>, which does the following:</p>
+<ul>
+<li>returns the number of entries greater than or equal <code>goal</code>,</li>
+<li>returns the <em>total sales</em>, and</li>
+<li>returns the <em>total sales based on the given</em> <code>goal</code>.</li>
+</ul>
+</section>
 </section>
 <section id="problem-2" class="level2">
 <h2 class="anchored" data-anchor-id="problem-2">Problem 2</h2>
-<p>The following small Python programs store values in variables and use the <code>print()</code> function to produce an output. Treat each code block as a self-contained unit, meaning the code in the first code block has no influence on any subsequent code blocks.</p>
-<section id="tracing-the-flow-of-a-program" class="level3">
-<h3 class="anchored" data-anchor-id="tracing-the-flow-of-a-program">Tracing the flow of a program</h3>
-<p>In each case, determine what each program outputs.</p>
-<div id="77471b70" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a>nephew <span class="op">=</span> <span class="st">'Jack'</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-label="2"></a><span class="bu">print</span>(nephew)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The following code is based on an example from the notes on <a href="../notes/module03/collections.html">Python collections</a>:</p>
+<div id="a20e2429" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a><span class="im">import</span> csv</span>
+<span id="cb2-2"><a href="#cb2-2" aria-label="2"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-label="3"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'purchases.csv'</span>, mode<span class="op">=</span><span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb2-4"><a href="#cb2-4" aria-label="4"></a>  csv_reader <span class="op">=</span> csv.reader(<span class="bu">file</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-label="5"></a>  header <span class="op">=</span> <span class="bu">next</span>(csv_reader)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-label="6"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-label="7"></a>  <span class="cf">for</span> row <span class="kw">in</span> csv_reader:</span>
+<span id="cb2-8"><a href="#cb2-8" aria-label="8"></a>    product <span class="op">=</span> row[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="89987936" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>nephew <span class="op">=</span> <span class="st">'Jack'</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-label="2"></a><span class="bu">print</span>(<span class="st">'nephew'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="30dddae9" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a>nephew <span class="op">=</span> <span class="st">'Jack'</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-label="2"></a>nephew <span class="op">=</span> <span class="st">'Albert'</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-label="3"></a><span class="bu">print</span>(nephew)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="2966c016" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a>nephew <span class="op">=</span> <span class="st">'Jack'</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-label="2"></a>Nephew <span class="op">=</span> <span class="st">'Albert'</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-label="3"></a><span class="bu">print</span>(nephew)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="reasoning-about-errors" class="level3">
-<h3 class="anchored" data-anchor-id="reasoning-about-errors">Reasoning about errors</h3>
-<p>The following programs will produce errors in a fresh Python session. In each case, explain why each <em>self-contained</em> block produces an error.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Hint
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>To produce the errors yourself, start a fresh Python session in a terminal, copy a code block, and paste it into your Python session. Do this for each example to make the code self-contained.</p>
-</div>
-</div>
-<div id="2cfcc775" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a>nephew <span class="op">=</span> Jack</span>
-<span id="cb5-2"><a href="#cb5-2" aria-label="2"></a><span class="bu">print</span>(nephew)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="a345e51f" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a>nephew <span class="op">=</span> <span class="st">'Jack'</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-label="2"></a><span class="bu">print</span>(Jack)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="f094df05" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-label="1"></a>nephew <span class="op">=</span> <span class="st">'Jack'</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-label="2"></a><span class="bu">print</span>(NEPHEW)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="4b667f4c" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a><span class="bu">print</span>(nephew)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
+<p>Use this as starter code for implementing a function named <code>sales_report()</code> that summarizes the sales data in <code>2026_q2_sales.csv</code>. This file contains sales on several consumer electronics and their sale amounts. Each row represents a particular product sold for a specific price.</p>
+<ul>
+<li>The function should accept a <code>filename</code>, which you may safely assume ends in <code>.csv</code>.</li>
+<li>Your function should open the CSV file and walks through it row by row (as in the starter code).</li>
+<li>For each product in the sales data, tally the number of sales of that product.</li>
+<li>Also record the total sales amount for each product.</li>
+<li>Report (however you choose) each product name along with the number of sales and the sales amount. Also report the total number of products and total sales.</li>
+</ul>
 </section>
 <section id="problem-3" class="level2">
 <h2 class="anchored" data-anchor-id="problem-3">Problem 3</h2>
-<p>In this exercise you’re going to write some code to help you cook a brilliant lasagna from your favorite cooking book. You have four tasks, all related to the time spent cooking the lasagna.</p>
-<section id="store-the-expected-bake-time-in-a-constant" class="level3">
-<h3 class="anchored" data-anchor-id="store-the-expected-bake-time-in-a-constant">1. Store the expected bake time in a constant</h3>
-<p>Define the <code>expected_bake_time</code> constant that returns how many minutes the lasagna should bake in the oven. According to the cooking book, lasagna needs to be in the oven for a total of 60 minutes.</p>
-</section>
-<section id="calculate-the-preparation-time-in-minutes" class="level3">
-<h3 class="anchored" data-anchor-id="calculate-the-preparation-time-in-minutes">2. Calculate the preparation time in minutes</h3>
-<p>Define the <code>preparation_time</code> function that takes the number of layers you added to the lasagna as an argument and returns how many minutes you spent preparing the lasagna, assuming each layer takes you 2 minutes to prepare.</p>
-</section>
-<section id="calculate-the-remaining-oven-time-in-minutes" class="level3">
-<h3 class="anchored" data-anchor-id="calculate-the-remaining-oven-time-in-minutes">3. Calculate the remaining oven time in minutes</h3>
-<p>Define the <code>remaining_time</code> function that takes the actual minutes the lasagna has been in the oven as a parameter and returns how many minutes the lasagna still has to remain in the oven.</p>
-</section>
-<section id="calculate-the-total-working-time-in-minutes" class="level3">
-<h3 class="anchored" data-anchor-id="calculate-the-total-working-time-in-minutes">4. Calculate the total working time in minutes</h3>
-<p>Define the <code>total_working_time</code> function that takes two arguments: the first argument is the number of layers you added to the lasagna, and the second argument is the number of minutes the lasagna has been in the oven. The function should return how many minutes in total you’ve worked on cooking the lasagna, which is the sum of the preparation time in minutes, and the time in minutes the lasagna has spent in the oven at the moment.</p>
-</section>
-</section>
-<section id="problem-4" class="level2">
-<h2 class="anchored" data-anchor-id="problem-4">Problem 4</h2>
-<section id="checking-your-work" class="level3">
-<h3 class="anchored" data-anchor-id="checking-your-work">Checking your work</h3>
+<p><a href="https://en.wikipedia.org/wiki/Fizz_buzz">Fizz buzz</a> is, historically, a common interview question for jobs that require programming skills. You will implement a function, <code>fizzbuzz()</code>, in increasing levels of difficulty. The last part of this problem is an optional challenge question.</p>
+<section id="part-a-basic-problem" class="level3">
+<h3 class="anchored" data-anchor-id="part-a-basic-problem">Part A: Basic Problem</h3>
+<p>Write a Python function named <code>fizzbuzz(n)</code> which accepts an <code>int</code> <code>n</code> as input and iterates through the integers <code>1</code> through <code>n</code>. For each number <code>j</code>, the function:</p>
 <ul>
-<li>Render/preview your report from scratch.</li>
-<li>Verify that each piece of code executes free of errors.
-<ul>
-<li>Do the results match what you saw while working interactively?</li>
-</ul></li>
-<li>Verify that the report itself is readable.
-<ul>
-<li>Figures (if any) render properly.</li>
-<li>Any math set in <span class="math inline">\(\LaTeX\)</span> displays correctly.</li>
-</ul></li>
-<li>Polish the report.
-<ul>
-<li>Use inline code to report results rather than hard-coding them into the file; e.g.&nbsp;`{python} x` to reference the value of <code>x</code> inline.</li>
-<li>Reorganize your code to ensure your thought process is transparent to a reader.</li>
-</ul></li>
+<li>Prints the word <code>"fizz"</code> if the number is divisible by <code>3</code>. We’ll refer to <code>3</code> as <em>a</em> FizzBuzz number and <code>"fizz"</code> as a FizzBuzz word.</li>
+<li>Prints the word <code>"buzz"</code> if the number is divisible by <code>5</code>.</li>
+<li>Prints <code>"fizzbuzz"</code> is the number is divisible by both <code>3</code> and <code>5</code>. We’ll refer to this as <em>the concatenation rule</em>.</li>
+<li>Prints the number <code>j</code> by itself if it is not a FizzBuzz number.</li>
 </ul>
+<p>Include at least 2 test cases demonstrating that your function works as intended. Explain how you know your test cases prove the function works as intended.</p>
+</section>
+<section id="part-b-additional-complexity" class="level3">
+<h3 class="anchored" data-anchor-id="part-b-additional-complexity">Part B: Additional Complexity</h3>
+<p>Now let’s add another rule:</p>
+<ul>
+<li>If the current number is divisible by FizzBuzz number <code>7</code>, print the FizzBuzz word <code>bazz</code>.</li>
+<li>The concatenation rule continues to apply. That means you must print all 3 words if a number is divisible by all 3 FizzBuzz numbers so far (<code>3</code>, <code>5</code>, and <code>7</code>).</li>
+<li>The concatenation rule extends to other combinations; for example, print <code>fizzbazz</code> if a number is divisible by <code>3</code> and <code>7</code>.</li>
+</ul>
+<p>Implement this in a separate function called <code>fizzbuzzbazz()</code> and provide a test case demonstrating that it works. Justify your test case as before.</p>
+</section>
+<section id="part-c-general-case-optional" class="level3">
+<h3 class="anchored" data-anchor-id="part-c-general-case-optional">Part C: General Case (Optional)</h3>
+<p>Now we’ll generalize the solution to an arbitrary set of FizzBuzz numbers and words. Write a function named <code>fizzbuzzmaster()</code> which accepts three inputs:</p>
+<ul>
+<li><code>n</code>, a number defining the sequence <code>1</code> through <code>n</code>.</li>
+<li><code>fbnums</code>, short for FizzBuzz numbers.</li>
+<li><code>fbwords</code>, short for FizzBuzz words.</li>
+</ul>
+<p>You may assume <code>fbnums</code> and <code>fbwords</code> are <code>list</code> objects of the same length, and that <code>fbnums</code> only contains integers strictly greater than <code>1</code>. Your solution must satisfy the concatenation rule. Demonstrate that your solution works as advertised and explain why you know the solution is correct in general.</p>
 
 
 </section>
