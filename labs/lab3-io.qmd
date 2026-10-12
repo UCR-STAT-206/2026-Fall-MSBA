@@ -1,0 +1,254 @@
+---
+title: "Lab 3: File I/O"
+date: "2026-10-15"
+format:
+  html:
+    theme: cosmo
+    css: ../assets/styles.css
+    toc: true
+    code-copy: true
+    code-block-background: true
+---
+
+
+## Goals
+
+By the end of this lab, you should
+
+1. have an understanding of text versus binary files,
+2. be able to distinguish between flat versus hierarchical file types, and
+3. be able to load numeric data using Python's standard library or [NumPy](https://numpy.org/doc/stable/user/how-to-io.html).
+
+## Data storage formats
+
+- Files on a computer can be categorized as *text files* or *binary files*. Both file types are encoded as bit patterns.
+- **Text files** encode individual characters, allowing *text editor programs* to easily display the contents of a file to a user.
+    + *Examples*: CSV (`.csv`), TSV (`.tsv`), HTML (`.html`), XML (`.xml`), JSON (`.json`)
+    + Often has a specific standard defining how these files are formatted; for example valid CSV files should adhere to [RFC 41800](https://www.rfc-editor.org/info/rfc4180/).
+    + Internal markup language/syntax is fairly simple.
+    + Usually, but not always, related to storing a dataset in the sense that is familiar to statisticians/data scientists.
+- **Binary files** have their contents encoded in a (sometimes proprietary) specialized format. These types of files are typically *not meant* to be manipulated by text editors, and instead use their specialized representation to minimize file size or enhance performance in certain workflows.
+    + *Examples*: NumPy binary files (`.npy`, `.npz`), [R data](https://www.r-bloggers.com/2021/12/how-to-read-rda-file-in-r-with-example/) (`.Rda` and similar file types), [Arrow](https://en.wikipedia.org/wiki/Apache_Arrow) (`.arrow`), [Parquet](https://en.wikipedia.org/wiki/Apache_Parquet) (`.parquet`), [Python's Pickle format](https://docs.python.org/3/library/pickle.html) (`.pkl` or `.pickle`), [HDF5](https://en.wikipedia.org/wiki/Hierarchical_Data_Format) (`.hdf5`).
+    + Who knows how the contents are stored... it does not matter for the intended use.
+    + Often, but not always, related to the idea of *serializing objects* in a programming language so they can be reused across sessions.
+
+## Text file types
+
+### Flat text files
+
+**Flat text files** are straightforward. Other than relying on a few special characters to separate distinct items, the textual representation you see exactly defines the data.
+
++ Common format for tabular data: 1 row = 1 observation and 1 column = 1 variable, field, or parameter.
++ Might rely on **fixed width format** in which each value must be encoded as text of a certain length.
++ Might rely on a **delimiter** to separate distinct values.
+
+One annoying quirk: Windows and Linux-like systems use different line endings!
+
++ Line endings typically handled by invisible [ASCII](https://en.wikipedia.org/wiki/ASCII) characters.
++ If you create a file on Windows: newline `\n` and carriage return `\r`.
++ If you create a file on MacOS/UNIX/Linux: only newline `\n`.
+
+### Hierarchical text files
+
+Some text files rely on a **hierarchical structure** defined by an elaborate markup language.
+A classic example is HTML:
+
+- Usually starts with `<!DOCTYPE html>` as a document type declaration (if adhering to W3C standards).
+- Followed by an opening `<html>` tag...
+- Followed by a nested `<head></head>` section...
+- Followed by a nested `<body></body>`...
+- And finally closed out by an `</html>` tag.
+
+We can edit these by hand, but its best to use a specialized editor to parse and edit, whenever possible.
+
+## How to read and write
+
+### Streams
+
+Python handles file interactions using file stream objects.
+Context managers (`with` statements) ensure that open file streams are automatically closed when you are finished.
+
+Specifically, the patterns you should commit to memory are:
+
+```{python}
+#| eval: false
+# to read a file
+with open("path/to/file", "r") as f:
+    # do something with the file stream
+```
+
+```{python}
+#| eval: false
+# to (over)write to a file
+with open("path/to/file", "w") as f:
+    # do something with the file stream
+```
+
+In both instances, `f` represents a file object handling the underlying logic of reading and writing file contents.
+There are basic stream methods like `f.read()`, `f.readline()`, `f.readlines()`, and `f.write()` that are used when you need fine-grained control.
+
+You've already been working with **streams**:
+
+- `sys.stdout`, the standard output stream. This is used to handle the logic of displaying information to you when you run commands in the terminal or Python REPL.
+- `stdin`, the standard input stream. This is used to handle the logic of reading and parsing commands you enter in a terminal or Python REPL.
+
+The following focuses on parsing numeric files using Python's standard library and NumPy.
+
+### How to read a file
+
+Using NumPy's `loadtxt()` function:
+
+```{python}
+import numpy as np
+
+mydata = np.loadtxt("../hw/assets/nnmf-2429-by-361-face.txt")
+mydata
+```
+
+This "just works", but we blindly relied on the `np.loadtxt()` to infer delimiters and structure in the file.
+Here's what the first 2 lines look like (output from `head -n 2 nnmf-2429-by-361-face.txt`):
+
+```{text}
+0.14815 0.018294 0.027569 0 0.083222 0.10177 0.38004 0.51917 0.43569 0.38004 0.29656 0.25946 0.31511 0.2038 0.083222 0.018294 0.064671 0.018294 0 0.31511 0.1296 0.018294 0 0 0.055395 0.15743 0.25946 0.55627 0.42641 0.45424 0.37076 0.38931 0.34293 0.28728 0.21308 0.04612 0 0 0.50062 0.25946 0 0 0 0 0.2409 0.41714 0.45424 0.53772 0.43569 0.40786 0.38004 0.35221 0.38931 0.35221 0.30583 0.22235 0.018294 0.6583 0.29656 0.1296 0.51917 0.11105 0.073946 0.34293 0.53772 0.63975 0.6583 0.52844 0.45424 0.50989 0.47279 0.36149 0.22235 0.30583 0.36149 0.055395 0.68613 0.14815 0 0 0.18525 0.18525 0.31511 0.63975 0.64902 0.71395 0.59337 0.50989 0.63975 0.42641 0.11105 0.092497 0.027569 0.15743 0.19453 0.64902 0.073946 0 0.15743 0.2038 0.15743 0.37076 0.6212 0.63047 0.84381 0.87164 0.63975 0.57482 0.2038 0.04612 0 0 0.18525 0.40786 0.7325 0.29656 0 0.1296 0.018294 0.073946 0.28728 0.31511 0.41714 0.59337 0.67685 0.64902 0.46352 0.036844 0.17598 0 0 0.22235 0.32438 0.82526 0.36149 0.28728 0.12032 0.064671 0.21308 0.38931 0.32438 0.2409 0.13887 0.04612 0.055395 0.1667 0.073946 0.33366 0 0 0.18525 0.25018 0.89946 0.50989 0.21308 0.1667 0.083222 0.073946 0.092497 0.083222 0.073946 0.23163 0.2409 0 0.04612 0.23163 0.49134 0.036844 0 0.30583 0.23163 0.89946 0.68613 0.82526 0.53772 0.53772 0.54699 0.46352 0.48207 0.63975 0.80671 0.87164 0.29656 0.1667 0.29656 0.50062 0.17598 0.018294 0.31511 0.18525 0.80671 0.57482 0.26873 0.2409 0.29656 0.33366 0.21308 0.28728 0.36149 0.38004 0.56555 0.14815 0.19453 0.28728 0.43569 0.036844 0 0.25018 0.21308 0.55627 0 0 0.19453 0 0 0.055395 0 0 0.018294 0.018294 0 0 0.17598 0.34293 0 0 0.26873 0.13887 0.46352 0 0.092497 0.42641 0.12032 0 0.1296 0.23163 0.28728 0.36149 0.25946 0.19453 0.083222 0.027569 0.14815 0 0 0.12032 0.32438 0.25018 0.064671 0.018294 0.93656 0.38004 0.073946 0.32438 0.32438 0.49134 0.70468 0.88091 0.56555 0.23163 0.036844 0.11105 0 0.25946 0.34293 0.2038 0.17598 0 0 0 0.10177 0.13887 0.42641 0.55627 0.57482 0.6954 0.66758 0.70468 0.42641 0.073946 0 0 0.22235 0.26873 0.29656 0.32438 0 0.04612 0 0.036844 0.14815 0.35221 0.50989 0.68613 0.63047 0.61192 0.60265 0.63047 0.19453 0.064671 0.018294 0.15743 0.19453 0.1296 0.14815 0 0 0 0 0.11105 0.38931 0.42641 0.6212 0.5841 0.50989 0.43569 0.47279 0.39859 0.25018 0.34293 0.50989 0.41714 0.19453 0.12032 0 0.027569 0 0 0.064671 0.13887 0.23163 0.41714 0.43569 0.37076 0.38004 0.40786 0.35221 0.38004 0.32438 0.26873 0.13887 0 0 0.027569 0 0.0090181 0.036844 0.064671 0.13887 0.30583 0.37076 0.37076 0.26873 0.28728 0.28728 0.19453 0.073946 0 0 0 0
+0.20667 0.095859 0.0020948 0.10438 0 0.053239 0.17258 0.41977 0.45387 0.3942 0.31748 0.24929 0.28339 0.27486 0.15553 0.053239 0.019143 0.070287 0 0.3942 0.23224 0.027667 0 0 0 0.11291 0.15553 0.33453 0.44534 0.38568 0.41977 0.32601 0.35158 0.30896 0.24929 0.16405 0.0020948 0 0.61582 0.47944 0 0 0 0 0.061763 0.31748 0.36863 0.45387 0.47092 0.38568 0.37715 0.33453 0.33453 0.35158 0.30896 0.26634 0.15553 0.71811 0.59025 0 0.11291 0.66697 0.0020948 0.16405 0.34306 0.51354 0.59878 0.58173 0.46239 0.4283 0.45387 0.41977 0.29191 0.20667 0.33453 0.29191 0.81188 0.55616 0 0 0 0.1811 0.22372 0.40272 0.56468 0.61582 0.6414 0.50501 0.50501 0.59025 0.28339 0.078811 0.053239 0.095859 0.12143 0.78631 0.53911 0 0 0.31748 0.12996 0.15553 0.47092 0.55616 0.6414 0.81188 0.73516 0.59025 0.4283 0.11291 0.061763 0 0.10438 0.26634 0.8204 0.56468 0.18962 0.095859 0.078811 0.019143 0.10438 0.29191 0.30896 0.4283 0.59025 0.62435 0.55616 0.30896 0.027667 0.15553 0 0 0.23224 0.99088 0.64992 0.29191 0.15553 0.34306 0 0.30896 0.35158 0.25782 0.20667 0.10438 0.010619 0.12143 0.095859 0.12996 0.23224 0 0 0.22372 0.93121 0.72664 0.41977 0.070287 0.16405 0.070287 0.070287 0.087335 0.078811 0.087335 0.25782 0.12143 0 0.095859 0.29191 0.32601 0 0.12996 0.30044 0.8545 0.77778 0.6073 0.81188 0.49649 0.50501 0.48796 0.41125 0.49649 0.6073 0.81188 0.67549 0.15553 0.24929 0.28339 0.40272 0.061763 0.2152 0.30044 0.93121 0.65845 0.44534 0.19815 0.23224 0.30896 0.26634 0.20667 0.27486 0.34306 0.3942 0.47092 0.061763 0.24077 0.28339 0.28339 0 0.18962 0.19815 0.70959 0.37715 0 0.0020948 0.24929 0 0 0.044715 0 0 0.044715 0 0.070287 0 0.25782 0.15553 0 0.11291 0.24077 0.62435 0.2152 0.053239 0.12143 0.55616 0 0.010619 0.147 0.23224 0.26634 0.32601 0.20667 0.18962 0 0.087335 0.036191 0 0.010619 0.1811 0.53911 0.078811 0.036191 0.095859 0.98236 0.15553 0.13848 0.30044 0.35158 0.49649 0.71811 0.76926 0.43682 0.12996 0.053239 0.027667 0 0.28339 0.26634 0.58173 0 0 0 0 0.12143 0.18962 0.52206 0.45387 0.58173 0.6414 0.6073 0.65845 0.24077 0.027667 0 0 0.2152 0.26634 0.59878 0.10438 0 0 0 0.036191 0.24077 0.4283 0.47092 0.64992 0.5732 0.54763 0.58173 0.48796 0.13848 0.044715 0.044715 0.12996 0.19815 0.31748 0.061763 0 0 0 0 0.20667 0.40272 0.41977 0.59878 0.52206 0.44534 0.40272 0.43682 0.30896 0.24929 0.3601 0.47944 0.33453 0.24929 0.053239 0 0.027667 0 0 0.087335 0.16405 0.24077 0.4283 0.38568 0.32601 0.3601 0.36863 0.32601 0.32601 0.29191 0.22372 0.087335 0 0 0.0020948 0 0.019143 0.036191 0.070287 0.16405 0.33453 0.33453 0.31748 0.24077 0.28339 0.24077 0.16405 0.044715 0 0 0
+```
+
+- No header line.
+- Not fixed-width as we can see violations of that format in the last few entries on both lines.
+- Delimited, since a single space character, `' '`, is used to separate values.
+- An invisible line ending is used to place rows on separate lines. Should be `'\n'`. Verify this on your own.
+- The data happens to be numeric floating point numbers. Is `np.float64` optimal here? Maybe we could get away with `np.float32`...
+
+**Even if a parser's heuristic defaults work, you should practice fully specifying how you load the data**:
+
+```{python}
+import numpy as np
+
+mydata = np.loadtxt(
+  "../hw/assets/nnmf-2429-by-361-face.txt",
+  delimiter = " ",
+  dtype = np.float64
+)
+mydata
+```
+
+- Same result.
+- This approach documents what **we** relied on to parse the data into an appropriate NumPy array.
+- People living in the future will thank you for your benevolence.
+
+If files contain missing values or inconsistent formatting, `np.genfromtxt()` is a flexible alternative in the NumPy package:
+
+```{python}
+#| eval: false
+import numpy as np
+
+mydata = np.genfromtxt(
+  "../hw/assets/nnmf-2429-by-361-face.txt",
+  delimiter = " ",
+  dtype = np.float64
+)
+```
+
+
+### How to write a file
+
+Using Numpy's `savetxt()` function:
+
+```{python}
+#| eval: false
+import numpy as np
+
+# get the first column
+myitem = mydata[:, 0]
+np.savetxt("whatisthis.txt", myitem, delimiter = " ")
+```
+
+- By default, `np.savetxt` exports numeric values formatted as floating-point numbers.
+- You can specify precision and formatting using the `fmt` parameter.
+    + *Example*: Passing the argument `fmt = "%.6f"` records 6 digits after the decimal point.
+
+
+
+## Handling file paths
+
+Earlier you encountered the relative file path `"../hw/assets/nnmf-2429-by-361-face.txt"`.
+This is bad because Windows and Linux-like systems use different file path separators.
+The better, robust alternative is to use `os.path.join` or the modern `pathlib` module:
+
+```{python}
+import os
+os.path.join("..", "hw", "assets", "nnmf-2429-by-361-face.txt")
+```
+
+```{python}
+from pathlib import Path
+Path("..") / "hw" / "assets" / "nnmf-2429-by-361-face.txt"
+```
+
+Both versions will $\text{Do The Right Thing}^{\text{TM}}$ depending on the underlying operating system.
+
+## Questions and Exercises
+
+- This lab involves applying the ideas above to do a bit of exploration on handling different file types.
+- Create a file named `io.qmd` under a `lab3` directory.
+- Include code used to generate or read any files as part of the `.qmd` file.
+- Be sure to add any input files and output files as part of the commits for this assignment.
+
+### Question 1
+
+Using the seed `1015`, generate a $1000 \times 1000$ matrix of random 64-bit floating-point numbers in Numpy.
+These numbers should be sampled independently and uniformly from the interval $[0,1]$.
+
+Once you've created this object, save the array to disk using two different approaches:
+
+1. As a text file using `np.savetxt("q1matrix.txt", matrix)`
+2. As a NumPy binary file using `np.save("q1matrix.npy", matrix)`.
+
+
+- Compare the file sizes on disk for `q1matrix.txt` and `q1matrix.npy`. Which is smaller and why?
+- Re-load both files back into Python (`np.loadtxt` and `np.load`). Are the re-loaded arrays **exactly** identical to your original array (using `np.array_equal`)? If not, explain why text conversion might introduce numerical discrepancies that the binary format avoids.
+
+
+### Question 2
+
+Real-world numeric data files are rarely perfectly clean files.
+Suppose your coworker hands you a file with the following quirks:
+
+- The first few lines are metadata comments that start with the `#` character.
+- The numeric columns are separated by irregular combinations of spaces `" "` and tabs `"\t"`.
+- Some values are missing and represented by placeholder values like `-999.0` or blank spaces `""`.
+
+Using the notes in this lab and the NumPy documentation:
+
+- Explain why `np.loadtxt()` fails on files with missing or non-uniform data, whereas `np.genfromtxt()` succeeeds.
+- List the specific arguments in `np.genfromtxt()` you would set to handle:
+    + Skipping or recognizing comment lines.
+    + Handling flexible whitespace delimiters.
+    + Converting placeholder values like `-999.0` directly into `np.nan` upon import.
+
+Save the following data as `messy_data.txt` to help you test your solutions:
+
+```{text}
+# Quarterly Channel Spend Report ($ in Thousands)
+# Columns: Search Ads, Social Media, Video Ads
+# Missing entries denoted by -999.0 or blank space
+12.5	  	45.0	  8.3
+14.2	   -999.0	  9.1
+11.8	  	42.5	  
+15.0	    48.2	  10.4
+-999.0	    41.0	  7.8
+```
+
+### Question 3 (Optional)
+
+Suppose you are given a 50 GB numeric text file containing 500 million floating-point numbers (one number per line).
+Your machine only has about 8 GB of RAM.
+Attempting to use `np.loadtxt()` will crash your system with a `MemoryError`!
+
+Write a Python script using the standard library file streaming interface that calculates the **mean** and **standard deviation** of all numbers in a file.
+
+- You are not allowed to load the whole file as a NumPy array in memory. You must stream and process the data line by line or in small chunks.
+- Computing the standard deviation can be done by first obtaining the variance, but that depends on the sample mean! As a first attempt, compute the *mean* and then the *variance* in two separate sweeps through the data.
+- Once you get the **two-pass algorithm** working, try to compute both summary statistics in a single sweep through the data. *This requires sitting down with pen and paper to derive recursive expressions of the summary statistics*.
+
+
