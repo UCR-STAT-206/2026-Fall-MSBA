@@ -62,9 +62,9 @@ website:
           - text: Vectorization and Broadcasting
           - text: Working with Probability Distributions
           - text: Computer Arithmetic
-            # href: notes/module05/numbers.qmd
+            href: notes/module05/numbers.qmd
           - text: Computer Architecture
-            # href: notes/module05/computers.qmd
+            href: notes/module05/computers.qmd
       # - section: Module 5 (Tabular Data)
       #   contents:
       #     - text: Introduction to Pandas

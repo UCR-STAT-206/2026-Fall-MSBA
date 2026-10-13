@@ -1,3 +1,341 @@
 ---
 title: Modules, Classes, and Namespaces
 ---
+
+## Goals
+
+1. Understand functions, methods, classes, and modules as tools for abstraction in Python.
+2. Understand source files, modules, and packages as tools for organizational abstraction in Python.
+
+
+
+## Overview
+
+As an analyst, you will:
+
+- Use large third-party libraries (`pandas`, `numpy`, `scikit-learn`).
+- Work with proprietary/internal company packages.
+- Read code written by others.
+- Contribute small pieces to larger codebases.
+
+You are not expected to design large software systems, but you *must understand how code is organized*.
+Various **abstractions** in a programming language shift the focus towards *what something does* and away from *how it does it*.
+
+## Language-Level Abstractions
+
+### Functions
+
+A **function** is a standalone block of reusable code.
+
+Here is the *definition*:
+
+```{python}
+def add_tax(price, tax_rate):
+  return price * (1 + tax_rate)
+```
+
+Here is an example of a *function call*:
+
+```{python}
+add_tax(100.00, 0.1095)
+```
+
+- We define a function using the `def` keyword.
+- We invoke or call a function using `function_name(arguments)`.
+- Functions do not "belong to" anything.
+- They encapsulate some useful behavior.
+- They have their own local scope.
+
+### Methods
+
+A **method** is a function that belongs to an object.
+
+
+```{python}
+mylist = [1, 2, 3]
+print(mylist)
+mylist.reverse()
+print(mylist)
+```
+
+- The function `.reverse()` is a **method**.
+- This method "belongs to" the `list` class/type, and its behavior depends on a particular *instance* of that class.
+- We call/invoke a method using dot notation: `object.method()`.
+
+### Classes
+
+A **class** defines a new type of object by bundling *data* (attributes) with *behavior* (methods).
+Python lets you define your own custom objects with the `class` keyword.
+
+- You can define the *name* for the class.
+- You can specify behaviors by writing *methods* for your class.
+- You can specify attributes inside a *constructor*.
+
+There are a few special symbols within a `class` block:
+
+- The `self` keyword is reserved for references to an object instance itself.
+    + Method definitions have a reference to `self` in the signature; first argument.
+- The `__init__()` method is a **constructor**: It defines how an object of a particular class is put together.
+    + The `self.attribute` syntax inside an `__init__()` definition can be used to make `attribute` part of the data held by an instance.
+- The `__str__()` and `__repr__()` methods control how Python displays an object; e.g. if you use `print(object)`.
+- There are many more interfaces in Python like `__str__()`.
+
+## Running Example
+
+
+```{python}
+class Product: # <1>
+    def __init__(self, name, price): # <2>
+        self.name = name             # <3>
+        self.price = price
+
+    def apply_discount(self, percent): #<4>
+        self.price *= (1 - percent)
+        return self
+```
+
+1. The class name is `Product`.
+2. The constructor `__init__()` requires a `name` and a `price`. The `self` is always there.
+3. Example specification of data attributes linked to the specific instance we create.
+4. Example of a method definition.
+
+## Using a custom class
+
+### Create an instance
+
+```{python}
+x = Product("Laptop", 4000)
+x
+```
+
+### Using an instance of a class
+
+We can access the attributes or data held by an instance:
+
+```{python}
+x.name
+```
+
+
+```{python}
+x.price
+```
+
+We can also use the class' methods:
+
+```{python}
+x.apply_discount(0.10) # 10% discount
+```
+
+```{python}
+x.price
+```
+
+### Method chaining
+
+We could have defined the `.apply_discount()` method as
+
+
+```{python}
+#| eval: false
+def apply_discount(self, percent):
+    self.price *= (1 - percent)
+    return self.price
+```
+
+The advantage of returning `self` instead of `self.price` is it allows for **method chaining**:
+
+```{python}
+x.apply_discount(0.10).apply_discount(0.10).price
+```
+
+Method chaining is important in many Python modules and packages, such as Pandas.
+
+### Pretty printing objects
+
+We saw that displaying `x` is not terribly informative.
+This behavior can be modified by *overloading* the `__str()__` method:
+
+```{python}
+x
+```
+
+
+```{python}
+print(x)
+```
+
+Here's a re-implementation of our `Product`, but with pretty printing.
+
+```{python}
+class FancyProduct:
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
+
+    def apply_discount(self, percent):
+        self.price *= (1 - percent)
+        return self
+
+    def __str__(self):
+        return f"Product Name: {self.name}\n       Price: ${self.price:,.2f}"
+```
+
+```{python}
+x = FancyProduct("Laptop", 4000)
+x
+```
+
+Same as before. However, its `print()` display is much better:
+
+```{python}
+print(x)
+```
+
+## Organizational abstractions
+
+### Python source files
+
+Python programs are typically stored in a **source file**.
+
+- Ends with `.py`.
+- Contains only Python code.
+- Can define functions.
+- Can define classes.
+- Can run executable code.
+
+As an example, try creating a `utils.py` file with the following:
+
+```{python}
+#| eval: false
+def add_tax(price, tax_rate):
+    return price * (1 + tax_rate)
+```
+
+### Modules
+
+A **module** is simply a Python file.
+
+If you have a `utils.py` file within the context of your Python process, then you can `import` it:
+
+
+```{python}
+#| eval: false
+import utils
+
+utils.add_tax(100, 0.2)
+```
+
+Alternatively:
+
+
+```{python}
+#| eval: false
+from utils import add_tax
+
+add_tax(100, 0.2)
+```
+
+The purpose of a module is to act as a **namespace**.
+
+- Symbols defined within a particular `.py` file are only visible within the context of that file.
+- Importing brings those symbols into your "main" or "global" namespace, usually qualified by the module name.
+- Helps keep track of what functions, methods, and classes with similar names actually do
+
+### Packages
+
+A **package**, at least in Python, is a directory containing multiple modules.
+
+Here's an example package:
+
+
+```{text}
+my_package/
+│
+├── __init__.py
+├── cleaning.py
+└── modeling.py
+```
+
+The top-level directory, `my_package`, is the package name and can be imported as usual.
+**The presence of `__init__.py` is important as it marks the directory `my_package` as a Python package.**
+
+- `__init__.py` can be completely empty. This is common.
+- Can also use this file to import functions and classes up to the main package level from submodules.
+- Many more features; refer to documentation for specifics.
+
+
+```{python}
+#| eval: false
+import my_package
+```
+
+If you only need a specific module, you can specify that, too:
+
+```{python}
+#| eval: false
+from my_package import cleaning
+```
+
+### Script vs Module
+
+Sometimes a Python source file is meant to be executed directly:
+
+
+```{python}
+#| eval: false
+print("Running analysis...")
+do.stepA()
+do.stepB()
+...
+```
+
+Other times it is meant to be imported.
+A common pattern is:
+
+```{python}
+#| eval: false
+def main():
+    print("Running analysis")
+
+if __name__ == "__main__":
+    main()
+```
+
+This ensures that code runs only when executed directly, not when imported as a module.
+
+## A simple multi-file project
+
+Create the package defined below.
+
+```{text}
+project/
+│
+├── analysis.py
+└── pricing.py
+```
+
+Below is the code for `pricing.py`:
+
+```{python}
+#| eval: false
+class Product:
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
+
+    def apply_discount(self, percent):
+        self.price *= (1 - percent)
+```
+
+And for `analysis.py`:
+
+```{python}
+#| eval: false
+from pricing import Product
+
+p = Product("Phone", 800)
+p.apply_discount(0.15)
+
+print(p.price)
+```
