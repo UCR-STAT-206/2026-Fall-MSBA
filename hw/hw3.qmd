@@ -1,0 +1,112 @@
+---
+title: "Homework 3"
+subtitle: "Due 10am on October 19, 2026"
+eval: false
+---
+
+## Instructions
+
+1. You should implement your solution using a Python module. Call it `pricing.py` and load it with `import pricing`.
+2. The sample code provided to you is for you to check your solution. You are responsible for creating any variables required in carrying out the tests.
+3. `for` loops and `while` loops are forbidden for this assignment.
+4. Think in terms of a *system*. You should write functions to handle discrete tasks and combine them to solve the larger task at hand.
+
+### Deliverables
+
+- A Python source file named `pricing.py`, as described.
+- A Quarto source file named `testing.qmd`, illustrating that illustrates how to use your module and passes all checks.
+
+
+
+## Overview
+
+You're tasked with implementing a pricing module for an e-commerce retailer.
+This module must handle the following tasks:
+
+- **Data cleaning**
+    + The system recording the number of **units** ordered randomly flipped the signs of some quantities, making these numbers negative.
+    + Some **price** information may have also been lost, resulting in zero values.
+- **Apply discounts and compute total revenue**
+    + Raw totals are computed as $\text{raw total} = \text{units} \times \text{unit price}$.
+    + Any orders over 10 units automatically receive a 5% volume discount.
+    + The **total revenue** must therefore factor in the volume discount applied to some of the orders.
+- **Compute final order totals**
+    + Orders are purchased from different states subject to different sales tax rates.
+    + Using a simple lookup table, you must calculate the tax amount on each order.
+    + Combine discounted totals with tax amounts to obtain the final order totals.
+
+You've been given sample data to test your pricing module, namely the files `hw3_raw_order_data.txt` and `hw3_raw_order_state_ids.txt`.
+In addition, you'll need the following integer codes corresponding to different states and their tax rates:
+
+| Code | State           | Sales Tax Rate |
+|------|-----------------|----------------|
+|  0   | California (CA) |          7.25% |
+|  1   | Texas (TX)      |          6.25% |
+|  2   | Oregon (OR)     |          0.00% |
+|  3   | New York (NY)   |          8.00% |
+|  4   | Florida (FL)    |          6.00% |
+
+
+
+## Part A: Check your test data
+
+1. The raw order data should be 1000 by 3.
+2. The state ID data should have 1000 entries.
+3. There are 17 negative unit quantities that need to be fixed.
+4. There are 10 entries with zero values for prices. These will eventually need to be dropped.
+
+```{python}
+assert raw_data.shape == (1000, 3), f"Expected raw_data shape (1000, 3), got {raw_data.shape}"
+assert raw_state_ids.shape == (1000,), f"Expected raw_state_ids shape (1000,), got {raw_state_ids.shape}"
+assert neg_units_count == 17, f"Expected 17 negative unit quantities, found {neg_units_count}"
+assert zero_prices_count == 10, f"Expected 10 zero unit prices, found {zero_prices_count}"
+```
+
+
+
+## Part B: Check data cleaning
+
+Once you've verified that your code can correctly identify bad entries:
+
+- Modify the negative values for units ordered so they are positive again.
+- Drop any rows containing zero values for pricing information.
+
+```{python}
+assert clean_orders.shape == (990, 3), f"Expected clean_orders shape (990, 3), got {clean_orders.shape}"
+assert clean_state_ids.shape == (990,), f"Expected clean_state_ids shape (990,), got {clean_state_ids.shape}"
+assert np.min(clean_orders[:, 0]) > 0, "FAIL: Found non-positive unit values after cleaning!"
+assert np.min(clean_orders[:, 1]) > 0, "FAIL: Found zero or negative prices after cleaning!"
+```
+
+## Part C: Check discounts and revenue calculations
+
+```{python}
+expected_raw_revenue = 172235.29
+expected_discounted_revenue = 166209.66
+
+assert len(raw_totals) == 990, f"Expected 990 raw total entries, got {len(raw_totals)}"
+assert len(discounted_totals) == 990, f"Expected 990 discounted total entries, got {len(discounted_totals)}"
+
+assert np.isclose(np.sum(raw_totals), expected_raw_revenue, atol=1e-2), \
+    f"Expected raw revenue ${expected_raw_revenue:,.2f}, got ${np.sum(raw_totals):,.2f}"
+
+assert np.isclose(np.sum(discounted_totals), expected_discounted_revenue, atol=1e-2), \
+    f"Expected discounted revenue ${expected_discounted_revenue:,.2f}, got ${np.sum(discounted_totals):,.2f}"
+
+assert num_discounted == 456, f"Expected 456 discounted orders, found {num_discounted}"
+```
+
+## Part D: Check order totals
+
+```{python}
+expected_final_revenue = 175257.13
+expected_tax_collected = 9047.47
+
+assert len(final_totals) == 990, f"Expected 990 final order totals, got {len(final_totals)}"
+
+assert np.isclose(np.sum(final_totals), expected_final_revenue, atol=1e-2), \
+    f"Expected final revenue ${expected_final_revenue:,.2f}, got ${np.sum(final_totals):,.2f}"
+
+assert np.isclose(total_tax_collected, expected_tax_collected, atol=1e-2), \
+    f"Expected total tax $9,047.47, got ${total_tax_collected:,.2f}"
+```
