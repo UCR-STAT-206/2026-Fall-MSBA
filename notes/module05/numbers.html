@@ -559,7 +559,7 @@ window.Quarto = {
 <li>The number of bits and method of representing negative numbers vary from system to system.</li>
 <li>NumPy has several integer types: <code>np.int8</code>, <code>np.int16</code>, <code>np.int32</code>, <code>np.int64</code> and their unsigned <code>np.uintX</code> relatives.</li>
 </ul>
-<div id="24e5f513" class="cell" data-execution_count="1">
+<div id="4c2b66df" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="signed-integers" class="level3">
@@ -586,7 +586,7 @@ window.Quarto = {
 </div>
 <p>Arithmetic (addition, subtraction, multiplication) on integers is exact except for the possibility of overflow.</p>
 <p>The <strong>range</strong> of representable integers by an <span class="math inline">\(M\)</span>-bit <strong>signed integer</strong> is <span class="math inline">\([-2^{M-1}, 2^{M-1}-1]\)</span>.</p>
-<div id="a9f56fec" class="cell" data-execution_count="2">
+<div id="38016133" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>np.iinfo(np.int64)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>iinfo(min=-9223372036854775808, max=9223372036854775807, dtype=int64)</code></pre>
@@ -596,7 +596,7 @@ window.Quarto = {
 <section id="unsigned-integers" class="level3">
 <h3 class="anchored" data-anchor-id="unsigned-integers">Unsigned Integers</h3>
 <p><strong>Unsigned integers</strong> use all <span class="math inline">\(M\)</span> bits to represent non-negative integers. Their range is <span class="math inline">\([0, 2^{M}-1]\)</span>.</p>
-<div id="a4cb6c49" class="cell" data-execution_count="3">
+<div id="1bd6ae2f" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a>np.iinfo(np.uint8)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>iinfo(min=0, max=255, dtype=uint8)</code></pre>
@@ -606,25 +606,25 @@ window.Quarto = {
 <section id="overflow-behavior" class="level3">
 <h3 class="anchored" data-anchor-id="overflow-behavior">Overflow Behavior</h3>
 <p>What happens when an arithmetic operation results in a value outside the representable range? This is known as <strong>overflow behavior</strong> and it varies across programming languages.</p>
-<div id="5f503d9d" class="cell" data-execution_count="4">
+<div id="5d84db0d" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a><span class="co"># not the same as Python's native `int`</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-label="2"></a>np.iinfo(np.int64).<span class="bu">max</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>9223372036854775807</code></pre>
 </div>
 </div>
-<div id="7fd5acfb" class="cell" data-execution_count="5">
+<div id="ce288615" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a>x <span class="op">=</span> np.iinfo(np.int64).<span class="bu">max</span> <span class="op">+</span> np.int64(<span class="dv">1</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-label="2"></a>x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_4036/3463402941.py:1: RuntimeWarning: overflow encountered in scalar add
+<pre><code>/tmp/ipykernel_4236/3463402941.py:1: RuntimeWarning: overflow encountered in scalar add
   x = np.iinfo(np.int64).max + np.int64(1)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>np.int64(-9223372036854775808)</code></pre>
 </div>
 </div>
-<div id="63a64953" class="cell" data-execution_count="6">
+<div id="8fdbbdb5" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a><span class="bu">type</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>numpy.int64</code></pre>
@@ -673,13 +673,13 @@ window.Quarto = {
 <li>Range for magnitude: <span class="math inline">\(10^{\pm 308}\)</span> in <em>decimal notation</em> because <span class="math inline">\(\log_{10}(2^{1023}) \approx 308\)</span>.</li>
 <li>Double precision numbers are precise up to about the <span class="math inline">\(-\log_{10}(2^{-52}) \approx 15\)</span> decimal point.</li>
 </ul>
-<div id="07942318" class="cell" data-execution_count="7">
+<div id="1cacd557" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-label="1"></a>np.finfo(np.float64)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>finfo(resolution=1e-15, min=-1.7976931348623157e+308, max=1.7976931348623157e+308, dtype=float64)</code></pre>
 </div>
 </div>
-<div id="540475c8" class="cell" data-execution_count="8">
+<div id="ecb16814" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-label="1"></a>np.float64(<span class="fl">1.0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>np.float64(1.0)</code></pre>
@@ -721,13 +721,13 @@ window.Quarto = {
 <section id="infinity-inf-and--inf" class="level4">
 <h4 class="anchored" data-anchor-id="infinity-inf-and--inf">Infinity: <code>+Inf</code> and <code>-Inf</code></h4>
 <p>Exponent <span class="math inline">\(e_{\mathrm{max}} + 1\)</span> (exponent bits all 1) with a zero mantissa means <span class="math inline">\(\pm \infty\)</span></p>
-<div id="c9d15a91" class="cell" data-execution_count="9">
+<div id="e486fdc5" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-label="1"></a>np.inf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>inf</code></pre>
 </div>
 </div>
-<div id="d1e27655" class="cell" data-execution_count="10">
+<div id="6081e8c0" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a><span class="op">-</span>np.inf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>-inf</code></pre>
@@ -737,7 +737,7 @@ window.Quarto = {
 <section id="not-a-number-nan" class="level4">
 <h4 class="anchored" data-anchor-id="not-a-number-nan">Not a Number: <code>NaN</code></h4>
 <p>Exponent <span class="math inline">\(e_{\mathrm{max}} + 1\)</span> (exponent bits all 1) with a nonzero mantissa means <code>nan</code>. <code>nan</code> could be produced from <code>0 / 0</code>, <code>0 * Inf</code>, <span class="math inline">\(\ldots\)</span></p>
-<div id="605bab05" class="cell" data-execution_count="11">
+<div id="85a80595" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-label="1"></a>np.nan</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>nan</code></pre>
@@ -784,7 +784,7 @@ p(x) = \frac{\exp (x^T \beta)}{1 + \exp (x^T \beta)} = \frac{1}{1+\exp(- x^T \be
 <p><img src="assets/machine-epsilon.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
 </figure>
 </div>
-<div id="cc5cb900" class="cell" data-execution_count="12">
+<div id="bd7e28f1" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-label="1"></a>np.finfo(np.float64).eps</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>np.float64(2.220446049250313e-16)</code></pre>
@@ -805,7 +805,7 @@ p(x) = \frac{\exp (x^T \beta)}{1 + \exp (x^T \beta)} = \frac{1}{1+\exp(- x^T \be
 \end{eqnarray*}
 \]</span></p>
 <p>What happens when computer calculates <span class="math inline">\(a+b\)</span>? We get <span class="math inline">\(a+b=a\)</span>!</p>
-<div id="d3c51f49" class="cell" data-execution_count="13">
+<div id="3fee57a6" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-label="1"></a>a <span class="op">=</span> np.float64(<span class="fl">2.0</span>) <span class="op">**</span> <span class="dv">30</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-label="2"></a>b <span class="op">=</span> np.float64(<span class="fl">2.0</span>) <span class="op">**</span> <span class="op">-</span><span class="dv">30</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-label="3"></a>a <span class="op">+</span> b <span class="op">==</span> a</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -813,13 +813,13 @@ p(x) = \frac{\exp (x^T \beta)}{1 + \exp (x^T \beta)} = \frac{1}{1+\exp(- x^T \be
 <pre><code>np.True_</code></pre>
 </div>
 </div>
-<div id="56bd11f3" class="cell" data-execution_count="14">
+<div id="9d8bbc4e" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-label="1"></a>a</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>np.float64(1073741824.0)</code></pre>
 </div>
 </div>
-<div id="39c92e53" class="cell" data-execution_count="15">
+<div id="969506f7" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-label="1"></a>b</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>np.float64(9.313225746154785e-10)</code></pre>
@@ -836,7 +836,7 @@ p(x) = \frac{\exp (x^T \beta)}{1 + \exp (x^T \beta)} = \frac{1}{1+\exp(- x^T \be
 \end{eqnarray*}
 \]</span></p>
 <p>The result is <span class="math inline">\(1.vvvvu...u\)</span> where <span class="math inline">\(u\)</span> are unassigned digits. <em>Rember that this is a binary representation, not a decimal number!</em></p>
-<div id="f3a1a54f" class="cell" data-execution_count="16">
+<div id="d89dd9ac" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-label="1"></a>a <span class="op">=</span> np.float32(<span class="fl">1.2345678</span>)</span>
 <span id="cb31-2"><a href="#cb31-2" aria-label="2"></a>b <span class="op">=</span> np.float32(<span class="fl">1.2345677</span>)</span>
 <span id="cb31-3"><a href="#cb31-3" aria-label="3"></a>a <span class="op">-</span> b</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>

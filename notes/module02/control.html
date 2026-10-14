@@ -526,7 +526,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="conditional-statements" class="level2">
 <h2 class="anchored" data-anchor-id="conditional-statements">Conditional statements</h2>
 <p>Conditional statements allow a program to change its behavior based on some state, usually captured by one or more variables.</p>
-<div id="b349824e" class="cell" data-execution_count="1">
+<div id="fafd2ce1" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="cf">if</span> condition1:</span>
 <span id="cb1-2"><a href="#cb1-2" aria-label="2"></a>  <span class="co"># do something</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-label="3"></a><span class="cf">elif</span> condition2: <span class="co"># else if</span></span>
@@ -558,7 +558,7 @@ Important
 </div>
 <section id="example-checking-for-an-empty-collection" class="level3">
 <h3 class="anchored" data-anchor-id="example-checking-for-an-empty-collection">Example: Checking for an empty collection</h3>
-<div id="cb616a32" class="cell" data-execution_count="2">
+<div id="890061ca" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>mydata <span class="op">=</span> []  <span class="co"># list of ints</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-label="2"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-label="3"></a><span class="cf">if</span> <span class="kw">not</span> mydata:</span>
@@ -574,7 +574,7 @@ Important
 </section>
 <section id="example-a-coin-flip" class="level3">
 <h3 class="anchored" data-anchor-id="example-a-coin-flip">Example: A coin flip</h3>
-<div id="b92c57b7" class="cell" data-execution_count="3">
+<div id="f114f2ea" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="im">import</span> random</span>
 <span id="cb3-2"><a href="#cb3-2" aria-label="2"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-label="3"></a>u <span class="op">=</span> random.random()</span>
@@ -583,7 +583,7 @@ Important
 <span id="cb3-6"><a href="#cb3-6" aria-label="6"></a><span class="cf">else</span>:</span>
 <span id="cb3-7"><a href="#cb3-7" aria-label="7"></a>  <span class="bu">print</span>(<span class="st">"Tails"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Tails</code></pre>
+<pre><code>Heads</code></pre>
 </div>
 </div>
 <p>The code above behaves randomly because the printed message depends on the value of <code>u</code>.</p>
@@ -596,13 +596,13 @@ Important
 <section id="shorthands" class="level3">
 <h3 class="anchored" data-anchor-id="shorthands">Shorthands</h3>
 <p>Python supports certain shorthands for conditional statements that are convenient, but also prone to abuse. Use these sparingly, as it becomes unreadable if you chain too many of these statements together.</p>
-<div id="4f76b3d7" class="cell" data-execution_count="4">
+<div id="b932fbb7" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a>alternativeA <span class="cf">if</span> conditionA <span class="cf">else</span> alternativeB</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="example-writing-a-quick-message" class="level3">
 <h3 class="anchored" data-anchor-id="example-writing-a-quick-message">Example: Writing a quick message</h3>
-<div id="cb1605f6" class="cell" data-execution_count="5">
+<div id="b0547e2a" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a>emotion <span class="op">=</span> <span class="st">"jubilant"</span> <span class="cf">if</span> <span class="bu">abs</span>(random.gauss(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="op">&gt;</span> <span class="fl">1.96</span> <span class="cf">else</span> <span class="st">"downtrodden"</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-label="2"></a>explanation <span class="op">=</span> <span class="st">""</span> <span class="cf">if</span> emotion <span class="op">==</span> <span class="st">"jubilant"</span> <span class="cf">else</span> <span class="st">"failed to"</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-label="3"></a><span class="bu">print</span>(<span class="ss">f"Just so you know, the finance team is absolutely </span><span class="sc">{</span>emotion<span class="sc">}</span><span class="ch">\n</span><span class="ss">because their Q3 simulation </span><span class="sc">{</span>explanation<span class="sc">}</span><span class="ss"> converge."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -622,7 +622,7 @@ because their Q3 simulation failed to converge.</code></pre>
 <section id="for-loop" class="level3">
 <h3 class="anchored" data-anchor-id="for-loop"><code>for</code> Loop</h3>
 <p>A <code>for</code> loop relies on a <em>predictable</em> sequence of values. Predictable simply means there is a procedure that tells us exactly when we are done with a loop.</p>
-<div id="eb7149e1" class="cell" data-execution_count="6">
+<div id="9b7e5adf" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>):</span>
 <span id="cb8-2"><a href="#cb8-2" aria-label="2"></a>  <span class="bu">print</span>(i)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -632,7 +632,7 @@ because their Q3 simulation failed to converge.</code></pre>
 <li>The code inside a <code>for</code> loop may or may not depend on the sequence of values you loop over.</li>
 </ul>
 <p>Just like conditional statements, loops can be nested.</p>
-<div id="b2c70380" class="cell" data-execution_count="7">
+<div id="4c912209" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-label="2"></a>  <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>):</span>
 <span id="cb9-3"><a href="#cb9-3" aria-label="3"></a>    <span class="bu">print</span>(i <span class="op">*</span> j)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -641,7 +641,7 @@ because their Q3 simulation failed to converge.</code></pre>
 <section id="while-loop" class="level3">
 <h3 class="anchored" data-anchor-id="while-loop"><code>while</code> Loop</h3>
 <p>A <code>while</code> loop relies on some state to carry out repeated evaluation. That state is usually, but not always, captured by a variable.</p>
-<div id="607e1a4b" class="cell" data-execution_count="8">
+<div id="24c69e4c" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a><span class="cf">while</span> condition1:</span>
 <span id="cb10-2"><a href="#cb10-2" aria-label="2"></a>  <span class="co"># do something</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -653,14 +653,14 @@ because their Q3 simulation failed to converge.</code></pre>
 <section id="loop-overrides" class="level3">
 <h3 class="anchored" data-anchor-id="loop-overrides">Loop Overrides</h3>
 <p>You can <code>break</code> out of <strong>innermost</strong> loop.</p>
-<div id="d0b95e38" class="cell" data-execution_count="9">
+<div id="1d57271a" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>):</span>
 <span id="cb11-2"><a href="#cb11-2" aria-label="2"></a>  <span class="co"># do something</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-label="3"></a>  <span class="cf">if</span> condition1:</span>
 <span id="cb11-4"><a href="#cb11-4" aria-label="4"></a>    <span class="cf">break</span>  <span class="co"># exit the innermost loop</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>You can also <code>continue</code> to skip over a particular iteration.</p>
-<div id="e6629cd3" class="cell" data-execution_count="10">
+<div id="0bbe848e" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-label="2"></a>  <span class="co"># do something</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-label="3"></a>  <span class="cf">if</span> condition1:</span>
@@ -671,7 +671,7 @@ because their Q3 simulation failed to converge.</code></pre>
 <section id="compatibility-with-iterators" class="level3">
 <h3 class="anchored" data-anchor-id="compatibility-with-iterators">Compatibility with Iterators</h3>
 <p>Loops in Python are compatible with any iterable object that defines a sequence. For example, the built-in collection <code>list</code> will work in a loop.</p>
-<div id="c1956f3f" class="cell" data-execution_count="11">
+<div id="c4bc72f4" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-label="1"></a>x <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>]</span>
 <span id="cb13-2"><a href="#cb13-2" aria-label="2"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-label="3"></a><span class="cf">for</span> item <span class="kw">in</span> x:</span>
@@ -683,7 +683,7 @@ because their Q3 simulation failed to converge.</code></pre>
 </div>
 </div>
 <p>The <code>enumerate()</code> function is helpful if you need to track of the number of items in the collection along with the values. It’s a nice way to avoid <code>x[i]</code> syntax, but not strictly necessary.</p>
-<div id="f9799eb1" class="cell" data-execution_count="12">
+<div id="30177c74" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-label="1"></a><span class="co"># can also specify starting point; e.g. enumerate(x, start = 1)</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-label="2"></a><span class="cf">for</span> i, item <span class="kw">in</span> <span class="bu">enumerate</span>(x):</span>
 <span id="cb15-3"><a href="#cb15-3" aria-label="3"></a>  <span class="bu">print</span>(<span class="st">"index: "</span>, i, <span class="st">", value: "</span>, item)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -694,7 +694,7 @@ index:  2 , value:  30</code></pre>
 </div>
 </div>
 <p>There are other functions that help you manipulate sequences, such as the <code>revsersed()</code> function:</p>
-<div id="d9d64450" class="cell" data-execution_count="13">
+<div id="f47b60d6" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-label="1"></a><span class="cf">for</span> item <span class="kw">in</span> <span class="bu">reversed</span>(x):</span>
 <span id="cb17-2"><a href="#cb17-2" aria-label="2"></a>  <span class="bu">print</span>(item)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -703,7 +703,7 @@ index:  2 , value:  30</code></pre>
 10</code></pre>
 </div>
 </div>
-<div id="76be42f6" class="cell" data-execution_count="14">
+<div id="95a78d49" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a>d <span class="op">=</span> {<span class="st">"Alice"</span>: <span class="dv">4</span>, <span class="st">"Bob"</span>: <span class="dv">2</span>}</span>
 <span id="cb19-2"><a href="#cb19-2" aria-label="2"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-label="3"></a><span class="cf">for</span> key, val <span class="kw">in</span> d.items():</span>
@@ -744,7 +744,7 @@ They key Bob maps to value 2</code></pre>
 <section id="example-displaying-a-tic-tac-toe-board" class="level2">
 <h2 class="anchored" data-anchor-id="example-displaying-a-tic-tac-toe-board">Example: Displaying a Tic-Tac-Toe board</h2>
 <p>A Tic-Tac-Toe board consists of 9 spaces arranged in a 3 by 3 grid. If we include characters to represent the grid, then we need 5 characters per row for a total of 25 characters. Let’s display an empty board:</p>
-<div id="2f97ac9f" class="cell" data-execution_count="15">
+<div id="5b51e1bc" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-label="1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>):</span>
 <span id="cb21-2"><a href="#cb21-2" aria-label="2"></a>  row_i <span class="op">=</span> <span class="st">""</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-label="3"></a>  <span class="cf">if</span> i <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>:</span>
@@ -765,7 +765,7 @@ They key Bob maps to value 2</code></pre>
 <section id="example-for-vs-while" class="level2">
 <h2 class="anchored" data-anchor-id="example-for-vs-while">Example: <code>for</code> vs <code>while</code></h2>
 <p>Every <code>for</code> loop can be written as a <code>while</code> loop, but the reverse is not true. Here’s an example of the first statement:</p>
-<div id="fe597c5d" class="cell" data-execution_count="16">
+<div id="d688d366" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-label="1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>):</span>
 <span id="cb23-2"><a href="#cb23-2" aria-label="2"></a>  <span class="bu">print</span>(i)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -780,7 +780,7 @@ They key Bob maps to value 2</code></pre>
 9</code></pre>
 </div>
 </div>
-<div id="3cc0895b" class="cell" data-execution_count="17">
+<div id="c36898c6" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-label="1"></a>i <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-label="2"></a><span class="cf">while</span> i <span class="op">&lt;</span> <span class="dv">10</span>:</span>
 <span id="cb25-3"><a href="#cb25-3" aria-label="3"></a>  <span class="bu">print</span>(i)</span>
@@ -798,7 +798,7 @@ They key Bob maps to value 2</code></pre>
 </div>
 </div>
 <p>Can you rewrite the following as a <code>for</code> loop?</p>
-<div id="0205967d" class="cell" data-execution_count="18">
+<div id="ff55ef72" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-label="1"></a><span class="im">import</span> random</span>
 <span id="cb27-2"><a href="#cb27-2" aria-label="2"></a></span>
 <span id="cb27-3"><a href="#cb27-3" aria-label="3"></a>rolls <span class="op">=</span> <span class="dv">0</span></span>
@@ -811,14 +811,29 @@ They key Bob maps to value 2</code></pre>
 <span id="cb27-10"><a href="#cb27-10" aria-label="10"></a></span>
 <span id="cb27-11"><a href="#cb27-11" aria-label="11"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">It took </span><span class="sc">{</span>rolls<span class="sc">}</span><span class="ss"> rolls to get a 6."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1 rolls so far, just rolled a 3
-2 rolls so far, just rolled a 6
+<pre><code>1 rolls so far, just rolled a 4
+2 rolls so far, just rolled a 2
+3 rolls so far, just rolled a 1
+4 rolls so far, just rolled a 3
+5 rolls so far, just rolled a 2
+6 rolls so far, just rolled a 1
+7 rolls so far, just rolled a 4
+8 rolls so far, just rolled a 1
+9 rolls so far, just rolled a 2
+10 rolls so far, just rolled a 4
+11 rolls so far, just rolled a 5
+12 rolls so far, just rolled a 5
+13 rolls so far, just rolled a 5
+14 rolls so far, just rolled a 5
+15 rolls so far, just rolled a 2
+16 rolls so far, just rolled a 1
+17 rolls so far, just rolled a 6
 
-It took 2 rolls to get a 6.</code></pre>
+It took 17 rolls to get a 6.</code></pre>
 </div>
 </div>
 <p>What about the following example? The basic rule is to divide the current number <code>x</code> by <code>2</code> whenever it is even, otherwise we update it as <code>3*x + 1</code>. <a href="https://en.wikipedia.org/wiki/Collatz_conjecture">You’ll be famous</a> if you can write it as a proper <code>for</code> loop.</p>
-<div id="366129e0" class="cell" data-execution_count="19">
+<div id="706c9f8b" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-label="1"></a>x <span class="op">=</span> <span class="dv">17</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-label="2"></a>seq <span class="op">=</span> [x]</span>
 <span id="cb29-3"><a href="#cb29-3" aria-label="3"></a></span>
