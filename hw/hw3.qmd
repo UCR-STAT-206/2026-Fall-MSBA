@@ -1,6 +1,6 @@
 ---
 title: "Homework 3"
-subtitle: "Due 10am on October 19, 2026"
+subtitle: "Due 10am on October 22, 2026"
 eval: false
 ---
 
