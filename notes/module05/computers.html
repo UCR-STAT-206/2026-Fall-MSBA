@@ -151,7 +151,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Module 5 (Numerical Python)</li><li class="breadcrumb-item"><a href="../../notes/module05/computers.html">Computer Architecture</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module05/numpy_intro.html">Module 5 (Numerical Python)</a></li><li class="breadcrumb-item"><a href="../../notes/module05/computers.html">Computer Architecture</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -343,11 +343,17 @@ window.Quarto = {
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
- <span class="menu-text">Introduction to Numpy</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module05/numpy_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Numpy</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
- <span class="menu-text">Working with Numpy Arrays</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module05/arrays.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Numpy Arrays</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
  <span class="menu-text">Vectorization and Broadcasting</span>
   </li>
@@ -520,7 +526,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Module 5 (Numerical Python)</li><li class="breadcrumb-item"><a href="../../notes/module05/computers.html">Computer Architecture</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module05/numpy_intro.html">Module 5 (Numerical Python)</a></li><li class="breadcrumb-item"><a href="../../notes/module05/computers.html">Computer Architecture</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Computer Architecture and Memory</h1>
 </div>
@@ -570,14 +576,14 @@ window.Quarto = {
 <section id="checking-memory-use-in-python" class="level3">
 <h3 class="anchored" data-anchor-id="checking-memory-use-in-python">Checking memory use in Python</h3>
 <p>The <code>sys.getsizeof()</code> function can be used to display the size of objects in terms of memory.</p>
-<div id="f2e0e5f0" class="cell" data-execution_count="1">
+<div id="1b81f92a" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="im">import</span> sys</span>
 <span id="cb1-2"><a href="#cb1-2" aria-label="2"></a>sys.getsizeof(<span class="fl">1.0</span>) <span class="co"># 16 bytes overhead + 8 bytes floating point</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>24</code></pre>
 </div>
 </div>
-<div id="3b14dbb2" class="cell" data-execution_count="2">
+<div id="29cd9845" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a>sys.getsizeof([<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>]) <span class="co"># similar</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>88</code></pre>
