@@ -1,0 +1,256 @@
+---
+title: Introduction to NumPy
+---
+
+## What is NumPy?
+
+> NumPy is the fundamental package for scientific computing in Python.
+> It is a Python library that provides a **multidimensional array object**, various derived objects (such as **masked arrays and matrices**), and an assortment of routines for **fast operations on array**s, including mathematical, logical, shape manipulation, sorting, selecting, I/O, discrete Fourier transforms, **basic linear algebra**, **basic statistical operations**, **random simulation** and much more.
+
+--- [The NumPy User Guide](https://numpy.org/doc/stable/user/whatisnumpy.html)
+
+For data analysis, NumPy is important because of the `ndarray` object provided by this package.
+
++ 2d arrays naturally map onto tabular data.
++ nd arrays in general map onto (multivariate) time series, spatial, spatio-temporal data...
++ Need to check data integrity on rows, columns, other slices, compute summaries, and so on.
+
+The `ndarray` is a building block for other packages like `pandas`.
+
++ Really easy to write slow code to handle complex, abstract operations on large, complex data.
++ Want to move away from low-level details (manual indexing, careful handling of types) to focus on high-level data modeling.
++ We rely on the expertise of others to ensure the basic operations we need are fast by default.
+
+## Getting started
+
+NumPy is installed by default in the class' Docker container.
+You can import it in a Python/IPython sessions:
+
+```{python}
+import numpy as np
+```
+
+Here `as np` is used to abbreviate the package name.
+NumPy is one of those packages that have an informal, canonical abbreviation used by Python developers.
+It is highly recommended that you stick to this convention, unless you have a good reason to not use `np`.
+
+:::::::::::::::: callout-warning
+## Avoid importing all
+
+NumPy has too many functions and classes defined inside it.
+Avoid `import numpy *` as it will pollute your namespace with an overwhelming number of definitions.
+::::::::::::::::
+
+## What are arrays?
+
+A NumPy array is a structured collection for storing data in a grid or matrix.
+For example, a **vector** $\mathbf{x}$ of length $d$ and a **matrix** $\mathbf{A}$ of shape $m$ rows by $n$ columns look like
+
+$$
+\mathbf{x} = \begin{bmatrix}
+x_{0} \\ x_{1} \\ \vdots \\ x_{d-1}
+\end{bmatrix}
+\qquad
+\mathbf{A} = \begin{bmatrix}
+A_{0,0} & A_{0,1} & \cdots & A_{0,n-1} \\
+A_{1,0} & A_{1,1} & \cdots & A_{1,n-1} \\
+\vdots  & \vdots  & \ddots & \vdots    \\
+A_{m-1,0} & A_{m-1,1} & \cdots & A_{m-1,n-1}
+\end{bmatrix},
+$$
+
+from the perspective of NumPy's `ndarray` objects.
+
+You can manually build an array using sequence types like `list`.
+
+```{python}
+x = np.array([1, 2, 3, 4]) # d = 4
+x
+```
+
+The indexing and subset syntax from Python's other objects carry over here.
+
+```{python}
+x[0] # first element, just as before
+```
+
+```{python}
+x[2] # third element, offset 2
+```
+
+For objects of higher dimension, you provide nested sequences.
+The following creates a 3 by 2 matrix.
+
+```{python}
+A = np.array([[1, 2], [3,4], [5,6]], dtype = float) # m = 3, n = 2
+A
+```
+
+
+Since we have two dimensions, we can provide two coordinates to retrieve data from an array.
+
+```{python}
+A[0,1] # row 1, column 2
+```
+
+NumPy arrays have dimension and shape.
+
+```{python}
+x.ndim
+```
+
+```{python}
+A.ndim
+```
+
+```{python}
+x.shape
+```
+
+```{python}
+A.shape
+```
+
+### Key Properties
+
+- Unlike `list`, NumPy arrays are **homogeneous** collections. Every element of an array *must* be of the same type.
+- Arrays have a *fixed size*. Once you create an array with a particular shape, you cannot change it.
+- These objects are built to support many convenient mathematical operations, including *vectorization*, as efficiently as possible.
+- By default, NumPy arrays follow **row-major ordering**. Notice that our construction of `A` above has `[1, 2]` in the first row, not the first column.
+- NumPy arrays use their own specialized `dtypes` for numbers, truth values, and strings.
+- NumPy arrays have many attributes. We generally care about their **dimension** and **shape**
+
+## What are `dtypes`?
+
+Elements of a NumPy array share a common `dtype`, short for "data type".
+These are plain Python types defined within NumPy to give users flexibility in tuning performance and precision.
+
+- Once set, you can't change `dtype` without creating a new object altogether.
+- Most of the time, you can just pass the basic Python type that applies to your data; for example, `float`, `int`, `bool`, and `str`.
+
+Here are some additional `dtypes` that might be of interest:
+
+- `np.int64`
+- `np.float64`
+- `np.float32`
+- `np.bool`
+
+If you ever need to verify the `dtype` of an array, use the `.dtype` attribute:
+
+
+```{python}
+x.dtype
+```
+
+```{python}
+A.dtype
+```
+
+
+## What happens if you try mixing types?
+
+Generally, NumPy will attempt casting data to a common type during array creation.
+
+```{python}
+mydata = [1, 1.0]
+```
+
+```{python}
+myarray = np.array(mydata)
+myarray
+```
+
+```{python}
+myarray.dtype
+```
+
+You must exercise caution if you suspect your data may contain mixed values that do not obviously share a common type.
+
+```{python}
+mydata = mydata + ['206']
+mydata
+```
+
+```{python}
+myarray = np.array(mydata)
+myarray
+```
+
+
+## The Python `list` vs NumPy `ndarray`
+
+Python's `list` objects are not designed for mathematical operations by default.
+NumPy arrays will treat `+`, `-`, `*`, `/` as **element-wise arithmetic operations**.
+
+```{python}
+xlist = [2.0, 2.0, 2.0]
+ylist = [1.0, 2.0, 3.0]
+
+x = np.array(xlist)
+y = np.array(ylist)
+```
+
+For example, what does `+` do here?
+
+```{python}
+xlist + ylist
+```
+
+```{python}
+x + y
+```
+
+What about `*`?
+
+```{python}
+x * y
+```
+
+```{python}
+#| error: true
+xlist * ylist
+```
+
+## How to create commonly used arrays
+
+There are many useful constructors for Numpy arrays.
+
+If you need a regular sequence, use `arange`:
+
+```{python}
+np.arange(0, 10, 2) # start, stop, step
+```
+
+
+```{python}
+np.arange(0, 10, 0.2)
+```
+
+The `linspace` and `logspace` tools are useful for creating linearly and logarithmically spaced grids, respectively.
+
+```{python}
+np.linspace(0, 1, 11) # interval [0,1] broken up into 11 grid points
+```
+
+```{python}
+np.logspace(0, 1, 11) # interval [10^0, 10^1]
+```
+
+There are many other such tools for nd arrays.
+You typically need to specify the *shape* using a `tuple`.
+
+```{python}
+np.full((2, 3), 10)
+```
+
+```{python}
+np.zeros((3, 3))
+```
+
+```{python}
+np.ones((10,))
+```
+
+```{python}
+np.eye(3)
+```

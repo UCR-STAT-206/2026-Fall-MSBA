@@ -58,9 +58,13 @@ website:
       - section: Module 5 (Numerical Python)
         contents:
           - text: Introduction to Numpy
+            href: notes/module05/numpy_intro.qmd
           - text: Working with Numpy Arrays
+            href: notes/module05/arrays.qmd
           - text: Vectorization and Broadcasting
+            # href: notes/module05/vectorization.qmd
           - text: Working with Probability Distributions
+            # href: notes/module05/random.qmd
           - text: Computer Arithmetic
             href: notes/module05/numbers.qmd
           - text: Computer Architecture

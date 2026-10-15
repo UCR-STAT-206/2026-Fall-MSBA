@@ -1,0 +1,281 @@
+---
+title: Working with NumPy Arrays
+---
+
+## Goals
+
+1. Understand the default memory layout of a NumPy array and its implications for mutating and copying.
+2. Become familiar with basic and complex index syntax for data retrieval.
+3. Survey other features in the NumPy package, including reshaping, concatenation, mathematical functions, and specialized methods.
+
+
+## Getting data
+
+See [Lab 3](../../labs/lab3-io.qmd) for a detailed look at how to import data using NumPy.
+Here we summarize the main points.
+
+- Use `np.load()` and `np.save()` to load and save a file as a binary, respectively.
+- Use `np.loadtxt()` and `npsavetxt()` to load and save a file a plaintext, respectively.
+- If you're loading a plaintext file, you might need to configure some of the options to make sure it is parsed correctly. Don't rely on default settings.
+
+```{python}
+import numpy as np
+from pathlib import Path
+
+raw_orders = np.loadtxt(
+  Path("..") / ".." / "hw" / "assets" / "hw3_raw_order_data.txt",
+  skiprows=1
+)
+```
+
+## Mutating, views, and copies
+
+In the following sections we discuss various operations for reshaping and subsetting a NumPy array.
+These operations can also be used to mutate an array when combined with an assignment operation.
+
+```{python}
+A = np.arange(1, 10).reshape((3, 3))
+A
+```
+
+For example, you can modify a row or a column:
+
+```{python}
+A[0] = 1     # first row
+A[:, 1] = 10 # second column
+A
+```
+
+A specific entry:
+
+```{python}
+A[2, 2] = -3
+```
+
+Using a mask:
+
+```{python}
+A[A[:, 0] < 5, 0] = -5
+A
+```
+
+Part of this flexibility is made possible by the fact that NumPy arrays avoid making new copies of an object as much as possible.
+That means the subsetting operations given above, when used without `=`, retrieve a **view** into an array.
+A view of an array refers to the exact same memory locations tied to the parent array.
+
+```{python}
+x = A[:, 2] # row 3, not a separate copy
+x
+```
+
+If you actually need a copy, use the `.copy()` method.
+
+```{python}
+y = A[:, 2].copy()
+y
+```
+
+Modifying the copy does not change `A`:
+
+```{python}
+y[0] = 1234
+y
+```
+
+```{python}
+A
+```
+
+However, modifying `x` does change `A` because its a view.
+
+```{python}
+x[0] = 5678
+x
+```
+
+```{python}
+A
+```
+
+If you ever need to verify two NumPy arrays share their underlying memory, you can investigate with the `np.shares_memory()` function:
+
+```{python}
+np.shares_memory(x, A)
+```
+
+
+
+## Reshaping
+
+You cannot change the size of a NumPy array, but you are allowed to **reshape** it.
+This can be useful in some calculations.
+
+As a toy example, suppose we are given a list of monthly revenue figures (scaled to the thousands), and we are interested in calculating quarterly revenue.
+
+```{python}
+monthly_revenue = np.array([10, 12, 15, 18, 20, 22, 25, 24, 28, 30, 32, 35])
+```
+
+Assuming the data are ordered correctly, an easy way to obtain quarterly totals is to reshape the data into a 4 by 3 matrix:
+
+```{python}
+quarterly_figures = monthly_revenue.reshape(4, 3)
+quarterly_figures
+```
+
+Now use the `.sum()` method along the second axis (across columns):
+
+```{python}
+quarterly_figures.sum(axis = 1)
+```
+
+This can be done with *method chaining*, avoiding the intermediate variable:
+
+```{python}
+monthly_revenue.reshape(4, 3).sum(axis = 1)
+```
+
+Here's another example for the quarterly average:
+
+```{python}
+monthly_revenue.reshape(4, 3).mean(axis = 1)
+```
+
+
+## Subsetting
+
+NumPy arrays support various forms of subsetting.
+The patterns noted here will carry over to working with Pandas `DataFrame` objects.
+The different subsetting approaches can be mixed together as needed.
+
+### Accessing with coordinates
+
+This generalizes the approach to `list` objects.
+Given an array, you can specify coordinates for the first, second, and $n$-th dimension to retrieve data at that coordinate.
+
+The following example is a 3D array:
+
+```{python}
+A = np.arange(1, 4*4*4+1).reshape(4, 4, 4)
+A
+```
+
+To access the number `22` on the second 3d slide:
+
+```{python}
+A[1, 1, 1]
+```
+
+The coordinate syntax works from the "outermost" dimension on the right-hand side towards the "innermost" dimension on the left-hand side.
+NumPy refers to these notions as **axis**.
+
+```{python}
+A.ndim # 3 dimension
+```
+
+```{python}
+A.shape # last number refers to size of outermost dimension
+```
+
+What number does the following coordinate refer to?
+
+```{python}
+#| eval: false
+A[1, 2, 3]
+```
+
+
+
+### Accessing rows, columns, and slices
+
+If you pass a single integer in square brackets, the NumPy array will return a slice along the outermost dimension, reducing the dimension by 1:
+
+```{python}
+A[0]
+```
+
+You can chain this syntax:
+
+```{python}
+A[0][0][2] # first 2d block, first row, third column
+```
+
+Unfortunately, this approach creates temporary copies for each subsetting operation.
+In this case, it would be better to use the coordinate form.
+
+For 2D tables, rows come before columns because NumPy defaults to **row-major ordering**, meaning rows are contiguous chunks of memory.
+
+Access the third 3d slice by using the colon operator (`:`) to include a dimension:
+
+```{python}
+A[:, :, 2]
+```
+
+### Masking and filtering
+
+Unless we designed the data in an array ourselves, it is rare that we want a specific value at coordinates `(i,j,k)`.
+In data analysis, we typically have a query in mind as our goal is to search for values that satisfy a particular condition.
+We can use *vectorized* comparisons to form a **mask**, and then apply the mask to select data of interest.
+
+Let's illustrate this with the `monthly_revenue` example from before.
+
+```{python}
+monthly_revenue
+```
+
+For example, we can identify months when revenue exceeded $25k:
+
+```{python}
+high_revenue_mask = monthly_revenue > 25
+high_revenue_mask
+```
+
+Once we have a mask, we can apply it to an array to **filter** it:
+
+```{python}
+best_months = monthly_revenue[high_revenue_mask]
+best_months
+```
+
+Often, these kinds of subsetting operations are part of a larger calculation to obtain summary statistics.
+
+```{python}
+best_months.mean()
+```
+
+```{python}
+best_months.var()
+```
+
+
+## Other operations
+
+### Other reshaping
+
+```{python}
+A
+```
+
+The `ravel` method will create a reshaped view.
+
+```{python}
+A.ravel()
+```
+
+The `flatten` method will create a shaped copy.
+
+```{python}
+A.flatten()
+```
+
+```{python}
+x = np.arange(1, 4)
+y = np.arange(4, 8)
+np.concatenate((x, y))
+```
+
+
+### Mathematical functions
+
+We've seen that Python implements many mathematical functions directly in the base language or one of the standard library modules, such as `math` or `statistics`.
+NumPy itself has specialized implementations of these functions, **and you should use the NumPy version if you're applying the function to a NumPy array**.
