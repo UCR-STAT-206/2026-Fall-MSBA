@@ -64,7 +64,7 @@ That means the subsetting operations given above, when used without `=`, retriev
 A view of an array refers to the exact same memory locations tied to the parent array.
 
 ```{python}
-x = A[:, 2] # row 3, not a separate copy
+x = A[:, 2] # column 3, not a separate copy
 x
 ```
 
@@ -86,7 +86,7 @@ y
 A
 ```
 
-However, modifying `x` does change `A` because its a view.
+However, modifying `x` does change `A` because it's a view.
 
 ```{python}
 x[0] = 5678
@@ -132,6 +132,7 @@ quarterly_figures.sum(axis = 1)
 This can be done with *method chaining*, avoiding the intermediate variable:
 
 ```{python}
+# this stacks rows of length 3 on top of each other
 monthly_revenue.reshape(4, 3).sum(axis = 1)
 ```
 
@@ -166,7 +167,7 @@ To access the number `22` on the second 3d slide:
 A[1, 1, 1]
 ```
 
-The coordinate syntax works from the "outermost" dimension on the right-hand side towards the "innermost" dimension on the left-hand side.
+The coordinate syntax works from the "outermost" dimension on the left-hand side towards the "innermost" dimension on the right-hand side.
 NumPy refers to these notions as **axis**.
 
 ```{python}
@@ -181,7 +182,7 @@ What number does the following coordinate refer to?
 
 ```{python}
 #| eval: false
-A[1, 2, 3]
+A[1, 2, 3] # block, row, column
 ```
 
 
@@ -203,12 +204,16 @@ A[0][0][2] # first 2d block, first row, third column
 Unfortunately, this approach creates temporary copies for each subsetting operation.
 In this case, it would be better to use the coordinate form.
 
+```{python}
+A[0, 0, 2]
+```
+
 For 2D tables, rows come before columns because NumPy defaults to **row-major ordering**, meaning rows are contiguous chunks of memory.
 
-Access the third 3d slice by using the colon operator (`:`) to include a dimension:
+Access the third block by using the colon operator (`:`) to include a dimension:
 
 ```{python}
-A[:, :, 2]
+A[2, :, :]
 ```
 
 ### Masking and filtering
