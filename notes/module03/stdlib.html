@@ -572,18 +572,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="example-1-import" class="level4">
 <h4 class="anchored" data-anchor-id="example-1-import">Example 1: <code>import</code></h4>
 <p>The following makes the <code>math</code> module available in the current scope.</p>
-<div id="78c90532" class="cell" data-execution_count="1">
+<div id="7abd4b05" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="im">import</span> math</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now we can reference functions and objects by prepending <code>math.</code> to calls and references.</p>
-<div id="ca6e96e5" class="cell" data-execution_count="2">
+<div id="b6a0c9a9" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>math.sqrt(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>1.4142135623730951</code></pre>
 </div>
 </div>
 <p>If you do this with a <em>package</em>, you only import functions and object types defined directly within the named package. For performance reasons, you must specifically import any submodules you wish to use. The following code fails because <code>request</code> is a submodule of <code>urllib</code>, which is not imported below.</p>
-<div id="bad5fbbd" class="cell" data-execution_count="3">
+<div id="dd5a0aed" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a><span class="im">import</span> urllib</span>
 <span id="cb4-2"><a href="#cb4-2" aria-label="2"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-label="3"></a>urllib.request.urlopen(<span class="st">"https://example.com"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -604,7 +604,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="example-2-from-module-import-function-or-class" class="level4">
 <h4 class="anchored" data-anchor-id="example-2-from-module-import-function-or-class">Example 2: <code>from &lt;module&gt; import &lt;function or class&gt;</code></h4>
 <p>If you want to import specific functions or object types, use the <code>from X import Y, Z</code> syntax. This lets you use imports without qualification.</p>
-<div id="abb4decc" class="cell" data-execution_count="4">
+<div id="f5af460e" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a><span class="im">from</span> statistics <span class="im">import</span> mean, median</span>
 <span id="cb5-2"><a href="#cb5-2" aria-label="2"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-label="3"></a>mydata <span class="op">=</span> [<span class="dv">100</span>, <span class="dv">92</span>, <span class="dv">79</span>, <span class="dv">85</span>]</span>
@@ -618,7 +618,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="example-3-import-...-as-..." class="level4">
 <h4 class="anchored" data-anchor-id="example-3-import-...-as-...">Example 3: <code>import ... as ...</code></h4>
 <p>Use this import style to <em>alias</em> a module name to a shorter one. Many Python modules/packages have canonical aliases. The following is a common shorthand for the Pandas package, which we will learn about later in the course. It has already been installed for you when you set up the class Docker container.</p>
-<div id="d789b1a2" class="cell" data-execution_count="5">
+<div id="346c6b0a" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-label="1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb7-2"><a href="#cb7-2" aria-label="2"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-label="3"></a>pd.DataFrame({<span class="st">'name'</span>: [<span class="st">'Alice'</span>, <span class="st">'Bob'</span>, <span class="st">'Carlos'</span>], <span class="st">'age'</span>: [<span class="dv">28</span>, <span class="dv">29</span>, <span class="dv">35</span>]})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -660,12 +660,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="example-4-from-module-import-submodule" class="level4">
 <h4 class="anchored" data-anchor-id="example-4-from-module-import-submodule">Example 4: <code>from &lt;module&gt; import &lt;submodule&gt;</code></h4>
 <p>Similar to Example 2 above, this lets you import submodules without qualification.</p>
-<div id="effd5a43" class="cell" data-execution_count="6">
+<div id="e9f2aab2" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a><span class="im">from</span> urllib <span class="im">import</span> request</span>
 <span id="cb8-2"><a href="#cb8-2" aria-label="2"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-label="3"></a>request.urlopen(<span class="st">"https://example.com"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
-<pre><code>&lt;http.client.HTTPResponse at 0x7f4976253220&gt;</code></pre>
+<pre><code>&lt;http.client.HTTPResponse at 0x7f87e42e3ee0&gt;</code></pre>
 </div>
 </div>
 </section>
@@ -676,7 +676,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="math" class="level3">
 <h3 class="anchored" data-anchor-id="math"><code>math</code></h3>
 <p>Various math-related functions.</p>
-<div id="48c6f924" class="cell" data-execution_count="7">
+<div id="530d8f2c" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a><span class="co"># A = P * e^(r*t), continuously compunded interest formula</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-label="2"></a><span class="kw">def</span> future_value_cts(principal, rate, time):</span>
 <span id="cb10-3"><a href="#cb10-3" aria-label="3"></a>  <span class="cf">return</span> principal <span class="op">*</span> math.exp(rate <span class="op">*</span> time)</span>
@@ -686,7 +686,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>110.51709180756477</code></pre>
 </div>
 </div>
-<div id="38b8d7a7" class="cell" data-execution_count="8">
+<div id="5675a5d6" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a><span class="kw">def</span> circle_area(radius):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-label="2"></a>  <span class="cf">return</span> math.pi <span class="op">*</span> radius<span class="op">**</span><span class="dv">2</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-label="3"></a></span>
@@ -695,13 +695,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>3.141592653589793</code></pre>
 </div>
 </div>
-<div id="0f645741" class="cell" data-execution_count="9">
+<div id="e50fc4f4" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-label="1"></a>math.log(math.exp(<span class="dv">1</span>)) <span class="co"># natural logarithm</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>1.0</code></pre>
 </div>
 </div>
-<div id="49aaab79" class="cell" data-execution_count="10">
+<div id="1cae9ce6" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-label="1"></a>math.log10(<span class="fl">10.0</span>) <span class="co"># base 10 logarithm</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>1.0</code></pre>
@@ -711,35 +711,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="statistics" class="level3">
 <h3 class="anchored" data-anchor-id="statistics"><code>statistics</code></h3>
 <p>Implements various concepts in statistics. We will use this package sparingly as there is a much richer functionality implemented in other Python packages.</p>
-<div id="393e1c6d" class="cell" data-execution_count="11">
+<div id="70f67a7d" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-label="1"></a><span class="im">from</span> statistics <span class="im">import</span> mean, median, variance, stdev, quantiles</span>
 <span id="cb18-2"><a href="#cb18-2" aria-label="2"></a>salaries <span class="op">=</span> [<span class="dv">100000</span>, <span class="dv">110000</span>, <span class="dv">80000</span>, <span class="dv">320000</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="de28f424" class="cell" data-execution_count="12">
+<div id="750bb236" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a>mean(salaries)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>152500</code></pre>
 </div>
 </div>
-<div id="a8c63e20" class="cell" data-execution_count="13">
+<div id="d29076d0" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-label="1"></a>variance(salaries)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>12625000000</code></pre>
 </div>
 </div>
-<div id="7977fe40" class="cell" data-execution_count="14">
+<div id="f91e1ed2" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-label="1"></a>stdev(salaries)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>112361.02527122117</code></pre>
 </div>
 </div>
-<div id="73d0a3a5" class="cell" data-execution_count="15">
+<div id="1ce7850f" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-label="1"></a>quantiles(salaries, n <span class="op">=</span> <span class="dv">2</span>) <span class="co"># returns median</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>[105000.0]</code></pre>
 </div>
 </div>
-<div id="a43e4f52" class="cell" data-execution_count="16">
+<div id="37ffddb4" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-label="1"></a>quantiles(salaries, n <span class="op">=</span> <span class="dv">4</span>) <span class="co"># returns quartiles, Q1, Q2 (median), Q3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>[85000.0, 105000.0, 267500.0]</code></pre>
@@ -749,16 +749,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="random" class="level3">
 <h3 class="anchored" data-anchor-id="random"><code>random</code></h3>
 <p>Used to sample from “brand name” distributions or collections in Python. We will later defer to <code>numpy.random</code> once we discuss the Numpy package.</p>
-<div id="400e91bc" class="cell" data-execution_count="17">
+<div id="cab591a0" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-label="1"></a><span class="im">import</span> random</span>
 <span id="cb29-2"><a href="#cb29-2" aria-label="2"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-label="3"></a><span class="co"># Normal distribution with mean 10 and standard deviation 1</span></span>
 <span id="cb29-4"><a href="#cb29-4" aria-label="4"></a>random.normalvariate(mu <span class="op">=</span> <span class="fl">10.0</span>, sigma <span class="op">=</span> <span class="fl">1.0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
-<pre><code>11.517670481368123</code></pre>
+<pre><code>10.8537563902343</code></pre>
 </div>
 </div>
-<div id="b57d2682" class="cell" data-execution_count="18">
+<div id="62330386" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-label="1"></a><span class="co"># make it reproducible with a seed</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-label="2"></a>random.seed(<span class="dv">1234</span>)</span>
 <span id="cb31-3"><a href="#cb31-3" aria-label="3"></a></span>

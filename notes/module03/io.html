@@ -564,7 +564,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>Create a Python script named <code>transform.py</code>. This script reads an input CSV line by line using <code>sys.stdin</code>. It then calculates a profit and streams the transformed data using <code>sys.stdout</code>.</p>
-<div id="9fcfb04f" class="cell" data-execution_count="1">
+<div id="a23fada1" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a><span class="im">import</span> sys</span>
 <span id="cb2-2"><a href="#cb2-2" aria-label="2"></a><span class="im">import</span> csv</span>
 <span id="cb2-3"><a href="#cb2-3" aria-label="3"></a></span>
@@ -589,7 +589,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <p>Create a Python script named <code>plot.py</code>. This receives a CSV, assuming a specific format, reads its contents, creates a plot, and then saves it as a PNG file.</p>
-<div id="7e17e4e1" class="cell" data-execution_count="2">
+<div id="6ae5c96a" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="im">import</span> sys</span>
 <span id="cb3-2"><a href="#cb3-2" aria-label="2"></a><span class="im">import</span> csv</span>
 <span id="cb3-3"><a href="#cb3-3" aria-label="3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -627,7 +627,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="resource-management">Resource management</h2>
 <p>Each time you try to open a file through Python you are requesting resources from your OS. For example, the Python code <code>myfile = open('somefile.txt', 'r')</code> would create a <em>file stream</em> linked to <code>somefile.txt</code>, flagged for reading (<code>'r'</code>). Neither Python nor the OS have any way of knowing <em>when you are done using these resources</em> unless you communicate that intent by closing the file stream; that is, running <code>close(myfile)</code>. This is quite tedious.</p>
 <p>Fortunately, the Python language provides an abstraction known as <strong>context management</strong>. Specifically, the code pattern</p>
-<div id="7da0ae0a" class="cell" data-execution_count="3">
+<div id="11d2c591" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'somefile.txt'</span>, <span class="st">'r'</span>) <span class="im">as</span> myfile:</span>
 <span id="cb4-2"><a href="#cb4-2" aria-label="2"></a>  <span class="co"># do stuff</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>

@@ -622,7 +622,7 @@ window.Quarto = {
 <li>There are 17 negative unit quantities that need to be fixed.</li>
 <li>There are 10 entries with zero values for prices. These will eventually need to be dropped.</li>
 </ol>
-<div id="a10d57af" class="cell" data-execution_count="1">
+<div id="ca2babd1" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="cf">assert</span> raw_data.shape <span class="op">==</span> (<span class="dv">1000</span>, <span class="dv">3</span>), <span class="ss">f"Expected raw_data shape (1000, 3), got </span><span class="sc">{</span>raw_data<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-label="2"></a><span class="cf">assert</span> raw_state_ids.shape <span class="op">==</span> (<span class="dv">1000</span>,), <span class="ss">f"Expected raw_state_ids shape (1000,), got </span><span class="sc">{</span>raw_state_ids<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-label="3"></a><span class="cf">assert</span> neg_units_count <span class="op">==</span> <span class="dv">17</span>, <span class="ss">f"Expected 17 negative unit quantities, found </span><span class="sc">{</span>neg_units_count<span class="sc">}</span><span class="ss">"</span></span>
@@ -636,7 +636,7 @@ window.Quarto = {
 <li>Modify the negative values for units ordered so they are positive again.</li>
 <li>Drop any rows containing zero values for pricing information.</li>
 </ul>
-<div id="414099e8" class="cell" data-execution_count="2">
+<div id="ff85722f" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a><span class="cf">assert</span> clean_orders.shape <span class="op">==</span> (<span class="dv">990</span>, <span class="dv">3</span>), <span class="ss">f"Expected clean_orders shape (990, 3), got </span><span class="sc">{</span>clean_orders<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-label="2"></a><span class="cf">assert</span> clean_state_ids.shape <span class="op">==</span> (<span class="dv">990</span>,), <span class="ss">f"Expected clean_state_ids shape (990,), got </span><span class="sc">{</span>clean_state_ids<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-label="3"></a><span class="cf">assert</span> np.<span class="bu">min</span>(clean_orders[:, <span class="dv">0</span>]) <span class="op">&gt;</span> <span class="dv">0</span>, <span class="st">"FAIL: Found non-positive unit values after cleaning!"</span></span>
@@ -645,7 +645,7 @@ window.Quarto = {
 </section>
 <section id="part-c-check-discounts-and-revenue-calculations" class="level2">
 <h2 class="anchored" data-anchor-id="part-c-check-discounts-and-revenue-calculations">Part C: Check discounts and revenue calculations</h2>
-<div id="b2d6885b" class="cell" data-execution_count="3">
+<div id="08406245" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a>expected_raw_revenue <span class="op">=</span> <span class="fl">172235.29</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-label="2"></a>expected_discounted_revenue <span class="op">=</span> <span class="fl">166209.66</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-label="3"></a></span>
@@ -663,7 +663,7 @@ window.Quarto = {
 </section>
 <section id="part-d-check-order-totals" class="level2">
 <h2 class="anchored" data-anchor-id="part-d-check-order-totals">Part D: Check order totals</h2>
-<div id="7ec6a159" class="cell" data-execution_count="4">
+<div id="5040d4e1" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a>expected_final_revenue <span class="op">=</span> <span class="fl">175257.13</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-label="2"></a>expected_tax_collected <span class="op">=</span> <span class="fl">9047.47</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-label="3"></a></span>
