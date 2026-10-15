@@ -5,6 +5,7 @@ title: Office hours
 + **Instructor**: Alfonso Landeros
     - **Where**: Olmsted 1343
     - **When**:
+      - Tuesday 11:00 AM - 12:00 PM
       - Thursdays 11:00 AM - 12:00 PM
     - By appointment
     - Feel free to drop by if my door is open; I'll let you know if I'm available.
@@ -12,5 +13,5 @@ title: Office hours
     - **Where**: [Zoom](Location:
 https://ucr.zoom.us/j/91811323067?pwd=vT6Gz4LL0FUY12DrZaf2q3evoakxzO.1)
     - **When**:
-      - Tuesdays 11:00 AM - 1:50 PM
-      - Thursdays 11:00 AM - 1:50 PM
+      - Tuesdays 11:00 AM - 12:50 PM
+      - Thursdays 11:00 AM - 12:50 PM
