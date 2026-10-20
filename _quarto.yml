@@ -62,20 +62,20 @@ website:
           - text: Working with Numpy Arrays
             href: notes/module05/arrays.qmd
           - text: Vectorization and Broadcasting
-            # href: notes/module05/vectorization.qmd
+            href: notes/module05/vectorization.qmd
           - text: Working with Probability Distributions
-            # href: notes/module05/random.qmd
+            href: notes/module05/random.qmd
           - text: Computer Arithmetic
             href: notes/module05/numbers.qmd
           - text: Computer Architecture
             href: notes/module05/computers.qmd
-      # - section: Module 5 (Tabular Data)
+      # - section: Module 6 (Tabular Data)
       #   contents:
       #     - text: Introduction to Pandas
-      #     - text: Data Input/Output
-      #     - text: Working with Series and DataFrames
+      #       href: notes/module06/pandas_intro.qmd
       #     - text: Indexing and Filtering
       #     - text: Data Cleaning
+      #       href: notes/module06/cleaning.qmd
       #     - text: Split-Apply-Combine
       # - section: Module 6 (Simulation)
       #   contents:

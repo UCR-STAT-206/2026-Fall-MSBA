@@ -1,0 +1,363 @@
+---
+title: Vectorization and Broadcasting
+---
+
+## Goals
+
+1. Understand what vectorization is and why it makes code both shorter and faster.
+2. Use element-wise arithmetic, comparisons, and NumPy's mathematical functions on whole arrays at once.
+3. Understand the basic rules of broadcasting, which let arrays of different shapes work together.
+4. Replace simple `for` loops and `if` statements with vectorized equivalents.
+
+
+## What is vectorization?
+
+**Vectorization** involves applying an operation to an entire array at once, rather than writing a loop that handles one element at a time.
+
+You have already seen this idea: when `x` and `y` are NumPy arrays, `x + y` adds them element by element.
+In this section we look at why this matters and how far the idea extends.
+
+```{python}
+import numpy as np
+```
+
+Suppose we have the unit price and quantity sold for five products, and we want revenue for each.
+Here is the approach you might write using only base Python:
+
+```{python}
+prices = [4.50, 12.00, 3.25, 8.75, 20.00]
+quantities = [100, 40, 250, 60, 15]
+
+revenue = []
+for p, q in zip(prices, quantities):
+    revenue.append(p * q)
+revenue
+```
+
+The vectorized version with NumPy:
+
+```{python}
+prices = np.array([4.50, 12.00, 3.25, 8.75, 20.00])
+quantities = np.array([100, 40, 250, 60, 15])
+
+revenue = prices * quantities
+revenue
+```
+
+The second version is shorter, closer to how we would write the math ($\text{revenue}_i = p_i \times q_i$), and **has fewer places for bugs to hide**.
+
+
+## Why is it faster?
+
+A Python `for` loop has overhead on every iteration: Python checks types, looks up the operation, and creates new objects.
+NumPy instead hands the entire array to *compiled code* that implements repeated evaluation, which is far more efficient.
+Recall that this is possible because arrays are **homogeneous**: every element has the same `dtype`, so NumPy does not need to check each one.
+
+Let's compare the two approaches on a million numbers.
+The `%%timeit` magic command is available in IPython and runs a cell several times to measure how long it takes.
+
+```{python}
+import time
+
+n = 1_000_000
+a = np.random.rand(n)
+b = np.random.rand(n)
+
+# loop version
+start = time.perf_counter()
+out = np.empty(n)
+for i in range(n):
+    out[i] = a[i] * b[i]
+loop_time = time.perf_counter() - start
+
+# vectorized version
+start = time.perf_counter()
+out = a * b
+vec_time = time.perf_counter() - start
+
+print(f"loop:       {loop_time:.4f} seconds")
+print(f"vectorized: {vec_time:.4f} seconds")
+```
+
+The exact numbers depend on your computer, but the vectorized version is typically *at least an order of magnitude faster*.
+For small data the difference is practically invisible.
+The efficiency of your code becomes woefully noticeable once you start working with thousands or millions of rows.
+
+:::::::::::::::::::::::::::::::: callout-note
+### Rule of Thumb
+
+If you find yourself writing a `for` loop over the elements of a NumPy array, stop and ask whether there is a vectorized way to do it.
+::::::::::::::::::::::::::::::::
+
+## Arithmetic
+
+All the usual arithmetic operators work element by element.
+
+```{python}
+x = np.array([1.0, 2.0, 3.0, 4.0])
+y = np.array([10.0, 20.0, 30.0, 40.0])
+```
+
+```{python}
+x + y
+```
+
+```{python}
+x * y
+```
+
+```{python}
+y / x
+```
+
+```{python}
+x ** 2
+```
+
+Operations between an array and a single number (a **scalar**) apply the scalar to every element.
+For example, to convert a list of prices to include a 10% markup:
+
+```{python}
+prices * 1.10
+```
+
+or convert a series of temperatures in Fahrenheit to Celsius:
+
+```{python}
+temps_f = np.array([32, 50, 68, 86, 104])
+(temps_f - 32) * 5 / 9
+```
+
+
+## Mathematical functions
+
+NumPy provides vectorized versions of the common mathematical functions.
+These are sometimes called **universal functions**, or *ufuncs*, because they work element by element on any array.
+
+```{python}
+x = np.array([1, 4, 9, 16, 25])
+np.sqrt(x)
+```
+
+```{python}
+np.log(x)
+```
+
+```{python}
+np.exp(np.array([0, 1, 2]))
+```
+
+Other commonly used functions include `np.abs`, `np.sin`, `np.cos`, `np.round`, `np.floor`, and `np.ceil`.
+
+:::::::::::::::: callout-warning
+## Use NumPy's functions, not `math`'s
+
+Functions in Python's `math` module only work on single numbers.
+Calling `math.sqrt(x)` on an array raises an error.
+Use `np.sqrt(x)` instead.
+::::::::::::::::
+
+```{python}
+#| error: true
+import math
+math.sqrt(np.array([1, 4, 9]))
+```
+
+### Example: Asset log returns
+
+The **log return** between consecutive prices is $\log(P_t / P_{t-1})$.
+Given a series of daily closing prices, we can calculate all the returns at once by comparing the array against a shifted version of itself.
+
+```{python}
+closing = np.array([100.0, 102.0, 101.0, 105.0, 107.0])
+np.log(closing[1:] / closing[:-1])
+```
+
+Here `closing[1:]` is days 2 through 5 and `closing[:-1]` is days 1 through 4, so each division compares a day to the previous day.
+
+
+## Comparisons and logical operations
+
+Comparison operators are also vectorized by default, returning an array of `bool` values.
+This is essential in building masks.
+
+```{python}
+sales = np.array([120, 85, 240, 190, 60, 310])
+sales > 100
+```
+
+To combine conditions, use `&` (and), `|` (or), and `~` (not).
+Note that you must use these symbols, **not** the words `and`, `or`, `not`, and each condition needs its own parentheses.
+
+```{python}
+(sales > 100) & (sales < 250)
+```
+
+```{python}
+(sales < 80) | (sales > 300)
+```
+
+```{python}
+#| error: true
+(sales > 100) and (sales < 250)
+```
+
+Since `True` counts as 1 and `False` counts as 0, you can count or average a mask directly:
+
+```{python}
+(sales > 100).sum()   # how many values exceed 100?
+```
+
+```{python}
+(sales > 100).mean()  # what fraction exceed 100?
+```
+
+### Vectorized if-else with `np.where`
+
+What if you want to replace an `if`/`else` inside a loop?
+Use `np.where(condition, value_if_true, value_if_false)`.
+
+```{python}
+# label each day's sales as "high" or "low"
+np.where(sales > 150, "high", "low")
+```
+
+It works with numbers too.
+Suppose orders over \$200 get a 5% discount and everything else is full price:
+
+```{python}
+np.where(sales > 200, sales * 0.95, sales)
+```
+
+
+## Summaries along an axis
+
+Aggregation methods like `.sum()`, `.mean()`, `.min()`, `.max()`, and `.std()` are also vectorized.
+For 2D arrays, the `axis` argument controls the direction of the calculation.
+
+```{python}
+# rows = stores, columns = months
+revenue = np.array([
+    [10, 12, 15],
+    [20, 18, 25],
+    [ 8,  9, 11],
+    [30, 28, 35]
+])
+revenue
+```
+
+```{python}
+revenue.sum(axis=0)  # collapse the rows: total for each month
+```
+
+```{python}
+revenue.sum(axis=1)  # collapse the columns: total for each store
+```
+
+A helpful way to remember: `axis=0` means "go down the rows," and `axis=1` means "go across the columns."
+The axis you name is the one that *disappears* from the result.
+
+
+## Broadcasting
+
+So far we combined arrays of the same shape, or an array with a scalar.
+**Broadcasting** is the set of rules NumPy uses to combine arrays of *different* shapes.
+It is what makes the scalar case work, and it extends to more interesting cases.
+
+Suppose we have average monthly revenue for several stores, and we want to subtract these values from monthly figures to center the data.
+The array `revenue` has shape `(4, 3)`; the vector of store means has shape `(4,)`.
+
+```{python}
+store_means = revenue.mean(axis=1)
+store_means
+```
+
+If we try to subtract directly, NumPy lines the shapes up from the *right* and the dimensions do not match:
+
+```{python}
+#| error: true
+revenue - store_means
+```
+
+We need to make `store_means` a column, with shape `(4, 1)`.
+The `keepdims=True` option does exactly this:
+
+```{python}
+store_means = revenue.mean(axis=1, keepdims=True)
+store_means.shape
+```
+
+```{python}
+revenue - store_means
+```
+
+NumPy "stretches" the single column across all three months so the shapes line up.
+
+### Rules
+
+1. Compare the shapes of the two arrays starting from the **rightmost** dimension.
+2. Two dimensions are compatible if they are **equal**, or if one of them is **1**.
+3. A dimension of size 1 is stretched to match the other array.
+4. If any pair of dimensions is incompatible, NumPy raises an error.
+
+```{python}
+# (4, 3) with (3,): compatible, the vector is applied to every row
+revenue - revenue.mean(axis=0)
+```
+
+Centering numerical data is very common in data analysis.
+We will see this operation many times throughout the quarter.
+
+:::::::::::::::: callout-tip
+## When in doubt, check `.shape`
+
+Most broadcasting errors can be diagnosed by printing the `.shape` of both arrays and checking the rules above.
+::::::::::::::::
+
+
+## What about `np.vectorize`?
+
+NumPy has a function called `np.vectorize` that converts an ordinary Python function into one that accepts arrays.
+
+```{python}
+def tiered_discount(amount):
+    if amount > 250:
+        return 0.10
+    elif amount > 100:
+        return 0.05
+    else:
+        return 0.0
+
+discount = np.vectorize(tiered_discount)
+discount(sales)
+```
+
+This is convenient, but be careful: `np.vectorize` is just a loop in disguise and does **not** give you the speed benefit.
+It is fine for small data or quick prototyping, but prefer true vectorized operations such as `np.where` when performance matters.
+For several conditions, `np.select` is a good option:
+
+```{python}
+conditions = [sales > 250, sales > 100]
+choices = [0.10, 0.05]
+np.select(conditions, choices, default=0.0)
+```
+
+
+## Exercises
+
+1. A retailer sells four products with prices `[19.99, 5.49, 102.00, 45.50]` and the quantities sold last month were `[30, 120, 8, 22]`.
+    a. Compute the revenue for each product.
+    b. Compute total revenue.
+    c. Which product(s) contributed more than 25% of total revenue? (Use a mask.)
+
+2. Create an array of one million random numbers with `np.random.rand(1_000_000)`.
+   Compute the sum of their squares two ways: using a `for` loop, and using a vectorized expression. Compare the time taken.
+
+3. Given `scores = np.array([55, 72, 88, 91, 40, 67, 79])`, use `np.where` to produce an array with `"pass"` for scores of 60 or higher, and `"fail"` otherwise.
+   What fraction of students passed?
+
+4. A 2D array `sales` has shape `(5, 4)`: five regions by four quarters.
+    a. Compute the total for each region and the total for each quarter.
+    b. Express each value as a percentage of its *region's* total. (Hint: you will need `keepdims=True`.)
+
+5. Standardize a vector `x` by subtracting its mean and dividing by its standard deviation. Check that the result has mean (approximately) 0 and standard deviation 1.
