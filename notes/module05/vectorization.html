@@ -443,6 +443,12 @@ window.Quarto = {
  <span class="menu-text">Homework 3</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hw/hw4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 4</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -566,11 +572,11 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="what-is-vectorization">What is vectorization?</h2>
 <p><strong>Vectorization</strong> involves applying an operation to an entire array at once, rather than writing a loop that handles one element at a time.</p>
 <p>You have already seen this idea: when <code>x</code> and <code>y</code> are NumPy arrays, <code>x + y</code> adds them element by element. In this section we look at why this matters and how far the idea extends.</p>
-<div id="629381c7" class="cell" data-execution_count="1">
+<div id="0b32f269" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Suppose we have the unit price and quantity sold for five products, and we want revenue for each. Here is the approach you might write using only base Python:</p>
-<div id="a1e9f694" class="cell" data-execution_count="2">
+<div id="6143a82d" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>prices <span class="op">=</span> [<span class="fl">4.50</span>, <span class="fl">12.00</span>, <span class="fl">3.25</span>, <span class="fl">8.75</span>, <span class="fl">20.00</span>]</span>
 <span id="cb2-2"><a href="#cb2-2" aria-label="2"></a>quantities <span class="op">=</span> [<span class="dv">100</span>, <span class="dv">40</span>, <span class="dv">250</span>, <span class="dv">60</span>, <span class="dv">15</span>]</span>
 <span id="cb2-3"><a href="#cb2-3" aria-label="3"></a></span>
@@ -583,7 +589,7 @@ window.Quarto = {
 </div>
 </div>
 <p>The vectorized version with NumPy:</p>
-<div id="ff72f42a" class="cell" data-execution_count="3">
+<div id="0fb17263" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a>prices <span class="op">=</span> np.array([<span class="fl">4.50</span>, <span class="fl">12.00</span>, <span class="fl">3.25</span>, <span class="fl">8.75</span>, <span class="fl">20.00</span>])</span>
 <span id="cb4-2"><a href="#cb4-2" aria-label="2"></a>quantities <span class="op">=</span> np.array([<span class="dv">100</span>, <span class="dv">40</span>, <span class="dv">250</span>, <span class="dv">60</span>, <span class="dv">15</span>])</span>
 <span id="cb4-3"><a href="#cb4-3" aria-label="3"></a></span>
@@ -599,7 +605,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="why-is-it-faster">Why is it faster?</h2>
 <p>A Python <code>for</code> loop has overhead on every iteration: Python checks types, looks up the operation, and creates new objects. NumPy instead hands the entire array to <em>compiled code</em> that implements repeated evaluation, which is far more efficient. Recall that this is possible because arrays are <strong>homogeneous</strong>: every element has the same <code>dtype</code>, so NumPy does not need to check each one.</p>
 <p>Let’s compare the two approaches on a million numbers. The <code>%%timeit</code> magic command is available in IPython and runs a cell several times to measure how long it takes.</p>
-<div id="d66dd62d" class="cell" data-execution_count="4">
+<div id="4b270eff" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a><span class="im">import</span> time</span>
 <span id="cb6-2"><a href="#cb6-2" aria-label="2"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-label="3"></a>n <span class="op">=</span> <span class="dv">1_000_000</span></span>
@@ -621,8 +627,8 @@ window.Quarto = {
 <span id="cb6-19"><a href="#cb6-19" aria-label="19"></a><span class="bu">print</span>(<span class="ss">f"loop:       </span><span class="sc">{</span>loop_time<span class="sc">:.4f}</span><span class="ss"> seconds"</span>)</span>
 <span id="cb6-20"><a href="#cb6-20" aria-label="20"></a><span class="bu">print</span>(<span class="ss">f"vectorized: </span><span class="sc">{</span>vec_time<span class="sc">:.4f}</span><span class="ss"> seconds"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>loop:       0.2295 seconds
-vectorized: 0.0027 seconds</code></pre>
+<pre><code>loop:       0.2478 seconds
+vectorized: 0.0032 seconds</code></pre>
 </div>
 </div>
 <p>The exact numbers depend on your computer, but the vectorized version is typically <em>at least an order of magnitude faster</em>. For small data the difference is practically invisible. The efficiency of your code becomes woefully noticeable once you start working with thousands or millions of rows.</p>
@@ -643,43 +649,43 @@ vectorized: 0.0027 seconds</code></pre>
 <section id="arithmetic" class="level2">
 <h2 class="anchored" data-anchor-id="arithmetic">Arithmetic</h2>
 <p>All the usual arithmetic operators work element by element.</p>
-<div id="7b5d0206" class="cell" data-execution_count="5">
+<div id="ec8172e3" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a>x <span class="op">=</span> np.array([<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>, <span class="fl">4.0</span>])</span>
 <span id="cb8-2"><a href="#cb8-2" aria-label="2"></a>y <span class="op">=</span> np.array([<span class="fl">10.0</span>, <span class="fl">20.0</span>, <span class="fl">30.0</span>, <span class="fl">40.0</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="ab9758c5" class="cell" data-execution_count="6">
+<div id="7ffe17b9" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a>x <span class="op">+</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>array([11., 22., 33., 44.])</code></pre>
 </div>
 </div>
-<div id="cd0577e7" class="cell" data-execution_count="7">
+<div id="8f7eea9d" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a>x <span class="op">*</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>array([ 10.,  40.,  90., 160.])</code></pre>
 </div>
 </div>
-<div id="82da3cd5" class="cell" data-execution_count="8">
+<div id="f388403d" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-label="1"></a>y <span class="op">/</span> x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>array([10., 10., 10., 10.])</code></pre>
 </div>
 </div>
-<div id="eb85a166" class="cell" data-execution_count="9">
+<div id="8ffa5842" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-label="1"></a>x <span class="op">**</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>array([ 1.,  4.,  9., 16.])</code></pre>
 </div>
 </div>
 <p>Operations between an array and a single number (a <strong>scalar</strong>) apply the scalar to every element. For example, to convert a list of prices to include a 10% markup:</p>
-<div id="057b1942" class="cell" data-execution_count="10">
+<div id="f43571cd" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-label="1"></a>prices <span class="op">*</span> <span class="fl">1.10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>array([ 4.95 , 13.2  ,  3.575,  9.625, 22.   ])</code></pre>
 </div>
 </div>
 <p>or convert a series of temperatures in Fahrenheit to Celsius:</p>
-<div id="5106d956" class="cell" data-execution_count="11">
+<div id="1e31903f" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a>temps_f <span class="op">=</span> np.array([<span class="dv">32</span>, <span class="dv">50</span>, <span class="dv">68</span>, <span class="dv">86</span>, <span class="dv">104</span>])</span>
 <span id="cb19-2"><a href="#cb19-2" aria-label="2"></a>(temps_f <span class="op">-</span> <span class="dv">32</span>) <span class="op">*</span> <span class="dv">5</span> <span class="op">/</span> <span class="dv">9</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
@@ -690,20 +696,20 @@ vectorized: 0.0027 seconds</code></pre>
 <section id="mathematical-functions" class="level2">
 <h2 class="anchored" data-anchor-id="mathematical-functions">Mathematical functions</h2>
 <p>NumPy provides vectorized versions of the common mathematical functions. These are sometimes called <strong>universal functions</strong>, or <em>ufuncs</em>, because they work element by element on any array.</p>
-<div id="7aa73553" class="cell" data-execution_count="12">
+<div id="32bac73a" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-label="1"></a>x <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">9</span>, <span class="dv">16</span>, <span class="dv">25</span>])</span>
 <span id="cb21-2"><a href="#cb21-2" aria-label="2"></a>np.sqrt(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>array([1., 2., 3., 4., 5.])</code></pre>
 </div>
 </div>
-<div id="6071a99a" class="cell" data-execution_count="13">
+<div id="d8e99441" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-label="1"></a>np.log(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>array([0.        , 1.38629436, 2.19722458, 2.77258872, 3.21887582])</code></pre>
 </div>
 </div>
-<div id="9b26c677" class="cell" data-execution_count="14">
+<div id="83f735cb" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-label="1"></a>np.exp(np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>array([1.        , 2.71828183, 7.3890561 ])</code></pre>
@@ -723,7 +729,7 @@ vectorized: 0.0027 seconds</code></pre>
 <p>Functions in Python’s <code>math</code> module only work on single numbers. Calling <code>math.sqrt(x)</code> on an array raises an error. Use <code>np.sqrt(x)</code> instead.</p>
 </div>
 </div>
-<div id="9f66f185" class="cell" data-execution_count="15">
+<div id="15a5064f" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-label="1"></a><span class="im">import</span> math</span>
 <span id="cb27-2"><a href="#cb27-2" aria-label="2"></a>math.sqrt(np.array([<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">9</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-error">
@@ -741,7 +747,7 @@ vectorized: 0.0027 seconds</code></pre>
 <section id="example-asset-log-returns" class="level3">
 <h3 class="anchored" data-anchor-id="example-asset-log-returns">Example: Asset log returns</h3>
 <p>The <strong>log return</strong> between consecutive prices is <span class="math inline">\(\log(P_t / P_{t-1})\)</span>. Given a series of daily closing prices, we can calculate all the returns at once by comparing the array against a shifted version of itself.</p>
-<div id="af332ac2" class="cell" data-execution_count="16">
+<div id="84d4ed79" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-label="1"></a>closing <span class="op">=</span> np.array([<span class="fl">100.0</span>, <span class="fl">102.0</span>, <span class="fl">101.0</span>, <span class="fl">105.0</span>, <span class="fl">107.0</span>])</span>
 <span id="cb28-2"><a href="#cb28-2" aria-label="2"></a>np.log(closing[<span class="dv">1</span>:] <span class="op">/</span> closing[:<span class="op">-</span><span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
@@ -754,7 +760,7 @@ vectorized: 0.0027 seconds</code></pre>
 <section id="comparisons-and-logical-operations" class="level2">
 <h2 class="anchored" data-anchor-id="comparisons-and-logical-operations">Comparisons and logical operations</h2>
 <p>Comparison operators are also vectorized by default, returning an array of <code>bool</code> values. This is essential in building masks.</p>
-<div id="1e3893c8" class="cell" data-execution_count="17">
+<div id="b4f97ae2" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-label="1"></a>sales <span class="op">=</span> np.array([<span class="dv">120</span>, <span class="dv">85</span>, <span class="dv">240</span>, <span class="dv">190</span>, <span class="dv">60</span>, <span class="dv">310</span>])</span>
 <span id="cb30-2"><a href="#cb30-2" aria-label="2"></a>sales <span class="op">&gt;</span> <span class="dv">100</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
@@ -762,19 +768,19 @@ vectorized: 0.0027 seconds</code></pre>
 </div>
 </div>
 <p>To combine conditions, use <code>&amp;</code> (and), <code>|</code> (or), and <code>~</code> (not). Note that you must use these symbols, <strong>not</strong> the words <code>and</code>, <code>or</code>, <code>not</code>, and each condition needs its own parentheses.</p>
-<div id="f2dee49e" class="cell" data-execution_count="18">
+<div id="656a9130" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-label="1"></a>(sales <span class="op">&gt;</span> <span class="dv">100</span>) <span class="op">&amp;</span> (sales <span class="op">&lt;</span> <span class="dv">250</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>array([ True, False,  True,  True, False, False])</code></pre>
 </div>
 </div>
-<div id="e9b72ac6" class="cell" data-execution_count="19">
+<div id="e2305e50" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-label="1"></a>(sales <span class="op">&lt;</span> <span class="dv">80</span>) <span class="op">|</span> (sales <span class="op">&gt;</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>array([False, False, False, False,  True,  True])</code></pre>
 </div>
 </div>
-<div id="7043ca72" class="cell" data-execution_count="20">
+<div id="67078bf3" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-label="1"></a>(sales <span class="op">&gt;</span> <span class="dv">100</span>) <span class="kw">and</span> (sales <span class="op">&lt;</span> <span class="dv">250</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-error">
 <div class="ansi-escaped-output">
@@ -788,13 +794,13 @@ vectorized: 0.0027 seconds</code></pre>
 </div>
 </div>
 <p>Since <code>True</code> counts as 1 and <code>False</code> counts as 0, you can count or average a mask directly:</p>
-<div id="f8e785ae" class="cell" data-execution_count="21">
+<div id="533fe75a" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-label="1"></a>(sales <span class="op">&gt;</span> <span class="dv">100</span>).<span class="bu">sum</span>()   <span class="co"># how many values exceed 100?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>np.int64(4)</code></pre>
 </div>
 </div>
-<div id="dfdd1bf1" class="cell" data-execution_count="22">
+<div id="ca035353" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-label="1"></a>(sales <span class="op">&gt;</span> <span class="dv">100</span>).mean()  <span class="co"># what fraction exceed 100?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>np.float64(0.6666666666666666)</code></pre>
@@ -803,7 +809,7 @@ vectorized: 0.0027 seconds</code></pre>
 <section id="vectorized-if-else-with-np.where" class="level3">
 <h3 class="anchored" data-anchor-id="vectorized-if-else-with-np.where">Vectorized if-else with <code>np.where</code></h3>
 <p>What if you want to replace an <code>if</code>/<code>else</code> inside a loop? Use <code>np.where(condition, value_if_true, value_if_false)</code>.</p>
-<div id="f7d23008" class="cell" data-execution_count="23">
+<div id="2c0b71a3" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-label="1"></a><span class="co"># label each day's sales as "high" or "low"</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-label="2"></a>np.where(sales <span class="op">&gt;</span> <span class="dv">150</span>, <span class="st">"high"</span>, <span class="st">"low"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
@@ -811,7 +817,7 @@ vectorized: 0.0027 seconds</code></pre>
 </div>
 </div>
 <p>It works with numbers too. Suppose orders over $200 get a 5% discount and everything else is full price:</p>
-<div id="c902f6f7" class="cell" data-execution_count="24">
+<div id="58846630" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-label="1"></a>np.where(sales <span class="op">&gt;</span> <span class="dv">200</span>, sales <span class="op">*</span> <span class="fl">0.95</span>, sales)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
 <pre><code>array([120. ,  85. , 228. , 190. ,  60. , 294.5])</code></pre>
@@ -822,7 +828,7 @@ vectorized: 0.0027 seconds</code></pre>
 <section id="summaries-along-an-axis" class="level2">
 <h2 class="anchored" data-anchor-id="summaries-along-an-axis">Summaries along an axis</h2>
 <p>Aggregation methods like <code>.sum()</code>, <code>.mean()</code>, <code>.min()</code>, <code>.max()</code>, and <code>.std()</code> are also vectorized. For 2D arrays, the <code>axis</code> argument controls the direction of the calculation.</p>
-<div id="089cffea" class="cell" data-execution_count="25">
+<div id="b516943f" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-label="1"></a><span class="co"># rows = stores, columns = months</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-label="2"></a>revenue <span class="op">=</span> np.array([</span>
 <span id="cb45-3"><a href="#cb45-3" aria-label="3"></a>    [<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">15</span>],</span>
@@ -838,13 +844,13 @@ vectorized: 0.0027 seconds</code></pre>
        [30, 28, 35]])</code></pre>
 </div>
 </div>
-<div id="a9c7f4fc" class="cell" data-execution_count="26">
+<div id="15cd451f" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-label="1"></a>revenue.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">0</span>)  <span class="co"># collapse the rows: total for each month</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="26">
 <pre><code>array([68, 67, 86])</code></pre>
 </div>
 </div>
-<div id="026b269d" class="cell" data-execution_count="27">
+<div id="bece9c27" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-label="1"></a>revenue.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)  <span class="co"># collapse the columns: total for each store</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="27">
 <pre><code>array([37, 63, 28, 93])</code></pre>
@@ -856,7 +862,7 @@ vectorized: 0.0027 seconds</code></pre>
 <h2 class="anchored" data-anchor-id="broadcasting">Broadcasting</h2>
 <p>So far we combined arrays of the same shape, or an array with a scalar. <strong>Broadcasting</strong> is the set of rules NumPy uses to combine arrays of <em>different</em> shapes. It is what makes the scalar case work, and it extends to more interesting cases.</p>
 <p>Suppose we have average monthly revenue for several stores, and we want to subtract these values from monthly figures to center the data. The array <code>revenue</code> has shape <code>(4, 3)</code>; the vector of store means has shape <code>(4,)</code>.</p>
-<div id="719e2e9e" class="cell" data-execution_count="28">
+<div id="8aec9da5" class="cell" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-label="1"></a>store_means <span class="op">=</span> revenue.mean(axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb51-2"><a href="#cb51-2" aria-label="2"></a>store_means</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="28">
@@ -864,7 +870,7 @@ vectorized: 0.0027 seconds</code></pre>
 </div>
 </div>
 <p>If we try to subtract directly, NumPy lines the shapes up from the <em>right</em> and the dimensions do not match:</p>
-<div id="49e85833" class="cell" data-execution_count="29">
+<div id="d13fbd26" class="cell" data-execution_count="29">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-label="1"></a>revenue <span class="op">-</span> store_means</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-error">
 <div class="ansi-escaped-output">
@@ -878,14 +884,14 @@ vectorized: 0.0027 seconds</code></pre>
 </div>
 </div>
 <p>We need to make <code>store_means</code> a column, with shape <code>(4, 1)</code>. The <code>keepdims=True</code> option does exactly this:</p>
-<div id="63fe8997" class="cell" data-execution_count="30">
+<div id="4584964e" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-label="1"></a>store_means <span class="op">=</span> revenue.mean(axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb54-2"><a href="#cb54-2" aria-label="2"></a>store_means.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="30">
 <pre><code>(4, 1)</code></pre>
 </div>
 </div>
-<div id="bbd4b1d4" class="cell" data-execution_count="31">
+<div id="ca3ecf9e" class="cell" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-label="1"></a>revenue <span class="op">-</span> store_means</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="31">
 <pre><code>array([[-2.33333333, -0.33333333,  2.66666667],
@@ -903,7 +909,7 @@ vectorized: 0.0027 seconds</code></pre>
 <li>A dimension of size 1 is stretched to match the other array.</li>
 <li>If any pair of dimensions is incompatible, NumPy raises an error.</li>
 </ol>
-<div id="11f866fd" class="cell" data-execution_count="32">
+<div id="99c0b11c" class="cell" data-execution_count="32">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-label="1"></a><span class="co"># (4, 3) with (3,): compatible, the vector is applied to every row</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-label="2"></a>revenue <span class="op">-</span> revenue.mean(axis<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
@@ -932,7 +938,7 @@ vectorized: 0.0027 seconds</code></pre>
 <section id="what-about-np.vectorize" class="level2">
 <h2 class="anchored" data-anchor-id="what-about-np.vectorize">What about <code>np.vectorize</code>?</h2>
 <p>NumPy has a function called <code>np.vectorize</code> that converts an ordinary Python function into one that accepts arrays.</p>
-<div id="23ce0ecc" class="cell" data-execution_count="33">
+<div id="50b1de10" class="cell" data-execution_count="33">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-label="1"></a><span class="kw">def</span> tiered_discount(amount):</span>
 <span id="cb60-2"><a href="#cb60-2" aria-label="2"></a>    <span class="cf">if</span> amount <span class="op">&gt;</span> <span class="dv">250</span>:</span>
 <span id="cb60-3"><a href="#cb60-3" aria-label="3"></a>        <span class="cf">return</span> <span class="fl">0.10</span></span>
@@ -948,7 +954,7 @@ vectorized: 0.0027 seconds</code></pre>
 </div>
 </div>
 <p>This is convenient, but be careful: <code>np.vectorize</code> is just a loop in disguise and does <strong>not</strong> give you the speed benefit. It is fine for small data or quick prototyping, but prefer true vectorized operations such as <code>np.where</code> when performance matters. For several conditions, <code>np.select</code> is a good option:</p>
-<div id="15d8be33" class="cell" data-execution_count="34">
+<div id="cdeb3054" class="cell" data-execution_count="34">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-label="1"></a>conditions <span class="op">=</span> [sales <span class="op">&gt;</span> <span class="dv">250</span>, sales <span class="op">&gt;</span> <span class="dv">100</span>]</span>
 <span id="cb62-2"><a href="#cb62-2" aria-label="2"></a>choices <span class="op">=</span> [<span class="fl">0.10</span>, <span class="fl">0.05</span>]</span>
 <span id="cb62-3"><a href="#cb62-3" aria-label="3"></a>np.select(conditions, choices, default<span class="op">=</span><span class="fl">0.0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>

@@ -224,7 +224,7 @@
     "href": "notes/module02/types.html#everything-is-an-object",
     "title": "Objects and Types",
     "section": "Everything is an object",
-    "text": "Everything is an object\nNumbers, strings, and other data you encounter in the Python language are objects. This has 3 important consequences for us as programmers:\n\nObjects have identity, which we can verify with id().\nObjects are said to be of a certain type, which we inspect with type().\nObjects store value; that is, a particular instance of a type is an object that represents data or state.\n\n\nx = 206 # the value of this number is self-evident\n\n\nid(x) # we'll have to care about this too much\n\n94265928065712\n\n\n\ntype(x) # you need to be able to reason about types\n\nint",
+    "text": "Everything is an object\nNumbers, strings, and other data you encounter in the Python language are objects. This has 3 important consequences for us as programmers:\n\nObjects have identity, which we can verify with id().\nObjects are said to be of a certain type, which we inspect with type().\nObjects store value; that is, a particular instance of a type is an object that represents data or state.\n\n\nx = 206 # the value of this number is self-evident\n\n\nid(x) # we'll have to care about this too much\n\n94198353183408\n\n\n\ntype(x) # you need to be able to reason about types\n\nint",
     "crumbs": [
       "Module 2 (Programming)",
       "Objects and Data Types"
@@ -334,7 +334,7 @@
     "href": "notes/module02/control.html#example-for-vs-while",
     "title": "Control Flow",
     "section": "Example: for vs while",
-    "text": "Example: for vs while\nEvery for loop can be written as a while loop, but the reverse is not true. Here’s an example of the first statement:\n\nfor i in range(1, 10):\n  print(i)\n\n1\n2\n3\n4\n5\n6\n7\n8\n9\n\n\n\ni = 1\nwhile i &lt; 10:\n  print(i)\n  i = i + 1\n\n1\n2\n3\n4\n5\n6\n7\n8\n9\n\n\nCan you rewrite the following as a for loop?\n\nimport random\n\nrolls = 0\ndice = 0\n\nwhile dice != 6:\n  rolls += 1\n  dice = random.randint(1, 6)\n  print(f\"{rolls} rolls so far, just rolled a {dice}\")\n\nprint(f\"\\nIt took {rolls} rolls to get a 6.\")\n\n1 rolls so far, just rolled a 1\n2 rolls so far, just rolled a 3\n3 rolls so far, just rolled a 2\n4 rolls so far, just rolled a 1\n5 rolls so far, just rolled a 4\n6 rolls so far, just rolled a 5\n7 rolls so far, just rolled a 6\n\nIt took 7 rolls to get a 6.\n\n\nWhat about the following example? The basic rule is to divide the current number x by 2 whenever it is even, otherwise we update it as 3*x + 1. You’ll be famous if you can write it as a proper for loop.\n\nx = 17\nseq = [x]\n\nwhile x != 1:\n  if x % 2 == 0:\n    x /= 2 # shorthand for x = x / 2\n  else:\n    x = 3*x + 1\n  seq.append(x)\n\nseq\n\n[17, 52, 26.0, 13.0, 40.0, 20.0, 10.0, 5.0, 16.0, 8.0, 4.0, 2.0, 1.0]",
+    "text": "Example: for vs while\nEvery for loop can be written as a while loop, but the reverse is not true. Here’s an example of the first statement:\n\nfor i in range(1, 10):\n  print(i)\n\n1\n2\n3\n4\n5\n6\n7\n8\n9\n\n\n\ni = 1\nwhile i &lt; 10:\n  print(i)\n  i = i + 1\n\n1\n2\n3\n4\n5\n6\n7\n8\n9\n\n\nCan you rewrite the following as a for loop?\n\nimport random\n\nrolls = 0\ndice = 0\n\nwhile dice != 6:\n  rolls += 1\n  dice = random.randint(1, 6)\n  print(f\"{rolls} rolls so far, just rolled a {dice}\")\n\nprint(f\"\\nIt took {rolls} rolls to get a 6.\")\n\n1 rolls so far, just rolled a 5\n2 rolls so far, just rolled a 5\n3 rolls so far, just rolled a 2\n4 rolls so far, just rolled a 4\n5 rolls so far, just rolled a 6\n\nIt took 5 rolls to get a 6.\n\n\nWhat about the following example? The basic rule is to divide the current number x by 2 whenever it is even, otherwise we update it as 3*x + 1. You’ll be famous if you can write it as a proper for loop.\n\nx = 17\nseq = [x]\n\nwhile x != 1:\n  if x % 2 == 0:\n    x /= 2 # shorthand for x = x / 2\n  else:\n    x = 3*x + 1\n  seq.append(x)\n\nseq\n\n[17, 52, 26.0, 13.0, 40.0, 20.0, 10.0, 5.0, 16.0, 8.0, 4.0, 2.0, 1.0]",
     "crumbs": [
       "Module 2 (Programming)",
       "Control Flow"
@@ -576,7 +576,7 @@
     "href": "notes/module05/vectorization.html#why-is-it-faster",
     "title": "Vectorization and Broadcasting",
     "section": "Why is it faster?",
-    "text": "Why is it faster?\nA Python for loop has overhead on every iteration: Python checks types, looks up the operation, and creates new objects. NumPy instead hands the entire array to compiled code that implements repeated evaluation, which is far more efficient. Recall that this is possible because arrays are homogeneous: every element has the same dtype, so NumPy does not need to check each one.\nLet’s compare the two approaches on a million numbers. The %%timeit magic command is available in IPython and runs a cell several times to measure how long it takes.\n\nimport time\n\nn = 1_000_000\na = np.random.rand(n)\nb = np.random.rand(n)\n\n# loop version\nstart = time.perf_counter()\nout = np.empty(n)\nfor i in range(n):\n    out[i] = a[i] * b[i]\nloop_time = time.perf_counter() - start\n\n# vectorized version\nstart = time.perf_counter()\nout = a * b\nvec_time = time.perf_counter() - start\n\nprint(f\"loop:       {loop_time:.4f} seconds\")\nprint(f\"vectorized: {vec_time:.4f} seconds\")\n\nloop:       0.2295 seconds\nvectorized: 0.0027 seconds\n\n\nThe exact numbers depend on your computer, but the vectorized version is typically at least an order of magnitude faster. For small data the difference is practically invisible. The efficiency of your code becomes woefully noticeable once you start working with thousands or millions of rows.\n\n\n\n\n\n\nNoteRule of Thumb\n\n\n\nIf you find yourself writing a for loop over the elements of a NumPy array, stop and ask whether there is a vectorized way to do it.",
+    "text": "Why is it faster?\nA Python for loop has overhead on every iteration: Python checks types, looks up the operation, and creates new objects. NumPy instead hands the entire array to compiled code that implements repeated evaluation, which is far more efficient. Recall that this is possible because arrays are homogeneous: every element has the same dtype, so NumPy does not need to check each one.\nLet’s compare the two approaches on a million numbers. The %%timeit magic command is available in IPython and runs a cell several times to measure how long it takes.\n\nimport time\n\nn = 1_000_000\na = np.random.rand(n)\nb = np.random.rand(n)\n\n# loop version\nstart = time.perf_counter()\nout = np.empty(n)\nfor i in range(n):\n    out[i] = a[i] * b[i]\nloop_time = time.perf_counter() - start\n\n# vectorized version\nstart = time.perf_counter()\nout = a * b\nvec_time = time.perf_counter() - start\n\nprint(f\"loop:       {loop_time:.4f} seconds\")\nprint(f\"vectorized: {vec_time:.4f} seconds\")\n\nloop:       0.2478 seconds\nvectorized: 0.0032 seconds\n\n\nThe exact numbers depend on your computer, but the vectorized version is typically at least an order of magnitude faster. For small data the difference is practically invisible. The efficiency of your code becomes woefully noticeable once you start working with thousands or millions of rows.\n\n\n\n\n\n\nNoteRule of Thumb\n\n\n\nIf you find yourself writing a for loop over the elements of a NumPy array, stop and ask whether there is a vectorized way to do it.",
     "crumbs": [
       "Module 5 (Numerical Python)",
       "Vectorization and Broadcasting"
@@ -1098,6 +1098,116 @@
     ]
   },
   {
+    "objectID": "hw/hw1.html#formatting-requirements",
+    "href": "hw/hw1.html#formatting-requirements",
+    "title": "Homework 1",
+    "section": "Formatting Requirements",
+    "text": "Formatting Requirements\n\nYour work should be in the form of a Quarto file named hw1.qmd. Python code should appear in code chunks.\nYou are responsible for ensuring your work is reproducible on someone else’s computer. That means:\n\nVerifying that hw1.qmd renders properly as an HTML report.\n\nFeel free to strip away instructions or hints in your hw1.qmd file. Leave the problem descriptions and prompts intact.\nYour homework solutions must be more than code. Most prompts in this assignment, if not all, should have text describing how you approached a problem. Other students in the class should be able to understand your reasoning by reading the text and code comments.",
+    "crumbs": [
+      "Homework",
+      "Homework 1"
+    ]
+  },
+  {
+    "objectID": "hw/hw1.html#problem-1",
+    "href": "hw/hw1.html#problem-1",
+    "title": "Homework 1",
+    "section": "Problem 1",
+    "text": "Problem 1\nBefore we do any computational work, let’s format your Quarto document.\n\nQuarto’s headers are especially sensitive to formatting. This is the place to be nitpicky about spacing and indentation.\nMake sure your .qmd file has your name in the header.\nBe sure to list any collaborators.\nDouble-check that engine: jupyter is set!",
+    "crumbs": [
+      "Homework",
+      "Homework 1"
+    ]
+  },
+  {
+    "objectID": "hw/hw1.html#problem-2",
+    "href": "hw/hw1.html#problem-2",
+    "title": "Homework 1",
+    "section": "Problem 2",
+    "text": "Problem 2\nThe following small Python programs store values in variables and use the print() function to produce an output. Treat each code block as a self-contained unit, meaning the code in the first code block has no influence on any subsequent code blocks.\n\nTracing the flow of a program\nIn each case, determine what each program outputs.\n\nnephew = 'Jack'\nprint(nephew)\n\n\nnephew = 'Jack'\nprint('nephew')\n\n\nnephew = 'Jack'\nnephew = 'Albert'\nprint(nephew)\n\n\nnephew = 'Jack'\nNephew = 'Albert'\nprint(nephew)\n\n\n\nReasoning about errors\nThe following programs will produce errors in a fresh Python session. In each case, explain why each self-contained block produces an error.\n\n\n\n\n\n\nTipHint\n\n\n\nTo produce the errors yourself, start a fresh Python session in a terminal, copy a code block, and paste it into your Python session. Do this for each example to make the code self-contained.\n\n\n\nnephew = Jack\nprint(nephew)\n\n\nnephew = 'Jack'\nprint(Jack)\n\n\nnephew = 'Jack'\nprint(NEPHEW)\n\n\nprint(nephew)",
+    "crumbs": [
+      "Homework",
+      "Homework 1"
+    ]
+  },
+  {
+    "objectID": "hw/hw1.html#problem-3",
+    "href": "hw/hw1.html#problem-3",
+    "title": "Homework 1",
+    "section": "Problem 3",
+    "text": "Problem 3\nIn this exercise you’re going to write some code to help you cook a brilliant lasagna from your favorite cooking book. You have four tasks, all related to the time spent cooking the lasagna.\n\n1. Store the expected bake time in a constant\nDefine the expected_bake_time constant that returns how many minutes the lasagna should bake in the oven. According to the cooking book, lasagna needs to be in the oven for a total of 60 minutes.\n\n\n2. Calculate the preparation time in minutes\nDefine the preparation_time function that takes the number of layers you added to the lasagna as an argument and returns how many minutes you spent preparing the lasagna, assuming each layer takes you 2 minutes to prepare.\n\n\n3. Calculate the remaining oven time in minutes\nDefine the remaining_time function that takes the actual minutes the lasagna has been in the oven as a parameter and returns how many minutes the lasagna still has to remain in the oven.\n\n\n4. Calculate the total working time in minutes\nDefine the total_working_time function that takes two arguments: the first argument is the number of layers you added to the lasagna, and the second argument is the number of minutes the lasagna has been in the oven. The function should return how many minutes in total you’ve worked on cooking the lasagna, which is the sum of the preparation time in minutes, and the time in minutes the lasagna has spent in the oven at the moment.",
+    "crumbs": [
+      "Homework",
+      "Homework 1"
+    ]
+  },
+  {
+    "objectID": "hw/hw1.html#problem-4",
+    "href": "hw/hw1.html#problem-4",
+    "title": "Homework 1",
+    "section": "Problem 4",
+    "text": "Problem 4\n\nChecking your work\n\nRender/preview your report from scratch.\nVerify that each piece of code executes free of errors.\n\nDo the results match what you saw while working interactively?\n\nVerify that the report itself is readable.\n\nFigures (if any) render properly.\nAny math set in \\(\\LaTeX\\) displays correctly.\n\nPolish the report.\n\nUse inline code to report results rather than hard-coding them into the file; e.g. `{python} x` to reference the value of x inline.\nReorganize your code to ensure your thought process is transparent to a reader.",
+    "crumbs": [
+      "Homework",
+      "Homework 1"
+    ]
+  },
+  {
+    "objectID": "hw/hw2.html",
+    "href": "hw/hw2.html",
+    "title": "Homework 2",
+    "section": "",
+    "text": "There are 3 problems in this assignment. Each problem must be completed for full credit, unless otherwise indicated.\nFollow the prompts in each problem closely as they contain multiple parts.\nProblem 2 requires a dataset posted on Canvas, 2026_q2_sales.csv. Please download it from there.\nProblem 3 has an optional part for you to test yourself. It is difficult.",
+    "crumbs": [
+      "Homework",
+      "Homework 2"
+    ]
+  },
+  {
+    "objectID": "hw/hw2.html#instructions",
+    "href": "hw/hw2.html#instructions",
+    "title": "Homework 2",
+    "section": "",
+    "text": "There are 3 problems in this assignment. Each problem must be completed for full credit, unless otherwise indicated.\nFollow the prompts in each problem closely as they contain multiple parts.\nProblem 2 requires a dataset posted on Canvas, 2026_q2_sales.csv. Please download it from there.\nProblem 3 has an optional part for you to test yourself. It is difficult.",
+    "crumbs": [
+      "Homework",
+      "Homework 2"
+    ]
+  },
+  {
+    "objectID": "hw/hw2.html#problem-1",
+    "href": "hw/hw2.html#problem-1",
+    "title": "Homework 2",
+    "section": "Problem 1",
+    "text": "Problem 1\n\nPart A\nGiven the list\n\nsales = [120, 85, 300, 450, 60, 510]\n\nwrite a short script that\n\niterates through the list,\ncounts how many values are greater than or equal 300, and\nprints the final count.\n\nYou may not use the .count() method\n\n\nPart B\nTranslate your code in Part A into a function that accepts an arbitrary list of numbers, sales, and threshold goal, which does the following:\n\nreturns the number of entries greater than or equal goal,\nreturns the total sales, and\nreturns the total sales based on the given goal.",
+    "crumbs": [
+      "Homework",
+      "Homework 2"
+    ]
+  },
+  {
+    "objectID": "hw/hw2.html#problem-2",
+    "href": "hw/hw2.html#problem-2",
+    "title": "Homework 2",
+    "section": "Problem 2",
+    "text": "Problem 2\nThe following code is based on an example from the notes on Python collections:\n\nimport csv\n\nwith open('purchases.csv', mode='r', encoding='utf-8') as file:\n  csv_reader = csv.reader(file)\n  header = next(csv_reader)\n\n  for row in csv_reader:\n    product = row[0]\n\nUse this as starter code for implementing a function named sales_report() that summarizes the sales data in 2026_q2_sales.csv. This file contains sales on several consumer electronics and their sale amounts. Each row represents a particular product sold for a specific price.\n\nThe function should accept a filename, which you may safely assume ends in .csv.\nYour function should open the CSV file and walks through it row by row (as in the starter code).\nFor each product in the sales data, tally the number of sales of that product.\nAlso record the total sales amount for each product.\nReport (however you choose) each product name along with the number of sales and the sales amount. Also report the total number of products and total sales.",
+    "crumbs": [
+      "Homework",
+      "Homework 2"
+    ]
+  },
+  {
+    "objectID": "hw/hw2.html#problem-3",
+    "href": "hw/hw2.html#problem-3",
+    "title": "Homework 2",
+    "section": "Problem 3",
+    "text": "Problem 3\nFizz buzz is, historically, a common interview question for jobs that require programming skills. You will implement a function, fizzbuzz(), in increasing levels of difficulty. The last part of this problem is an optional challenge question.\n\nPart A: Basic Problem\nWrite a Python function named fizzbuzz(n) which accepts an int n as input and iterates through the integers 1 through n. For each number j, the function:\n\nPrints the word \"fizz\" if the number is divisible by 3. We’ll refer to 3 as a FizzBuzz number and \"fizz\" as a FizzBuzz word.\nPrints the word \"buzz\" if the number is divisible by 5.\nPrints \"fizzbuzz\" is the number is divisible by both 3 and 5. We’ll refer to this as the concatenation rule.\nPrints the number j by itself if it is not a FizzBuzz number.\n\nInclude at least 2 test cases demonstrating that your function works as intended. Explain how you know your test cases prove the function works as intended.\n\n\nPart B: Additional Complexity\nNow let’s add another rule:\n\nIf the current number is divisible by FizzBuzz number 7, print the FizzBuzz word bazz.\nThe concatenation rule continues to apply. That means you must print all 3 words if a number is divisible by all 3 FizzBuzz numbers so far (3, 5, and 7).\nThe concatenation rule extends to other combinations; for example, print fizzbazz if a number is divisible by 3 and 7.\n\nImplement this in a separate function called fizzbuzzbazz() and provide a test case demonstrating that it works. Justify your test case as before.\n\n\nPart C: General Case (Optional)\nNow we’ll generalize the solution to an arbitrary set of FizzBuzz numbers and words. Write a function named fizzbuzzmaster() which accepts three inputs:\n\nn, a number defining the sequence 1 through n.\nfbnums, short for FizzBuzz numbers.\nfbwords, short for FizzBuzz words.\n\nYou may assume fbnums and fbwords are list objects of the same length, and that fbnums only contains integers strictly greater than 1. Your solution must satisfy the concatenation rule. Demonstrate that your solution works as advertised and explain why you know the solution is correct in general.",
+    "crumbs": [
+      "Homework",
+      "Homework 2"
+    ]
+  },
+  {
     "objectID": "hw/hw3.html",
     "href": "hw/hw3.html",
     "title": "Homework 3",
@@ -1175,113 +1285,91 @@
     ]
   },
   {
-    "objectID": "hw/hw2.html",
-    "href": "hw/hw2.html",
-    "title": "Homework 2",
+    "objectID": "hw/hw4.html",
+    "href": "hw/hw4.html",
+    "title": "Homework 4",
     "section": "",
-    "text": "There are 3 problems in this assignment. Each problem must be completed for full credit, unless otherwise indicated.\nFollow the prompts in each problem closely as they contain multiple parts.\nProblem 2 requires a dataset posted on Canvas, 2026_q2_sales.csv. Please download it from there.\nProblem 3 has an optional part for you to test yourself. It is difficult.",
+    "text": "The tip boxes titled What to expect describe what we found, so you can check your work. Because this assignment is open-ended, your numbers may differ if you made different, reasonable choices. When they do, explain why.\nDo not loop over rows with for or while. Use vectorized operations instead.\nKeep the raw data untouched. Load it once into blizzard, then do your cleaning on a copy called clean.\nThis assignment is open-ended. In many places there is no single correct answer. What matters is that you make a reasonable choice, state it, and justify it in a sentence or two. Write as if you are explaining your work to a manager who will read the text but not your code.\n\n\n\n\nA copy of blizzard_salary.csv to ensure your analysis is reproducible.\nA Quarto source file named analysis.qmd, with code, output and written answers.\nAny additional source files/modules you might create.",
     "crumbs": [
       "Homework",
-      "Homework 2"
+      "Homework 4"
     ]
   },
   {
-    "objectID": "hw/hw2.html#instructions",
-    "href": "hw/hw2.html#instructions",
-    "title": "Homework 2",
+    "objectID": "hw/hw4.html#instructions",
+    "href": "hw/hw4.html#instructions",
+    "title": "Homework 4",
     "section": "",
-    "text": "There are 3 problems in this assignment. Each problem must be completed for full credit, unless otherwise indicated.\nFollow the prompts in each problem closely as they contain multiple parts.\nProblem 2 requires a dataset posted on Canvas, 2026_q2_sales.csv. Please download it from there.\nProblem 3 has an optional part for you to test yourself. It is difficult.",
+    "text": "The tip boxes titled What to expect describe what we found, so you can check your work. Because this assignment is open-ended, your numbers may differ if you made different, reasonable choices. When they do, explain why.\nDo not loop over rows with for or while. Use vectorized operations instead.\nKeep the raw data untouched. Load it once into blizzard, then do your cleaning on a copy called clean.\nThis assignment is open-ended. In many places there is no single correct answer. What matters is that you make a reasonable choice, state it, and justify it in a sentence or two. Write as if you are explaining your work to a manager who will read the text but not your code.\n\n\n\n\nA copy of blizzard_salary.csv to ensure your analysis is reproducible.\nA Quarto source file named analysis.qmd, with code, output and written answers.\nAny additional source files/modules you might create.",
     "crumbs": [
       "Homework",
-      "Homework 2"
+      "Homework 4"
     ]
   },
   {
-    "objectID": "hw/hw2.html#problem-1",
-    "href": "hw/hw2.html#problem-1",
-    "title": "Homework 2",
-    "section": "Problem 1",
-    "text": "Problem 1\n\nPart A\nGiven the list\n\nsales = [120, 85, 300, 450, 60, 510]\n\nwrite a short script that\n\niterates through the list,\ncounts how many values are greater than or equal 300, and\nprints the final count.\n\nYou may not use the .count() method\n\n\nPart B\nTranslate your code in Part A into a function that accepts an arbitrary list of numbers, sales, and threshold goal, which does the following:\n\nreturns the number of entries greater than or equal goal,\nreturns the total sales, and\nreturns the total sales based on the given goal.",
+    "objectID": "hw/hw4.html#overview",
+    "href": "hw/hw4.html#overview",
+    "title": "Homework 4",
+    "section": "Overview",
+    "text": "Overview\nIn August 2020, employees at the video game company Blizzard Entertainment anonymously shared their salaries in a voluntary survey, amid concerns about pay differences within the company. The data were collected from the survey. A copy is distributed by OpenIntro as blizzard_salary.csv.\nEach row is one survey response. The columns are:\n\n\n\n\n\n\n\nColumn\nDescription\n\n\n\n\ntimestamp\nWhen the response was submitted\n\n\nstatus\nFull time employee or contractor\n\n\ncurrent_title\nJob title, typed in by the respondent\n\n\ncurrent_salary\nCurrent pay, in dollars, in the units given by salary_type\n\n\nsalary_type\nHow pay is quoted: year, hour or week\n\n\npercent_incr\nRaise received in July 2020, in percent (1.2 means 1.2%)\n\n\nother_info\nFree-text comment from the respondent\n\n\nlocation\nOffice the respondent works in\n\n\nperformance_rating\nMost recent performance review rating\n\n\n\nYour tasks:\n\nLoad and inspect the data.\nClean it so that salaries are comparable and categories are consistent.\nInvestigate the missing data and think about what can go wrong when you handle it.\nExplore some relationships, and think carefully about what the data can and cannot tell us.",
     "crumbs": [
       "Homework",
-      "Homework 2"
+      "Homework 4"
     ]
   },
   {
-    "objectID": "hw/hw2.html#problem-2",
-    "href": "hw/hw2.html#problem-2",
-    "title": "Homework 2",
-    "section": "Problem 2",
-    "text": "Problem 2\nThe following code is based on an example from the notes on Python collections:\n\nimport csv\n\nwith open('purchases.csv', mode='r', encoding='utf-8') as file:\n  csv_reader = csv.reader(file)\n  header = next(csv_reader)\n\n  for row in csv_reader:\n    product = row[0]\n\nUse this as starter code for implementing a function named sales_report() that summarizes the sales data in 2026_q2_sales.csv. This file contains sales on several consumer electronics and their sale amounts. Each row represents a particular product sold for a specific price.\n\nThe function should accept a filename, which you may safely assume ends in .csv.\nYour function should open the CSV file and walks through it row by row (as in the starter code).\nFor each product in the sales data, tally the number of sales of that product.\nAlso record the total sales amount for each product.\nReport (however you choose) each product name along with the number of sales and the sales amount. Also report the total number of products and total sales.",
+    "objectID": "hw/hw4.html#part-a-load-and-inspect-the-data",
+    "href": "hw/hw4.html#part-a-load-and-inspect-the-data",
+    "title": "Homework 4",
+    "section": "Part A: Load and inspect the data",
+    "text": "Part A: Load and inspect the data\n\nLoad blizzard_salary.csv into a DataFrame called blizzard.\nReport its size (rows and columns).\nReport the data type of each column. Does anything look wrong or surprising?\nCreate a Series called missing_counts with the number of missing values in each column.\nUse .describe() and .value_counts() to look at the numeric columns and at the categorical columns status, salary_type, location and performance_rating. In a few sentences, describe the problems you notice. These will guide your cleaning in Part B.\nLook through current_salary more carefully, sorted from smallest to largest, within each salary_type. Find any year salaries that look implausibly small and store the number of them in n_suspicious_salary.\n\n\n\n\n\n\n\nTipHints\n\n\n\n\nThe file has no column of row numbers, so think about whether you need index_col.\nBe careful with head(): the rows in this file are not in random order. What do you see in the first few rows, and is it representative?\n\n\n\n\n\n\n\n\n\nTipWhat to expect\n\n\n\n\nThe table should have 466 rows and 9 columns.\nMissing values per column: current_title 15, current_salary 56, percent_incr 44, other_info 297, location 3, and performance_rating 130. The other three columns (timestamp, status, salary_type) have none. If your counts differ, find out why before moving on.\nWe found 4 year salaries that look implausibly small (under $1,000). If you found a different number, take another look at how you sorted and filtered.",
     "crumbs": [
       "Homework",
-      "Homework 2"
+      "Homework 4"
     ]
   },
   {
-    "objectID": "hw/hw2.html#problem-3",
-    "href": "hw/hw2.html#problem-3",
-    "title": "Homework 2",
-    "section": "Problem 3",
-    "text": "Problem 3\nFizz buzz is, historically, a common interview question for jobs that require programming skills. You will implement a function, fizzbuzz(), in increasing levels of difficulty. The last part of this problem is an optional challenge question.\n\nPart A: Basic Problem\nWrite a Python function named fizzbuzz(n) which accepts an int n as input and iterates through the integers 1 through n. For each number j, the function:\n\nPrints the word \"fizz\" if the number is divisible by 3. We’ll refer to 3 as a FizzBuzz number and \"fizz\" as a FizzBuzz word.\nPrints the word \"buzz\" if the number is divisible by 5.\nPrints \"fizzbuzz\" is the number is divisible by both 3 and 5. We’ll refer to this as the concatenation rule.\nPrints the number j by itself if it is not a FizzBuzz number.\n\nInclude at least 2 test cases demonstrating that your function works as intended. Explain how you know your test cases prove the function works as intended.\n\n\nPart B: Additional Complexity\nNow let’s add another rule:\n\nIf the current number is divisible by FizzBuzz number 7, print the FizzBuzz word bazz.\nThe concatenation rule continues to apply. That means you must print all 3 words if a number is divisible by all 3 FizzBuzz numbers so far (3, 5, and 7).\nThe concatenation rule extends to other combinations; for example, print fizzbazz if a number is divisible by 3 and 7.\n\nImplement this in a separate function called fizzbuzzbazz() and provide a test case demonstrating that it works. Justify your test case as before.\n\n\nPart C: General Case (Optional)\nNow we’ll generalize the solution to an arbitrary set of FizzBuzz numbers and words. Write a function named fizzbuzzmaster() which accepts three inputs:\n\nn, a number defining the sequence 1 through n.\nfbnums, short for FizzBuzz numbers.\nfbwords, short for FizzBuzz words.\n\nYou may assume fbnums and fbwords are list objects of the same length, and that fbnums only contains integers strictly greater than 1. Your solution must satisfy the concatenation rule. Demonstrate that your solution works as advertised and explain why you know the solution is correct in general.",
+    "objectID": "hw/hw4.html#part-b-clean-the-data",
+    "href": "hw/hw4.html#part-b-clean-the-data",
+    "title": "Homework 4",
+    "section": "Part B: Clean the data",
+    "text": "Part B: Clean the data\nCreate a copy called clean and keep all 466 rows in this part. Do not drop any rows yet. Each item below asks you to make a decision. State what you did and why.\n\nSuspicious salaries. Among the rows you found in Part A, some are placeholders (entries that cannot be real salaries) and at least one is a number that is real, but recorded under the wrong salary_type. Decide how to handle each kind, and fix it in current_salary / salary_type themselves. Explain how you told them apart.\nLocations. Standardize the location labels so that the same place is always spelled the same way. Look at the full list of labels and decide what to do with any that are not really a location, or that you cannot be sure about. Decide whether Los Angeles and Los Angeles Center Studios should be combined. Justify it.\nAnnual salary. Create a column annual_salary that puts everyone’s pay on a yearly basis. You will need to state an assumption about hours or weeks worked. Say what it is, and say who it might be wrong for.\nTimestamps. Convert timestamp into a proper date-and-time column. Report the earliest and latest submission. Is anything about the dates surprising?\nJob titles. Titles are typed in by hand, and there are over 200 different ones. You do not need to clean them all. Instead, create a column job_family that sorts titles into a few groups (for example, engineering, testing/QA, art, design, game master / customer support, producer and Other). Decide on your own groups, and use .str methods on the lowercase title to build them.\n\n\n\n\n\n\n\nTipHints for titles\n\n\n\n\nSome titles could belong to more than one group (think of “Software Development Engineer in Test”). Decide how to handle these, and state your rule.\nReport how many rows ended up in Other and how many have no title at all. Is your grouping missing something important?\nA titles list such as clean[\"current_title\"].value_counts() is a good place to start.\n\n\n\n\n\n\n\n\n\nTipWhat to expect\n\n\n\n\nYou should still have all 466 rows.\nAfter fixing the suspicious salaries, no year salary should be implausibly small. If you moved the mislabeled one to hour, you should have 64 hourly rows.\nWe ended up with 407 rows that have a usable annual_salary: 56 rows have no pay recorded and 3 more are placeholders. If your count is different, explain why.\nUnder a standard full-time assumption, annual salaries should land between roughly $20,000 and $250,000 (ours ran from about $28,000 to $217,000). Values far outside that range usually signal a unit mix-up.\ntimestamp should have a date-and-time type. The earliest response should be from 2020-07-31 15:02 and the latest from 2021-03-21 15:23.\nNo two location labels should differ only by capitalization or stray spaces.\nEvery row should have a job_family. In our rough version, about a quarter of the rows landed in Other. If yours is much larger, look at what is in it.\n\n\n\nThese are only a few of the things to look for. Some of your other choices (for instance, what you did with the 3 locations and the title groups) are not covered above, so be sure you describe them in your write-up.",
     "crumbs": [
       "Homework",
-      "Homework 2"
+      "Homework 4"
     ]
   },
   {
-    "objectID": "hw/hw1.html#formatting-requirements",
-    "href": "hw/hw1.html#formatting-requirements",
-    "title": "Homework 1",
-    "section": "Formatting Requirements",
-    "text": "Formatting Requirements\n\nYour work should be in the form of a Quarto file named hw1.qmd. Python code should appear in code chunks.\nYou are responsible for ensuring your work is reproducible on someone else’s computer. That means:\n\nVerifying that hw1.qmd renders properly as an HTML report.\n\nFeel free to strip away instructions or hints in your hw1.qmd file. Leave the problem descriptions and prompts intact.\nYour homework solutions must be more than code. Most prompts in this assignment, if not all, should have text describing how you approached a problem. Other students in the class should be able to understand your reasoning by reading the text and code comments.",
+    "objectID": "hw/hw4.html#part-c-missing-data",
+    "href": "hw/hw4.html#part-c-missing-data",
+    "title": "Homework 4",
+    "section": "Part C: Missing data",
+    "text": "Part C: Missing data\nMany rows are missing something. Before you decide what to do about it, you should understand it.\n\nMake a table showing the number and percentage of missing values in each of the nine original columns of clean.\nThe simplest approach is to drop every row that has a missing value anywhere. Try it. Store the number of rows that remain in n_complete_rows. How much of the data is left?\nCompare the full data with only the “complete” rows. Pick at least three quantities to compare (for example: the median annual salary, the share of respondents in Irvine, the share of contractors, the typical raise). In a few sentences, describe what changes and why this matters if someone only analyzes the complete rows.\nLook at the performance ratings and raises that are missing. Is the missingness spread evenly across employees, or does it concentrate in some groups (for example by status)? Look at the other_info comments for some of the rows with missing values. Do any explain why a value is missing?\nPick one column with missing values (not other_info) and try to fill the gaps in, with a method of your choice (for example, a mean, a median, or a typical value within a group). Show how this changes the mean, the spread (standard deviation) and a relationship you care about. Then explain, in a short paragraph, why filling in is not as straightforward as it looks. Would you fill in these missing values for a real analysis? Why or why not?\nPossible repeats. Some rows look identical except for the timestamp, and in an anonymous survey we cannot tell whether they are one person who submitted twice or several people with the same job and pay. Find them, report how many rows are involved, and make and justify a decision about whether to remove them.\n\n\n\n\n\n\n\nTipWhat to expect\n\n\n\n\nDropping every row that has a missing value in any of the nine original columns leaves 98 rows. Which columns are responsible for most of the loss?\n15 rows are exact repeats of an earlier row if you ignore timestamp (this is what .duplicated() reports). Counting the first copies as well, 27 rows are involved in total.\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nThere is no single correct answer to items 5 and 6. A strong answer says what was done, shows its effect with numbers, and is honest about what it assumes.",
     "crumbs": [
       "Homework",
-      "Homework 1"
+      "Homework 4"
     ]
   },
   {
-    "objectID": "hw/hw1.html#problem-1",
-    "href": "hw/hw1.html#problem-1",
-    "title": "Homework 1",
-    "section": "Problem 1",
-    "text": "Problem 1\nBefore we do any computational work, let’s format your Quarto document.\n\nQuarto’s headers are especially sensitive to formatting. This is the place to be nitpicky about spacing and indentation.\nMake sure your .qmd file has your name in the header.\nBe sure to list any collaborators.\nDouble-check that engine: jupyter is set!",
+    "objectID": "hw/hw4.html#part-d-explore-relationships",
+    "href": "hw/hw4.html#part-d-explore-relationships",
+    "title": "Homework 4",
+    "section": "Part D: Explore relationships",
+    "text": "Part D: Explore relationships\nChoose at least two of the following questions, or write your own. For each one, (1) state what you are asking, (2) provide a table or summary that addresses it, and (3) write 3 to 5 sentences interpreting it, including what you would be careful about saying.\n\nHow does pay vary across locations, job families or employment status?\nDo employees with higher performance ratings receive bigger raises?\nWho receives unusually large raises (say, over 10%)? Is there a pattern?\nDid the people who responded later (for example, in 2021) differ from early respondents?\nA question of your own that the data can answer.\n\n\n\n\n\n\n\nTip\n\n\n\nYou can compare groups by filtering to one group at a time, or you can look up groupby in the pandas documentation.",
     "crumbs": [
       "Homework",
-      "Homework 1"
+      "Homework 4"
     ]
   },
   {
-    "objectID": "hw/hw1.html#problem-2",
-    "href": "hw/hw1.html#problem-2",
-    "title": "Homework 1",
-    "section": "Problem 2",
-    "text": "Problem 2\nThe following small Python programs store values in variables and use the print() function to produce an output. Treat each code block as a self-contained unit, meaning the code in the first code block has no influence on any subsequent code blocks.\n\nTracing the flow of a program\nIn each case, determine what each program outputs.\n\nnephew = 'Jack'\nprint(nephew)\n\n\nnephew = 'Jack'\nprint('nephew')\n\n\nnephew = 'Jack'\nnephew = 'Albert'\nprint(nephew)\n\n\nnephew = 'Jack'\nNephew = 'Albert'\nprint(nephew)\n\n\n\nReasoning about errors\nThe following programs will produce errors in a fresh Python session. In each case, explain why each self-contained block produces an error.\n\n\n\n\n\n\nTipHint\n\n\n\nTo produce the errors yourself, start a fresh Python session in a terminal, copy a code block, and paste it into your Python session. Do this for each example to make the code self-contained.\n\n\n\nnephew = Jack\nprint(nephew)\n\n\nnephew = 'Jack'\nprint(Jack)\n\n\nnephew = 'Jack'\nprint(NEPHEW)\n\n\nprint(nephew)",
+    "objectID": "hw/hw4.html#part-e-reflection",
+    "href": "hw/hw4.html#part-e-reflection",
+    "title": "Homework 4",
+    "section": "Part E: Reflection",
+    "text": "Part E: Reflection\nBriefly, answer the following questions about the data as a whole. Explain in your own words.\n\nHow were these data collected? Did the researchers (or Blizzard) assign anyone to a particular office, rating or salary, or did they just record what people reported? What does this mean for the kinds of conclusions you can draw? For example, could you conclude that a higher rating causes a bigger raise?\nWho is in the data, and who is not? Think about who chose to respond and who might have chosen not to. In which direction could this push the numbers (too high, too low, or no way to tell)? How might that type of bias mislead an analyst work with these data?\nWhat else could explain a pattern? Pick one comparison from your exploration where the groups might differ in more than just the thing you are comparing (for example, offices that do different kinds of work). Describe the other differences, and then check whether the pattern survives when you compare only people in the same job_family.\nWhat can’t you verify? Look at the columns and values again. Is there anything you would want to double-check with the people who collected the data before trusting a preliminary result?\n\nFinish with a short summary of the two or three most important things a reader should take away from your analysis, including any limitations.",
     "crumbs": [
       "Homework",
-      "Homework 1"
-    ]
-  },
-  {
-    "objectID": "hw/hw1.html#problem-3",
-    "href": "hw/hw1.html#problem-3",
-    "title": "Homework 1",
-    "section": "Problem 3",
-    "text": "Problem 3\nIn this exercise you’re going to write some code to help you cook a brilliant lasagna from your favorite cooking book. You have four tasks, all related to the time spent cooking the lasagna.\n\n1. Store the expected bake time in a constant\nDefine the expected_bake_time constant that returns how many minutes the lasagna should bake in the oven. According to the cooking book, lasagna needs to be in the oven for a total of 60 minutes.\n\n\n2. Calculate the preparation time in minutes\nDefine the preparation_time function that takes the number of layers you added to the lasagna as an argument and returns how many minutes you spent preparing the lasagna, assuming each layer takes you 2 minutes to prepare.\n\n\n3. Calculate the remaining oven time in minutes\nDefine the remaining_time function that takes the actual minutes the lasagna has been in the oven as a parameter and returns how many minutes the lasagna still has to remain in the oven.\n\n\n4. Calculate the total working time in minutes\nDefine the total_working_time function that takes two arguments: the first argument is the number of layers you added to the lasagna, and the second argument is the number of minutes the lasagna has been in the oven. The function should return how many minutes in total you’ve worked on cooking the lasagna, which is the sum of the preparation time in minutes, and the time in minutes the lasagna has spent in the oven at the moment.",
-    "crumbs": [
-      "Homework",
-      "Homework 1"
-    ]
-  },
-  {
-    "objectID": "hw/hw1.html#problem-4",
-    "href": "hw/hw1.html#problem-4",
-    "title": "Homework 1",
-    "section": "Problem 4",
-    "text": "Problem 4\n\nChecking your work\n\nRender/preview your report from scratch.\nVerify that each piece of code executes free of errors.\n\nDo the results match what you saw while working interactively?\n\nVerify that the report itself is readable.\n\nFigures (if any) render properly.\nAny math set in \\(\\LaTeX\\) displays correctly.\n\nPolish the report.\n\nUse inline code to report results rather than hard-coding them into the file; e.g. `{python} x` to reference the value of x inline.\nReorganize your code to ensure your thought process is transparent to a reader.",
-    "crumbs": [
-      "Homework",
-      "Homework 1"
+      "Homework 4"
     ]
   },
   {
@@ -1736,7 +1824,7 @@
     "href": "notes/module05/numbers.html#integers-fixed-point-system",
     "title": "Computer Arithmetic",
     "section": "Integers: Fixed-Point System",
-    "text": "Integers: Fixed-Point System\n\nFixed-point number system is a computer model for integers \\(\\mathbb{Z}\\).\nThe number of bits and method of representing negative numbers vary from system to system.\nNumPy has several integer types: np.int8, np.int16, np.int32, np.int64 and their unsigned np.uintX relatives.\n\n\nimport numpy as np\n\n\nSigned Integers\n\nFirst bit indicates sign.\n\n0 for nonnegative numbers\n1 for negative numbers\n\nTwo’s complement representation for negative numbers.\n\nSign bit is set to 1.\nRemaining bits are set to opposite values\n1 is added to the result\nTwo’s complement representation of a negative integer x is same as the unsigned integer 2^64 + x.\n\n\nTwo’s complement representation respects modular arithmetic. Adding any two signed integers is just bitwise addition, possibly module \\(2^{M}\\).\n\n\n\n\n\nArithmetic (addition, subtraction, multiplication) on integers is exact except for the possibility of overflow.\nThe range of representable integers by an \\(M\\)-bit signed integer is \\([-2^{M-1}, 2^{M-1}-1]\\).\n\nnp.iinfo(np.int64)\n\niinfo(min=-9223372036854775808, max=9223372036854775807, dtype=int64)\n\n\n\n\nUnsigned Integers\nUnsigned integers use all \\(M\\) bits to represent non-negative integers. Their range is \\([0, 2^{M}-1]\\).\n\nnp.iinfo(np.uint8)\n\niinfo(min=0, max=255, dtype=uint8)\n\n\n\n\nOverflow Behavior\nWhat happens when an arithmetic operation results in a value outside the representable range? This is known as overflow behavior and it varies across programming languages.\n\n# not the same as Python's native `int`\nnp.iinfo(np.int64).max\n\n9223372036854775807\n\n\n\nx = np.iinfo(np.int64).max + np.int64(1)\nx\n\n/tmp/ipykernel_3969/3463402941.py:1: RuntimeWarning: overflow encountered in scalar add\n  x = np.iinfo(np.int64).max + np.int64(1)\n\n\nnp.int64(-9223372036854775808)\n\n\n\ntype(x)\n\nnumpy.int64\n\n\nThis example shows that NumPy’s intX types will wrap around from one extreme of the representable range to the other.",
+    "text": "Integers: Fixed-Point System\n\nFixed-point number system is a computer model for integers \\(\\mathbb{Z}\\).\nThe number of bits and method of representing negative numbers vary from system to system.\nNumPy has several integer types: np.int8, np.int16, np.int32, np.int64 and their unsigned np.uintX relatives.\n\n\nimport numpy as np\n\n\nSigned Integers\n\nFirst bit indicates sign.\n\n0 for nonnegative numbers\n1 for negative numbers\n\nTwo’s complement representation for negative numbers.\n\nSign bit is set to 1.\nRemaining bits are set to opposite values\n1 is added to the result\nTwo’s complement representation of a negative integer x is same as the unsigned integer 2^64 + x.\n\n\nTwo’s complement representation respects modular arithmetic. Adding any two signed integers is just bitwise addition, possibly module \\(2^{M}\\).\n\n\n\n\n\nArithmetic (addition, subtraction, multiplication) on integers is exact except for the possibility of overflow.\nThe range of representable integers by an \\(M\\)-bit signed integer is \\([-2^{M-1}, 2^{M-1}-1]\\).\n\nnp.iinfo(np.int64)\n\niinfo(min=-9223372036854775808, max=9223372036854775807, dtype=int64)\n\n\n\n\nUnsigned Integers\nUnsigned integers use all \\(M\\) bits to represent non-negative integers. Their range is \\([0, 2^{M}-1]\\).\n\nnp.iinfo(np.uint8)\n\niinfo(min=0, max=255, dtype=uint8)\n\n\n\n\nOverflow Behavior\nWhat happens when an arithmetic operation results in a value outside the representable range? This is known as overflow behavior and it varies across programming languages.\n\n# not the same as Python's native `int`\nnp.iinfo(np.int64).max\n\n9223372036854775807\n\n\n\nx = np.iinfo(np.int64).max + np.int64(1)\nx\n\n/tmp/ipykernel_4201/3463402941.py:1: RuntimeWarning: overflow encountered in scalar add\n  x = np.iinfo(np.int64).max + np.int64(1)\n\n\nnp.int64(-9223372036854775808)\n\n\n\ntype(x)\n\nnumpy.int64\n\n\nThis example shows that NumPy’s intX types will wrap around from one extreme of the representable range to the other.",
     "crumbs": [
       "Module 5 (Numerical Python)",
       "Computer Arithmetic"
@@ -1857,7 +1945,7 @@
     "href": "notes/module03/stdlib.html#what-is-the-python-standard-library",
     "title": "The Python Standard Library",
     "section": "What is the Python standard library?",
-    "text": "What is the Python standard library?\nBy now we have encountered various symbols in the Python language representing language constructs, built-in functions, and type constructors. In principle, you could use these tools to build up almost any tools you might need; for example, you could write a tool to read a spreadsheet file and represent its data within Python. Fortunately, many important functions for analytics have already been written by experts and are available as *modules\nIt behooves any programmer to become familiar with the standard library of any language, which is a collection of code modules that are part of the language but kept separate for several reasons.\n\nKeeping an uncluttered namespace by default.\n\nWhen you start up an interactive Python session, you have access to various functions and object types by default.\nSeparating some functionality into modules lets a user opt-in to features they would like to use.\nThis helps keep names as simple as possible.\n\nEase of maintenance.\n\nSeveral developers work on the core Python language.\nKeeping some features, like the math module, separate from the core language allows people to work on the core language without blocking improvements and bug fixes in the math module, and vice versa.\n\nCode organization.\n\nThe details of how to compute sin(x) within the math module has little to do with how a computer reads a comma-separated values (CSV) file.\nGrouping related concepts under a particular module creates a namespace, a universe of related symbols.\nNamespaces make it easier for people to discover and use functions.\n\n\n\nWhat is a Python module?\nA Python module is a file of Python code written to implement a set of related functions and objects.\n\nCan be (but not always) implemented as a simple .py file.\nDefines a namespace so that function names are relatively simple, at least within a module.\nCan use functionality from other modules.\nWe will write our own Python modules in the future.\n\n\n\nWhat is a Python package?\nA Python package is a collection of related Python modules.\n\nCan be a single directory containing modules, or a directory with subdirectories.\nAgain, the purpose is to organize related concepts, functions, and objects while controlling namespaces.\nThere is an additional structure to packages that we will discuss at a later date.\n\n\n\nHow do we use them?\nConceptually, a Python module and a Python package are nearly identical and this is essentially the case from a user perspective. Any time we want to use one of these tools, we must import the module/package. The syntax for using functions and objects from an imported module/package will depend on how we import it.\nThe following examples illustrate the most common ways programmers import code from modules/packages.\n\nExample 1: import\nThe following makes the math module available in the current scope.\n\nimport math\n\nNow we can reference functions and objects by prepending math. to calls and references.\n\nmath.sqrt(2)\n\n1.4142135623730951\n\n\nIf you do this with a package, you only import functions and object types defined directly within the named package. For performance reasons, you must specifically import any submodules you wish to use. The following code fails because request is a submodule of urllib, which is not imported below.\n\nimport urllib\n\nurllib.request.urlopen(\"https://example.com\")\n\n\n---------------------------------------------------------------------------\nAttributeError                            Traceback (most recent call last)\nCell In[3], line 3\n      1 import urllib\n      2 \n----&gt; 3 urllib.request.urlopen(\"https://example.com\")\n\nAttributeError: module 'urllib' has no attribute 'request'\n\n\n\n\n\nExample 2: from &lt;module&gt; import &lt;function or class&gt;\nIf you want to import specific functions or object types, use the from X import Y, Z syntax. This lets you use imports without qualification.\n\nfrom statistics import mean, median\n\nmydata = [100, 92, 79, 85]\n\nprint(f\"The mean is {mean(mydata)} and the median is {median(mydata)}.\")\n\nThe mean is 89 and the median is 88.5.\n\n\n\n\nExample 3: import ... as ...\nUse this import style to alias a module name to a shorter one. Many Python modules/packages have canonical aliases. The following is a common shorthand for the Pandas package, which we will learn about later in the course. It has already been installed for you when you set up the class Docker container.\n\nimport pandas as pd\n\npd.DataFrame({'name': ['Alice', 'Bob', 'Carlos'], 'age': [28, 29, 35]})\n\n\n\n\n\n\n\n\nname\nage\n\n\n\n\n0\nAlice\n28\n\n\n1\nBob\n29\n\n\n2\nCarlos\n35\n\n\n\n\n\n\n\n\n\nExample 4: from &lt;module&gt; import &lt;submodule&gt;\nSimilar to Example 2 above, this lets you import submodules without qualification.\n\nfrom urllib import request\n\nrequest.urlopen(\"https://example.com\")\n\n&lt;http.client.HTTPResponse at 0x7f6499970f40&gt;",
+    "text": "What is the Python standard library?\nBy now we have encountered various symbols in the Python language representing language constructs, built-in functions, and type constructors. In principle, you could use these tools to build up almost any tools you might need; for example, you could write a tool to read a spreadsheet file and represent its data within Python. Fortunately, many important functions for analytics have already been written by experts and are available as *modules\nIt behooves any programmer to become familiar with the standard library of any language, which is a collection of code modules that are part of the language but kept separate for several reasons.\n\nKeeping an uncluttered namespace by default.\n\nWhen you start up an interactive Python session, you have access to various functions and object types by default.\nSeparating some functionality into modules lets a user opt-in to features they would like to use.\nThis helps keep names as simple as possible.\n\nEase of maintenance.\n\nSeveral developers work on the core Python language.\nKeeping some features, like the math module, separate from the core language allows people to work on the core language without blocking improvements and bug fixes in the math module, and vice versa.\n\nCode organization.\n\nThe details of how to compute sin(x) within the math module has little to do with how a computer reads a comma-separated values (CSV) file.\nGrouping related concepts under a particular module creates a namespace, a universe of related symbols.\nNamespaces make it easier for people to discover and use functions.\n\n\n\nWhat is a Python module?\nA Python module is a file of Python code written to implement a set of related functions and objects.\n\nCan be (but not always) implemented as a simple .py file.\nDefines a namespace so that function names are relatively simple, at least within a module.\nCan use functionality from other modules.\nWe will write our own Python modules in the future.\n\n\n\nWhat is a Python package?\nA Python package is a collection of related Python modules.\n\nCan be a single directory containing modules, or a directory with subdirectories.\nAgain, the purpose is to organize related concepts, functions, and objects while controlling namespaces.\nThere is an additional structure to packages that we will discuss at a later date.\n\n\n\nHow do we use them?\nConceptually, a Python module and a Python package are nearly identical and this is essentially the case from a user perspective. Any time we want to use one of these tools, we must import the module/package. The syntax for using functions and objects from an imported module/package will depend on how we import it.\nThe following examples illustrate the most common ways programmers import code from modules/packages.\n\nExample 1: import\nThe following makes the math module available in the current scope.\n\nimport math\n\nNow we can reference functions and objects by prepending math. to calls and references.\n\nmath.sqrt(2)\n\n1.4142135623730951\n\n\nIf you do this with a package, you only import functions and object types defined directly within the named package. For performance reasons, you must specifically import any submodules you wish to use. The following code fails because request is a submodule of urllib, which is not imported below.\n\nimport urllib\n\nurllib.request.urlopen(\"https://example.com\")\n\n\n---------------------------------------------------------------------------\nAttributeError                            Traceback (most recent call last)\nCell In[3], line 3\n      1 import urllib\n      2 \n----&gt; 3 urllib.request.urlopen(\"https://example.com\")\n\nAttributeError: module 'urllib' has no attribute 'request'\n\n\n\n\n\nExample 2: from &lt;module&gt; import &lt;function or class&gt;\nIf you want to import specific functions or object types, use the from X import Y, Z syntax. This lets you use imports without qualification.\n\nfrom statistics import mean, median\n\nmydata = [100, 92, 79, 85]\n\nprint(f\"The mean is {mean(mydata)} and the median is {median(mydata)}.\")\n\nThe mean is 89 and the median is 88.5.\n\n\n\n\nExample 3: import ... as ...\nUse this import style to alias a module name to a shorter one. Many Python modules/packages have canonical aliases. The following is a common shorthand for the Pandas package, which we will learn about later in the course. It has already been installed for you when you set up the class Docker container.\n\nimport pandas as pd\n\npd.DataFrame({'name': ['Alice', 'Bob', 'Carlos'], 'age': [28, 29, 35]})\n\n\n\n\n\n\n\n\nname\nage\n\n\n\n\n0\nAlice\n28\n\n\n1\nBob\n29\n\n\n2\nCarlos\n35\n\n\n\n\n\n\n\n\n\nExample 4: from &lt;module&gt; import &lt;submodule&gt;\nSimilar to Example 2 above, this lets you import submodules without qualification.\n\nfrom urllib import request\n\nrequest.urlopen(\"https://example.com\")\n\n&lt;http.client.HTTPResponse at 0x7fcdaaf608b0&gt;",
     "crumbs": [
       "Module 3 (Beyond Basics)",
       "The Python Standard Library"
@@ -1868,7 +1956,7 @@
     "href": "notes/module03/stdlib.html#numerical-computation",
     "title": "The Python Standard Library",
     "section": "Numerical computation",
-    "text": "Numerical computation\n\nmath\nVarious math-related functions.\n\n# A = P * e^(r*t), continuously compunded interest formula\ndef future_value_cts(principal, rate, time):\n  return principal * math.exp(rate * time)\n\nfuture_value_cts(100.0, 0.05, 2)\n\n110.51709180756477\n\n\n\ndef circle_area(radius):\n  return math.pi * radius**2\n\ncircle_area(1.)\n\n3.141592653589793\n\n\n\nmath.log(math.exp(1)) # natural logarithm\n\n1.0\n\n\n\nmath.log10(10.0) # base 10 logarithm\n\n1.0\n\n\n\n\nstatistics\nImplements various concepts in statistics. We will use this package sparingly as there is a much richer functionality implemented in other Python packages.\n\nfrom statistics import mean, median, variance, stdev, quantiles\nsalaries = [100000, 110000, 80000, 320000]\n\n\nmean(salaries)\n\n152500\n\n\n\nvariance(salaries)\n\n12625000000\n\n\n\nstdev(salaries)\n\n112361.02527122117\n\n\n\nquantiles(salaries, n = 2) # returns median\n\n[105000.0]\n\n\n\nquantiles(salaries, n = 4) # returns quartiles, Q1, Q2 (median), Q3\n\n[85000.0, 105000.0, 267500.0]\n\n\n\n\nrandom\nUsed to sample from “brand name” distributions or collections in Python. We will later defer to numpy.random once we discuss the Numpy package.\n\nimport random\n\n# Normal distribution with mean 10 and standard deviation 1\nrandom.normalvariate(mu = 10.0, sigma = 1.0)\n\n8.996023801867349\n\n\n\n# make it reproducible with a seed\nrandom.seed(1234)\n\nx = [\"Alice\", \"Bob\", \"Carlos\"]\nprint(random.choice(x))\nprint(random.choice(x))\nprint(random.choice(x))\n\nBob\nAlice\nAlice",
+    "text": "Numerical computation\n\nmath\nVarious math-related functions.\n\n# A = P * e^(r*t), continuously compunded interest formula\ndef future_value_cts(principal, rate, time):\n  return principal * math.exp(rate * time)\n\nfuture_value_cts(100.0, 0.05, 2)\n\n110.51709180756477\n\n\n\ndef circle_area(radius):\n  return math.pi * radius**2\n\ncircle_area(1.)\n\n3.141592653589793\n\n\n\nmath.log(math.exp(1)) # natural logarithm\n\n1.0\n\n\n\nmath.log10(10.0) # base 10 logarithm\n\n1.0\n\n\n\n\nstatistics\nImplements various concepts in statistics. We will use this package sparingly as there is a much richer functionality implemented in other Python packages.\n\nfrom statistics import mean, median, variance, stdev, quantiles\nsalaries = [100000, 110000, 80000, 320000]\n\n\nmean(salaries)\n\n152500\n\n\n\nvariance(salaries)\n\n12625000000\n\n\n\nstdev(salaries)\n\n112361.02527122117\n\n\n\nquantiles(salaries, n = 2) # returns median\n\n[105000.0]\n\n\n\nquantiles(salaries, n = 4) # returns quartiles, Q1, Q2 (median), Q3\n\n[85000.0, 105000.0, 267500.0]\n\n\n\n\nrandom\nUsed to sample from “brand name” distributions or collections in Python. We will later defer to numpy.random once we discuss the Numpy package.\n\nimport random\n\n# Normal distribution with mean 10 and standard deviation 1\nrandom.normalvariate(mu = 10.0, sigma = 1.0)\n\n10.02384101472512\n\n\n\n# make it reproducible with a seed\nrandom.seed(1234)\n\nx = [\"Alice\", \"Bob\", \"Carlos\"]\nprint(random.choice(x))\nprint(random.choice(x))\nprint(random.choice(x))\n\nBob\nAlice\nAlice",
     "crumbs": [
       "Module 3 (Beyond Basics)",
       "The Python Standard Library"
@@ -1934,7 +2022,7 @@
     "href": "notes/module03/modules.html#using-a-custom-class",
     "title": "Modules, Classes, and Namespaces",
     "section": "Using a custom class",
-    "text": "Using a custom class\n\nCreate an instance\n\nx = Product(\"Laptop\", 4000)\nx\n\n&lt;__main__.Product at 0x7f44e5be0980&gt;\n\n\n\n\nUsing an instance of a class\nWe can access the attributes or data held by an instance:\n\nx.name\n\n'Laptop'\n\n\n\nx.price\n\n4000\n\n\nWe can also use the class’ methods:\n\nx.apply_discount(0.10) # 10% discount\n\n&lt;__main__.Product at 0x7f44e5be0980&gt;\n\n\n\nx.price\n\n3600.0\n\n\n\n\nMethod chaining\nWe could have defined the .apply_discount() method as\n\ndef apply_discount(self, percent):\n    self.price *= (1 - percent)\n    return self.price\n\nThe advantage of returning self instead of self.price is it allows for method chaining:\n\nx.apply_discount(0.10).apply_discount(0.10).price\n\n2916.0\n\n\nMethod chaining is important in many Python modules and packages, such as Pandas.\n\n\nPretty printing objects\nWe saw that displaying x is not terribly informative. This behavior can be modified by overloading the __str()__ method:\n\nx\n\n&lt;__main__.Product at 0x7f44e5be0980&gt;\n\n\n\nprint(x)\n\n&lt;__main__.Product object at 0x7f44e5be0980&gt;\n\n\nHere’s a re-implementation of our Product, but with pretty printing.\n\nclass FancyProduct:\n    def __init__(self, name, price):\n        self.name = name\n        self.price = price\n\n    def apply_discount(self, percent):\n        self.price *= (1 - percent)\n        return self\n\n    def __str__(self):\n        return f\"Product Name: {self.name}\\n       Price: ${self.price:,.2f}\"\n\n\nx = FancyProduct(\"Laptop\", 4000)\nx\n\n&lt;__main__.FancyProduct at 0x7f44e5be0830&gt;\n\n\nSame as before. However, its print() display is much better:\n\nprint(x)\n\nProduct Name: Laptop\n       Price: $4,000.00",
+    "text": "Using a custom class\n\nCreate an instance\n\nx = Product(\"Laptop\", 4000)\nx\n\n&lt;__main__.Product at 0x7f4c18b1c980&gt;\n\n\n\n\nUsing an instance of a class\nWe can access the attributes or data held by an instance:\n\nx.name\n\n'Laptop'\n\n\n\nx.price\n\n4000\n\n\nWe can also use the class’ methods:\n\nx.apply_discount(0.10) # 10% discount\n\n&lt;__main__.Product at 0x7f4c18b1c980&gt;\n\n\n\nx.price\n\n3600.0\n\n\n\n\nMethod chaining\nWe could have defined the .apply_discount() method as\n\ndef apply_discount(self, percent):\n    self.price *= (1 - percent)\n    return self.price\n\nThe advantage of returning self instead of self.price is it allows for method chaining:\n\nx.apply_discount(0.10).apply_discount(0.10).price\n\n2916.0\n\n\nMethod chaining is important in many Python modules and packages, such as Pandas.\n\n\nPretty printing objects\nWe saw that displaying x is not terribly informative. This behavior can be modified by overloading the __str()__ method:\n\nx\n\n&lt;__main__.Product at 0x7f4c18b1c980&gt;\n\n\n\nprint(x)\n\n&lt;__main__.Product object at 0x7f4c18b1c980&gt;\n\n\nHere’s a re-implementation of our Product, but with pretty printing.\n\nclass FancyProduct:\n    def __init__(self, name, price):\n        self.name = name\n        self.price = price\n\n    def apply_discount(self, percent):\n        self.price *= (1 - percent)\n        return self\n\n    def __str__(self):\n        return f\"Product Name: {self.name}\\n       Price: ${self.price:,.2f}\"\n\n\nx = FancyProduct(\"Laptop\", 4000)\nx\n\n&lt;__main__.FancyProduct at 0x7f4c18b1c830&gt;\n\n\nSame as before. However, its print() display is much better:\n\nprint(x)\n\nProduct Name: Laptop\n       Price: $4,000.00",
     "crumbs": [
       "Module 3 (Beyond Basics)",
       "Modules, Classes, and Namespaces"
