@@ -69,14 +69,18 @@ website:
             href: notes/module05/numbers.qmd
           - text: Computer Architecture
             href: notes/module05/computers.qmd
-      # - section: Module 6 (Tabular Data)
-      #   contents:
-      #     - text: Introduction to Pandas
-      #       href: notes/module06/pandas_intro.qmd
-      #     - text: Indexing and Filtering
-      #     - text: Data Cleaning
-      #       href: notes/module06/cleaning.qmd
-      #     - text: Split-Apply-Combine
+      - section: Module 6 (Tabular Data)
+        contents:
+          - text: Introduction to Pandas
+            href: notes/module06/pandas_intro.qmd
+          - text: Data Cleaning
+            href: notes/module06/cleaning.qmd
+          - text: Pandas Tutorial
+            href: notes/module06/pandas_tutorial.qmd
+          - text: Text Processing
+            href: notes/module06/text_processing.qmd
+          - text: Split-Apply-Combine
+            href: notes/module06/split_apply_combine.qmd
       # - section: Module 6 (Simulation)
       #   contents:
       #     - text: RNG and PRNGs

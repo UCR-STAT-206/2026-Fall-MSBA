@@ -1,0 +1,467 @@
+---
+title: "Split-Apply-Combine"
+error: true
+---
+
+## Goals
+
+1.  Understand the **split-apply-combine** pattern for analyzing grouped data.
+2.  Use `groupby` to summarize (`agg`), add group-aware columns (`transform`), and keep or drop whole groups (`filter`).
+3.  Recognize that **group structure is not always given to you**: groups may have to be constructed from numbers or text, or may be hiding in the data entirely.
+4.  Appreciate how ignoring group structure can lead to misleading summaries.
+
+## Packages and data
+
+```{python}
+import os
+import numpy as np
+import pandas as pd
+```
+
+We continue with the Palmer penguins: body measurements for 344 penguins of three species on three islands.
+
+```{python}
+penguins = pd.read_csv(os.path.join("assets", "penguins.csv"))
+penguins.isna().sum()
+```
+
+Two rows have *no measurements at all*, and nine more only lack `sex`. We drop the empty rows now and handle `sex` when we need it. (Dropping every row with any missing value would discard information we can use.)
+
+```{python}
+penguins = penguins.dropna(subset=["body_mass_g"])
+penguins.shape
+```
+
+## The split-apply-combine pattern
+
+> Many data analysis problems involve the application of a split-apply-combine strategy, where you break up a big problem into manageable pieces, operate on each piece independently and then put all the pieces back together.
+>
+> -- Hadley Wickham, [*The Split-Apply-Combine Strategy for Data Analysis*](https://www.jstatsoft.org/article/view/v040i01) (2011)
+
+-   **Split**: divide the data into groups using one or more key variables.
+-   **Apply**: compute something on each group independently (a summary, a transformation, a model).
+-   **Combine**: collect the results into a new table or column.
+
+The pattern appears at every stage of an analysis: preparing data (ranking or standardizing *within* groups), summarizing (counts and averages by segment), and modeling (a separate model for each region or customer type).
+
+### Why not just loop?
+
+We already know enough to do this by hand: loop over the species, filter the rows, and compute.
+
+```{python}
+for species in sorted(penguins["species"].unique()):
+    subset = penguins[penguins["species"] == species]
+    print(species, round(subset["body_mass_g"].mean(), 1))
+```
+
+That works for one number and one grouping variable. But what if we also want the median and the count? What if we group by island too? What if we want the answers in a table we can sort or export? Every change means more bookkeeping code. `groupby` does the splitting, applying, and combining for us.
+
+```{python}
+penguins.groupby("species")["body_mass_g"].mean().round(1)
+```
+
+## Splitting
+
+```{python}
+by_species = penguins.groupby("species")
+by_species
+```
+
+The `groupby` object *represents* the split. Nothing is computed until we ask for a summary. We can look inside:
+
+```{python}
+by_species.size()          # number of rows in each group
+```
+
+```{python}
+for name, group in by_species:
+    print(name, group.shape)
+```
+
+```{python}
+by_species.get_group("Gentoo").head(3)      # pull out one group's rows
+```
+
+Each group is just a smaller `DataFrame`. Everything we know about tables still works on it.
+
+## Apply and combine
+
+### Aggregation
+
+An **aggregation** reduces each group to a few numbers. The `.agg()` method with *named aggregation* lets us choose the output names: each keyword is `new_name=("column", "function")`.
+
+```{python}
+mass_summary = (
+    penguins
+    .groupby("species")
+    .agg(
+        n_penguins=("body_mass_g", "count"),
+        avg_mass_g=("body_mass_g", "mean"),
+        median_mass_g=("body_mass_g", "median"),
+        sd_mass_g=("body_mass_g", "std"),
+    )
+    .round(1)
+)
+mass_summary
+```
+
+Common built-in functions are `"count"`, `"size"`, `"sum"`, `"mean"`, `"median"`, `"std"`, `"min"`, and `"max"`.
+
+::: {.callout-note}
+
+## `count` vs `size`
+`"count"` counts the **non-missing** values in a column, while `"size"` counts **rows**. They differ when there are missing values:
+
+```{python}
+penguins.groupby("species")["sex"].agg(["size", "count"])
+```
+
+:::
+
+### Grouping by several keys
+
+Pass a list to group by combinations:
+
+```{python}
+species_island = (
+  penguins
+  .groupby(["species", "island"])
+  .agg(
+    n_penguins=("body_mass_g", "count"),
+    avg_mass_g=("body_mass_g", "mean"),
+    avg_flipper_mm=("flipper_length_mm", "mean"),
+  )
+  .round(1)
+)
+species_island
+```
+
+The group labels become the **index** of the result (a *multi-level* index here). Use `.reset_index()` to turn them back into ordinary columns:
+
+```{python}
+species_island = species_island.reset_index()
+species_island
+```
+
+This is usually the right step before exporting, plotting, or merging the table.
+
+```{python}
+#| eval: false
+species_island.to_csv(
+  os.path.join("output", "species_island_summary.csv"),
+  index = False
+)
+```
+
+(After `reset_index()` the labels are columns, so `index=False` no longer throws them away. If we had skipped `reset_index()`, `index=False` would have deleted the species and island names from the file.)
+
+### Example: sex differences
+
+`sex` has missing values, so we choose to drop those rows *for this question only*.
+
+```{python}
+sexed = penguins.dropna(subset=["sex"])
+
+sex_mass = (
+  sexed
+  .groupby(["species", "sex"])["body_mass_g"]
+  .mean()
+  .unstack("sex")          # turn the sex level into columns
+)
+sex_mass["difference"] = sex_mass["male"] - sex_mass["female"]
+sex_mass.round(1)
+```
+
+`.unstack("sex")` moves one level of the index into the columns, which makes comparisons such as male minus female a simple subtraction.
+
+### Transformation
+
+A **transformation** computes a value *for every row*, using information from that row's group. The result has the same number of rows as the original, so it can be stored as a new column.
+
+```{python}
+def zscore(x):
+  """How many standard deviations each value is from the mean."""
+  return (x - x.mean()) / x.std()
+
+penguins["mass_z"] = penguins.groupby("species")["body_mass_g"].transform(zscore)
+penguins[["species", "body_mass_g", "mass_z"]].sample(5, random_state=1)
+```
+
+-   `transform` hands our function each group's column as a `Series`, and expects back a `Series` of the same length.
+-   A `mass_z` of 2 means "two standard deviations heavier than the average *of its own species*". This is a different statement from "heavy compared with all penguins".
+
+For common cases you can pass the name of a function:
+
+```{python}
+penguins["rel_mass"] = (
+  penguins["body_mass_g"]
+  / penguins.groupby("species")["body_mass_g"].transform("mean")
+)
+penguins[["species", "body_mass_g", "rel_mass"]].sample(5, random_state=1)
+```
+
+A `rel_mass` of 1.0 means "exactly average for its species".
+
+## Filtering groups
+
+`.filter()` keeps or drops *whole groups* based on a condition on the group. Here we keep only species-island combinations with at least 50 penguins:
+
+```{python}
+well_sampled = (
+    penguins
+    .groupby(["species", "island"])
+    .filter(lambda g: len(g) >= 50)
+)
+
+well_sampled.groupby(["species", "island"]).size()
+```
+
+The `lambda g: len(g) >= 50` is a one-line function. It receives each group's sub-table `g` and returns `True` (keep) or `False` (drop). Groups with few observations produce unreliable averages, so a minimum size is a common safeguard.
+
+## Where do groups come from?
+
+So far the groups came ready-made: `species`, `island`, and `sex` are columns in the table. This is the easy case. Real data are rarely so convenient, and the most important group structure is often **not labeled**. Groups can arise in four ways:
+
+| Source of the groups          | Example                                         | Tool |
+|-------------------------------|-------------------------------------------------|------|
+| 1. Already a column           | `species`                                       | `groupby("species")` |
+| 2. Built from a number        | "heavy" vs "light" penguins                     | `np.where`, `pd.cut`, `pd.qcut` |
+| 3. Built from text            | support tickets sorted into topics              | `.str.contains()` + `np.select` |
+| 4. Hidden in the data         | a mixture of groups nobody recorded             | *you must notice it* |
+
+::: {.callout-warning}
+## Group structure is not always given or obvious
+Much of the value of an analyst is the ability to *discover* structure that the data do not announce.
+:::
+
+### Even labeled groups have traps
+
+`groupby` silently ignores rows whose key is missing:
+
+```{python}
+penguins.groupby("sex").size()
+```
+
+```{python}
+penguins.groupby("sex", dropna=False).size()
+```
+
+The first result accounts for fewer penguins than the table contains. Nine rows vanished from the answer without any warning. Always check that your group sizes add up to the number of rows you expect.
+
+### Groups built from numbers
+
+To compare "big" and "small" penguins we must first define *big*:
+
+```{python}
+penguins["is_big"] = penguins["body_mass_g"] >= 4500
+penguins["is_big"].value_counts()
+```
+
+Averaging a `True`/`False` column gives the **proportion** of `True` values, so we can answer "what share of each species is big?":
+
+```{python}
+penguins.groupby("species")["is_big"].mean().round(3)
+```
+
+To split a number into several named tiers, use `pd.cut` (you choose the cut points) or `pd.qcut` (cut points chosen so each tier has about the same number of rows):
+
+```{python}
+penguins["mass_tier"] = pd.qcut(
+  penguins["body_mass_g"], q=3, labels=["light", "medium", "heavy"]
+)
+penguins["mass_tier"].value_counts()
+```
+
+```{python}
+pd.crosstab(penguins["species"], penguins["mass_tier"])
+```
+
+`pd.crosstab` counts how many rows fall in each combination of two labels. The tiers are *not* spread evenly over species: the constructed groups are tangled up with the labeled ones.
+
+### Groups built from text
+
+Suppose we have support tickets, and the only information about the topic is the free-text subject line.
+
+```{python}
+tickets = pd.DataFrame({
+  "subject": [
+    "Refund for duplicate charge",
+    "Cannot log in to my account",
+    "Please refund my last order",
+    "Password reset email never arrives",
+    "App crashes when I open it",
+    "Charged twice this month",
+    "Login page shows an error",
+    "App freezes on the checkout screen",
+    "Where is my refund?",
+    "Question about my invoice",
+    "Cannot sign in after the update",
+    "Crash on startup",
+    "Thanks for the great service!",
+  ],
+  "hours_to_resolve": [30, 4, 26, 6, 52, 40, 5, 60, 28, 12, 3, 48, 2],
+})
+```
+
+There is no `topic` column, so we create one by testing each subject for keywords (see the text notes). `np.select` takes a list of conditions and a list of labels, and picks the label of the first condition that is `True`:
+
+```{python}
+subject = tickets["subject"].str.lower()
+
+conditions = [
+  subject.str.contains("refund|charge|invoice"),
+  subject.str.contains("log in|login|sign in|password"),
+  subject.str.contains("crash|freez"),
+]
+labels = ["billing", "access", "app"]
+
+tickets["topic"] = np.select(conditions, labels, default="other")
+tickets[["subject", "topic"]]
+```
+
+Now the usual split-apply-combine works on the group we *created*:
+
+```{python}
+(
+  tickets
+  .groupby("topic")
+  .agg(n_tickets=("subject", "count"), avg_hours=("hours_to_resolve", "mean"))
+  .round(1)
+  .sort_values("avg_hours", ascending=False)
+)
+```
+
+Two cautions. First, **the answer depends on our rules**: a different keyword list produces different groups. Second, **always count how many rows landed in `"other"`** and read some of them. If that group is large, the rules are missing something.
+
+### Groups hidden in the data
+
+Now the hardest case. Imagine the `species` column had been lost before the data reached you. We would still have the measurements. Could we notice that there are groups?
+
+Consider the flipper lengths of all penguins mixed together:
+
+```{python}
+flipper_counts = pd.cut(penguins["flipper_length_mm"], bins=range(170, 240, 5)).value_counts()
+flipper_counts.sort_index()
+```
+
+The counts rise, dip around 200-205 mm, and rise again.
+A single "typical" flipper length does not describe this population, because there are (at least) two kinds of penguins.
+If we split at the dip, do we recover real groups?
+
+```{python}
+penguins["flipper_group"] = np.where(
+  penguins["flipper_length_mm"] >= 206,
+  "long",
+  "short"
+)
+pd.crosstab(penguins["flipper_group"], penguins["species"])
+```
+
+A rule based on a single measurement nearly separates Gentoo from the other two species: almost every "long" penguin is a Gentoo, and almost every Gentoo is "long".
+The group structure was there all along, and it was visible in the data.
+
+## Bad summary statistics
+
+### Ignoring group structure
+
+What if we ignore the groups?
+Compare the spread of body mass overall with the spread *within* species:
+
+```{python}
+print("overall sd:", round(penguins["body_mass_g"].std(), 1))
+penguins.groupby("species")["body_mass_g"].std().round(1)
+```
+
+Much of the overall variation is just the difference *between* species.
+
+Labels can also be proxies for something else.
+Compare average body mass by island, then by island *and* species:
+
+```{python}
+penguins.groupby("island")["body_mass_g"].mean().round(0)
+```
+
+```{python}
+pd.crosstab(penguins["island"], penguins["species"])
+```
+
+```{python}
+penguins.groupby(["island", "species"])["body_mass_g"].mean().round(0)
+```
+
+Biscoe penguins look much heavier than Dream or Torgersen penguins.
+But look at the cross-tabulation: every Gentoo penguin in the data lives on Biscoe, and Gentoo is a large species.
+Among Adelie penguins, the three islands have almost the same average.
+The apparent "island effect" is a species effect in disguise.
+
+### Simpson's Paradox
+
+For our last example we use `.apply()`, the most general "apply" step.
+It runs any function on each group's table.
+Here, the function computes the correlation between bill length and bill depth:
+
+```{python}
+def bill_correlation(g):
+    return g["bill_length_mm"].corr(g["bill_depth_mm"])
+
+overall = penguins["bill_length_mm"].corr(penguins["bill_depth_mm"])
+print("all penguins together:", round(overall, 3))
+
+penguins.groupby("species").apply(bill_correlation).round(3)
+```
+
+Taken together, longer bills go with *shallower* bills (negative correlation).
+Within each species, longer bills go with *deeper* bills (positive).
+The sign of the relationship flips depending on whether we look at the mixture or at its parts.
+This phenomenon is known as **Simpson's paradox**.
+We will revisit this phenomenon in discussing visualization.
+
+::: {.callout-important}
+## Takeaway
+A summary computed over a mixture of groups may describe none of the groups. Before you trust an overall average or correlation, ask: *could there be groups in here that I have not accounted for?*
+:::
+
+## Summary
+
+| Goal                                 | Code |
+|--------------------------------------|------|
+| Summarize by group                   | `df.groupby("g").agg(name=("col", "mean"))` |
+| Group by several keys                | `df.groupby(["g1", "g2"])` |
+| Put group labels back into columns   | `.reset_index()` |
+| New column from group statistics     | `df.groupby("g")["x"].transform("mean")` |
+| Keep only some groups                | `df.groupby("g").filter(lambda g: len(g) >= 30)` |
+| Run any function on each group       | `df.groupby("g").apply(func)` |
+| Count combinations                   | `pd.crosstab(df["a"], df["b"])` |
+| Create groups from numbers           | `np.where`, `pd.cut`, `pd.qcut` |
+| Create groups from text              | `.str.contains()` with `np.select` |
+| Don't lose rows with missing keys    | `groupby(..., dropna=False)` |
+
+## Exercises
+
+### Exercise 1: Summaries
+
+1.  Compute the mean `flipper_length_mm` for each species.
+2.  Compute both the mean and the standard deviation of `bill_length_mm` for each species, in one table.
+3.  Which species looks largest overall, based on body mass and on flipper length?
+
+### Exercise 2: Two keys
+
+Using `species_island`:
+
+1.  Which species-island combination has the highest average body mass? Which has the shortest average flipper length?
+2.  Write 2-3 sentences comparing them. Could the differences be caused by species rather than island? How can you tell?
+
+### Exercise 3: Transformations and filters
+
+1.  Using `mass_z`, find the penguins that are more than 2 standard deviations above their species average. How many are there from each island?
+2.  Change the minimum group size in the filter example from 50 to 30, and then to 60. How many species-island combinations remain each time?
+
+### Exercise 4: Building groups
+
+1.  Create a column that splits `bill_length_mm` into three groups with `pd.qcut`. Use `crosstab` to see how the groups line up with species. Do they separate the species as well as the flipper rule did?
+2.  Treat `species` as a customer segment and `island` as a region. Which segment-region cell has the greatest variability in flipper length? Write 3-4 sentences describing a business situation with the same structure.
+
+### Exercise 5: Hidden structure
+
+1.  For body mass vs flipper length, compute the correlation for all penguins together and then for each species. Does the sign flip, as it did for bill measurements? What *does* change?
+2.  In your own words, explain why an overall correlation can differ from the within-group correlations.

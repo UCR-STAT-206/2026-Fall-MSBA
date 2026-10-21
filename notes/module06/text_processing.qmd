@@ -1,0 +1,567 @@
+---
+title: "Working with Text"
+error: true
+---
+
+## Goals
+
+1.  Distinguish plain, rich, and structured text, and know why *how text is stored* can matter for an analysis.
+2.  Use Python's built-in string tools to split, clean, and count text.
+3.  Write simple **regular expressions** to find and extract patterns.
+4.  Apply the same ideas to a column of text in a `DataFrame`.
+
+
+
+## Packages
+
+```{python}
+import os
+import re
+from collections import Counter
+from html import unescape
+
+import pandas as pd
+```
+
+
+
+## Three kinds of text documents
+
+-   **Rich text**: content *and* style are stored together (think Microsoft Word). A file contains information about **bold** or *italic* as well as the words.
+-   **Plain text**: only the symbols themselves. A `.txt` file, a `.csv` file, a cell in a notebook, or Python source code.
+-   **Structured text**: plain text that uses a *markup language* to describe content. For example, HTML:
+
+```{python}
+snippet = '<p>Price: <b>$19.99</b> &mdash; in stock</p>'
+print(snippet)
+```
+
+A web browser *renders* this as "**Price: $19.99** — in stock".
+Your data may arrive with the markup still attached, and you must remove it before analyzing the content.
+One way to do this is with a regular expression:
+
+```{python}
+# remove anything between < and >
+no_tags = re.sub(r"<[^>]+>", "", snippet)
+
+# convert &mdash; into the real character
+unescape(no_tags)
+```
+
+
+
+## Encodings
+
+A computer stores numbers, not letters. A **character encoding** is a table that says which number stands for which symbol.
+
+-   **ASCII**: a small table, mostly English letters, digits, and punctuation.
+-   **Unicode**: a table for (almost) every symbol in every writing system, including accents and emoji. **UTF-8** is the most common way to store Unicode, and is the standard for the web.
+
+```{python}
+print(ord("A"), chr(65))    # character <-> number
+print(len("café"), len("café".encode("utf-8"))) # 4 characters, but 5 bytes
+```
+
+You rarely work with encodings directly, but you should recognize the symptoms of a bad encoding:
+
+```{python}
+raw_bytes = "café".encode("utf-8")
+raw_bytes.decode("latin-1") # decoding with the *wrong* table
+```
+
+Strange symbols such as `Ã©` where an accented letter should be almost always mean that the file was read with the wrong encoding.
+Most readers let you specify one: `open(path, encoding="utf-8")` or `pd.read_csv(path, encoding="latin-1")`.
+If one choice gives an error or nonsense, try a different encoding.
+
+## Characters you cannot see
+
+UTF-8 text may contain several kinds of "blank" characters. A non-breaking space looks like a space but is a *different character*:
+
+```{python}
+text = "Test Analyst"           #   is a non-breaking space
+print(text)
+print(text == "Test Analyst")   # looks identical, but is not
+```
+
+```{python}
+text.replace(" ", "_")          # misses it: no ordinary space to replace
+```
+
+```{python}
+text.split()                    # split() with no argument handles any whitespace
+```
+
+```{python}
+re.sub(r"\s+", " ", text)       # so does the regex \s, and this normalizes it
+```
+
+If two strings look identical but compare as unequal, you should suspect invisible characters.
+
+## String basics
+
+### Strings are sequences
+
+A `str` behaves like a list of characters: you can index it, slice it, take its length, and loop over it. Unlike a list, it cannot be changed in place.
+
+```{python}
+word = "analytics"
+print(word[0], word[-1])      # first and last character
+print(word[0:4])              # slice: characters 0 to 3
+print(len(word))
+```
+
+```{python}
+word[0] = "A"                 # strings are immutable
+```
+
+```{python}
+word = "A" + word[1:]         # build a new string instead
+word
+```
+
+### Common operations
+
+| Task                       | Code                              | Result                   |
+|----------------------------|-----------------------------------|--------------------------|
+| change case                | `"Hello".lower()`, `.upper()`, `.title()` | `"hello"`        |
+| remove surrounding blanks  | `"  hi ".strip()`                 | `"hi"`                   |
+| split into a list          | `"a,b,c".split(",")`              | `["a", "b", "c"]`        |
+| join a list                | `"-".join(["a", "b"])`            | `"a-b"`                  |
+| replace                    | `"cold".replace("c", "g")`        | `"gold"`                 |
+| test the start or end      | `"report.csv".endswith(".csv")`   | `True`                   |
+| look for a substring       | `"data" in "big data"`            | `True`                   |
+| count occurrences          | `"banana".count("an")`            | `2`                      |
+
+```{python}
+"Alice,Bob,Carlos".split(",")
+```
+
+```{python}
+", ".join(["egg", "bagel", "orange"])
+```
+
+`.split()` with *no* argument splits on any run of whitespace (spaces, tabs, newlines) and ignores blanks at the ends, which is usually what you want.
+Compare:
+
+```{python}
+messy = "  too   many    spaces \n here "
+print(messy.split(" "))
+print(messy.split())
+```
+
+### Formatting with f-strings
+
+An **f-string** inserts values into a string.
+After a colon you can control the format.
+
+```{python}
+revenue = 1249.5
+share = 0.0732
+print(f"Revenue: ${revenue:,.2f}")     # comma separators, 2 decimals
+print(f"Share: {share:.1%}")           # as a percentage
+```
+
+## Example: a poem
+
+We will process a [short poem](https://en.wikipedia.org/wiki/This_Is_Just_to_Say) stored in a plain text file.
+A `with` block opens the file and *closes it automatically* when the block ends:
+
+```{python}
+with open(os.path.join("assets", "plums.txt"), encoding="utf-8") as f:
+    poem = f.read()
+
+print(poem)
+```
+
+The whole poem is now one long string.
+Where do the line breaks live?
+They are characters too, written `\n`:
+
+```{python}
+repr(poem[:40]) # repr() shows invisible characters
+```
+
+### Lines and stanzas
+
+```{python}
+lines = poem.splitlines()
+print(len(lines), "lines (including blank ones)")
+
+stanzas = poem.strip().split("\n\n")    # a blank line is two newlines in a row
+print(len(stanzas), "stanzas")
+```
+
+```{python}
+words_per_stanza = pd.Series(stanzas).str.split().str.len()
+words_per_stanza
+```
+
+### Words
+
+A first attempt at splitting into words:
+
+```{python}
+poem.split(" ")[:10]
+```
+
+The newline characters are stuck to words: a word at the end of a line and the first word of the next stanza are glued together into *one* piece with `\n\n` in the middle.
+Splitting on any whitespace fixes this.
+We also convert to lower case, so that `The` and `the` are the same word:
+
+```{python}
+words = poem.lower().split()
+print(len(words), "words,", len(set(words)), "distinct")
+```
+
+Real text has punctuation, which would remain attached to words; for example, `"cold."`.
+A regular expression can pull out just the pieces made of letters and apostrophes:
+
+```{python}
+def tokenize(text):
+    """Return the lower-case words in a string."""
+    return re.findall(r"[a-z']+", text.lower())
+
+tokenize("Don't panic! It's 5 o'clock...")
+```
+
+### Counting words
+
+A `dict` can keep a tally.
+Counting is so common that Python provides `Counter`:
+
+```{python}
+tally = {}
+for w in words:
+    tally[w] = tally.get(w, 0) + 1
+
+counts = Counter(words) # same thing
+print(tally == dict(counts))
+counts.most_common(5)
+```
+
+If you prefer a table, `pandas` can count too:
+
+```{python}
+pd.Series(words).value_counts().head(5)
+```
+
+```{python}
+pd.Series(words).value_counts(normalize=True).head(5)
+```
+
+### Pairs of words
+
+Counting single words ignores word *order*. A cheap way to keep a little order is to count **bigrams**: pairs of neighboring words.
+
+```{python}
+pairs = [" ".join(pair) for pair in zip(words, words[1:])]
+Counter(pairs).most_common(3)
+```
+
+`zip(words, words[1:])` lines up each word with the one after it.
+
+## Regular expressions
+
+A **regular expression** (regex) is a compact pattern that describes a set of strings. You can use it to *find*, *extract*, or *replace* text that has a certain shape, like a date, a dollar amount, or a product code.
+
+Useful tools to help you learn:
+
+-   Python's [`re` module](https://docs.python.org/3/library/re.html) and its [regex HOWTO](https://docs.python.org/3/howto/regex.html).
+-   [regex101.com](https://regex101.com/): type a pattern and some text, and it highlights and explains the matches. Select the "Python" flavor.
+
+### Building blocks
+
+| Pattern  | Matches                                            |
+|----------|----------------------------------------------------|
+| `abc`    | the literal text `abc`                             |
+| `.`      | any one character except a newline                 |
+| `\d`     | one digit; `\D` is anything but a digit            |
+| `\w`     | one letter, digit, or underscore                   |
+| `\s`     | one whitespace character (space, tab, newline)     |
+| `[aeiou]`, `[0-9]`, `[A-Za-z]` | one character from a set or range     |
+| `[^>]`   | one character that is **not** in the set           |
+| `*`  `+`  `?` | the previous item 0 or more, 1 or more, 0 or 1 times |
+| `{4}`  `{2,3}` | the previous item exactly 4 times, or 2 to 3 times |
+| `a\|b`   | `a` or `b`                                         |
+| `^`  `$` | the start / the end of the string                  |
+| `( )`    | a **group**: lets you pull out part of a match     |
+| `\.`  `\$`  `\(` | a literal `.`, `$`, or `(` (a backslash *escapes* a special character) |
+
+Write patterns as **raw strings**, `r"..."`, so that Python does not interpret the backslashes before the regex engine sees them.
+
+### The `re` module
+
+```{python}
+note = "Order #1042 shipped on 2025-03-14 to Riverside, CA 92521. Total: $1,249.50"
+```
+
+`re.search()` finds the *first* match anywhere in the string and returns a match object, or `None`:
+
+```{python}
+m = re.search(r"\d{4}-\d{2}-\d{2}", note)
+print(m)
+print(m.group(), m.span())
+```
+
+```{python}
+re.findall(r"\d+", note)             # all runs of digits
+```
+
+Parentheses create **groups** that you can pull out separately:
+
+```{python}
+m = re.search(r"(\d{4})-(\d{2})-(\d{2})", note)
+m.groups()
+```
+
+```{python}
+m = re.search(r"\$([\d,]+\.\d{2})", note)      # a dollar sign, then digits/commas, a point, 2 digits
+amount = m.group(1)                             # group 1: just the part in the parentheses
+float(amount.replace(",", ""))
+```
+
+`re.sub()` replaces matches and `re.split()` splits on them:
+
+```{python}
+re.sub(r"\d", "#", note)
+```
+
+```{python}
+re.split(r"[,;]\s*", "red, green;blue,  yellow")
+```
+
+### No match means `None`
+
+If the pattern is not found, `re.search()` returns `None`, and `None.group()` is an error.
+
+```{python}
+m = re.search(r"\d{4}-\d{2}-\d{2}", "no date here")
+print(m)
+m.group()
+```
+
+```{python}
+m = re.search(r"\d{4}-\d{2}-\d{2}", "no date here")
+m.group() if m else "no date found"
+```
+
+Always check or validate `re.search()` results.
+
+### Quantifiers are greedy
+`+` and `*` match as *much* as possible.
+Compare:
+
+```{python}
+re.sub(r"<.+>", "", snippet)    # greedy: from the first < to the LAST >
+```
+
+The result is an empty string: the greedy pattern swallowed everything between the first `<` and the last `>`, including the price.
+
+```{python}
+re.sub(r"<[^>]+>", "", snippet) # "one or more characters that are not >"
+```
+
+
+## Text in a `DataFrame`
+
+When your text sits in a column, use the `.str` accessor, which applies a string operation to every row. Many of the methods accept regular expressions.
+
+```{python}
+orders = pd.DataFrame({
+    "note": [
+        "Order #1042 shipped 2025-03-14, total $1,249.50",
+        "order #1043 SHIPPED 2025-03-15, total $89.00",
+        "Order #1044 pending, total $15.25",
+        "Order #1045 shipped 2025-03-17",
+        None,
+        "Refund for order #1031, -$20.00",
+    ]
+})
+orders
+```
+
+| Method                                  | Returns                                  |
+|-----------------------------------------|------------------------------------------|
+| `.str.contains(pattern)`                | `True`/`False` for each row              |
+| `.str.extract(r"(pattern)")`            | the text in the **group**(s), as columns |
+| `.str.findall(pattern)`                 | a list of all matches in each row        |
+| `.str.replace(pattern, new, regex=True)`| text with matches replaced               |
+| `.str.split(pattern)`                   | a list of pieces (or `expand=True` for columns) |
+| `.str.count(pattern)`                   | number of matches in each row            |
+
+### Flagging rows
+
+```{python}
+orders["note"].str.contains("shipped", case=False, na=False)
+```
+
+-   `case=False` ignores capitalization.
+-   `na=False` says "treat a missing value as *not matching*". Without it, the result contains `NaN` for the missing note, and you cannot use it to filter.
+
+### Extracting pieces
+
+```{python}
+orders["note"].str.extract(r"#(\d+)")
+```
+
+If you name the group, the column gets that name:
+
+```{python}
+extracted = orders["note"].str.extract(
+    r"#(?P<order_id>\d+).*?(?P<date>\d{4}-\d{2}-\d{2})"
+)
+extracted
+```
+
+Rows without a match get `NaN`. Notice row 2: it *does* have an order number (`#1044`) but no date, so the combined pattern failed and *both* columns came back empty. When some pieces may be absent, extract each piece with its own pattern.
+
+Now clean up the amounts and convert to numbers:
+
+```{python}
+amount_text = orders["note"].str.extract(r"\$([\d,]+\.\d{2})")[0]
+orders["amount"] = pd.to_numeric(amount_text.str.replace(",", "", regex=False))
+orders
+```
+
+::: {.callout-warning}
+
+## Check your regex results!
+
+Look at the refund row.
+The pattern found `$20.00`, but the text says `-$20.00`: **the minus sign was lost**.
+A regex finds exactly what you describe, nothing more.
+After extracting, always (1) count how many rows matched and (2) read some matched and unmatched rows to see what your pattern misses or gets wrong.
+
+:::
+
+### Special characters in your search text
+
+`.str.contains()` treats its argument as a regex. If you are looking for literal text that contains special characters, you get an error or a surprising result:
+
+```{python}
+titles = pd.Series(["Artist (Character)", "Analyst", "Engineer"])
+titles.str.contains("(Character")
+```
+
+Either turn off regex matching, or escape the text:
+
+```{python}
+titles.str.contains("(Character", regex = False)
+```
+
+```{python}
+titles.str.contains(re.escape("(Character)"))
+```
+
+In the other direction, `.str.replace()` treats its pattern as plain text *unless* you pass `regex = True`.
+
+
+
+## Example: Blizzard salary survey
+
+One column in this dataset, `other_info`, corresponds to an open-ended comment field.
+
+```{python}
+blizzard = pd.read_csv(os.path.join("assets", "blizzard_salary.csv"))
+comments = blizzard["other_info"]
+(
+  comments
+  .dropna()
+  .sample(5, random_state=3)
+  .str.slice(0, 90)
+)
+```
+
+Only `{python} int(comments.notna().sum())` out of `{python} len(comments)` responses contain comments.
+Certain topics seem to recur.
+We can count mentions with `.str.contains()`:
+
+```{python}
+mentions_promotion = comments.str.contains("promot", case=False, na=False)
+mentions_promotion.sum()
+```
+
+The stem `promot` catches *promoted*, *promotion*, and *promote* in one query.
+
+Some comments state how long the person has worked there.
+We can extract the number in front of the word "year" or "years":
+
+```{python}
+tenure = comments.str.extract(r"(\d+)\s*\+?\s*years?", flags=re.IGNORECASE)[0]
+tenure = pd.to_numeric(tenure)
+tenure.describe()
+```
+
+There are `{python} int(tenure.notna().sum())` comments that mention years.
+Before using this, we should read what the pattern matched and what it missed:
+
+```{python}
+matched = comments[tenure.notna()]
+matched.head(6).str.slice(0, 100)
+```
+
+-   Look at the third comment above, which says "1.5 years". What number did the pattern extract? Why? How would you change the pattern?
+-   Does the pattern pick the right number when a comment contains several numbers, or a range like "10-20%"? Try `r"(\d+(?:\.\d+)?)\s*%"` to extract percentages and examine those matches.
+-   The people with a tenure comment are those who *chose* to write one. Can we say anything about the typical employee from them?
+-   Job titles are also typed by hand. What tools might help you group the titles into a handful of categories?
+
+::: {.callout-tip}
+
+## A workflow for handling messy text
+
+1. Look at a sample of the raw values.
+2. Write the simplest pattern that could work.
+3. Count the matches and read both matched and unmatched rows.
+4. Refine, and repeat.
+
+Do not try to write the perfect pattern in one go.
+:::
+
+## Summary
+
+| Task                                | Code                                                  |
+|-------------------------------------|-------------------------------------------------------|
+| Read a text file                    | `with open(path, encoding="utf-8") as f: text = f.read()` |
+| Lines / words                       | `text.splitlines()`, `text.split()`                   |
+| Normalize                           | `.lower()`, `.strip()`, `re.sub(r"\s+", " ", s)`      |
+| Count words                         | `Counter(words)`, `pd.Series(words).value_counts()`   |
+| Find the first match                | `re.search(pattern, s)`, then check for `None`        |
+| All matches / replace / split       | `re.findall`, `re.sub`, `re.split`                    |
+| Flag rows with a pattern            | `s.str.contains(pat, case=False, na=False)`           |
+| Pull out a piece                    | `s.str.extract(r"(pat)")`                             |
+| Literal text with special characters| `regex=False` or `re.escape(text)`                    |
+
+Use plain Python strings for a single block of text (a file, a document) and `.str` for a *column* of text.
+
+## Exercises
+
+### Exercise 1: The poem
+
+Using the `words` list from the poem example:
+
+1.  How many words does the poem have, and how many are distinct?
+2.  What are the three most common words?
+3.  What is the average number of words per non-blank line?
+4.  What is the longest word? (Hint: `max(words, key=len)`.)
+
+### Exercise 2: Patterns
+
+```{python}
+#| eval: false
+contacts = pd.Series([
+    "Call 951-555-0134 after 5pm",
+    "Email ana@example.com or bo@example.org",
+    "No contact information",
+    "Office: 951-555-0199, ext. 42",
+])
+```
+
+1.  Create a `True`/`False` Series that flags the entries containing an email address. (Hint: a simple pattern is `r"\w+@\w+\.\w+"`.)
+2.  Extract the phone number (the pattern `\d{3}-\d{3}-\d{4}`) from each entry. Which entries have no phone number?
+3.  Use `.str.findall()` to get a list of all the email addresses in each entry. Why might `.str.extract()` be less suitable here?
+
+### Exercise 3: Blizzard comments
+
+1.  How many comments mention the word "merit" (in any capitalization)? Show the first 80 characters of three of them.
+2.  How many comments mention *either* "promotion" *or* "promoted"? Write one pattern that handles both, using `|`.
+3.  Pick one more topic that you notice while reading comments. Write a pattern for it, count the matches, and explain in a sentence what the pattern might miss.

@@ -1,0 +1,358 @@
+---
+title: "Cleaning Messy Data"
+error: true
+---
+
+## Goals
+
+1.  Identify common problems in real data such as missing values, suspicious values, inconsistent text, and numbers stored as text.
+2.  Decide between **dropping** and **imputing** missing values.
+3.  Use the `.str` methods for light text cleaning.
+4.  Convert columns to the correct data type.
+
+## Why clean data?
+
+Real data are rarely ready to analyze. They come from forms, spreadsheets, and business systems where people type things in different ways, leave cells blank, or copy values with symbols attached.
+
+`pandas` gives us tools to **find** and **fix** many of these problems. Cleaning takes judgment, though: the code is the easy part, and deciding what the right fix is requires knowing the business context.
+
+```{python}
+import pandas as pd
+```
+
+## Setup: a small messy sales dataset
+
+Imagine a monthly sales report from different regions. Some entries are missing.
+
+```{python}
+data = {
+    "month": ["2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06"],
+    "region": ["North", "South", "North", "East", "South", "East"],
+    "units_sold": [100, None, 130, 120, None, 150],      # None = missing
+    "price_per_unit": [10.0, 10.0, None, 9.5, 9.5, 9.5],
+    "sales_rep": ["Alice", "Bob", "Alice", "Chris", None, "Chris"],
+}
+
+sales = pd.DataFrame(data)
+sales
+```
+
+-   `None` marks values we do not know. `pandas` displays them as `NaN` ("Not a Number") for numeric columns, or `None` for text columns.
+-   Columns like `month` and `region` look fine, while others need attention.
+
+## Finding missing data
+
+```{python}
+sales.isna()          # True where a value is missing
+```
+
+```{python}
+sales.isna().sum()    # count of missing values per column
+```
+
+`True` counts as 1 and `False` as 0, so summing counts the missing values.
+
+Questions to ask:
+
+-   Which columns have missing values, and how many?
+-   For business decisions, can we ignore them, or must we handle them?
+
+```{python}
+sales.info()          # also shows non-missing counts and data types
+```
+
+## Handling missing data
+
+There are two main strategies:
+
+-   **Drop** the rows (or columns) with missing data.
+-   **Impute** missing values by filling in a reasonable substitute value.
+
+Neither approach is always right.
+Whether you choose to drop or impute, you must understand the missingness pattern.
+
+### Models for missigness
+
+- **Missing Completely at Random (MCAR)**: The missingness pattern has no relationship with any observed **or** unobserved data.
+    + Example: A digital weighing scale runs out of batteries. Every person weighed in this hypothetical study had the same chance of encountering the dead scale.
+    + $\Pr(\text{Missing} \mid \text{Observed}, \text{Unobserved}) = \Pr(\text{Missing})$
+- **Missing at Random (MAR)**: The probability of missingness depends only on known, observed data.
+    + Example: You know that older participants were sampled towards the end of the study which coincided with the period when the battery was dying. Age is observed, and within each age group, missingess is random.
+    + $\Pr(\text{Missing} \mid \text{Observed}, \text{Unobserved}) = \Pr(\text{Missing} \mid \text{Observed})$
+- **Missing Not at Random (MNAR)**: Data are MNAR if they are neither MCAR nor MAR. This is the most complex case.
+    + Example: The scale has a mechanical flaw in which weights above a certain threshold cause it to shut down. Heavy weights are systematically unobserved.
+    + $\Pr(\text{Missing} \mid \text{Observed}, \text{Unobserved})$ cannot be simplified and depends at least on the missing data.
+
+### Complete-Case Analysis: Dropping missing rows
+
+For a quick report, we might only use rows where `units_sold` is known:
+
+```{python}
+clean_drop = sales.dropna(subset=["units_sold"])
+clean_drop
+```
+
+-   Choosing to focus on the **observed** data is making the assumption that your **observed data** are a representative random subsample.
+-   `subset=` limits the check to the listed columns. Without it, `dropna()` removes any row with a missing value in *any* column.
+-   Dropping is reasonable when few rows are affected and we have plenty of data left.
+-   Dropping is risky when the missing rows differ systematically from the rest (for example, a region that always reports late).
+
+### Imputing with a summary value
+
+For `price_per_unit`, suppose we believe prices are fairly stable, so the average is a reasonable stand-in:
+
+```{python}
+price_mean = sales["price_per_unit"].mean()    # NaN values are skipped automatically
+price_mean
+```
+
+```{python}
+sales_imputed = sales.copy()     # copy so the original stays untouched
+sales_imputed["price_per_unit"] = sales_imputed["price_per_unit"].fillna(price_mean)
+sales_imputed
+```
+
+-   We are making a potentially strong assumption. A proper statistical model for the missingness pattern is ideal but not always available.
+    + State these kinds of assumptions clearly and upfront.
+    + **If you make a leap of faith like this, you must justify foregoing a more careful analytic analysis.**
+    + Domain knowledge can be helpful here.
+-   `.fillna(value)` replaces missing values with `value`.
+-   `.copy()` matters. Without it, changes to `sales_imputed` could also change `sales`.
+
+::: {.callout-note}
+## Other ways to fill
+`fillna(0)` fills with a constant. `fillna("Unknown")` works for text columns. Sometimes "missing" really means zero (no sales that month) and sometimes it means "unknown." Check with whoever produced the data.
+:::
+
+## Exercise: missing units
+
+1.  Count the missing values in `units_sold`.
+2.  Make a copy of `sales` where missing `units_sold` are filled with the **average** of `units_sold`.
+3.  Compare the original and imputed data.
+
+Is the average a reasonable assumption for units sold? When might it be misleading?
+
+## `pandas` cannot catch every error
+
+`pandas` can tell you what is *missing*, but not what is *wrong yet present*. Here is a slightly altered table:
+
+```{python}
+sales2 = sales_imputed.copy()
+sales2.loc[3, "units_sold"] = 5_000     # set row labeled 3, column units_sold
+sales2
+```
+
+To `pandas`, `5_000` is just another number. Descriptive statistics help us notice problems:
+
+```{python}
+sales2["units_sold"].describe()
+```
+
+If typical months are 100 to 150 units, 5,000 is suspicious (an extra zero? the wrong row?). **A person with domain knowledge** must decide what is impossible or unlikely.
+
+Suppose we know no region sells more than 500 units a month. We can filter to find suspicious rows:
+
+```{python}
+sales2[sales2["units_sold"] > 500]
+```
+
+Once found, the fix is a business decision: correct the value, set it to missing, or drop the row.
+
+## Cleaning text columns
+
+Text entered by people is often inconsistent. Consider a list of regions typed by different people:
+
+```{python}
+region = pd.Series([" north", "South ", "NORTH", "East", "south", "EAST "])
+region.value_counts()
+```
+
+`.value_counts()` counts each distinct value. `pandas` treats `"north"`, `"NORTH"`, and `" north"` as three different categories, which would break any summary by region.
+
+### The `.str` methods
+
+A `Series` of text has a `.str` accessor that applies string operations to every element:
+
+```{python}
+region.str.strip()        # remove leading/trailing spaces
+```
+
+```{python}
+region.str.lower()        # all lower case
+```
+
+```{python}
+region.str.title()        # Capitalize Each Word
+```
+
+Chain them to clean everything in one go:
+
+```{python}
+region_clean = region.str.strip().str.title()
+region_clean.value_counts()
+```
+
+Now there are just three categories (East, North, South), which is what we wanted.
+
+### Other useful `.str` methods
+
+```{python}
+names = pd.Series(["alice smith", "BOB JONES", "  Chris  Lee "])
+
+names.str.strip().str.title()
+```
+
+```{python}
+names.str.len()                          # number of characters
+```
+
+```{python}
+names.str.contains("jones", case=False)  # True/False; ignores case
+```
+
+```{python}
+names.str.strip().str.split(" ")         # split into a list of pieces
+```
+
+| Method                          | What it does                          |
+|---------------------------------|---------------------------------------|
+| `.str.strip()`                  | removes surrounding whitespace        |
+| `.str.lower()`, `.str.upper()`, `.str.title()` | changes capitalization |
+| `.str.replace(old, new)`        | replaces text                         |
+| `.str.contains(text)`           | `True` where text is found            |
+| `.str.len()`                    | length of each string                 |
+
+## Fixing a "text" column that should be numeric
+
+Numbers copied from spreadsheets or reports often arrive as text, with symbols such as `$` and commas.
+
+```{python}
+rev = pd.DataFrame({
+    "month": ["2025-01", "2025-02", "2025-03", "2025-04"],
+    "revenue": ["$10,000", "$11,500", "N/A", "$9,750"]
+})
+
+rev
+```
+
+```{python}
+rev.dtypes
+```
+
+`object` is how `pandas` labels text. We cannot add or average text yet:
+
+```{python}
+#| error: true
+rev["revenue"].mean()
+```
+
+### Clean and convert
+
+The steps are:
+
+1.  Treat `"N/A"` as missing.
+2.  Remove `$` and commas.
+3.  Convert to numbers.
+
+```{python}
+rev_clean = rev.copy()
+
+# 1. Replace "N/A" with a proper missing value
+rev_clean["revenue"] = rev_clean["revenue"].replace("N/A", pd.NA)
+rev_clean
+```
+
+```{python}
+# 2. Remove currency symbols and commas
+rev_clean["revenue"] = rev_clean["revenue"].str.replace("$", "", regex=False)
+rev_clean["revenue"] = rev_clean["revenue"].str.replace(",", "", regex=False)
+rev_clean
+```
+
+```{python}
+# 3. Convert to numbers
+rev_clean["revenue"] = pd.to_numeric(rev_clean["revenue"])
+rev_clean.dtypes
+```
+
+Now we can compute with it:
+
+```{python}
+rev_clean["revenue"].mean()      # missing value is skipped
+```
+
+::: {.callout-tip}
+## A shortcut
+`pd.to_numeric(..., errors="coerce")` turns anything it cannot convert (like `"N/A"`) into a missing value, so step 1 can often be skipped:
+
+```python
+pd.to_numeric(rev["revenue"].str.replace("$", "", regex=False)
+                            .str.replace(",", "", regex=False),
+              errors="coerce")
+```
+
+Be careful though: this also silently hides *unexpected* bad values. Look at what was converted to missing before moving on.
+:::
+
+`pandas` did not know how to handle `$` and `N/A` by itself because those are conventions of the business system that produced the data.
+
+### Converting dates
+
+Dates stored as text can be converted similarly:
+
+```{python}
+months = pd.to_datetime(sales["month"])
+months
+```
+
+```{python}
+months.dt.month_name()       # .dt gives date-specific tools
+```
+
+## Summary
+
+| Problem                    | Tool                                      |
+|----------------------------|-------------------------------------------|
+| Find missing values        | `df.isna().sum()`, `df.info()`            |
+| Drop rows with missing     | `df.dropna(subset=[...])`                 |
+| Fill missing values        | `df["col"].fillna(value)`                 |
+| Spot unusual values        | `df["col"].describe()`, filtering         |
+| Inconsistent text          | `.str.strip()`, `.str.lower()`, `.value_counts()` |
+| Text that should be numbers| `.str.replace(...)`, `pd.to_numeric(...)` |
+| Text that should be dates  | `pd.to_datetime(...)`                     |
+
+A good habit: work on a **copy** of your data, and write down every assumption you make while cleaning.
+
+## Exercises
+
+### Exercise 1: Missing values
+
+Using `sales`:
+
+1.  How many rows have a missing `sales_rep`?
+2.  Create a version of the data where missing `sales_rep` is replaced by `"Unassigned"`.
+3.  Create a column `revenue` equal to `units_sold * price_per_unit`. How many rows have a missing revenue? Why?
+
+### Exercise 2: Text cleaning
+
+```{python}
+#| eval: false
+products = pd.Series(["  Laptop", "laptop ", "MONITOR", "monitor", "Keyboard "])
+```
+
+1.  Use `.value_counts()` to see how many distinct products `pandas` thinks there are.
+2.  Clean the text so that equivalent spellings match, then count again.
+
+### Exercise 3: Text to numbers
+
+```{python}
+#| eval: false
+costs = pd.DataFrame({
+    "item": ["A", "B", "C", "D"],
+    "cost": ["$1,200", "$850", "unknown", "$2,300"]
+})
+```
+
+1.  Convert `cost` to a numeric column, handling `"unknown"` as missing.
+2.  Compute the average cost.
+3.  In a sentence or two, explain how you treated the `"unknown"` value and why.

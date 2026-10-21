@@ -1,0 +1,403 @@
+---
+title: "Pandas Introduction"
+error: true
+---
+
+## Goals
+
+1.  Understand what `pandas` is for and when to reach for it.
+2.  Load a CSV file of tabular data into a Python session.
+3.  Meet the two core objects: the `Series` (one column) and the `DataFrame` (a full table).
+4.  Inspect a table using its attributes and a few summary methods.
+5.  Answer basic analytics questions with the following operations: selecting columns, sorting, filtering, and creating new columns.
+
+## Overview
+
+-   [`pandas`](https://pandas.pydata.org/) is a Python library for data analysis and manipulation.
+-   It is built for **tabular data**: rows and columns, just like a spreadsheet or a database table.
+-   It is the standard tool for this job in Python, so nearly every data analytics workflow you meet will use it.
+
+`pandas` has two main objects.
+
+|           Name | Dimensions | Description                                        |
+|----------------|------------|----------------------------------------------------|
+|    `Series`    |          1 | One labeled column of values, all of the same type |
+| `DataFrame`    |          2 | A labeled table made up of several columns         |
+
+### What can `pandas` do?
+
+The library is huge. For now, we only need a small corner of it:
+
+-   Reading and writing files (CSV, Excel, and more).
+-   Looking at, sorting, and filtering tables.
+-   Creating new columns from existing ones.
+
+
+## Getting Started
+
+We must `import` the package like any other Python package.
+
+```{python}
+import os
+import pandas as pd
+```
+
+By convention, `pandas` is imported under the nickname `pd`. Nearly all tutorials, books, and Stack Overflow answers do the same, so you should too.
+
+::: {.callout-tip}
+## Where to learn more
+The official [Getting Started guide](https://pandas.pydata.org/docs/getting_started/index.html) and [User Guide](https://pandas.pydata.org/pandas-docs/stable/user_guide/index.html) are good references. You are not expected to memorize functions; part of working with `pandas` is looking things up.
+:::
+
+## Loading your first dataset
+
+Suppose you have an advertising dataset: for each of 200 markets, the amount spent on TV, radio, and newspaper advertising (in thousands of dollars) and the resulting product sales (in thousands of units). It is stored as a CSV file (**C**omma-**S**eparated **V**alues), which is just plain text:
+
+```{text}
+,TV,radio,newspaper,sales
+1,230.1,37.8,69.2,22.1
+2,44.5,39.3,45.1,10.4
+3,17.2,45.9,69.3,9.3
+4,151.5,41.3,58.5,18.5
+```
+
+- The first line holds the **column names**.
+- Each following line is one **row** of data, with values separated by commas.
+- The first column has no name; it holds row numbers (1, 2, 3, ...).
+
+We load it with `pd.read_csv`:
+
+```{python}
+# Replace with the real path to the file on your computer or Colab session
+ad_data = pd.read_csv(
+    os.path.join("assets", "ISLP_Advertising.csv"),
+    index_col=0
+)
+ad_data
+```
+
+A few things to notice:
+
+-   `os.path.join(...)` builds a file path that works on any operating system.
+-   `index_col=0` says "use the first column (the row numbers) as the row labels instead of as ordinary data."
+-   The result is stored in a variable, `ad_data`, so we can work with it.
+
+This dataset comes from Chapter 2 of *An Introduction to Statistical Learning with Python* (ISLP).
+
+-   Each **row** is one market.
+-   Each **column** is one variable (TV spend, radio spend, and so on).
+
+### More on the `index`
+
+Every `pandas` object has an internal `index`, which is an immutable, 1D sequence used to store axis labels.
+This is how we can distinguish records from each other, even if they happen to contain the same values across every column.
+
+- Not every data file you work with will have an internal index. In such cases, `pandas` will create row labels automatically.
+- There is no need for `index` to be numbers.
+- If your dataset contains a column that can serve as a unique identifier, you can specify it with `index_col` when loading data.
+
+## Other ways to read and write data
+
+`pandas` can read from and write to many formats. The most common pairs are:
+
+-   `pd.read_csv` / `.to_csv`
+-   `pd.read_excel` / `.to_excel`
+-   `pd.read_sql` / `.to_sql`
+
+For example, `ad_data.to_csv("my_copy.csv")` saves a table back to a file.
+
+`pandas` can even read CSV text straight from a Python string if we wrap it in a `StringIO` object. This is handy for small examples:
+
+```{python}
+from io import StringIO
+
+small = pd.read_csv(StringIO(""",TV,radio,newspaper,sales
+1,230.1,37.8,69.2,22.1
+2,44.5,39.3,45.1,10.4
+3,17.2,45.9,69.3,9.3
+4,151.5,41.3,58.5,18.5"""), index_col=0)
+
+small
+```
+
+## `Series` vs `DataFrame`
+
+-   A `DataFrame` is a full table (like a whole Excel sheet).
+-   A `Series` is a single column of that table (like the `sales` column).
+
+```{python}
+# whole table = DataFrame
+type(ad_data)
+```
+
+```{python}
+# one column = Series
+sales = ad_data["sales"]
+type(sales)
+```
+
+```{python}
+# peek at the first 5 values
+sales.head()
+```
+
+### The `Series`
+
+A `Series` has two parts: the **values** and an **index** (the labels for each value).
+
+```{python}
+# Think of this as last week's daily website visits
+visits = pd.Series(
+    [120, 135, 150, 145, 160, 170, 190],
+    index=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+)
+
+visits
+```
+
+-   First input: a `list` of values.
+-   Second input: the labels, given through the *named* argument `index`.
+-   Bottom line of the output: `dtype` is the **data type** of the values (here `int64`, whole numbers). A `Series` holds one data type.
+
+We can pull out its parts and compute with it:
+
+```{python}
+visits.values   # the data
+```
+
+```{python}
+visits.index    # the labels
+```
+
+```{python}
+visits.mean()                          # average daily visits
+```
+
+```{python}
+visits["Fri"]                          # look up one value by label
+```
+
+```{python}
+visits.sort_values(ascending=False)    # busiest days first
+```
+
+Arithmetic acts on every value at once ("vectorized"), so no loop is needed:
+
+```{python}
+visits * 2
+```
+
+### The `DataFrame`
+
+A `DataFrame` is a collection of `Series` that share the same row labels. It has:
+
+-   an **index** (row labels),
+-   **columns** (column names), and
+-   **values** (the data).
+
+## Attributes of a `DataFrame`
+
+*Attributes* are pieces of information stored on an object. Unlike methods, they are written **without parentheses**.
+
+```{python}
+ad_data.shape      # (number of rows, number of columns)
+```
+
+```{python}
+ad_data.columns    # column names
+```
+
+```{python}
+ad_data.index      # row labels
+```
+
+```{python}
+ad_data.dtypes     # data type of each column
+```
+
+```{python}
+ad_data.size       # total number of cells (rows x columns)
+```
+
+::: {.callout-note}
+## Attribute vs. method
+`ad_data.shape` is an attribute (no parentheses). `ad_data.head()` is a method, i.e. a function attached to the object, so it needs parentheses. If you forget the parentheses on a method, Python shows you the method itself rather than running it.
+:::
+
+## Quick summaries
+
+### Looking at the data
+
+```{python}
+ad_data.head()     # first 5 rows
+```
+
+```{python}
+ad_data.tail(3)    # last 3 rows
+```
+
+```{python}
+ad_data.info()     # column types and non-missing counts
+```
+
+Use these to answer:
+
+-   How many markets (rows) do we have?
+-   What variables (columns) are available?
+-   Does any column have missing values? (Compare each non-null count to the number of rows.)
+
+### Descriptive statistics
+
+```{python}
+ad_data.describe()
+```
+
+-   **count**: number of non-missing values.
+-   **mean** and **std**: average and standard deviation.
+-   **min** / **max**: smallest and largest values.
+-   **25%**, **50%**, **75%**: quartiles (the 50% value is the median).
+
+We can also compute one statistic for one column:
+
+```{python}
+ad_data["sales"].mean()
+```
+
+```{python}
+ad_data["sales"].median()
+```
+
+```{python}
+ad_data["sales"].max()
+```
+
+## Selecting columns
+
+Use square brackets and a column name to get a `Series`. Use a **list** of names to get a smaller `DataFrame`:
+
+```{python}
+ad_data["TV"].head()             # one column -> Series
+```
+
+```{python}
+ad_data[["TV", "sales"]].head()   # list of columns -> DataFrame
+```
+
+Note the double brackets in the second example: the outer pair means "select," and the inner pair is the Python list of names.
+
+## Sorting and filtering
+
+### Sorting: "Top markets by sales"
+
+```{python}
+# Sort by sales, highest first
+ad_data.sort_values("sales", ascending=False).head(10)
+```
+
+-   Which markets are the top 3 by sales?
+-   How would you find the bottom 3? (Hint: change `ascending`.)
+
+::: {.callout-note}
+`sort_values` returns a *new* sorted table; `ad_data` itself is not changed unless you assign the result to a variable.
+:::
+
+### Filtering: "Markets with high TV spend"
+
+Filtering uses a **condition** that produces `True`/`False` for each row. Only rows with `True` are kept.
+
+```{python}
+ad_data["TV"] > 150
+```
+
+```{python}
+high_tv = ad_data[ad_data["TV"] > 150]
+high_tv
+```
+
+Now we can ask questions about just that group:
+
+```{python}
+high_tv["sales"].mean()
+```
+
+```{python}
+ad_data["sales"].mean()      # overall average, for comparison
+```
+
+Is average sales higher in the high-TV-spend markets?
+
+An alternative is the `.query()` method, which many people find easier to read:
+
+```{python}
+ad_data.query("TV > 150")
+```
+
+### Combining conditions
+
+Use `&` for "and" and `|` for "or". Each condition **must be in parentheses** when using bracket syntax.
+
+```{python}
+ad_data[(ad_data["TV"] > 150) & (ad_data["radio"] > 40)]
+```
+
+Equivalent with `.query()`:
+
+```{python}
+ad_data.query("TV > 150 and radio > 40")
+```
+
+This reads: "show only markets where both TV and radio spend are high."
+
+## Creating new columns
+
+We often derive new measures, like "total marketing spend." Assign to a new column name; the arithmetic happens row by row.
+
+```{python}
+ad_data["total_spend"] = ad_data["TV"] + ad_data["radio"] + ad_data["newspaper"]
+ad_data[["TV", "radio", "newspaper", "total_spend"]].head()
+```
+
+```{python}
+ad_data["sales_per_spend"] = ad_data["sales"] / ad_data["total_spend"]
+ad_data[["total_spend", "sales", "sales_per_spend"]].head()
+```
+
+`sales_per_spend` tells us how many units we sell per dollar of marketing spend.
+
+## Summary
+
+| Task                         | Code                                   |
+|------------------------------|----------------------------------------|
+| Load a CSV                   | `pd.read_csv(path)`                    |
+| Size of table                | `df.shape`                             |
+| Column names / types         | `df.columns`, `df.dtypes`              |
+| First / last rows            | `df.head()`, `df.tail()`               |
+| Summary statistics           | `df.describe()`                        |
+| Select columns               | `df["a"]`, `df[["a", "b"]]`            |
+| Sort                         | `df.sort_values("a", ascending=False)` |
+| Filter                       | `df[df["a"] > 5]` or `df.query("a > 5")` |
+| New column                   | `df["new"] = df["a"] + df["b"]`        |
+
+## Exercises
+
+Use the `ad_data` DataFrame from above. (If you have already added `total_spend` and `sales_per_spend`, that is fine.)
+
+### Exercise 1: Basic exploration
+
+1.  Show the first 7 rows of `ad_data`.
+2.  How many rows and columns does the dataset have?
+3.  What are the column names, and what is the data type of each?
+
+### Exercise 2: Summary questions
+
+1.  What is the average **TV** spend?
+2.  What is the maximum **sales** value, and which market (row label) has it? (Hint: sort first.)
+3.  Create a new column `digital_spend` equal to `radio + newspaper`, and show its first 5 values.
+
+### Exercise 3: Gain insight
+
+Translate each statement into Python, then explain your result in a few sentences as if you were emailing your manager.
+
+1.  Filter the data to markets where `total_spend` is above its overall average.
+2.  For that subset, compute the average sales.
+3.  Compare it to the overall average sales. Are sales higher when total spend is above average?

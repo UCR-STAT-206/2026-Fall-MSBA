@@ -1,0 +1,568 @@
+---
+title: "Pandas Tutorial: Selecting, Reading, and Combining Data"
+error: true
+---
+
+## Goals
+
+1.  Select rows and columns by **label** (`.loc`) and by **position** (`.iloc`).
+2.  Control how files are read and written, and combine several files into one table.
+3.  Combine tables with `pd.concat()` and `.merge()`
+4.  Understand how `pandas` stores data types and missing values, and how types change without warning.
+5.  Rename and drop columns, and write a multi-step cleaning pipeline that is readable.
+
+## Packages and data
+
+```{python}
+import os
+import glob
+import numpy as np
+import pandas as pd
+from io import StringIO
+```
+
+The [Palmer penguins](https://allisonhorst.github.io/palmerpenguins/articles/intro.html) data record body measurements for 344 penguins of three species (Adelie, Chinstrap, Gentoo) living on three islands in Antarctica.
+
+```{python}
+penguins = pd.read_csv(os.path.join("assets", "penguins.csv"))
+penguins.head()
+```
+
+::: {.callout-warning}
+## Don't be misled by the first or last entries
+
+Look at `species` in the first five rows. Is that what the whole table looks like?
+
+```{python}
+penguins["species"].value_counts()
+```
+
+The file is stored species by species, so the first rows are all Adelie penguins.
+Never judge a table by its first few rows.
+`pandas` makes it easy to inspect a random sample:
+
+```{python}
+penguins.sample(5, random_state=1)
+```
+
+`random_state` makes the "random" draw repeatable, so you and a classmate see the same rows.
+:::
+
+## Indexing and subsetting
+
+Every `DataFrame` has **row labels** (the index) and **column labels**. 
+There are two ways to point at a piece of the table:
+
+| By      | Tool    | Meaning                                  |
+|---------|---------|------------------------------------------|
+| label   | `.loc`  | "the row *named* ..., the column *named* ..." |
+| position| `.iloc` | "the *3rd* row, the *2nd* column" (counting from 0) |
+
+To see the difference, we need row labels that are not just the numbers 0, 1, 2, ...
+Here are six penguins, one for every 60th row, with names for row labels:
+
+```{python}
+tmp = penguins[::60].copy()
+tmp.index = ["Albert", "Beatrix", "Carlos", "Daniela", "Elizabeth", "Fatima"]
+tmp
+```
+
+### Rows
+
+```{python}
+tmp.loc["Carlos"] # by label
+```
+
+```{python}
+tmp.iloc[2] # by position: the same row
+```
+
+Both return one row as a `Series`.
+Slices work with both, but there is a trap:
+
+```{python}
+tmp.loc["Beatrix":"Daniela"]  # label slice: includes BOTH ends
+```
+
+```{python}
+tmp.iloc[1:4] # position slice: stops BEFORE the end, like a Python list
+```
+
+These give the same three rows, because `.loc` slices include the last label and `.iloc` slices exclude the last position.
+
+### Rows and columns together
+
+Give `.loc` or `.iloc` two inputs: `[rows, columns]`.
+A bare `:` means "all".
+
+```{python}
+tmp.loc[:, ["species", "body_mass_g"]]  # all rows, two named columns
+```
+
+```{python}
+tmp.iloc[1:3, 0:3]  # rows 1-2, columns 0-2
+```
+
+### Filtering with `.loc`
+
+A **boolean mask** is a column of `True`/`False` values, one per row. 
+Combine one with a list of columns to say "these rows, those columns":
+
+```{python}
+tmp.loc[tmp["body_mass_g"] > 4000, ["species", "body_mass_g", "sex"]]
+```
+
+This is the version to prefer: the rows and columns are chosen in one step.Square brackets (`df[...]`) also work for quick selections:
+
+| Syntax                  | Returns                          |
+|-------------------------|----------------------------------|
+| `df["a"]`               | one column, as a `Series`        |
+| `df[["a", "b"]]`        | several columns, as a `DataFrame`|
+| `df[5:10]`              | rows 5 to 9 (a slice by position)|
+| `df[mask]`              | rows where `mask` is `True`      |
+
+### Changing values
+
+`.loc` can also be used on the left of an `=` to change values in place:
+
+```{python}
+tmp.loc["Daniela", "body_mass_g"] = 5000.0                        # one cell
+tmp.loc[tmp["species"] == "Gentoo", "island"] = "Biscoe (check)"  # all rows matching a condition
+tmp
+```
+
+::: {.callout-warning}
+## Chained assignment does nothing
+
+Selecting first and assigning second is a common mistake:
+
+```{python}
+tmp[tmp["species"] == "Gentoo"]["body_mass_g"] = 0
+tmp[["species", "body_mass_g"]]
+```
+
+`tmp[mask]` produces a *new* temporary table, so the assignment lands on the temporary copy and is thrown away.
+`pandas` may warn you, but the values in `tmp` are unchanged.
+Always assign in a single `.loc[rows, column] = value` step.
+:::
+
+## Reading files
+
+`pd.read_csv()` has dozens of options.
+The following sections catalogue the options you are most likely to use in practice.
+
+### Partial loading
+
+```{python}
+path = os.path.join("assets", "penguins.csv")
+
+# peek at the first few rows without loading everything
+pd.read_csv(path, nrows=5)
+```
+
+```{python}
+# only some columns, chosen by name (or by position, e.g. [0, 1, 6])
+pd.read_csv(path, usecols=["species", "island", "sex"]).head()
+```
+
+```{python}
+# skip data rows 1-299 (row 0 is the header line, which we keep)
+pd.read_csv(path, skiprows=range(1, 300)).head()
+```
+
+### Specifying structure
+
+`pandas` guesses the type of each column.
+The guess is likely to be wrong whenever a file uses its own conventions.
+Here is a small file that uses `-999` and the word `missing` for unknown values, and has a date column:
+
+```{python}
+raw = """id,date,amount,region
+001,2025-03-01,19.99,West
+002,2025-03-02,-999,East
+003,2025-03-05,24.50,missing
+004,2025-03-09,7.25,West"""
+
+naive = pd.read_csv(StringIO(raw))
+naive
+```
+
+```{python}
+naive.dtypes
+```
+
+Three things went wrong:
+
+1. `id` lost its leading zeros,
+2. `date` is just text, and
+3. `-999` is being treated as a real amount (it would drag an average down).
+
+We fix each with a reader option:
+
+```{python}
+better = pd.read_csv(
+    StringIO(raw),
+    na_values=["-999", "missing"],   # extra strings that mean "missing"
+    parse_dates=["date"],            # convert to real dates
+    dtype={"id": str},               # keep as text, preserving "001"
+)
+better
+```
+
+```{python}
+better.dtypes
+```
+
+::: {.callout-tip}
+`pandas` already treats empty cells and the text `NA` as missing.
+You only need `na_values` for *additional* codes like `-999`.
+Familiarize yourself with missing value conventions of different systems.
+:::
+
+## Writing files
+
+Methods named `.to_*()` export a table. `.to_csv()` is the most common.
+
+```{python}
+os.makedirs("output", exist_ok=True)     # create a folder for our results
+
+for species, group in penguins.groupby("species"):
+    filepath = os.path.join("output", f"penguins_{species}.csv")
+    group.to_csv(filepath, index=False)
+    print("saved", filepath, group.shape)
+```
+
+`index=False` avoids writing the row labels as an extra column.
+When the row labels are just 0, 1, 2, ..., that is what you want.
+
+::: {.callout-warning}
+## When the index holds information
+
+If the index carries real information, such as a summary table whose rows are labeled by species, then `index=False` throws it away and you cannot tell which row is which.
+Use `.reset_index()` first to turn the labels into an ordinary column.
+:::
+
+Common reasons to export:
+
+- saving a cleaned copy for later, sharing a summary table, and
+- **saving intermediate results in a long pipeline** so you do not have to rerun everything.
+
+### Combining many files
+
+Data often arrive in pieces: one file per month, per region, or per species. `glob` finds the files matching a pattern; `pd.concat()` stacks the tables.
+
+```{python}
+files = sorted(glob.glob(os.path.join("output", "penguins_*.csv")))
+files
+```
+
+```{python}
+combined = pd.concat(
+  [pd.read_csv(f).assign(source_file = os.path.basename(f)) for f in files],
+  ignore_index = True,
+)
+print(combined.shape)
+combined["source_file"].value_counts()
+```
+
+-   `sorted()` makes the file order the same on every computer.
+-   `.assign(source_file=...)` records which file each row came from. This costs nothing now and is very helpful when you later find a strange value.
+-   `ignore_index=True` renumbers the rows 0, 1, 2, ... instead of repeating each file's own numbering.
+
+## Combining tables
+
+| Tool          | What it does                                             | Use when |
+|---------------|----------------------------------------------------------|----------|
+| `pd.concat()` | **Stacks** tables on top of each other                   | the tables have the *same columns* (e.g. one file per month) |
+| `.merge()`    | **Matches** rows using a shared column (a *key*), adding columns | one table describes things in another (e.g. a lookup table) |
+
+### Merging
+
+Suppose a colleague gives us a small table of extra information about each island. (This table is made up, purely for illustration.)
+
+```{python}
+island_info = pd.DataFrame({
+    "island": ["Biscoe", "Dream"],
+    "survey_team": ["Team A", "Team B"],
+})
+island_info
+```
+
+Notice that Torgersen is missing from the lookup table. Let us merge it onto the penguins:
+
+```{python}
+left = penguins.merge(island_info,
+  on = "island",
+  how = "left"
+)
+left.loc[left["island"] == "Torgersen", ["species", "island", "survey_team"]].head(3)
+```
+
+Notice this table has shape `{python} left.shape`.
+
+```{python}
+inner = penguins.merge(island_info,
+  on = "island",
+  how = "inner"
+)
+inner.loc[inner["island"] == "Torgersen", ["species", "island", "survey_team"]].head(3)
+```
+
+Notice this table has shape `{python} inner.shape`.
+
+-   `how = "left"` keeps **every row of the left table** (`penguins`) and fills in `NaN` where the lookup has no match.
+-   `how = "inner"` keeps **only rows that match in both tables**, so the Torgersen penguins quietly disappeared.
+
+Neither is wrong, but you must know which one you chose.
+A good habit after *every* merge is to compare the number of rows before and after, and count the unmatched rows.
+
+- In the `left` merge example, there were `{python} len(penguins)` rows before the merge and `{python} len(left)` rows after the merge.
+- There are `{python} int(left["survey_team"].isna().sum())` penguins missing `island` information.
+
+
+
+### Duplicate keys
+
+What if the lookup table has the same key twice?
+
+```{python}
+island_info_dup = pd.concat([island_info, island_info.iloc[[0]]], ignore_index=True)
+island_info_dup
+```
+
+```{python}
+dup = penguins.merge(island_info_dup,
+  on = "island",
+  how = "left"
+)
+print(len(penguins), "->", len(dup))
+```
+
+Every Biscoe penguin now appears twice, so any total or count you compute afterwards is wrong.
+You can ask `pandas` to check the relationship and stop with an error if it is violated:
+
+```{python}
+penguins.merge(island_info_dup,
+  on = "island",
+  how = "left",
+  validate = "many_to_one"
+)
+```
+
+`"many_to_one"` says: many rows on the left may match one row on the right, but not the reverse.
+
+## Data types
+
+```{python}
+penguins.dtypes
+```
+
+-   `float64`: numbers with decimals (and missing values, stored as `NaN`).
+-   `int64`: whole numbers. **These cannot hold a missing value.**
+-   `str`: text. A missing text value is also `NaN`.
+
+### Silent casting
+
+An integer column that gains a missing value silently converts data to `float`:
+
+```{python}
+years = penguins["year"].head(5).copy()
+print(years.dtype)
+
+years[0] = None
+print(years.dtype)
+years
+```
+
+If you need whole numbers *and* missing values, ask for the nullable integer type, written with a capital `I`:
+
+```{python}
+years.astype("Int64")
+```
+
+Here the missing value is shown as `<NA>`.
+
+### Converting types
+
+`.astype()` converts a column.
+Here are two conversion you are likely to use in practice:
+
+```{python}
+# whole numbers with possible missing values
+penguins["year"].astype("Int64").dtype
+```
+
+```{python}
+# a column with a fixed set of labels can be stored as a category
+penguins["species"].astype("category").dtype
+```
+
+A `category` can also have a **meaningful order**. Plain text sorts alphabetically, which is rarely the order you want for **ordinal data** (such as ratings or sizes):
+
+```{python}
+sizes = pd.Series(
+  ["medium", "small", "large", "small", "large", "medium"]
+)
+print(sizes.sort_values().tolist()) # alphabetical
+
+size_type = pd.CategoricalDtype(
+  ["small", "medium", "large"],
+  ordered=True
+)
+sizes_cat = sizes.astype(size_type)
+print(sizes_cat.sort_values().tolist()) # in the order we specified
+```
+
+### Statistics and missing values
+
+Most summary methods skip missing values by default, which is convenient but easy to forget.
+
+```{python}
+cols = penguins[["bill_length_mm", "body_mass_g"]]
+cols.mean() # skipna = True: missing values ignored
+```
+
+```{python}
+cols.mean(skipna = False) # any missing value makes the answer NaN
+```
+
+Double-check the sample size used in calculating summary statistics:
+
+```{python}
+cols.count()  # how many values each mean is based on
+```
+
+The `axis` option says which direction to compute in.
+
+- The default `axis=0` collapses the rows (one answer per column). 
+- `axis=1` collapses the columns (one answer per row).
+
+```{python}
+penguins[["bill_length_mm", "bill_depth_mm"]].mean(axis=1).head()
+```
+
+:::: callout-warning
+Remember that averaging across columns like this only makes sense if the data have the same units.
+::::
+
+## Changing the shape of a table
+
+### Renaming and dropping
+
+Most methods return a **new** table and leave the original alone. Save the result to a variable to keep it.
+
+```{python}
+renamed = penguins.rename(
+  columns={"body_mass_g": "mass_g", "island": "home"}
+)
+renamed.columns.tolist()
+```
+
+```{python}
+slim = penguins.drop(columns=["year", "sex"]) # drop columns by name
+slim.columns.tolist()
+```
+
+```{python}
+penguins.columns.tolist() # the original is unchanged
+```
+
+::: {.callout-note}
+
+## Why we avoid `inplace = True`
+
+Many methods accept `inplace = True`, which modifies the table you called it on.
+It is easy to run twice by accident, it cannot be chained, and the `pandas` developers recommend against it.
+Prefer reassignment; for example `df = df.method(...)`.
+This style makes it easy to spot where a table changes in your code.
+:::
+
+### Adding rows
+
+Rows are best added by building them first and stacking them once with `concat`:
+
+```{python}
+new_rows = pd.DataFrame([
+  {
+    "species": "Gentoo",
+    "island": "Torgersen",
+    "bill_length_mm": 35.0,
+    "bill_depth_mm": 20.0,
+    "flipper_length_mm": 180.0,
+    "body_mass_g": 3500.0,
+    "sex": "female",
+    "year": 2025
+  },
+])
+
+extended = pd.concat([penguins, new_rows], ignore_index = True)
+extended.tail(3)
+```
+
+You might see `df.loc[len(df)] = row` in online examples.
+Unfortunately, that style silently copies the whole table every time and is slow in a loop.
+
+
+
+## Method chaining
+
+A **pipeline** applies several operations in a row, each acting on the result of the previous one. Wrap the whole expression in parentheses so you can put one step on each line:
+
+```{python}
+(
+  penguins
+  .dropna(subset = ["body_mass_g"])
+  .assign(mass_kg = lambda d: d["body_mass_g"] / 1000)
+  .query("mass_kg > 5")
+  .sort_values("mass_kg", ascending = False)
+  .loc[:, ["species", "island", "sex", "mass_kg"]]
+  .head()
+)
+```
+
+-   `.assign(name = ...)` creates a new column.
+- The `lambda d: ...` syntax defines an anonymous function. Here `d` stands for "the table as it is at this point in the pipeline".
+-   Each line does one thing, so the code reads like a recipe, and you can comment out a line to see what it did.
+-   If a chain becomes long or confusing, break it into smaller steps with names for the intermediate tables.
+
+## Summary
+
+| Task                                | Code                                           |
+|-------------------------------------|------------------------------------------------|
+| Row by label / position             | `df.loc[label]`, `df.iloc[k]`                  |
+| Rows and columns together           | `df.loc[mask, ["a", "b"]]`, `df.iloc[1:3, 0:3]`|
+| Change values                       | `df.loc[mask, "col"] = value`                  |
+| Read part of a file                 | `nrows=`, `usecols=`, `skiprows=`              |
+| Declare missing codes, dates, types | `na_values=`, `parse_dates=`, `dtype=`         |
+| Write a file                        | `df.to_csv(path, index=False)`                 |
+| Stack tables / many files           | `pd.concat([...], ignore_index=True)`          |
+| Match tables on a key               | `left.merge(right, on="key", how="left")`      |
+| Check a merge                       | compare row counts; `validate="many_to_one"`   |
+| Missing-friendly integers           | `.astype("Int64")`                             |
+| Rename / drop columns               | `df.rename(columns={...})`, `df.drop(columns=[...])` |
+| Pipeline                            | `(df.step1().step2().step3())`                 |
+
+## Exercises
+
+Use the `penguins` table loaded at the top.
+
+### Exercise 1: Reading
+
+1.  Read only the columns `species`, `island`, and `body_mass_g`, and only the first 50 rows, in a single call to `pd.read_csv()`.
+2.  Read the file `output/penguins_Gentoo.csv` that we created earlier. How many rows does it have? Does it agree with `penguins["species"].value_counts()`?
+
+### Exercise 2: Indexing
+
+1.  Using `.iloc`, extract rows 10 through 14 (five rows) and the columns `species` and `body_mass_g`.
+2.  Using `.loc` and a boolean mask, extract the `flipper_length_mm` and `body_mass_g` of every **female Gentoo** penguin.
+3.  Using `.loc`, set `body_mass_g` to missing (`np.nan`) for every penguin with a bill length above 55 mm in a *copy* of the table. How many values did you change?
+
+### Exercise 3: Combining
+
+1.  Build a small made-up lookup table `species_info` with two columns, `species` and `mascot_name`, containing a name of your choosing for each of the three species.
+2.  Merge it onto `penguins` with a left merge. Confirm that the number of rows did not change, and that no penguin is missing a mascot.
+3.  Remove one species from `species_info` and merge again with `how="left"` and then `how="inner"`. How do the number of rows and the number of missing values differ between the two?
+
+### Exercise 4: A pipeline
+
+Write one method chain that: drops rows missing `body_mass_g`, creates a column `bill_ratio` equal to `bill_length_mm / bill_depth_mm`, keeps only the Adelie penguins, sorts by `bill_ratio` from largest to smallest, and shows the `island`, `sex`, and `bill_ratio` of the top five rows.
