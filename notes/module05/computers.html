@@ -635,14 +635,14 @@ window.Quarto = {
 <section id="checking-memory-use-in-python" class="level3">
 <h3 class="anchored" data-anchor-id="checking-memory-use-in-python">Checking memory use in Python</h3>
 <p>The <code>sys.getsizeof()</code> function can be used to display the size of objects in terms of memory.</p>
-<div id="98da51b3" class="cell" data-execution_count="1">
+<div id="5900a207" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="im">import</span> sys</span>
 <span id="cb1-2"><a href="#cb1-2" aria-label="2"></a>sys.getsizeof(<span class="fl">1.0</span>) <span class="co"># 16 bytes overhead + 8 bytes floating point</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>24</code></pre>
 </div>
 </div>
-<div id="77cb9d5d" class="cell" data-execution_count="2">
+<div id="af06c020" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a>sys.getsizeof([<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>]) <span class="co"># similar</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>88</code></pre>
