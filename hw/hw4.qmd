@@ -144,7 +144,7 @@ Briefly, answer the following questions about the data as a whole.
 Explain in your own words.
 
 1. **How were these data collected?** Did the researchers (or Blizzard) assign anyone to a particular office, rating or salary, or did they just record what people reported? What does this mean for the kinds of conclusions you can draw? For example, could you conclude that a higher rating *causes* a bigger raise?
-2. **Who is in the data, and who is not?** Think about who chose to respond and who might have chosen not to. In which direction could this push the numbers (too high, too low, or no way to tell)? How might that type of bias mislead an analyst work with these data?
+2. **Who is in the data, and who is not?** Think about who chose to respond and who might have chosen not to. In which direction could this push the numbers (too high, too low, or no way to tell)? How might that type of bias mislead an analyst working with these data?
 3. **What else could explain a pattern?** Pick one comparison from your exploration where the groups might differ in more than just the thing you are comparing (for example, offices that do different kinds of work). Describe the other differences, and then check whether the pattern survives when you compare only people in the same `job_family`.
 4. **What can't you verify?** Look at the columns and values again. Is there anything you would want to double-check with the people who collected the data before trusting a preliminary result?
 
