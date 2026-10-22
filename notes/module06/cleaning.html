@@ -80,7 +80,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-42984134f797fdc8b1dddc8d1d96fd6e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-604b5d79a7ca3bc6f5a5ef3780c226de.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -626,14 +626,14 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="why-clean-data">Why clean data?</h2>
 <p>Real data are rarely ready to analyze. They come from forms, spreadsheets, and business systems where people type things in different ways, leave cells blank, or copy values with symbols attached.</p>
 <p><code>pandas</code> gives us tools to <strong>find</strong> and <strong>fix</strong> many of these problems. Cleaning takes judgment, though: the code is the easy part, and deciding what the right fix is requires knowing the business context.</p>
-<div id="dfd02ea7" class="cell" data-execution_count="1">
+<div id="030c2f39" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="setup-a-small-messy-sales-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="setup-a-small-messy-sales-dataset">Setup: a small messy sales dataset</h2>
 <p>Imagine a monthly sales report from different regions. Some entries are missing.</p>
-<div id="98ad9d35" class="cell" data-execution_count="2">
+<div id="e52dc64d" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>data <span class="op">=</span> {</span>
 <span id="cb2-2"><a href="#cb2-2" aria-label="2"></a>    <span class="st">"month"</span>: [<span class="st">"2025-01"</span>, <span class="st">"2025-02"</span>, <span class="st">"2025-03"</span>, <span class="st">"2025-04"</span>, <span class="st">"2025-05"</span>, <span class="st">"2025-06"</span>],</span>
 <span id="cb2-3"><a href="#cb2-3" aria-label="3"></a>    <span class="st">"region"</span>: [<span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"North"</span>, <span class="st">"East"</span>, <span class="st">"South"</span>, <span class="st">"East"</span>],</span>
@@ -721,7 +721,7 @@ window.Quarto = {
 </section>
 <section id="finding-missing-data" class="level2">
 <h2 class="anchored" data-anchor-id="finding-missing-data">Finding missing data</h2>
-<div id="91ec0de2" class="cell" data-execution_count="3">
+<div id="f7393ef2" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a>sales.isna()          <span class="co"># True where a value is missing</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -793,7 +793,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="561e3a68" class="cell" data-execution_count="4">
+<div id="e6079f9d" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a>sales.isna().<span class="bu">sum</span>()    <span class="co"># count of missing values per column</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>month             0
@@ -810,7 +810,7 @@ dtype: int64</code></pre>
 <li>Which columns have missing values, and how many?</li>
 <li>For business decisions, can we ignore them, or must we handle them?</li>
 </ul>
-<div id="499d57fd" class="cell" data-execution_count="5">
+<div id="60485af5" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a>sales.info()          <span class="co"># also shows non-missing counts and data types</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.DataFrame'&gt;
@@ -859,7 +859,7 @@ memory usage: 372.0 bytes</code></pre>
 <section id="complete-case-analysis-dropping-missing-rows" class="level3">
 <h3 class="anchored" data-anchor-id="complete-case-analysis-dropping-missing-rows">Complete-Case Analysis: Dropping missing rows</h3>
 <p>For a quick report, we might only use rows where <code>units_sold</code> is known:</p>
-<div id="b40e39f8" class="cell" data-execution_count="6">
+<div id="4f3f82c5" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a>clean_drop <span class="op">=</span> sales.dropna(subset<span class="op">=</span>[<span class="st">"units_sold"</span>])</span>
 <span id="cb8-2"><a href="#cb8-2" aria-label="2"></a>clean_drop</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -926,14 +926,14 @@ memory usage: 372.0 bytes</code></pre>
 <section id="imputing-with-a-summary-value" class="level3">
 <h3 class="anchored" data-anchor-id="imputing-with-a-summary-value">Imputing with a summary value</h3>
 <p>For <code>price_per_unit</code>, suppose we believe prices are fairly stable, so the average is a reasonable stand-in:</p>
-<div id="485a338b" class="cell" data-execution_count="7">
+<div id="f626983e" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a>price_mean <span class="op">=</span> sales[<span class="st">"price_per_unit"</span>].mean()    <span class="co"># NaN values are skipped automatically</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-label="2"></a>price_mean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>np.float64(9.7)</code></pre>
 </div>
 </div>
-<div id="d799c771" class="cell" data-execution_count="8">
+<div id="de7926d4" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a>sales_imputed <span class="op">=</span> sales.copy()     <span class="co"># copy so the original stays untouched</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-label="2"></a>sales_imputed[<span class="st">"price_per_unit"</span>] <span class="op">=</span> sales_imputed[<span class="st">"price_per_unit"</span>].fillna(price_mean)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-label="3"></a>sales_imputed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1044,7 +1044,7 @@ memory usage: 372.0 bytes</code></pre>
 <section id="pandas-cannot-catch-every-error" class="level2">
 <h2 class="anchored" data-anchor-id="pandas-cannot-catch-every-error"><code>pandas</code> cannot catch every error</h2>
 <p><code>pandas</code> can tell you what is <em>missing</em>, but not what is <em>wrong yet present</em>. Here is a slightly altered table:</p>
-<div id="82d46991" class="cell" data-execution_count="9">
+<div id="8f3c7e06" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a>sales2 <span class="op">=</span> sales_imputed.copy()</span>
 <span id="cb12-2"><a href="#cb12-2" aria-label="2"></a>sales2.loc[<span class="dv">3</span>, <span class="st">"units_sold"</span>] <span class="op">=</span> <span class="dv">5_000</span>     <span class="co"># set row labeled 3, column units_sold</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-label="3"></a>sales2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1119,7 +1119,7 @@ memory usage: 372.0 bytes</code></pre>
 </div>
 </div>
 <p>To <code>pandas</code>, <code>5_000</code> is just another number. Descriptive statistics help us notice problems:</p>
-<div id="c21f62a8" class="cell" data-execution_count="10">
+<div id="8cd52294" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-label="1"></a>sales2[<span class="st">"units_sold"</span>].describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>count       4.000000
@@ -1135,7 +1135,7 @@ Name: units_sold, dtype: float64</code></pre>
 </div>
 <p>If typical months are 100 to 150 units, 5,000 is suspicious (an extra zero? the wrong row?). <strong>A person with domain knowledge</strong> must decide what is impossible or unlikely.</p>
 <p>Suppose we know no region sells more than 500 units a month. We can filter to find suspicious rows:</p>
-<div id="5ed250db" class="cell" data-execution_count="11">
+<div id="5aa663c2" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-label="1"></a>sales2[sales2[<span class="st">"units_sold"</span>] <span class="op">&gt;</span> <span class="dv">500</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <div>
@@ -1172,7 +1172,7 @@ Name: units_sold, dtype: float64</code></pre>
 <section id="cleaning-text-columns" class="level2">
 <h2 class="anchored" data-anchor-id="cleaning-text-columns">Cleaning text columns</h2>
 <p>Text entered by people is often inconsistent. Consider a list of regions typed by different people:</p>
-<div id="b7b4da99" class="cell" data-execution_count="12">
+<div id="11b5daf0" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-label="1"></a>region <span class="op">=</span> pd.Series([<span class="st">" north"</span>, <span class="st">"South "</span>, <span class="st">"NORTH"</span>, <span class="st">"East"</span>, <span class="st">"south"</span>, <span class="st">"EAST "</span>])</span>
 <span id="cb16-2"><a href="#cb16-2" aria-label="2"></a>region.value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
@@ -1189,7 +1189,7 @@ Name: count, dtype: int64</code></pre>
 <section id="the-.str-methods" class="level3">
 <h3 class="anchored" data-anchor-id="the-.str-methods">The <code>.str</code> methods</h3>
 <p>A <code>Series</code> of text has a <code>.str</code> accessor that applies string operations to every element:</p>
-<div id="7dbf2247" class="cell" data-execution_count="13">
+<div id="f3d975be" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-label="1"></a>region.<span class="bu">str</span>.strip()        <span class="co"># remove leading/trailing spaces</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>0    north
@@ -1201,7 +1201,7 @@ Name: count, dtype: int64</code></pre>
 dtype: str</code></pre>
 </div>
 </div>
-<div id="638c0abc" class="cell" data-execution_count="14">
+<div id="a9a78920" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-label="1"></a>region.<span class="bu">str</span>.lower()        <span class="co"># all lower case</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>0     north
@@ -1213,7 +1213,7 @@ dtype: str</code></pre>
 dtype: str</code></pre>
 </div>
 </div>
-<div id="99cb6b43" class="cell" data-execution_count="15">
+<div id="7ce3f011" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-label="1"></a>region.<span class="bu">str</span>.title()        <span class="co"># Capitalize Each Word</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>0     North
@@ -1226,7 +1226,7 @@ dtype: str</code></pre>
 </div>
 </div>
 <p>Chain them to clean everything in one go:</p>
-<div id="313e83e6" class="cell" data-execution_count="16">
+<div id="7e73b471" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-label="1"></a>region_clean <span class="op">=</span> region.<span class="bu">str</span>.strip().<span class="bu">str</span>.title()</span>
 <span id="cb24-2"><a href="#cb24-2" aria-label="2"></a>region_clean.value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
@@ -1240,7 +1240,7 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="other-useful-.str-methods" class="level3">
 <h3 class="anchored" data-anchor-id="other-useful-.str-methods">Other useful <code>.str</code> methods</h3>
-<div id="b68d6dc6" class="cell" data-execution_count="17">
+<div id="5db238c7" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-label="1"></a>names <span class="op">=</span> pd.Series([<span class="st">"alice smith"</span>, <span class="st">"BOB JONES"</span>, <span class="st">"  Chris  Lee "</span>])</span>
 <span id="cb26-2"><a href="#cb26-2" aria-label="2"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-label="3"></a>names.<span class="bu">str</span>.strip().<span class="bu">str</span>.title()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1251,7 +1251,7 @@ Name: count, dtype: int64</code></pre>
 dtype: str</code></pre>
 </div>
 </div>
-<div id="2f23c0c8" class="cell" data-execution_count="18">
+<div id="eb92ad95" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-label="1"></a>names.<span class="bu">str</span>.<span class="bu">len</span>()                          <span class="co"># number of characters</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>0    11
@@ -1260,7 +1260,7 @@ dtype: str</code></pre>
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="b897df4f" class="cell" data-execution_count="19">
+<div id="bc57910a" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-label="1"></a>names.<span class="bu">str</span>.contains(<span class="st">"jones"</span>, case<span class="op">=</span><span class="va">False</span>)  <span class="co"># True/False; ignores case</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>0    False
@@ -1269,7 +1269,7 @@ dtype: int64</code></pre>
 dtype: bool</code></pre>
 </div>
 </div>
-<div id="2f64320c" class="cell" data-execution_count="20">
+<div id="52df5a56" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-label="1"></a>names.<span class="bu">str</span>.strip().<span class="bu">str</span>.split(<span class="st">" "</span>)         <span class="co"># split into a list of pieces</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>0    [alice, smith]
@@ -1317,7 +1317,7 @@ dtype: object</code></pre>
 <section id="fixing-a-text-column-that-should-be-numeric" class="level2">
 <h2 class="anchored" data-anchor-id="fixing-a-text-column-that-should-be-numeric">Fixing a “text” column that should be numeric</h2>
 <p>Numbers copied from spreadsheets or reports often arrive as text, with symbols such as <code>$</code> and commas.</p>
-<div id="a434c677" class="cell" data-execution_count="21">
+<div id="ce834e31" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-label="1"></a>rev <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb34-2"><a href="#cb34-2" aria-label="2"></a>    <span class="st">"month"</span>: [<span class="st">"2025-01"</span>, <span class="st">"2025-02"</span>, <span class="st">"2025-03"</span>, <span class="st">"2025-04"</span>],</span>
 <span id="cb34-3"><a href="#cb34-3" aria-label="3"></a>    <span class="st">"revenue"</span>: [<span class="st">"$10,000"</span>, <span class="st">"$11,500"</span>, <span class="st">"N/A"</span>, <span class="st">"$9,750"</span>]</span>
@@ -1363,7 +1363,7 @@ dtype: object</code></pre>
 </div>
 </div>
 </div>
-<div id="da3a225c" class="cell" data-execution_count="22">
+<div id="a6efec60" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-label="1"></a>rev.dtypes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>month      str
@@ -1372,7 +1372,7 @@ dtype: object</code></pre>
 </div>
 </div>
 <p><code>object</code> is how <code>pandas</code> labels text. We cannot add or average text yet:</p>
-<div id="7ac23b9e" class="cell" data-execution_count="23">
+<div id="377479da" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-label="1"></a>rev[<span class="st">"revenue"</span>].mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-error">
 <div class="ansi-escaped-output">
@@ -1450,7 +1450,7 @@ dtype: object</code></pre>
 <li>Remove <code>$</code> and commas.</li>
 <li>Convert to numbers.</li>
 </ol>
-<div id="70dec203" class="cell" data-execution_count="24">
+<div id="1644dcdb" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-label="1"></a>rev_clean <span class="op">=</span> rev.copy()</span>
 <span id="cb38-2"><a href="#cb38-2" aria-label="2"></a></span>
 <span id="cb38-3"><a href="#cb38-3" aria-label="3"></a><span class="co"># 1. Replace "N/A" with a proper missing value</span></span>
@@ -1495,7 +1495,7 @@ dtype: object</code></pre>
 </div>
 </div>
 </div>
-<div id="ab5b0438" class="cell" data-execution_count="25">
+<div id="3d85b85d" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-label="1"></a><span class="co"># 2. Remove currency symbols and commas</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-label="2"></a>rev_clean[<span class="st">"revenue"</span>] <span class="op">=</span> rev_clean[<span class="st">"revenue"</span>].<span class="bu">str</span>.replace(<span class="st">"$"</span>, <span class="st">""</span>, regex<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-label="3"></a>rev_clean[<span class="st">"revenue"</span>] <span class="op">=</span> rev_clean[<span class="st">"revenue"</span>].<span class="bu">str</span>.replace(<span class="st">","</span>, <span class="st">""</span>, regex<span class="op">=</span><span class="va">False</span>)</span>
@@ -1539,7 +1539,7 @@ dtype: object</code></pre>
 </div>
 </div>
 </div>
-<div id="8e67bf72" class="cell" data-execution_count="26">
+<div id="0264c80b" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-label="1"></a><span class="co"># 3. Convert to numbers</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-label="2"></a>rev_clean[<span class="st">"revenue"</span>] <span class="op">=</span> pd.to_numeric(rev_clean[<span class="st">"revenue"</span>])</span>
 <span id="cb40-3"><a href="#cb40-3" aria-label="3"></a>rev_clean.dtypes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1550,7 +1550,7 @@ dtype: object</code></pre>
 </div>
 </div>
 <p>Now we can compute with it:</p>
-<div id="a2609dae" class="cell" data-execution_count="27">
+<div id="bdcc96f9" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-label="1"></a>rev_clean[<span class="st">"revenue"</span>].mean()      <span class="co"># missing value is skipped</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="27">
 <pre><code>np.float64(10416.666666666666)</code></pre>
@@ -1578,7 +1578,7 @@ dtype: object</code></pre>
 <section id="converting-dates" class="level3">
 <h3 class="anchored" data-anchor-id="converting-dates">Converting dates</h3>
 <p>Dates stored as text can be converted similarly:</p>
-<div id="85cfa5d7" class="cell" data-execution_count="28">
+<div id="2dc8f186" class="cell" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-label="1"></a>months <span class="op">=</span> pd.to_datetime(sales[<span class="st">"month"</span>])</span>
 <span id="cb45-2"><a href="#cb45-2" aria-label="2"></a>months</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="28">
@@ -1591,7 +1591,7 @@ dtype: object</code></pre>
 Name: month, dtype: datetime64[us]</code></pre>
 </div>
 </div>
-<div id="196fa062" class="cell" data-execution_count="29">
+<div id="14d450a4" class="cell" data-execution_count="29">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-label="1"></a>months.dt.month_name()       <span class="co"># .dt gives date-specific tools</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="29">
 <pre><code>0     January
@@ -1664,7 +1664,7 @@ Name: month, dtype: str</code></pre>
 </section>
 <section id="exercise-2-text-cleaning" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-2-text-cleaning">Exercise 2: Text cleaning</h3>
-<div id="6bdf33c6" class="cell" data-execution_count="30">
+<div id="4a3dd2ed" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-label="1"></a>products <span class="op">=</span> pd.Series([<span class="st">"  Laptop"</span>, <span class="st">"laptop "</span>, <span class="st">"MONITOR"</span>, <span class="st">"monitor"</span>, <span class="st">"Keyboard "</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol type="1">
@@ -1674,7 +1674,7 @@ Name: month, dtype: str</code></pre>
 </section>
 <section id="exercise-3-text-to-numbers" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-3-text-to-numbers">Exercise 3: Text to numbers</h3>
-<div id="581594a7" class="cell" data-execution_count="31">
+<div id="6f69fbf7" class="cell" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-label="1"></a>costs <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb50-2"><a href="#cb50-2" aria-label="2"></a>    <span class="st">"item"</span>: [<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>],</span>
 <span id="cb50-3"><a href="#cb50-3" aria-label="3"></a>    <span class="st">"cost"</span>: [<span class="st">"$1,200"</span>, <span class="st">"$850"</span>, <span class="st">"unknown"</span>, <span class="st">"$2,300"</span>]</span>
