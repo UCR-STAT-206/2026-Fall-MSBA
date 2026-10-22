@@ -96,6 +96,6 @@ Recommended extensions for this class:
 
 Installing the Python extension also installs 3 other tools: Python Debugger, Pylance, and Python Environments.
 Currently, Pylance and Python Environments trigger several false positives when working with our container environment.
-We recommend uninstalling or disabling these tools (Pylance and Pythong Environments).
+We recommend uninstalling or disabling these tools (Pylance and Python Environments).
 
 ::::::::::::::::::::::::::::::::
