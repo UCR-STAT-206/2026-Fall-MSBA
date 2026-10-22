@@ -1,0 +1,37 @@
+---
+title: "Lab 4: Intro to Pandas"
+date: "2026-10-22"
+eval: false
+format:
+  html:
+    theme: cosmo
+    css: ../assets/styles.css
+    toc: true
+    code-copy: true
+    code-block-background: true
+engine: markdown
+---
+
+## Instructions
+
+1. In this assignment you will discuss the Blizzard salary dataset. Please download it from Canvas before class starts.
+2. The discussion will revolve around [Part E of HW4](../hw/hw4.qmd#part-e-reflection).
+3. You are not expected to answer these questions in complete detail, or to clean the data in 40 minutes. The discussion is meant to help you come up with a plan to carefully analyze this dataset.
+4. **Actively participate in the discussion**. Anyone can contribute by using `pandas` to inspect the dataset, or thinking carefully about the context in which the data were collected (look for the associated Bloomberg article and/or the screenshot attached to the ZIP file).
+5. This is an open-ended assignment. The value of your report is in documenting your thought process.
+
+### Deliverables
+
+- Create a directory named `lab4` as with other assignments.
+- Include a report named `reflection.qmd`.
+    + Give a few examples of how you inspected the data, particularly strategies that might be helpful for HW4.
+    + Provide answers to as many of the questions in [Part E](../hw/hw4.qmd#part-e-reflection).
+    + Include a few concrete ideas for addressing various issues in the dataset (see the rest of HW4).
+
+## Suggestions
+
+- Use `ipython` instead of the default `python` REPL.
+  + This lets you save the commands from your session with the [magic command](https://ipython.readthedocs.io/en/stable/interactive/magics.html#magic-save) `%save myfilename.py`.
+- Thinking about one column/variable at a time is the "easy thing" that our minds are naturally drawn to. Look more broadly and reflect on how these variables might interact or correlate with one another.
+- Don't forget to **tag** your submission; e.g. `git tag lab4`.
+- Don't forget to **push your tags** with `git push --tags`.
