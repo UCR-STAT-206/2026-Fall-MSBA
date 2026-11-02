@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Introduction to Plotting in Python</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-0dc1e8188feb0d475c79e47387ad4ecc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../assets/styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" aria-label="Toolbar">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="Breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module07/setup.html">Module 7 (Data Visualization)</a></li><li class="breadcrumb-item"><a href="../../notes/module07/intro.html">Introduction to Plotting in Python</a></li></ol></nav>
+        <a class="flex-grow-1" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto" aria-label="Site">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../assets/UC_Riverside_Horiz_WhtBG.png" alt="UC Riverside monogram logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../assets/UC_Riverside_Horiz_WhtBG.png" alt="UC Riverside monogram logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">STAT 206 (MSBA)</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../office_hours.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Office Hours</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-controls="quarto-sidebar-section-1" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-1-label">Module 1 (Fundamentals)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-1" aria-labelledby="quarto-sidebar-section-1-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module01/unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Unix Shell</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module01/filesystem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The File System</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module01/quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module01/git.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Git</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-controls="quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-2-label">Module 2 (Programming)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-2" aria-labelledby="quarto-sidebar-section-2-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module02/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module02/types.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Objects and Data Types</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module02/basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arithmetic, Comparisons, and Boolean Algebra</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module02/functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module02/control.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Control Flow</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-controls="quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-3-label">Module 3 (Beyond Basics)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-3" aria-labelledby="quarto-sidebar-section-3-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module03/collections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Collections</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module03/stdlib.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Python Standard Library</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module03/modules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modules, Classes, and Namespaces</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module03/io.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Input and Output</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-controls="quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-4-label">Module 4 (Best Practices)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-4" aria-labelledby="quarto-sidebar-section-4-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">Error Handling</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Debugging</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Testing</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Refactoring</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-controls="quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-5-label">Module 5 (Numerical Python)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-5" aria-labelledby="quarto-sidebar-section-5-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module05/numpy_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Numpy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module05/arrays.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Numpy Arrays</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module05/vectorization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vectorization and Broadcasting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module05/random.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Probability Distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module05/numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Computer Arithmetic</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module05/computers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Computer Architecture</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-controls="quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-6-label">Module 6 (Tabular Data)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-6" aria-labelledby="quarto-sidebar-section-6-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module06/pandas_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Pandas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module06/cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Cleaning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module06/pandas_tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pandas Tutorial</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module06/text_processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Text Processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module06/split_apply_combine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Split-Apply-Combine</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-controls="quarto-sidebar-section-7" aria-expanded="true">
+ <span class="menu-text" id="quarto-sidebar-section-7-label">Module 7 (Data Visualization)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-7" aria-labelledby="quarto-sidebar-section-7-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module07/setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module07/intro.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Introduction to Plotting in Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module07/matplotlib.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matplotlib Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module07/seaborn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Seaborn Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-controls="quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-8-label">Labs</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-8" aria-labelledby="quarto-sidebar-section-8-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../labs/lab0-setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 0 (Getting Started)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../labs/lab1-submit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 1 (Submitting Assignments)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../labs/lab2-debug.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 2 (Errors and Debugging)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../labs/lab3-io.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 3 (File I/O)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../labs/lab4-pandas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 4 (Pandas Intro)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-controls="quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-9-label">Homework</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-9" aria-labelledby="quarto-sidebar-section-9-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hw/hw1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hw/hw2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hw/hw3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hw/hw4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 4</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../project/project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Final Project</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-controls="quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-10-label">How to…</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-10" aria-labelledby="quarto-sidebar-section-10-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../howto/use_docker.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Docker</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../howto/use_vscode.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use VSCode with a Container</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../howto/configure_git.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Configure Git</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../howto/setup_github.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Set Up Your GitHub Account</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../howto/use_git.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Git</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../howto/submit_hw.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Submit Assignments</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#goals" id="toc-goals" class="nav-link active" data-scroll-target="#goals">Goals</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset">Dataset</a></li>
+  <li><a href="#basic-elements" id="toc-basic-elements" class="nav-link" data-scroll-target="#basic-elements">Basic Elements</a></li>
+  <li><a href="#histograms" id="toc-histograms" class="nav-link" data-scroll-target="#histograms">Histograms</a>
+  <ul class="collapse">
+  <li><a href="#seaborn-version" id="toc-seaborn-version" class="nav-link" data-scroll-target="#seaborn-version"><code>seaborn</code> version</a></li>
+  </ul></li>
+  <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots">Boxplots</a>
+  <ul class="collapse">
+  <li><a href="#seaborn-version-1" id="toc-seaborn-version-1" class="nav-link" data-scroll-target="#seaborn-version-1"><code>seaborn</code> version</a></li>
+  <li><a href="#reading-a-boxplot" id="toc-reading-a-boxplot" class="nav-link" data-scroll-target="#reading-a-boxplot">Reading a boxplot</a></li>
+  <li><a href="#why-do-we-use-1.5-iqr" id="toc-why-do-we-use-1.5-iqr" class="nav-link" data-scroll-target="#why-do-we-use-1.5-iqr">Why do we use 1.5 IQR?</a></li>
+  <li><a href="#matplotlib-version" id="toc-matplotlib-version" class="nav-link" data-scroll-target="#matplotlib-version"><code>matplotlib</code> version</a></li>
+  </ul></li>
+  <li><a href="#scatterplots" id="toc-scatterplots" class="nav-link" data-scroll-target="#scatterplots">Scatterplots</a>
+  <ul class="collapse">
+  <li><a href="#matplotlib-version-1" id="toc-matplotlib-version-1" class="nav-link" data-scroll-target="#matplotlib-version-1"><code>matplotlib</code> version</a></li>
+  <li><a href="#seaborn-version-2" id="toc-seaborn-version-2" class="nav-link" data-scroll-target="#seaborn-version-2"><code>seaborn</code> version</a></li>
+  </ul></li>
+  <li><a href="#simpsons-paradox" id="toc-simpsons-paradox" class="nav-link" data-scroll-target="#simpsons-paradox">Simpson’s paradox</a>
+  <ul class="collapse">
+  <li><a href="#matplotlib-version-2" id="toc-matplotlib-version-2" class="nav-link" data-scroll-target="#matplotlib-version-2"><code>matplotlib</code> version</a></li>
+  <li><a href="#seaborn-version-3" id="toc-seaborn-version-3" class="nav-link" data-scroll-target="#seaborn-version-3"><code>seaborn</code> version</a></li>
+  <li><a href="#why-does-this-happen" id="toc-why-does-this-happen" class="nav-link" data-scroll-target="#why-does-this-happen">Why does this happen?</a></li>
+  </ul></li>
+  <li><a href="#quick-plotting-with-pandas" id="toc-quick-plotting-with-pandas" class="nav-link" data-scroll-target="#quick-plotting-with-pandas">Quick plotting with <code>pandas</code></a></li>
+  <li><a href="#saving-a-figure" id="toc-saving-a-figure" class="nav-link" data-scroll-target="#saving-a-figure">Saving a figure</a></li>
+  <li><a href="#takeaway-messages" id="toc-takeaway-messages" class="nav-link" data-scroll-target="#takeaway-messages">Takeaway messages</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1-one-variable" id="toc-exercise-1-one-variable" class="nav-link" data-scroll-target="#exercise-1-one-variable">Exercise 1: One variable</a></li>
+  <li><a href="#exercise-2-groups" id="toc-exercise-2-groups" class="nav-link" data-scroll-target="#exercise-2-groups">Exercise 2: Groups</a></li>
+  <li><a href="#exercise-3-associations" id="toc-exercise-3-associations" class="nav-link" data-scroll-target="#exercise-3-associations">Exercise 3: Associations</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="Breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module07/setup.html">Module 7 (Data Visualization)</a></li><li class="breadcrumb-item"><a href="../../notes/module07/intro.html">Introduction to Plotting in Python</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Introduction to Plotting in Python</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="goals" class="level2">
+<h2 class="anchored" data-anchor-id="goals">Goals</h2>
+<ol type="1">
+<li>Understand the difference between <strong>imperative</strong> (<code>matplotlib</code>) and <strong>declarative</strong> (<code>seaborn</code>) plotting, and when to use each.</li>
+<li>Practice plotting with three basic visualizations: the histogram, the boxplot, and the scatterplot.</li>
+<li>Understand visualization as a tool for identifying structure.</li>
+<li>Recognize forms in which Simpson’s paradox can manifest.</li>
+</ol>
+</section>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<div id="c1da1df7" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" aria-label="2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-label="3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-label="4"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-label="5"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[1]</span><span class="ansi-green-fg">, line 5</span>
+<span class="ansi-green-fg">      1</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> os
+<span class="ansi-green-fg">      2</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> numpy <span style="font-weight:bold;color:rgb(0,135,0)">as</span> np
+<span class="ansi-green-fg">      3</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> pandas <span style="font-weight:bold;color:rgb(0,135,0)">as</span> pd
+<span class="ansi-green-fg">      4</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> matplotlib.pyplot <span style="font-weight:bold;color:rgb(0,135,0)">as</span> plt
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">5</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> seaborn <span style="font-weight:bold;color:rgb(0,135,0)">as</span> sns
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'seaborn'</pre>
+</div>
+</div>
+</div>
+<ul>
+<li><code>matplotlib</code> is a Python library for an <strong>imperative programming</strong> approach to plotting.
+<ul>
+<li>The user is responsible for instructing the computer <em>how to build a plot</em> using the library’s primitives.</li>
+<li>Highly flexible, but really verbose code.</li>
+<li><code>matplotlib</code> is a massive library. We typically only work with <code>matplotlib.pyplot</code>.</li>
+<li>Canonical abbreviation: <code>plt</code>.</li>
+</ul></li>
+<li><code>seaborn</code> is built on <code>matplotlib</code> to support a <strong>declarative programming</strong> approach to plotting.
+<ul>
+<li>The user instructs the computer <em>what to build</em> using the library’s primitives.</li>
+<li>We don’t see the details (initialize the <code>Figure</code> and <code>Axis</code>…), but lose some flexibility.</li>
+<li>Canonical abbreviation: <code>sns</code>.</li>
+</ul></li>
+</ul>
+<p>For our purposes, <code>seaborn</code> is the most useful tool. Just keep in mind that <code>matplotlib</code> is the engine that makes the clean <code>seaborn</code> interface possible. We may need to create our own custom interfaces on data analysis projects.</p>
+</section>
+<section id="dataset" class="level2">
+<h2 class="anchored" data-anchor-id="dataset">Dataset</h2>
+<p>We’ll continue to explore the Palmer Penguins data. Here we define a default style and fix the penguin colors to specific values. These colors should be friendly to different forms of colorblindness.</p>
+<div id="73af84a9" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>penguins <span class="op">=</span> pd.read_csv(os.path.join(<span class="st">"assets"</span>, <span class="st">"penguins.csv"</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-label="2"></a>penguins <span class="op">=</span> penguins.dropna(subset<span class="op">=</span>[<span class="st">"body_mass_g"</span>])</span>
+<span id="cb2-3"><a href="#cb2-3" aria-label="3"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-label="4"></a><span class="co"># COLORS is a 'constant', so I prefer to use uppercase </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-label="5"></a><span class="co"># to distinguish this variable name from others I might use</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-label="6"></a><span class="co"># in a quick-prototyping context</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-label="7"></a>COLORS <span class="op">=</span> {<span class="st">"Adelie"</span>: <span class="st">"#EA9839"</span>, <span class="st">"Chinstrap"</span>: <span class="st">"#984AE5"</span>, <span class="st">"Gentoo"</span>: <span class="st">"#469093"</span>}</span>
+<span id="cb2-8"><a href="#cb2-8" aria-label="8"></a>sns.set_theme(style<span class="op">=</span><span class="st">"whitegrid"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[2]</span><span class="ansi-green-fg">, line 8</span>
+<span class="ansi-green-fg">      4</span> <span style="font-style:italic;color:rgb(95,135,135)"># COLORS is a 'constant', so I prefer to use uppercase</span>
+<span class="ansi-green-fg">      5</span> <span style="font-style:italic;color:rgb(95,135,135)"># to distinguish this variable name from others I might use</span>
+<span class="ansi-green-fg">      6</span> <span style="font-style:italic;color:rgb(95,135,135)"># in a quick-prototyping context</span>
+<span class="ansi-green-fg">      7</span> COLORS = {<span class="ansi-yellow-fg">"Adelie"</span>: <span class="ansi-yellow-fg">"#EA9839"</span>, <span class="ansi-yellow-fg">"Chinstrap"</span>: <span class="ansi-yellow-fg">"#984AE5"</span>, <span class="ansi-yellow-fg">"Gentoo"</span>: <span class="ansi-yellow-fg">"#469093"</span>}
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">8</span> sns.set_theme(style=<span class="ansi-yellow-fg">"whitegrid"</span>)
+
+<span class="ansi-red-fg">NameError</span>: name 'sns' is not defined</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="basic-elements" class="level2">
+<h2 class="anchored" data-anchor-id="basic-elements">Basic Elements</h2>
+<p>A <code>matplotlib</code> figure has two parts:</p>
+<ul>
+<li>a <strong>figure</strong> (the canvas) and,</li>
+<li>one or more <strong>axes</strong> (the panels with a coordinate system on them).</li>
+</ul>
+<p>The general workflow is:</p>
+<ol type="1">
+<li>Create both objects first.</li>
+<li>Draw on individual axes as needed (often using a loop).</li>
+<li>Add any annotations like axis labels, titles, or legends. Usually coupled with drawing on axes.</li>
+</ol>
+<p>The <a href="https://matplotlib.org/stable/users/explain/quick_start.html"><code>matplotlib</code> documentation</a> has an excellent quick start guide to help you become familiar with the basic elements.</p>
+<div id="6a214ce0" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="co"># INITIALIZE: Lots of ways to do this. </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-label="2"></a>fig, ax <span class="op">=</span> plt.subplots(nrows <span class="op">=</span> <span class="dv">1</span>, ncols <span class="op">=</span> <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-label="3"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-label="4"></a><span class="co"># DRAW: Generally use NumPy arrays or Pandas Series/DataFrames as figure data.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-label="5"></a>ax.scatter(penguins[<span class="st">"flipper_length_mm"</span>], penguins[<span class="st">"body_mass_g"</span>], alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-label="6"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-label="7"></a><span class="co"># ANNOTATE: Provide the reader with helpful context</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-label="8"></a>ax.set_xlabel(<span class="st">"Flipper length (mm)"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-label="9"></a>ax.set_ylabel(<span class="st">"Body mass (g)"</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-label="10"></a>ax.set_title(<span class="st">"Heavier penguins have longer flippers"</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-label="11"></a>ax.annotate(<span class="st">"alpha = 0.6"</span>, xy <span class="op">=</span> (<span class="dv">180</span>, <span class="dv">6000</span>))</span>
+<span id="cb3-12"><a href="#cb3-12" aria-label="12"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-label="13"></a><span class="co"># Nothing is displayed until you request it.</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-label="14"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro_files/figure-html/cell-4-output-1.png" width="528" height="377" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><code>alpha=0.6</code> makes points partly transparent, so overlapping points are visible.</li>
+<li>Label your axes with units (if relevant). Give your plots an informative title.</li>
+<li>You can also add text annotations with <code>.annotate()</code>. Notice that the coordinates are based on the data values.</li>
+</ul>
+</section>
+<section id="histograms" class="level2">
+<h2 class="anchored" data-anchor-id="histograms">Histograms</h2>
+<p>A <strong>histogram</strong> partitions numeric data into <em>bins</em> and counts how many observations fall in each. This allows us to visualize the distribution of a single variable within our data.</p>
+<div id="0bb2f915" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a><span class="co"># INITIALIZE</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-label="2"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-label="3"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-label="4"></a><span class="co"># DRAW</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-label="5"></a>ax.hist(penguins[<span class="st">"bill_length_mm"</span>], bins<span class="op">=</span><span class="dv">20</span>, edgecolor<span class="op">=</span><span class="st">"white"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-label="6"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-label="7"></a><span class="co"># ANNOTATE</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-label="8"></a>ax.set_xlabel(<span class="st">"Bill length (mm)"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-label="9"></a>ax.set_ylabel(<span class="st">"Count"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-label="10"></a>ax.set_title(<span class="st">"Distribution of bill length, all penguins"</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-label="11"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-label="12"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro_files/figure-html/cell-5-output-1.png" width="511" height="377" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The number of bins is a choice, and it changes what you see:</p>
+<div id="d7c1033d" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a><span class="co"># INITIALIZE</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-label="2"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">3.2</span>), sharey<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-label="3"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-label="4"></a><span class="cf">for</span> ax, bins <span class="kw">in</span> <span class="bu">zip</span>(axes, [<span class="dv">4</span>, <span class="dv">20</span>, <span class="dv">80</span>]):</span>
+<span id="cb5-5"><a href="#cb5-5" aria-label="5"></a>  <span class="co"># DRAW</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-label="6"></a>  ax.hist(penguins[<span class="st">"bill_length_mm"</span>], bins<span class="op">=</span>bins, edgecolor<span class="op">=</span><span class="st">"white"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-label="7"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-label="8"></a>  <span class="co"># ANNOTATE</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-label="9"></a>  ax.set_title(<span class="ss">f"</span><span class="sc">{</span>bins<span class="sc">}</span><span class="ss"> bins"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-label="10"></a>  ax.set_xlabel(<span class="st">"Bill length (mm)"</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-label="11"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-label="12"></a><span class="co"># This is helpful to eliminate extra padding/spacing at the end.</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-label="13"></a>fig.tight_layout()</span>
+<span id="cb5-14"><a href="#cb5-14" aria-label="14"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-label="15"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro_files/figure-html/cell-6-output-1.png" width="1048" height="297" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Too few bins</strong>: Each bin captures a wide range so we miss small changes in the shape of the data’s distribution.</li>
+<li><strong>Too many bins</strong>: Each bin tends to capture only a few values and gives the perception of highly complex distributional pattern.</li>
+<li>Examine your assumptions as you calibrate the bins.
+<ul>
+<li><em>Example</em>: Do we believe there are several distinct modes? Or only a few?</li>
+<li><em>Example</em>: Is the data symmetric? Or is it skewed in one direction?</li>
+<li>How does your perception change your answers to these questions as you change the bin number?</li>
+</ul></li>
+<li>You may need to experiment with a few values.
+<ul>
+<li>Make the computer work for you. Our basic <code>for</code> loop above lets us easily explore different values.</li>
+<li>It’s useful to write functions for specific plots so it works well in these kinds of loops.</li>
+</ul></li>
+<li>Can also provide a <code>str</code> value to apply different heuristics in selecting the number of bins:
+<ul>
+<li><code>fd</code>: <a href="https://en.wikipedia.org/wiki/Freedman%E2%80%93Diaconis_rule">Freedman-Diaconis rule</a>.</li>
+<li><code>sturges</code>: <a href="https://en.wikipedia.org/wiki/Sturges%27s_rule">Sturges’ rule</a>.</li>
+</ul></li>
+</ul>
+<section id="seaborn-version" class="level3">
+<h3 class="anchored" data-anchor-id="seaborn-version"><code>seaborn</code> version</h3>
+<p>Let’s add the color variable. <code>seaborn</code> provides flexibility in how we specify a figure.</p>
+<ul>
+<li><code>data</code> keyword: Provide a source for information.</li>
+<li><code>x</code> keyword: Specify what information is mapped to the <span class="math inline">\(x\)</span>-axis.</li>
+<li><code>hue</code> keyword: Specify what information is mapped to distinct colors. Needs <em>categorical data</em>.</li>
+<li>Can also use arrays as in <code>matplotlib</code>.</li>
+</ul>
+<div id="6e4af9e6" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a><span class="co"># INITIALIZE</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-label="2"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="dv">4</span>), sharey<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-label="3"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-label="4"></a><span class="co"># FIGURE 1: All penguins</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-label="5"></a>sns.histplot(data <span class="op">=</span> penguins, x <span class="op">=</span> <span class="st">"bill_length_mm"</span>, bins <span class="op">=</span> <span class="dv">25</span>, ax <span class="op">=</span> axes[<span class="dv">0</span>])</span>
+<span id="cb6-6"><a href="#cb6-6" aria-label="6"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"All penguins"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-label="7"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-label="8"></a><span class="co"># FIGURE 2: Bill Length (mm) by Species</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-label="9"></a>sns.histplot(data <span class="op">=</span> penguins, x <span class="op">=</span> <span class="st">"bill_length_mm"</span>, hue <span class="op">=</span> <span class="st">"species"</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-label="10"></a>  hue_order <span class="op">=</span> <span class="bu">list</span>(COLORS),</span>
+<span id="cb6-11"><a href="#cb6-11" aria-label="11"></a>  palette <span class="op">=</span> COLORS,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-label="12"></a>  bins <span class="op">=</span> <span class="dv">25</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-label="13"></a>  multiple <span class="op">=</span> <span class="st">"stack"</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-label="14"></a>  ax <span class="op">=</span> axes[<span class="dv">1</span>]</span>
+<span id="cb6-15"><a href="#cb6-15" aria-label="15"></a>)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-label="16"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"Colored by species"</span>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-label="17"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-label="18"></a><span class="cf">for</span> ax <span class="kw">in</span> axes:</span>
+<span id="cb6-19"><a href="#cb6-19" aria-label="19"></a>    ax.set_xlabel(<span class="st">"Bill length (mm)"</span>)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-label="20"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-label="21"></a>fig.tight_layout()</span>
+<span id="cb6-22"><a href="#cb6-22" aria-label="22"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[6]</span><span class="ansi-green-fg">, line 5</span>
+<span class="ansi-green-fg">      1</span> <span style="font-style:italic;color:rgb(95,135,135)"># INITIALIZE</span>
+<span class="ansi-green-fg">      2</span> fig, axes = plt.subplots(<span class="ansi-green-fg">1</span>, <span class="ansi-green-fg">2</span>, figsize=(<span class="ansi-green-fg">11</span>, <span class="ansi-green-fg">4</span>), sharey=<span style="font-weight:bold;color:rgb(0,135,0)">True</span>)
+<span class="ansi-green-fg">      3</span> 
+<span class="ansi-green-fg">      4</span> <span style="font-style:italic;color:rgb(95,135,135)"># FIGURE 1: All penguins</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">5</span> sns.histplot(data = penguins, x = <span class="ansi-yellow-fg">"bill_length_mm"</span>, bins = <span class="ansi-green-fg">25</span>, ax = axes[<span class="ansi-green-fg">0</span>])
+<span class="ansi-green-fg">      6</span> axes[<span class="ansi-green-fg">0</span>].set_title(<span class="ansi-yellow-fg">"All penguins"</span>)
+<span class="ansi-green-fg">      7</span> 
+<span class="ansi-green-fg">      8</span> <span style="font-style:italic;color:rgb(95,135,135)"># FIGURE 2: Bill Length (mm) by Species</span>
+
+<span class="ansi-red-fg">NameError</span>: name 'sns' is not defined</pre>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro_files/figure-html/cell-7-output-2.png" width="879" height="343" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Left</strong>: “Wide” distribution. Possible in principle, but the apparent peaks suggest additional structure.</li>
+<li><strong>Right</strong>: Each species has its own distribution with different centers and widths.</li>
+<li>The stacked format is used for convenience here. Can hide information; e.g.&nbsp;how wide is the Adelie distribution?</li>
+<li>How would you recover the picture on the right if you did not have the <code>species</code> labels?</li>
+</ul>
+</section>
+</section>
+<section id="boxplots" class="level2">
+<h2 class="anchored" data-anchor-id="boxplots">Boxplots</h2>
+<p>A <strong>boxplot</strong> summarizes a variable’s distribution with a few informative statistics. This is <em>potentially</em> richer than a table, and can be useful in comparing groups. Use this plot type only when it is actually more informative than the corresponding table!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/tukey1.png" class="img-fluid figure-img"></p>
+<figcaption>Siegel M (1999). The Joy of Mathematics; Parts 1 &amp; 2.</figcaption>
+</figure>
+</div>
+<p>General idea:</p>
+<ul>
+<li><span class="math inline">\(x\)</span>-axis is used to convey information about categorical variable used to group numeric data.</li>
+<li><span class="math inline">\(y\)</span>-axis conveys the numeric variable’s information.</li>
+<li>In principle, you can swap <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> axis. Use whatever is easiest to read.</li>
+</ul>
+<p>The <strong>descriptive statistics</strong> conveyed by a boxplot are</p>
+<ul>
+<li>a measure of <em>location</em> or <em>center</em>,</li>
+<li>a measure of <em>deviation</em> or <em>spread</em>, and</li>
+<li><em>skewness</em>, through the <em>symmetry/asymmetry of quartiles</em>.</li>
+</ul>
+<section id="seaborn-version-1" class="level3">
+<h3 class="anchored" data-anchor-id="seaborn-version-1"><code>seaborn</code> version</h3>
+<div id="c8ff6f05" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-label="1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-label="2"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-label="3"></a>sns.boxplot(data <span class="op">=</span> penguins, x <span class="op">=</span> <span class="st">"species"</span>, y <span class="op">=</span> <span class="st">"body_mass_g"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-label="4"></a>  order <span class="op">=</span> <span class="bu">list</span>(COLORS),     <span class="co"># Ordered list specifying order along x-axis</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-label="5"></a>  hue <span class="op">=</span> <span class="st">"species"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-label="6"></a>  hue_order <span class="op">=</span> <span class="bu">list</span>(COLORS), <span class="co"># Same idea as `order`</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-label="7"></a>  palette <span class="op">=</span> COLORS,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-label="8"></a>  legend <span class="op">=</span> <span class="va">False</span>,           <span class="co"># This would be redundant. Set it to `True` to see why.</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-label="9"></a>  ax <span class="op">=</span> ax</span>
+<span id="cb7-10"><a href="#cb7-10" aria-label="10"></a>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-label="11"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-label="12"></a>ax.set_xlabel(<span class="st">"Species"</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-label="13"></a>ax.set_ylabel(<span class="st">"Body mass (g)"</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-label="14"></a>ax.set_title(<span class="st">"Body mass by species"</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-label="15"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-label="16"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[7]</span><span class="ansi-green-fg">, line 3</span>
+<span class="ansi-green-fg">      1</span> fig, ax = plt.subplots(figsize=(<span class="ansi-green-fg">6</span>, <span class="ansi-green-fg">4</span>))
+<span class="ansi-green-fg">      2</span> 
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">3</span> sns.boxplot(data = penguins, x = "species", y = "body_mass_g",
+<span class="ansi-green-fg">      4</span>   order = list(COLORS),     <span style="font-style:italic;color:rgb(95,135,135)"># Ordered list specifying order along x-axis</span>
+<span class="ansi-green-fg">      5</span>   hue = <span class="ansi-yellow-fg">"species"</span>,
+<span class="ansi-green-fg">      6</span>   hue_order = list(COLORS), <span style="font-style:italic;color:rgb(95,135,135)"># Same idea as `order`</span>
+
+<span class="ansi-red-fg">NameError</span>: name 'sns' is not defined</pre>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro_files/figure-html/cell-8-output-2.png" width="507" height="343" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="reading-a-boxplot" class="level3">
+<h3 class="anchored" data-anchor-id="reading-a-boxplot">Reading a boxplot</h3>
+<ul>
+<li>The <em>line</em> inside the box is the <strong>median</strong>.</li>
+<li>The <em>box</em> ranges from the <strong>first quartile</strong>, <span class="math inline">\(Q_1\)</span> (25% of the data lie below it), to the <strong>third quartile</strong>, <span class="math inline">\(Q_3\)</span> (75% lie below it). Each box represents the middle 50% of the data. Its height is the <strong>interquartile range</strong>, <span class="math inline">\(\text{IQR} = Q_3 - Q_1\)</span>.</li>
+<li>The <em>whiskers</em> indicate a range of values that might not be considered “too extreme”.
+<ul>
+<li>No farther than 1.5 times IQR below <span class="math inline">\(Q_1\)</span> or above <span class="math inline">\(Q_3\)</span>.</li>
+</ul></li>
+<li>Any <em>points</em> or <em>dots</em> outside the whiskers are flagged as <strong>potential outliers</strong>.</li>
+</ul>
+<p>We can compute the cutoffs ourselves for one species:</p>
+<div id="2361bc9c" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a>adelie <span class="op">=</span> penguins.loc[penguins[<span class="st">"species"</span>] <span class="op">==</span> <span class="st">"Adelie"</span>, <span class="st">"body_mass_g"</span>]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-label="2"></a>q1, q3 <span class="op">=</span> adelie.quantile([<span class="fl">0.25</span>, <span class="fl">0.75</span>])</span>
+<span id="cb8-3"><a href="#cb8-3" aria-label="3"></a>iqr <span class="op">=</span> q3 <span class="op">-</span> q1</span>
+<span id="cb8-4"><a href="#cb8-4" aria-label="4"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-label="5"></a>pd.Series(</span>
+<span id="cb8-6"><a href="#cb8-6" aria-label="6"></a>  [q1, q3, iqr, q1 <span class="op">-</span> <span class="fl">1.5</span> <span class="op">*</span> iqr, q3 <span class="op">+</span> <span class="fl">1.5</span> <span class="op">*</span> iqr, adelie.<span class="bu">min</span>(), adelie.<span class="bu">max</span>()],</span>
+<span id="cb8-7"><a href="#cb8-7" aria-label="7"></a>  index <span class="op">=</span> [<span class="st">"Q1"</span>, <span class="st">"Q3"</span>, <span class="st">"IQR"</span>, <span class="st">"LB"</span>, <span class="st">"UB"</span>, <span class="st">"Min"</span>, <span class="st">"Max"</span>]</span>
+<span id="cb8-8"><a href="#cb8-8" aria-label="8"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>Q1     3350.0
+Q3     4000.0
+IQR     650.0
+LB     2375.0
+UB     4975.0
+Min    2850.0
+Max    4775.0
+dtype: float64</code></pre>
+</div>
+</div>
+<p>No Adelie penguin has body mass outside the whisker range, so there are no points or dots shown for that box.</p>
+</section>
+<section id="why-do-we-use-1.5-iqr" class="level3">
+<h3 class="anchored" data-anchor-id="why-do-we-use-1.5-iqr">Why do we use 1.5 IQR?</h3>
+<p>The boxplot is the invention of American statistician <a href="https://en.wikipedia.org/wiki/John_Tukey">John Tukey</a>. He was a vocal advocate for building visualization tools and is credited with the term “bit”.</p>
+<p><img src="assets/tukey2.png" class="img-fluid"></p>
+<ul>
+<li>There are various, well-informed heuristics for identifying outliers. Such rules do not prove a data point is in fact an outlier!</li>
+<li>Tukey’s 1.5 rule is somewhat arbitrary, but it is based on the following facts:
+<ul>
+<li>If data are approximately normal with mean <span class="math inline">\(0\)</span> and variance <span class="math inline">\(1\)</span>, then <span class="math inline">\(Q_{1}\)</span> and <span class="math inline">\(Q_{3}\)</span> correspond to <span class="math inline">\(-0.6745\)</span> and <span class="math inline">\(+0.6745\)</span>, respectively.</li>
+<li>Thus, you can show that <span class="math inline">\(\mathrm{IQR}\)</span> is approximately equal to <span class="math inline">\(2 \times 0.6745 \sigma\)</span> for approximately normal data.</li>
+<li>Any data points that is roughly <span class="math inline">\(\pm 2.7\)</span> standard deviations away from the mean gets flagged as a potential outlier.</li>
+</ul></li>
+</ul>
+<p>The points flagged by a boxplot should prompt you to examine those data points (e.g.&nbsp;look at the other variables’ values).</p>
+</section>
+<section id="matplotlib-version" class="level3">
+<h3 class="anchored" data-anchor-id="matplotlib-version"><code>matplotlib</code> version</h3>
+<p>The imperative approach is quite verbose. It is worth seeing this once to appreciate the utility of the <code>seaborn</code> interface:</p>
+<div id="0c053dc7" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-label="2"></a>species_names <span class="op">=</span> <span class="bu">list</span>(COLORS)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-label="3"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-label="4"></a><span class="co"># Create a list the contains data for each box</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-label="5"></a>data <span class="op">=</span> [penguins.loc[penguins[<span class="st">"species"</span>] <span class="op">==</span> s, <span class="st">"body_mass_g"</span>] <span class="cf">for</span> s <span class="kw">in</span> species_names]</span>
+<span id="cb10-6"><a href="#cb10-6" aria-label="6"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-label="7"></a><span class="co"># The list of arrays can be passed to `.boxplot()`.</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-label="8"></a><span class="co"># What is `patch_artist`? This feature needs to be used so we can edit the display of the median line.</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-label="9"></a>parts <span class="op">=</span> ax.boxplot(data,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-label="10"></a>  tick_labels <span class="op">=</span> species_names,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-label="11"></a>  patch_artist <span class="op">=</span> <span class="va">True</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-label="12"></a>  medianprops <span class="op">=</span> <span class="bu">dict</span>(color <span class="op">=</span> <span class="st">"black"</span>, linewidth <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-label="13"></a>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-label="14"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-label="15"></a><span class="co"># This is needed to set the colors of each box... How tedious!</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-label="16"></a><span class="cf">for</span> patch, name <span class="kw">in</span> <span class="bu">zip</span>(parts[<span class="st">"boxes"</span>], species_names):</span>
+<span id="cb10-17"><a href="#cb10-17" aria-label="17"></a>  patch.set_facecolor(COLORS[name])</span>
+<span id="cb10-18"><a href="#cb10-18" aria-label="18"></a>  patch.set_alpha(<span class="fl">0.8</span>)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-label="19"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-label="20"></a>ax.set_xlabel(<span class="st">"Species"</span>)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-label="21"></a>ax.set_ylabel(<span class="st">"Body mass (g)"</span>)</span>
+<span id="cb10-22"><a href="#cb10-22" aria-label="22"></a>ax.set_title(<span class="st">"Body mass by species"</span>)</span>
+<span id="cb10-23"><a href="#cb10-23" aria-label="23"></a></span>
+<span id="cb10-24"><a href="#cb10-24" aria-label="24"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro_files/figure-html/cell-10-output-1.png" width="528" height="377" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Examine this figure and compare to the <code>seaborn</code> version.</li>
+<li>What are defaults might <code>seaborn</code> have set for us? There is at least one visual element that is different.</li>
+</ul>
+</section>
+</section>
+<section id="scatterplots" class="level2">
+<h2 class="anchored" data-anchor-id="scatterplots">Scatterplots</h2>
+<p>A <strong>scatterplot</strong> displays two numeric variables plotted against each other, one variable per axis. It useful for probing potential relationships, specifically associations, between variables.</p>
+<p>The <code>seaborn</code> interface allows you to fit linear trend lines to data.</p>
+<ul>
+<li>This is done via <em>regression</em>, and it is not limited to linear trends.</li>
+<li>We will review simple learning regression later in the course.</li>
+<li>A <em>positive slope</em> indicates a <strong>positive correlation</strong>. Both variables “move together.”</li>
+<li>A <em>negative slope</em> indicates a <strong>negative correlation</strong>. The two variables “move in opposite directions.”</li>
+</ul>
+<section id="matplotlib-version-1" class="level3">
+<h3 class="anchored" data-anchor-id="matplotlib-version-1"><code>matplotlib</code> version</h3>
+<div id="f83357f0" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a>x <span class="op">=</span> penguins[<span class="st">"bill_length_mm"</span>]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-label="2"></a>y <span class="op">=</span> penguins[<span class="st">"bill_depth_mm"</span>]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-label="3"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-label="4"></a><span class="co"># NumPy's `polyfit` can fit different trend lines</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-label="5"></a>slope, intercept <span class="op">=</span> np.polyfit(x, y, deg <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-label="6"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-label="7"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-label="8"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-label="9"></a><span class="co"># DRAW: Scatterplot of data</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-label="10"></a>ax.scatter(x, y, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-label="11"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-label="12"></a><span class="co"># DRAW: Trend line</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-label="13"></a>xs <span class="op">=</span> np.linspace(x.<span class="bu">min</span>(), x.<span class="bu">max</span>(), <span class="dv">50</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-label="14"></a>ax.plot(xs, intercept <span class="op">+</span> slope <span class="op">*</span> xs, color<span class="op">=</span><span class="st">"red"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-label="15"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-label="16"></a>ax.set_xlabel(<span class="st">"Bill length (mm)"</span>)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-label="17"></a>ax.set_ylabel(<span class="st">"Bill depth (mm)"</span>)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-label="18"></a>ax.set_title(<span class="st">"All penguins together"</span>)</span>
+<span id="cb11-19"><a href="#cb11-19" aria-label="19"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-label="20"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro_files/figure-html/cell-11-output-1.png" width="511" height="377" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="seaborn-version-2" class="level3">
+<h3 class="anchored" data-anchor-id="seaborn-version-2"><code>seaborn</code> version</h3>
+<div id="e6cdaa8e" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-label="2"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-label="3"></a>sns.regplot(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-label="4"></a>  data <span class="op">=</span> penguins,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-label="5"></a>  x <span class="op">=</span> <span class="st">"bill_length_mm"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-label="6"></a>  y <span class="op">=</span> <span class="st">"bill_depth_mm"</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-label="7"></a>  ci <span class="op">=</span> <span class="va">None</span>, <span class="co"># no confidence band; don't use this blindly!</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-label="8"></a>  scatter_kws <span class="op">=</span> {<span class="st">"alpha"</span>: <span class="fl">0.6</span>},</span>
+<span id="cb12-9"><a href="#cb12-9" aria-label="9"></a>  line_kws <span class="op">=</span> {<span class="st">"color"</span>: <span class="st">"red"</span>, <span class="st">"linestyle"</span>: <span class="st">"--"</span>},</span>
+<span id="cb12-10"><a href="#cb12-10" aria-label="10"></a>  ax <span class="op">=</span> ax,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-label="11"></a>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-label="12"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-label="13"></a>ax.set_xlabel(<span class="st">"Bill length (mm)"</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-label="14"></a>ax.set_ylabel(<span class="st">"Bill depth (mm)"</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-label="15"></a>ax.set_title(<span class="st">"All penguins together"</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-label="16"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-label="17"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[11]</span><span class="ansi-green-fg">, line 3</span>
+<span class="ansi-green-fg">      1</span> fig, ax = plt.subplots(figsize=(<span class="ansi-green-fg">6</span>, <span class="ansi-green-fg">4</span>))
+<span class="ansi-green-fg">      2</span> 
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">3</span> sns.regplot(
+<span class="ansi-green-fg">      4</span>   data = penguins,
+<span class="ansi-green-fg">      5</span>   x = <span class="ansi-yellow-fg">"bill_length_mm"</span>,
+<span class="ansi-green-fg">      6</span>   y = <span class="ansi-yellow-fg">"bill_depth_mm"</span>,
+
+<span class="ansi-red-fg">NameError</span>: name 'sns' is not defined</pre>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro_files/figure-html/cell-12-output-2.png" width="507" height="343" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="simpsons-paradox" class="level2">
+<h2 class="anchored" data-anchor-id="simpsons-paradox">Simpson’s paradox</h2>
+<p><strong>Observation:</strong> Across all penguins in our data, longer bills tend to go with <em>shallower</em> bills, as suggested by our scatterplots. Does this actually happen to individual penguins? Let us add the third variable we have been ignoring.</p>
+<section id="matplotlib-version-2" class="level3">
+<h3 class="anchored" data-anchor-id="matplotlib-version-2"><code>matplotlib</code> version</h3>
+<p>We color each point by <code>species</code> and fit separate trend lines:</p>
+<div id="01f202ae" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-label="1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-label="2"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-label="3"></a><span class="cf">for</span> species, color <span class="kw">in</span> COLORS.items():</span>
+<span id="cb13-4"><a href="#cb13-4" aria-label="4"></a>  sub <span class="op">=</span> penguins[penguins[<span class="st">"species"</span>] <span class="op">==</span> species]</span>
+<span id="cb13-5"><a href="#cb13-5" aria-label="5"></a>  </span>
+<span id="cb13-6"><a href="#cb13-6" aria-label="6"></a>  <span class="co"># DRAW: Scatterplot for particular species</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-label="7"></a>  ax.scatter(sub[<span class="st">"bill_length_mm"</span>], sub[<span class="st">"bill_depth_mm"</span>],</span>
+<span id="cb13-8"><a href="#cb13-8" aria-label="8"></a>    color <span class="op">=</span> color,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-label="9"></a>    alpha <span class="op">=</span> <span class="fl">0.7</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-label="10"></a>    label <span class="op">=</span> species</span>
+<span id="cb13-11"><a href="#cb13-11" aria-label="11"></a>  )</span>
+<span id="cb13-12"><a href="#cb13-12" aria-label="12"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-label="13"></a>  <span class="co"># DRAW: Species-specific trend line</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-label="14"></a>  m, b <span class="op">=</span> np.polyfit(sub[<span class="st">"bill_length_mm"</span>], sub[<span class="st">"bill_depth_mm"</span>], deg <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-label="15"></a>  xs <span class="op">=</span> np.linspace(sub[<span class="st">"bill_length_mm"</span>].<span class="bu">min</span>(), sub[<span class="st">"bill_length_mm"</span>].<span class="bu">max</span>(), <span class="dv">50</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-label="16"></a>  ax.plot(xs, b <span class="op">+</span> m <span class="op">*</span> xs, color<span class="op">=</span>color, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-label="17"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-label="18"></a>ax.set_xlabel(<span class="st">"Bill length (mm)"</span>)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-label="19"></a>ax.set_ylabel(<span class="st">"Bill depth (mm)"</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-label="20"></a>ax.set_title(<span class="st">"Penguin bill dimensions by species"</span>)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-label="21"></a>ax.legend(title<span class="op">=</span><span class="st">"Species"</span>)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-label="22"></a></span>
+<span id="cb13-23"><a href="#cb13-23" aria-label="23"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro_files/figure-html/cell-13-output-1.png" width="585" height="451" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="seaborn-version-3" class="level3">
+<h3 class="anchored" data-anchor-id="seaborn-version-3"><code>seaborn</code> version</h3>
+<p>The <code>lmplot</code> function draws a scatterplot with a fitted line for each value of <code>hue</code>:</p>
+<div id="8059d329" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-label="1"></a><span class="co"># No initialization; this function creates its own canvas (`Figure` and `Axis`) by default.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-label="2"></a>sns.lmplot(data <span class="op">=</span> penguins, x <span class="op">=</span> <span class="st">"bill_length_mm"</span>, y <span class="op">=</span> <span class="st">"bill_depth_mm"</span>, hue <span class="op">=</span> <span class="st">"species"</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-label="3"></a>  hue_order <span class="op">=</span> <span class="bu">list</span>(COLORS),</span>
+<span id="cb14-4"><a href="#cb14-4" aria-label="4"></a>  palette <span class="op">=</span> COLORS,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-label="5"></a>  ci <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-label="6"></a>  aspect <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-label="7"></a>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-label="8"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-label="9"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[13]</span><span class="ansi-green-fg">, line 2</span>
+<span class="ansi-green-fg">      1</span> <span style="font-style:italic;color:rgb(95,135,135)"># No initialization; this function creates its own canvas (`Figure` and `Axis`) by default.</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> sns.lmplot(data = penguins, x = "bill_length_mm", y = "bill_depth_mm", hue = "species",
+<span class="ansi-green-fg">      3</span>   hue_order = list(COLORS),
+<span class="ansi-green-fg">      4</span>   palette = COLORS,
+<span class="ansi-green-fg">      5</span>   ci = <span style="font-weight:bold;color:rgb(0,135,0)">None</span>,
+
+<span class="ansi-red-fg">NameError</span>: name 'sns' is not defined</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="why-does-this-happen" class="level3">
+<h3 class="anchored" data-anchor-id="why-does-this-happen">Why does this happen?</h3>
+<p>The apparent trend reverses once we include group information! Each penguin species clearly shows a positive correlation between bill depth and bill length. The negative slope in the previous scatterplots came from combining three clusters that sit in different places.</p>
+<div id="acb82f9f" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-label="1"></a>penguins[[<span class="st">"bill_length_mm"</span>, <span class="st">"bill_depth_mm"</span>]].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>bill_length_mm    43.9
+bill_depth_mm     17.2
+dtype: float64</code></pre>
+</div>
+</div>
+<div id="ac7eae47" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-label="1"></a>penguins.groupby(<span class="st">"species"</span>)[[<span class="st">"bill_length_mm"</span>, <span class="st">"bill_depth_mm"</span>]].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">bill_length_mm</th>
+<th data-quarto-table-cell-role="th">bill_depth_mm</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Adelie</th>
+<td>38.8</td>
+<td>18.3</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Chinstrap</th>
+<td>48.8</td>
+<td>18.4</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Gentoo</th>
+<td>47.5</td>
+<td>15.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The different species differ considerably in both variables.</p>
+<ul>
+<li>Gentoo penguins have long, shallow bills</li>
+<li>Adelie penguins have short, deep bills.</li>
+</ul>
+<p>Differences <em>between</em> the groups produced a downward trend when viewing the data without overlaying group structure The relationship <em>within</em> each group, however, clearly has a positive trend.</p>
+<p>This is an instance of <strong>Simpson’s paradox</strong>, which is the phenomenon of reversing or eliminating trends within two variables once a third variable is included.</p>
+<ul>
+<li>The third variable can be categorical or continuous.</li>
+<li>Neither view is “wrong” as far as the mathematics are concerned.</li>
+<li>The way to resolve the apparent paradox is to understand that a statistic, regardless of whether it is a single number of a trend, is inherently a summary <em>about a population</em>, not about individual observations.</li>
+<li>What matters in practice is being clear about <strong>which population you are interested in investigating</strong>.</li>
+</ul>
+<p>Notice that not every relationship reverses. Body mass and flipper length rise together for all penguins <em>and</em> within each species, but the strength differs.</p>
+</section>
+</section>
+<section id="quick-plotting-with-pandas" class="level2">
+<h2 class="anchored" data-anchor-id="quick-plotting-with-pandas">Quick plotting with <code>pandas</code></h2>
+<p><code>pandas</code> data frames have plotting implemented as a method. It is convenient for quick prototyping and exploratory analysis in a REPL. Each call returns a customizable axis object from <code>matplotlib</code>.</p>
+<div id="9a1407e2" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-label="1"></a>ax <span class="op">=</span> (penguins[<span class="st">"body_mass_g"</span>]</span>
+<span id="cb18-2"><a href="#cb18-2" aria-label="2"></a>  .plot(kind <span class="op">=</span> <span class="st">"hist"</span>, bins <span class="op">=</span> <span class="dv">25</span>, edgecolor <span class="op">=</span> <span class="st">"white"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-label="3"></a>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-label="4"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-label="5"></a>ax.set_xlabel(<span class="st">"Body mass (g)"</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-label="6"></a>ax.set_title(<span class="st">"Body mass distribution for Palmer Penguins"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-label="7"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-label="8"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro_files/figure-html/cell-17-output-1.png" width="585" height="451" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A <strong>scatter matrix</strong> is useful if you want a quick look of several numeric variables at once. Keep in mind that this is a screening tool:</p>
+<ul>
+<li>It merely suggests relationships and clusters worth a closer look.</li>
+<li>It can be misleading, even if you factor in categorical variables, because it displays data in a pairwise fashion.</li>
+</ul>
+<div id="a92d2bee" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a>numeric_cols <span class="op">=</span> [<span class="st">"bill_length_mm"</span>, <span class="st">"bill_depth_mm"</span>, <span class="st">"flipper_length_mm"</span>, <span class="st">"body_mass_g"</span>]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-label="2"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-label="3"></a>pd.plotting.scatter_matrix(penguins[numeric_cols],</span>
+<span id="cb19-4"><a href="#cb19-4" aria-label="4"></a>  c <span class="op">=</span> penguins[<span class="st">"species"</span>].<span class="bu">map</span>(COLORS),  <span class="co"># Color each point by its species</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-label="5"></a>  diagonal <span class="op">=</span> <span class="st">"hist"</span>,                    <span class="co"># Control the display along the diagonal</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-label="6"></a>  alpha <span class="op">=</span> <span class="fl">0.7</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-label="7"></a>  figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">8</span>),</span>
+<span id="cb19-8"><a href="#cb19-8" aria-label="8"></a>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-label="9"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-label="10"></a>plt.tight_layout()</span>
+<span id="cb19-11"><a href="#cb19-11" aria-label="11"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro_files/figure-html/cell-18-output-1.png" width="756" height="756" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Might need to adjust <code>figsize</code> to correctly display all visual elements.</li>
+<li>With <span class="math inline">\(p\)</span> variables there are <span class="math inline">\(p^2\)</span> panels, so this is only viable for examining a few variables.</li>
+</ul>
+</section>
+<section id="saving-a-figure" class="level2">
+<h2 class="anchored" data-anchor-id="saving-a-figure">Saving a figure</h2>
+<div id="ba3938e7" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-label="1"></a><span class="co"># Create a directory to store our work; don't do anything if it already exists.</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-label="2"></a>os.makedirs(<span class="st">"output"</span>, exist_ok <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-label="3"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-label="4"></a><span class="co"># Use the `.savefig()` method for a `Figure` object</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-label="5"></a>fig.savefig(</span>
+<span id="cb20-6"><a href="#cb20-6" aria-label="6"></a>  os.path.join(<span class="st">"output"</span>, <span class="st">"bill_scatter.png"</span>),</span>
+<span id="cb20-7"><a href="#cb20-7" aria-label="7"></a>  dpi <span class="op">=</span> <span class="dv">200</span>,            <span class="co"># Dots per inch; resolution</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-label="8"></a>  bbox_inches <span class="op">=</span> <span class="st">"tight"</span> <span class="co"># Control the bounding box</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-label="9"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="takeaway-messages" class="level2">
+<h2 class="anchored" data-anchor-id="takeaway-messages">Takeaway messages</h2>
+<ul>
+<li>Always plot grouped data if the structure is given to you.
+<ul>
+<li>Summaries and correlations over a mixture might not describe any of those groups.</li>
+</ul></li>
+<li>It is difficult for humans to intuit latent structure from numeric summaries alone. Plots often provide a richer, high-level summary.</li>
+<li>Apparent clusters in your visualizations are rarely an accident.
+<ul>
+<li>Ask what the groups might exist, and whether they might labeled somehow.</li>
+<li>Use visualizations to help guide and sharpen your analysis.</li>
+</ul></li>
+<li>Use <code>seaborn</code> for fast exploration and <code>matplotlib</code> when you need to control the details.</li>
+</ul>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<section id="exercise-1-one-variable" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1-one-variable">Exercise 1: One variable</h3>
+<ol type="1">
+<li>Make a histogram of <code>flipper_length_mm</code> with 30 bins. Describe its shape in one sentence.</li>
+<li>Make the same histogram with <code>seaborn</code>, colored by species. Is this more or less informative?</li>
+</ol>
+</section>
+<section id="exercise-2-groups" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2-groups">Exercise 2: Groups</h3>
+<ol type="1">
+<li>Make a boxplot of <code>flipper_length_mm</code> by <code>island</code>.</li>
+<li>Make a second boxplot of <code>flipper_length_mm</code> by <code>species</code>. Which grouping better separates the flipper lengths? Why might the island plot be misleading?</li>
+</ol>
+</section>
+<section id="exercise-3-associations" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3-associations">Exercise 3: Associations</h3>
+<ol type="1">
+<li>Make a scatterplot of <code>body_mass_g</code> (<span class="math inline">\(y\)</span>-axis) against <code>flipper_length_mm</code> (<span class="math inline">\(x\)</span>-axis), colored by species. Include a trend line for each species.</li>
+<li>Does the overall relationship reverse within species, as the bill example did, or only change in strength? Justify your answer by computing correlations using <code>groupby</code> on the Pandas data frame.</li>
+<li>Which of the three species shows the weakest association?</li>
+</ol>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/UCR-STAT-206\.github\.io\/2026-Fall-MSBA\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

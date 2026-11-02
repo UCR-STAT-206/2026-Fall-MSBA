@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Matplotlib</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-0dc1e8188feb0d475c79e47387ad4ecc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../assets/styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" aria-label="Toolbar">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="Breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module07/setup.html">Module 7 (Data Visualization)</a></li><li class="breadcrumb-item"><a href="../../notes/module07/matplotlib.html">Matplotlib Overview</a></li></ol></nav>
+        <a class="flex-grow-1" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto" aria-label="Site">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../assets/UC_Riverside_Horiz_WhtBG.png" alt="UC Riverside monogram logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../assets/UC_Riverside_Horiz_WhtBG.png" alt="UC Riverside monogram logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">STAT 206 (MSBA)</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../office_hours.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Office Hours</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-controls="quarto-sidebar-section-1" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-1-label">Module 1 (Fundamentals)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-1" aria-labelledby="quarto-sidebar-section-1-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module01/unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Unix Shell</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module01/filesystem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The File System</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module01/quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module01/git.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Git</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-controls="quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-2-label">Module 2 (Programming)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-2" aria-labelledby="quarto-sidebar-section-2-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module02/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module02/types.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Objects and Data Types</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module02/basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arithmetic, Comparisons, and Boolean Algebra</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module02/functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module02/control.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Control Flow</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-controls="quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-3-label">Module 3 (Beyond Basics)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-3" aria-labelledby="quarto-sidebar-section-3-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module03/collections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Collections</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module03/stdlib.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Python Standard Library</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module03/modules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modules, Classes, and Namespaces</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module03/io.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Input and Output</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-controls="quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-4-label">Module 4 (Best Practices)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-4" aria-labelledby="quarto-sidebar-section-4-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">Error Handling</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Debugging</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Testing</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Refactoring</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-controls="quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-5-label">Module 5 (Numerical Python)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-5" aria-labelledby="quarto-sidebar-section-5-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module05/numpy_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Numpy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module05/arrays.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Numpy Arrays</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module05/vectorization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vectorization and Broadcasting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module05/random.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Probability Distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module05/numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Computer Arithmetic</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module05/computers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Computer Architecture</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-controls="quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-6-label">Module 6 (Tabular Data)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-6" aria-labelledby="quarto-sidebar-section-6-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module06/pandas_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Pandas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module06/cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Cleaning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module06/pandas_tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pandas Tutorial</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module06/text_processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Text Processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module06/split_apply_combine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Split-Apply-Combine</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-controls="quarto-sidebar-section-7" aria-expanded="true">
+ <span class="menu-text" id="quarto-sidebar-section-7-label">Module 7 (Data Visualization)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-7" aria-labelledby="quarto-sidebar-section-7-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module07/setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module07/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Plotting in Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module07/matplotlib.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Matplotlib Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module07/seaborn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Seaborn Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-controls="quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-8-label">Labs</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-8" aria-labelledby="quarto-sidebar-section-8-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../labs/lab0-setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 0 (Getting Started)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../labs/lab1-submit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 1 (Submitting Assignments)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../labs/lab2-debug.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 2 (Errors and Debugging)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../labs/lab3-io.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 3 (File I/O)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../labs/lab4-pandas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 4 (Pandas Intro)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-controls="quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-9-label">Homework</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-9" aria-labelledby="quarto-sidebar-section-9-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hw/hw1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hw/hw2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hw/hw3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hw/hw4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 4</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../project/project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Final Project</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-controls="quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-10-label">How to…</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-10" aria-labelledby="quarto-sidebar-section-10-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../howto/use_docker.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Docker</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../howto/use_vscode.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use VSCode with a Container</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../howto/configure_git.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Configure Git</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../howto/setup_github.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Set Up Your GitHub Account</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../howto/use_git.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Git</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../howto/submit_hw.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Submit Assignments</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#goals" id="toc-goals" class="nav-link active" data-scroll-target="#goals">Goals</a></li>
+  <li><a href="#packages-and-data" id="toc-packages-and-data" class="nav-link" data-scroll-target="#packages-and-data">Packages and Data</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#learning-resources" id="toc-learning-resources" class="nav-link" data-scroll-target="#learning-resources">Learning Resources</a></li>
+  <li><a href="#working-with-figure-and-axis" id="toc-working-with-figure-and-axis" class="nav-link" data-scroll-target="#working-with-figure-and-axis">Working with <code>Figure</code> and <code>Axis</code></a></li>
+  <li><a href="#adding-style-with-artist-objects" id="toc-adding-style-with-artist-objects" class="nav-link" data-scroll-target="#adding-style-with-artist-objects">Adding style with <code>Artist</code> objects</a></li>
+  <li><a href="#colors" id="toc-colors" class="nav-link" data-scroll-target="#colors">Colors</a>
+  <ul class="collapse">
+  <li><a href="#specifying-colors" id="toc-specifying-colors" class="nav-link" data-scroll-target="#specifying-colors">Specifying colors</a></li>
+  <li><a href="#diverging-colormaps" id="toc-diverging-colormaps" class="nav-link" data-scroll-target="#diverging-colormaps">Diverging colormaps</a></li>
+  <li><a href="#sequential-colormaps" id="toc-sequential-colormaps" class="nav-link" data-scroll-target="#sequential-colormaps">Sequential colormaps</a></li>
+  <li><a href="#cyclic-colormaps" id="toc-cyclic-colormaps" class="nav-link" data-scroll-target="#cyclic-colormaps">Cyclic colormaps</a></li>
+  <li><a href="#qualitative-colormaps" id="toc-qualitative-colormaps" class="nav-link" data-scroll-target="#qualitative-colormaps">Qualitative colormaps</a></li>
+  <li><a href="#colorblindness" id="toc-colorblindness" class="nav-link" data-scroll-target="#colorblindness">Colorblindness</a></li>
+  </ul></li>
+  <li><a href="#complex-layouts" id="toc-complex-layouts" class="nav-link" data-scroll-target="#complex-layouts">Complex Layouts</a></li>
+  <li><a href="#exporting-figures" id="toc-exporting-figures" class="nav-link" data-scroll-target="#exporting-figures">Exporting Figures</a></li>
+  <li><a href="#working-with-dataframes" id="toc-working-with-dataframes" class="nav-link" data-scroll-target="#working-with-dataframes">Working with DataFrames</a></li>
+  <li><a href="#gallery" id="toc-gallery" class="nav-link" data-scroll-target="#gallery">Gallery</a>
+  <ul class="collapse">
+  <li><a href="#scatter-line-plots" id="toc-scatter-line-plots" class="nav-link" data-scroll-target="#scatter-line-plots">Scatter + Line Plots</a></li>
+  <li><a href="#bar-plots" id="toc-bar-plots" class="nav-link" data-scroll-target="#bar-plots">Bar Plots</a></li>
+  <li><a href="#contour-maps" id="toc-contour-maps" class="nav-link" data-scroll-target="#contour-maps">Contour Maps</a></li>
+  <li><a href="#images-and-heatmaps" id="toc-images-and-heatmaps" class="nav-link" data-scroll-target="#images-and-heatmaps">Images and heatmaps</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="Breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module07/setup.html">Module 7 (Data Visualization)</a></li><li class="breadcrumb-item"><a href="../../notes/module07/matplotlib.html">Matplotlib Overview</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Matplotlib</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="goals" class="level2">
+<h2 class="anchored" data-anchor-id="goals">Goals</h2>
+<ol type="1">
+<li>Survey various options available in <code>matplotlib</code> for manipulating figures, annotations, styles, and colors.</li>
+<li>Develop awareness about color perception and colorblindness.</li>
+</ol>
+</section>
+<section id="packages-and-data" class="level2">
+<h2 class="anchored" data-anchor-id="packages-and-data">Packages and Data</h2>
+<div id="8796fbac" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" aria-label="2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-label="3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-label="4"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-label="5"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[1]</span><span class="ansi-green-fg">, line 5</span>
+<span class="ansi-green-fg">      1</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> os
+<span class="ansi-green-fg">      2</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> numpy <span style="font-weight:bold;color:rgb(0,135,0)">as</span> np
+<span class="ansi-green-fg">      3</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> pandas <span style="font-weight:bold;color:rgb(0,135,0)">as</span> pd
+<span class="ansi-green-fg">      4</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> matplotlib.pyplot <span style="font-weight:bold;color:rgb(0,135,0)">as</span> plt
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">5</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> seaborn <span style="font-weight:bold;color:rgb(0,135,0)">as</span> sns
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'seaborn'</pre>
+</div>
+</div>
+</div>
+<div id="07ddb96e" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a><span class="co"># Palmer Penguins</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-label="2"></a>penguins <span class="op">=</span> pd.read_csv(os.path.join(<span class="st">"assets"</span>, <span class="st">"penguins.csv"</span>))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-label="3"></a>penguins <span class="op">=</span> penguins.dropna(subset<span class="op">=</span>[<span class="st">"body_mass_g"</span>])</span>
+<span id="cb2-4"><a href="#cb2-4" aria-label="4"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-label="5"></a><span class="co"># Flights; only place we use Seaborn</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-label="6"></a>flights <span class="op">=</span> sns.load_dataset(<span class="st">"flights"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-label="7"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-label="8"></a><span class="co"># COLORS is a 'constant', so I prefer to use uppercase </span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-label="9"></a><span class="co"># to distinguish this variable name from others I might use</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-label="10"></a><span class="co"># in a quick-prototyping context</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-label="11"></a>COLORS <span class="op">=</span> {<span class="st">"Adelie"</span>: <span class="st">"#EA9839"</span>, <span class="st">"Chinstrap"</span>: <span class="st">"#984AE5"</span>, <span class="st">"Gentoo"</span>: <span class="st">"#469093"</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[2]</span><span class="ansi-green-fg">, line 6</span>
+<span class="ansi-green-fg">      2</span> penguins = pd.read_csv(os.path.join(<span class="ansi-yellow-fg">"assets"</span>, <span class="ansi-yellow-fg">"penguins.csv"</span>))
+<span class="ansi-green-fg">      3</span> penguins = penguins.dropna(subset=[<span class="ansi-yellow-fg">"body_mass_g"</span>])
+<span class="ansi-green-fg">      4</span> 
+<span class="ansi-green-fg">      5</span> <span style="font-style:italic;color:rgb(95,135,135)"># Flights; only place we use Seaborn</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">6</span> flights = sns.load_dataset(<span class="ansi-yellow-fg">"flights"</span>)
+<span class="ansi-green-fg">      7</span> 
+<span class="ansi-green-fg">      8</span> <span style="font-style:italic;color:rgb(95,135,135)"># COLORS is a 'constant', so I prefer to use uppercase</span>
+<span class="ansi-green-fg">      9</span> <span style="font-style:italic;color:rgb(95,135,135)"># to distinguish this variable name from others I might use</span>
+
+<span class="ansi-red-fg">NameError</span>: name 'sns' is not defined</pre>
+</div>
+</div>
+</div>
+<div id="4d218971" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="co"># Simulated Data</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-label="2"></a><span class="kw">def</span> simulate_stock_market(y0, n):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-label="3"></a>  ts <span class="op">=</span> np.linspace(<span class="dv">0</span>, n, n<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-label="4"></a>  ys <span class="op">=</span> np.zeros(n<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-label="5"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, n<span class="op">+</span><span class="dv">1</span>):</span>
+<span id="cb3-6"><a href="#cb3-6" aria-label="6"></a>    <span class="cf">if</span> i <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb3-7"><a href="#cb3-7" aria-label="7"></a>      yt <span class="op">=</span> ys[i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> np.random.normal()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-label="8"></a>      ys[i] <span class="op">=</span> np.maximum(<span class="fl">0.0</span>, yt)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-label="9"></a>    <span class="cf">else</span>:</span>
+<span id="cb3-10"><a href="#cb3-10" aria-label="10"></a>      ys[i] <span class="op">=</span> y0</span>
+<span id="cb3-11"><a href="#cb3-11" aria-label="11"></a>  <span class="cf">return</span> (ts, ys)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Matplotlib">Created in 2003</a> by neurobiologist <a href="https://en.wikipedia.org/wiki/John_D._Hunter">John D. Hunter</a> by <a href="https://matplotlib.org/stable/project/history.html">adopting MATLAB’s plotting approach</a> to Python.</li>
+<li><a href="https://softwareengineering.stackexchange.com/questions/436700/how-did-python-come-to-be-so-popular-amongst-data-scientists">Among the most widely</a> used plotting library for creating static, animated, and interactive visualizations.</li>
+<li>Extensive customization and control over plot elements.</li>
+<li>Support for static figures, animations, and interactive tools.</li>
+<li>The <code>matplotlib</code> approach is <strong>imperative</strong>: you specify <strong>how</strong> to create your visualizations.</li>
+</ul>
+</section>
+<section id="learning-resources" class="level2">
+<h2 class="anchored" data-anchor-id="learning-resources">Learning Resources</h2>
+<ul>
+<li><a href="https://matplotlib.org/cheatsheets/">Cheatsheets and Handouts</a></li>
+<li><a href="https://matplotlib.org/stable/users/explain/quick_start.html#quick-start">Quickstart</a></li>
+<li><a href="https://matplotlib.org/stable/tutorials/index">Tutorials</a></li>
+</ul>
+</section>
+<section id="working-with-figure-and-axis" class="level2">
+<h2 class="anchored" data-anchor-id="working-with-figure-and-axis">Working with <code>Figure</code> and <code>Axis</code></h2>
+<p>Every figure is represented by a <a href="https://matplotlib.org/stable/users/explain/quick_start.html#figure"><code>Figure</code> object</a>. This stores everything in a visualization. There are many ways to declare one; here is an example.</p>
+<div id="d8a92c06" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a>fig <span class="op">=</span> plt.figure()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-label="2"></a>fig</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>&lt;Figure size 672x480 with 0 Axes&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;Figure size 672x480 with 0 Axes&gt;</code></pre>
+</div>
+</div>
+<p>The <code>Figure</code> reports its size in pixels (672 by 480). But nothing is shown even though we attempt to display it. We must add an <code>Axis</code> to our <code>Figure</code>, <code>fig</code>. An <code>Axis</code> object serves as a “canvas” that we can draw on.</p>
+<div id="9a79dcf9" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-label="1"></a>fig <span class="op">=</span> plt.figure()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-label="2"></a>ax <span class="op">=</span> fig.add_subplot()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-label="3"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="matplotlib_files/figure-html/cell-6-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="582" height="417"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Once we have a <code>Figure</code> with at least one <code>Axis</code>, we can add a plot using one of many plotting commands.</p>
+<div id="8e0abac7" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a><span class="co"># create some data</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-label="2"></a>ts, ys <span class="op">=</span> simulate_stock_market(<span class="fl">100.0</span>, <span class="dv">100</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-label="3"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-label="4"></a><span class="co"># initialize a figure + axis</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-label="5"></a>fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb8-6"><a href="#cb8-6" aria-label="6"></a>ax <span class="op">=</span> fig.add_subplot()</span>
+<span id="cb8-7"><a href="#cb8-7" aria-label="7"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-label="8"></a><span class="co"># plot the paired data and show it</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-label="9"></a>ax.plot(ts, ys)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-label="10"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="matplotlib_files/figure-html/cell-7-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="500" height="338"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>To plot inside a specific subplot, use the <code>ax.&lt;plot method&gt;()</code> syntax.</li>
+<li>The <code>figsize</code> keyword option can be used to specify the figure size as a tuple, in inches (default). Can also report <code>(width, height, unit)</code>.</li>
+<li>The top-level <code>show()</code> function can be used to force display of the <strong>current</strong> <code>Figure</code>.</li>
+<li>Note that the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> axes are automatically resized for us.</li>
+</ul>
+<p>Initializing a <code>Figure</code> with multiple <code>Axis</code> is common enough that it has its own interface.</p>
+<div id="06ea2ac3" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a>fig, axs <span class="op">=</span> plt.subplots(nrows <span class="op">=</span> <span class="dv">2</span>, ncols <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-label="2"></a>k <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-label="3"></a><span class="cf">for</span> ax <span class="kw">in</span> np.ravel(axs):</span>
+<span id="cb9-4"><a href="#cb9-4" aria-label="4"></a>    ts, ys <span class="op">=</span> simulate_stock_market(<span class="fl">100.0</span>, <span class="dv">20</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-label="5"></a>    ax.plot(ts, ys)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-label="6"></a>    ax.set_xlabel(<span class="st">'Day'</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-label="7"></a>    ax.set_ylabel(<span class="st">'Current Price'</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-label="8"></a>    ax.set_title(<span class="ss">f'Stock </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-label="9"></a>    k <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-label="10"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-label="11"></a>fig.tight_layout()</span>
+<span id="cb9-12"><a href="#cb9-12" aria-label="12"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="matplotlib_files/figure-html/cell-8-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="664" height="470"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>The <code>np.ravel()</code> function allows us to iterate through <code>axs</code>, which is a 2D NumPy <code>array</code>.</li>
+<li>We can modify <em>attributes</em> in a given <code>Axis</code> using <em>set</em> methods like <code>.set_xlabel()</code>.</li>
+<li>These attributes are specific to each <code>Axis</code>.</li>
+<li>The <a href="https://matplotlib.org/stable/users/explain/axes/tight_layout_guide.html"><code>.tight_layout()</code></a> tidies up any margins, paddings, and other empty space. <em>Use it only once you’ve finished plotting</em>.</li>
+</ul>
+</section>
+<section id="adding-style-with-artist-objects" class="level2">
+<h2 class="anchored" data-anchor-id="adding-style-with-artist-objects">Adding style with <code>Artist</code> objects</h2>
+<p>Nearly every visible element in a <code>Figure</code> is governed by an <code>Artist</code>. Each <code>Axis</code> has its own <code>Artist</code> objects, cannot be shared across axes, and are responsible for drawing data to a canvas.</p>
+<p>You can specify visual elements like color or line style <em>directly</em> in a plot command. For example, the following modifies our simple line plot to have a red dotted line.</p>
+<div id="7d835f12" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a><span class="co"># create some data</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-label="2"></a>ts, ys <span class="op">=</span> simulate_stock_market(<span class="fl">100.0</span>, <span class="dv">100</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-label="3"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-label="4"></a><span class="co"># initialize a figure + axis</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-label="5"></a>fig <span class="op">=</span> plt.figure()</span>
+<span id="cb10-6"><a href="#cb10-6" aria-label="6"></a>ax <span class="op">=</span> fig.add_subplot()</span>
+<span id="cb10-7"><a href="#cb10-7" aria-label="7"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-label="8"></a><span class="co"># plot the paired data and show it</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-label="9"></a>ax.plot(ts, ys, color <span class="op">=</span> <span class="st">'red'</span>, linestyle <span class="op">=</span> <span class="st">':'</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-label="10"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-label="11"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="matplotlib_files/figure-html/cell-9-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="575" height="411"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Alternatively, each plotting command returns artist objects. You can modify the visual elements with “setters”:</p>
+<div id="d898dde1" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a><span class="co"># create some data</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-label="2"></a>ts, ys <span class="op">=</span> simulate_stock_market(<span class="fl">100.0</span>, <span class="dv">100</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-label="3"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-label="4"></a><span class="co"># initialize a figure + axis</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-label="5"></a>fig <span class="op">=</span> plt.figure()</span>
+<span id="cb11-6"><a href="#cb11-6" aria-label="6"></a>ax <span class="op">=</span> fig.add_subplot()</span>
+<span id="cb11-7"><a href="#cb11-7" aria-label="7"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-label="8"></a><span class="co"># plot the paired data and show it</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-label="9"></a>artist, <span class="op">=</span> ax.plot(ts, ys)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-label="10"></a>artist.set_linestyle(<span class="st">':'</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-label="11"></a>artist.set_color(<span class="st">'red'</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-label="12"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-label="13"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="matplotlib_files/figure-html/cell-10-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="575" height="411"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Some attributes may not be exposed directly through the plotting command you use.</li>
+<li>Working with <code>Artist</code> objects directly is very flexible but more tedious to the key-value approach.</li>
+<li>A plotting command may return multiple artists, so we use <em>destructuring</em> to get a particular subset of them: <code>item1, item2, = function_call()</code>.</li>
+</ul>
+</section>
+<section id="colors" class="level2">
+<h2 class="anchored" data-anchor-id="colors">Colors</h2>
+<section id="specifying-colors" class="level3">
+<h3 class="anchored" data-anchor-id="specifying-colors">Specifying colors</h3>
+<p>There are <a href="https://matplotlib.org/stable/users/explain/colors/colors.html#sphx-glr-users-explain-colors-colors-py">many ways of specifying colors</a> in <code>matplotlib</code>:</p>
+<ul>
+<li>Use <strong>RGB</strong> or <strong>RGBA</strong> (RGB + alpha for transparency). Each color channel is given as a value in the unit interval, <span class="math inline">\([0,1]\)</span>.
+<ul>
+<li>Using a <code>tuple</code>: <code>(0, 0, 0)</code> is black, <code>(1, 0, 0)</code> is pure red.</li>
+</ul></li>
+<li>Use HTML color codes (hexadecimal). See the website <a href="https://htmlcolorcodes.com/">HTML Color Codes</a>.</li>
+<li>Use <a href="https://en.wikipedia.org/wiki/X11_color_names">X11</a>/<a href="https://learningwebdesign.com/colornames.html">CSS4</a> color names, without spaces: <code>black</code>, <code>red</code>, <code>aquamarine</code>.</li>
+</ul>
+<p>In some cases we may need to use a <a href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">predefined colormap</a>.</p>
+</section>
+<section id="diverging-colormaps" class="level3">
+<h3 class="anchored" data-anchor-id="diverging-colormaps">Diverging colormaps</h3>
+<p>Useful for emphasizing directionality (e.g.&nbsp;correlations).</p>
+<ul>
+<li>We compute correlations between numeric variables in the <code>penguins</code> dataset.</li>
+<li>The <code>matshow</code> plot displays data from an array (a matrix in this case).</li>
+<li>Use <code>RdBu_r</code> colormap: Ranges from blue (low end) to red (high end) because it is the <em>reversed version</em>, <code>_r</code>.</li>
+</ul>
+<div id="c67e00b8" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a>corr <span class="op">=</span> penguins.corr(numeric_only<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-label="2"></a>labels <span class="op">=</span> corr.columns</span>
+<span id="cb12-3"><a href="#cb12-3" aria-label="3"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-label="4"></a><span class="co"># Always use [-1,1] if you're reporting correlations... don't clip the limits!</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-label="5"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb12-6"><a href="#cb12-6" aria-label="6"></a>im <span class="op">=</span> ax.matshow(corr, cmap <span class="op">=</span> <span class="st">"RdBu_r"</span>, vmin <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>, vmax <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-label="7"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-label="8"></a><span class="co"># Annotate each cell. We use white and black text for readability.</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-label="9"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(labels)):</span>
+<span id="cb12-10"><a href="#cb12-10" aria-label="10"></a>  <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(labels)):</span>
+<span id="cb12-11"><a href="#cb12-11" aria-label="11"></a>    r <span class="op">=</span> corr.iloc[i, j]</span>
+<span id="cb12-12"><a href="#cb12-12" aria-label="12"></a>    ax.text(j, i, <span class="ss">f"</span><span class="sc">{</span>r<span class="sc">:.2f}</span><span class="ss">"</span>,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-label="13"></a>      ha <span class="op">=</span> <span class="st">"center"</span>,</span>
+<span id="cb12-14"><a href="#cb12-14" aria-label="14"></a>      va <span class="op">=</span> <span class="st">"center"</span>,</span>
+<span id="cb12-15"><a href="#cb12-15" aria-label="15"></a>      color <span class="op">=</span> <span class="st">"white"</span> <span class="cf">if</span> <span class="bu">abs</span>(r) <span class="op">&gt;</span> <span class="fl">0.6</span> <span class="cf">else</span> <span class="st">"black"</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-label="16"></a>    )</span>
+<span id="cb12-17"><a href="#cb12-17" aria-label="17"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-label="18"></a>ax.set_title(<span class="st">"Correlations between penguin measurements"</span>)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-label="19"></a>ax.set_xticks(<span class="bu">range</span>(<span class="bu">len</span>(labels)), labels, rotation <span class="op">=</span> <span class="dv">45</span>, ha <span class="op">=</span> <span class="st">"center"</span>)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-label="20"></a>ax.set_yticks(<span class="bu">range</span>(<span class="bu">len</span>(labels)), labels)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-label="21"></a>fig.colorbar(im, ax <span class="op">=</span> ax, label <span class="op">=</span> <span class="st">"Pearson Correlation"</span>)</span>
+<span id="cb12-22"><a href="#cb12-22" aria-label="22"></a></span>
+<span id="cb12-23"><a href="#cb12-23" aria-label="23"></a>plt.tight_layout()</span>
+<span id="cb12-24"><a href="#cb12-24" aria-label="24"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="matplotlib_files/figure-html/cell-11-output-1.png" width="586" height="474" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sequential-colormaps" class="level3">
+<h3 class="anchored" data-anchor-id="sequential-colormaps">Sequential colormaps</h3>
+<p>Useful for reporting continuous data without an obvious or meaningful “middle”. Need to keep in mind which colors represent “more” and “fewer”, so higher contrast is desirable.</p>
+<div id="f8b5fb93" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-label="1"></a>month_order <span class="op">=</span> [</span>
+<span id="cb13-2"><a href="#cb13-2" aria-label="2"></a>  <span class="st">"Jan"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Apr"</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-label="3"></a>  <span class="st">"May"</span>, <span class="st">"Jun"</span>, <span class="st">"Jul"</span>, <span class="st">"Aug"</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-label="4"></a>  <span class="st">"Sep"</span>, <span class="st">"Oct"</span>, <span class="st">"Nov"</span>, <span class="st">"Dec"</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-label="5"></a>]</span>
+<span id="cb13-6"><a href="#cb13-6" aria-label="6"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-label="7"></a><span class="co"># Reshape the DataFrame:</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-label="8"></a><span class="co">#   + Use `month` as an identifier; i.e. row labels.</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-label="9"></a><span class="co">#   + Take the unique values in the `year` column and make them columns.</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-label="10"></a><span class="co">#   + Entries in the new DataFrame has `passengers` values.</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-label="11"></a>table <span class="op">=</span> (</span>
+<span id="cb13-12"><a href="#cb13-12" aria-label="12"></a>  flights.pivot(index <span class="op">=</span> <span class="st">"month"</span>, columns <span class="op">=</span> <span class="st">"year"</span>, values <span class="op">=</span> <span class="st">"passengers"</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-label="13"></a>  .reindex(month_order) <span class="co"># avoid accidental sorting</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-label="14"></a>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-label="15"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-label="16"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb13-17"><a href="#cb13-17" aria-label="17"></a>im <span class="op">=</span> ax.imshow(table, cmap <span class="op">=</span> <span class="st">"viridis"</span>, aspect <span class="op">=</span> <span class="st">"auto"</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-label="18"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-label="19"></a>ax.set_title(<span class="st">"Airline passengers by month and year"</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-label="20"></a>ax.set_xticks(<span class="bu">range</span>(<span class="bu">len</span>(table.columns)), table.columns, rotation <span class="op">=</span> <span class="dv">45</span>)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-label="21"></a>ax.set_yticks(<span class="bu">range</span>(<span class="bu">len</span>(table.index)), table.index)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-label="22"></a>ax.set_xlabel(<span class="st">"Year"</span>)</span>
+<span id="cb13-23"><a href="#cb13-23" aria-label="23"></a>fig.colorbar(im, ax <span class="op">=</span> ax, label <span class="op">=</span> <span class="st">"Passengers (thousands)"</span>)</span>
+<span id="cb13-24"><a href="#cb13-24" aria-label="24"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-label="25"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[11]</span><span class="ansi-green-fg">, line 12</span>
+<span class="ansi-green-fg">      8</span> <span style="font-style:italic;color:rgb(95,135,135)">#   + Use `month` as an identifier; i.e. row labels.</span>
+<span class="ansi-green-fg">      9</span> <span style="font-style:italic;color:rgb(95,135,135)">#   + Take the unique values in the `year` column and make them columns.</span>
+<span class="ansi-green-fg">     10</span> <span style="font-style:italic;color:rgb(95,135,135)">#   + Entries in the new DataFrame has `passengers` values.</span>
+<span class="ansi-green-fg">     11</span> table = (
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">12</span>   flights.pivot(index = <span class="ansi-yellow-fg">"month"</span>, columns = <span class="ansi-yellow-fg">"year"</span>, values = <span class="ansi-yellow-fg">"passengers"</span>)
+<span class="ansi-green-fg">     13</span>   .reindex(month_order) <span style="font-style:italic;color:rgb(95,135,135)"># avoid accidental sorting</span>
+<span class="ansi-green-fg">     14</span> )
+<span class="ansi-green-fg">     15</span> 
+
+<span class="ansi-red-fg">NameError</span>: name 'flights' is not defined</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="cyclic-colormaps" class="level3">
+<h3 class="anchored" data-anchor-id="cyclic-colormaps">Cyclic colormaps</h3>
+<p>Useful for reporting data that have a period because the first and last colors are similar. For example, months, hours of the day, and compass directions can all use a cyclic colormap.</p>
+<div id="42a74da4" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-label="1"></a>month_order <span class="op">=</span> [</span>
+<span id="cb14-2"><a href="#cb14-2" aria-label="2"></a>  <span class="st">"Jan"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Apr"</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-label="3"></a>  <span class="st">"May"</span>, <span class="st">"Jun"</span>, <span class="st">"Jul"</span>, <span class="st">"Aug"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-label="4"></a>  <span class="st">"Sep"</span>, <span class="st">"Oct"</span>, <span class="st">"Nov"</span>, <span class="st">"Dec"</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-label="5"></a>]</span>
+<span id="cb14-6"><a href="#cb14-6" aria-label="6"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-label="7"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb14-8"><a href="#cb14-8" aria-label="8"></a>cyclic <span class="op">=</span> plt.get_cmap(<span class="st">"twilight"</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-label="9"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-label="10"></a><span class="cf">for</span> i, month <span class="kw">in</span> <span class="bu">enumerate</span>(month_order):</span>
+<span id="cb14-11"><a href="#cb14-11" aria-label="11"></a>  d <span class="op">=</span> flights[flights[<span class="st">"month"</span>] <span class="op">==</span> month]</span>
+<span id="cb14-12"><a href="#cb14-12" aria-label="12"></a>  ax.plot(d[<span class="st">"year"</span>], d[<span class="st">"passengers"</span>], color <span class="op">=</span> cyclic(i <span class="op">/</span> <span class="dv">12</span>), label <span class="op">=</span> month)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-label="13"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-label="14"></a>ax.<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Passengers by month of year"</span>,</span>
+<span id="cb14-15"><a href="#cb14-15" aria-label="15"></a>  xlabel <span class="op">=</span> <span class="st">"Year"</span>,</span>
+<span id="cb14-16"><a href="#cb14-16" aria-label="16"></a>  ylabel <span class="op">=</span> <span class="st">"Passengers (thousands)"</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-label="17"></a>)</span>
+<span id="cb14-18"><a href="#cb14-18" aria-label="18"></a>ax.legend(title <span class="op">=</span> <span class="st">"Month"</span>, ncol <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb14-19"><a href="#cb14-19" aria-label="19"></a></span>
+<span id="cb14-20"><a href="#cb14-20" aria-label="20"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[12]</span><span class="ansi-green-fg">, line 11</span>
+<span class="ansi-green-fg">      7</span> fig, ax = plt.subplots()
+<span class="ansi-green-fg">      8</span> cyclic = plt.get_cmap(<span class="ansi-yellow-fg">"twilight"</span>)
+<span class="ansi-green-fg">      9</span> 
+<span class="ansi-green-fg">     10</span> <span style="font-weight:bold;color:rgb(0,135,0)">for</span> i, month <span style="font-weight:bold;color:rgb(0,135,0)">in</span> enumerate(month_order):
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">11</span>   d = flights[flights[<span class="ansi-yellow-fg">"month"</span>] == month]
+<span class="ansi-green-fg">     12</span>   ax.plot(d[<span class="ansi-yellow-fg">"year"</span>], d[<span class="ansi-yellow-fg">"passengers"</span>], color = cyclic(i / <span class="ansi-green-fg">12</span>), label = month)
+<span class="ansi-green-fg">     13</span> 
+<span class="ansi-green-fg">     14</span> ax.set(title = "Passengers by month of year",
+
+<span class="ansi-red-fg">NameError</span>: name 'flights' is not defined</pre>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="matplotlib_files/figure-html/cell-13-output-2.png" width="582" height="417" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="qualitative-colormaps" class="level3">
+<h3 class="anchored" data-anchor-id="qualitative-colormaps">Qualitative colormaps</h3>
+<p>Useful for conveying discrete, unordered categories.</p>
+<div id="e680b9e8" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-label="1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb15-2"><a href="#cb15-2" aria-label="2"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-label="3"></a><span class="cf">for</span> species, color <span class="kw">in</span> COLORS.items():</span>
+<span id="cb15-4"><a href="#cb15-4" aria-label="4"></a>    d <span class="op">=</span> penguins[penguins[<span class="st">"species"</span>] <span class="op">==</span> species]</span>
+<span id="cb15-5"><a href="#cb15-5" aria-label="5"></a>    ax.scatter(d[<span class="st">"bill_length_mm"</span>], d[<span class="st">"bill_depth_mm"</span>],</span>
+<span id="cb15-6"><a href="#cb15-6" aria-label="6"></a>      color <span class="op">=</span> color,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-label="7"></a>      label <span class="op">=</span> species,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-label="8"></a>      alpha <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-label="9"></a>      edgecolor <span class="op">=</span> <span class="st">"white"</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-label="10"></a>    )</span>
+<span id="cb15-11"><a href="#cb15-11" aria-label="11"></a>ax.<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Palmer Penguins"</span>,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-label="12"></a>  xlabel <span class="op">=</span> <span class="st">"Bill length (mm)"</span>,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-label="13"></a>  ylabel <span class="op">=</span> <span class="st">"Bill depth (mm)"</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-label="14"></a>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-label="15"></a>ax.legend(title <span class="op">=</span> <span class="st">"Species"</span>)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-label="16"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-label="17"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[13]</span><span class="ansi-green-fg">, line 3</span>
+<span class="ansi-green-fg">      1</span> fig, ax = plt.subplots()
+<span class="ansi-green-fg">      2</span> 
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">3</span> <span style="font-weight:bold;color:rgb(0,135,0)">for</span> species, color <span style="font-weight:bold;color:rgb(0,135,0)">in</span> COLORS.items():
+<span class="ansi-green-fg">      4</span>     d = penguins[penguins[<span class="ansi-yellow-fg">"species"</span>] == species]
+<span class="ansi-green-fg">      5</span>     ax.scatter(d["bill_length_mm"], d["bill_depth_mm"],
+<span class="ansi-green-fg">      6</span>       color = color,
+
+<span class="ansi-red-fg">NameError</span>: name 'COLORS' is not defined</pre>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="matplotlib_files/figure-html/cell-14-output-2.png" width="582" height="417" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="colorblindness" class="level3">
+<h3 class="anchored" data-anchor-id="colorblindness">Colorblindness</h3>
+<p>Most plotting libraries oriented around data analysis have references or support for colorblind options. Matplotlib references <a href="https://www.color-blindness.com/">this website</a> as a resource for <a href="https://www.color-blindness.com/coblis-color-blindness-simulator/">understanding color perception</a> and color scales in colorblind individuals.</p>
+<ul>
+<li>More common in males in many populations.</li>
+<li>Common forms of colorblindness are sex-linked, specifically due to mutations in the X-chromosome.</li>
+<li>Not simply a matter of avoiding specific colors. Red-Green blindness is common, but some reds and greens <em>are</em> distinguishable for these individuals and other colors are affected, too.</li>
+</ul>
+</section>
+</section>
+<section id="complex-layouts" class="level2">
+<h2 class="anchored" data-anchor-id="complex-layouts">Complex Layouts</h2>
+<p>The library supports creating layouts beyond the basic grid approach. See <a href="https://matplotlib.org/stable/users/explain/axes/arranging_axes.html#arranging-axes">this</a> tutorial.</p>
+<p>The standard grid layout should suffice for most graphics we’ll need to create.</p>
+</section>
+<section id="exporting-figures" class="level2">
+<h2 class="anchored" data-anchor-id="exporting-figures">Exporting Figures</h2>
+<p>The <code>matplotlib.pyplot.savefig</code> function will save a <code>Figure</code> in many common formats. Always refers to the <em>current</em> figure (can’t pass as an argument).</p>
+<div id="1bb615fd" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-label="1"></a>plt.savefig(<span class="st">'myfigure.png'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>If you have access to a <code>Figure</code> object directly, you can invoke the method instead:</p>
+<div id="89aa3ead" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-label="1"></a>fig.savefig(<span class="st">'myfigure.png'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="working-with-dataframes" class="level2">
+<h2 class="anchored" data-anchor-id="working-with-dataframes">Working with DataFrames</h2>
+<p>Most of the plotting functions with accept data as an array-like object. Many of the plot types will also accept a <code>data</code> keyword, allowing you to set <code>x</code> and <code>y</code> arguments to column names from a <code>DataFrame</code> object.</p>
+</section>
+<section id="gallery" class="level2">
+<h2 class="anchored" data-anchor-id="gallery">Gallery</h2>
+<p>Here we illustrate a <a href="https://matplotlib.org/stable/plot_types/index">tiny subset</a> of the kinds of plots you can make with <code>matplotlib</code>.</p>
+<section id="scatter-line-plots" class="level3">
+<h3 class="anchored" data-anchor-id="scatter-line-plots">Scatter + Line Plots</h3>
+<p>Idea: Convey change in one variable relative to another.</p>
+<div id="391ddf33" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-label="1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb18-2"><a href="#cb18-2" aria-label="2"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-label="3"></a><span class="co"># series 1</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-label="4"></a>ts, ys <span class="op">=</span> simulate_stock_market(<span class="fl">10.0</span>, <span class="dv">100</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-label="5"></a>ax.scatter(ts, ys, color <span class="op">=</span> (<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)) <span class="co"># RGB</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-label="6"></a>ax.plot(ts, ys, color <span class="op">=</span> (<span class="st">'red'</span>, <span class="fl">0.4</span>)) <span class="co"># add transparency</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-label="7"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-label="8"></a><span class="co"># series 2</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-label="9"></a>ts, ys <span class="op">=</span> simulate_stock_market(<span class="fl">10.0</span>, <span class="dv">100</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-label="10"></a>ax.scatter(ts, ys, color <span class="op">=</span> (<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), marker <span class="op">=</span> <span class="st">'x'</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-label="11"></a>ax.plot(ts, ys, color <span class="op">=</span> <span class="st">'orange'</span>, linestyle <span class="op">=</span> <span class="st">'--'</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-label="12"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-label="13"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="matplotlib_files/figure-html/cell-17-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="566" height="412"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Distinct markers differentiate variables here.</li>
+<li>Lines connect data values in sequence. This is not always appropriate!</li>
+<li>Solid line: Usually conveys a “true” relationship.</li>
+<li>Dashed line: Usually conveys interpolation or extrapolation.</li>
+</ul>
+</section>
+<section id="bar-plots" class="level3">
+<h3 class="anchored" data-anchor-id="bar-plots">Bar Plots</h3>
+<div id="4bac962a" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a>x <span class="op">=</span> <span class="fl">0.5</span> <span class="op">+</span> np.arange(<span class="dv">8</span>) <span class="co"># positions</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-label="2"></a>y <span class="op">=</span> [<span class="fl">4.8</span>, <span class="fl">5.5</span>, <span class="fl">3.5</span>, <span class="fl">4.6</span>, <span class="fl">6.5</span>, <span class="fl">6.6</span>, <span class="fl">2.6</span>, <span class="fl">3.0</span>] <span class="co"># values</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-label="3"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-label="4"></a><span class="co"># put the data in a Figure</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-label="5"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb19-6"><a href="#cb19-6" aria-label="6"></a>ax.bar(x, y, width<span class="op">=</span><span class="dv">1</span>, edgecolor<span class="op">=</span><span class="st">"white"</span>, linewidth<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-label="7"></a>ax.<span class="bu">set</span>(xlim<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">8</span>), xticks<span class="op">=</span>np.arange(<span class="dv">1</span>, <span class="dv">8</span>),</span>
+<span id="cb19-8"><a href="#cb19-8" aria-label="8"></a>       ylim<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">8</span>), yticks<span class="op">=</span>np.arange(<span class="dv">1</span>, <span class="dv">8</span>))</span>
+<span id="cb19-9"><a href="#cb19-9" aria-label="9"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-label="10"></a><span class="co"># add annotations to the top of the bars</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-label="11"></a>offset <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-label="12"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(x)):</span>
+<span id="cb19-13"><a href="#cb19-13" aria-label="13"></a>    <span class="co"># x position, y position, label</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-label="14"></a>    ax.text(x[i], y[i] <span class="op">+</span> offset, <span class="bu">str</span>(y[i]), horizontalalignment <span class="op">=</span> <span class="st">'center'</span>)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-label="15"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="matplotlib_files/figure-html/cell-18-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="558" height="411"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>If you use this, it needs to be better than a table.</li>
+<li>If you can afford the space, add labels on the bars.</li>
+<li>Useful if you need to make comparisons across groups.</li>
+<li>The <span class="math inline">\(x\)</span>-axis here corresponds to a discrete variable, or at least a discretized variable.</li>
+<li>Easy to abuse; makes the most sense if your data has a natural minimum vallue.</li>
+</ul>
+</section>
+<section id="contour-maps" class="level3">
+<h3 class="anchored" data-anchor-id="contour-maps">Contour Maps</h3>
+<p>Idea: Summarize a density using a smooth estimate.</p>
+<p>In the following example, data are bivariate (two variables) and centered at the point <span class="math inline">\((-2, 10)\)</span>.</p>
+<ul>
+<li>The two components are <em>not</em> independent. The <code>cov</code> matrix describes how the data <em>co-vary</em>.</li>
+<li>Most points concentrate near the center.</li>
+<li>As we move further away from center, along specific directions, we should see fewer points.</li>
+</ul>
+<div id="d0524161" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-label="1"></a>mu <span class="op">=</span> [<span class="op">-</span><span class="dv">2</span>, <span class="dv">10</span>]</span>
+<span id="cb20-2"><a href="#cb20-2" aria-label="2"></a>cov <span class="op">=</span> [[<span class="fl">3.0</span>, <span class="fl">2.5</span>], [<span class="fl">2.5</span>, <span class="fl">10.0</span>]]</span>
+<span id="cb20-3"><a href="#cb20-3" aria-label="3"></a>data <span class="op">=</span> np.random.multivariate_normal(mu, cov, size <span class="op">=</span> <span class="dv">1000</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-label="4"></a>x <span class="op">=</span> data[:, <span class="dv">0</span>]</span>
+<span id="cb20-5"><a href="#cb20-5" aria-label="5"></a>y <span class="op">=</span> data[:, <span class="dv">1</span>]</span>
+<span id="cb20-6"><a href="#cb20-6" aria-label="6"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-label="7"></a>plt.scatter(x, y, alpha <span class="op">=</span> <span class="fl">0.3</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-label="8"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="matplotlib_files/figure-html/cell-19-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="579" height="411"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The <code>contourf</code> surface conveys the density of points, and hence the distribution. In addition, we include the <em>marginal plots</em>, which are just histograms of the individual variables.</p>
+<ul>
+<li>In the contour map, color conveys density, with lighter colors indicating “more”.</li>
+<li>Think of this as a surface with a single peak. The <span class="math inline">\(z\)</span>-values corresponding to density.</li>
+<li>We view this surface from the top and can only perceive contour lines.</li>
+</ul>
+<div id="c0a3c89e" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-label="1"></a><span class="co"># Define RV we used to simulate data</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-label="2"></a><span class="im">from</span> scipy.stats <span class="im">import</span> multivariate_normal</span>
+<span id="cb21-3"><a href="#cb21-3" aria-label="3"></a>rv <span class="op">=</span> multivariate_normal(mu, cov)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-label="4"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-label="5"></a><span class="co"># Create a 2D grid</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-label="6"></a>npoints <span class="op">=</span> <span class="dv">101</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-label="7"></a>xs <span class="op">=</span> np.linspace(x.<span class="bu">min</span>(), x.<span class="bu">max</span>(), npoints)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-label="8"></a>ys <span class="op">=</span> np.linspace(y.<span class="bu">min</span>(), y.<span class="bu">max</span>(), npoints)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-label="9"></a>xs, ys <span class="op">=</span> np.meshgrid(xs, ys)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-label="10"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-label="11"></a><span class="co"># Evaluate true PDF over grid</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-label="12"></a>zs <span class="op">=</span> np.array([rv.pdf((xi, yi)) <span class="cf">for</span> (xi, yi) <span class="kw">in</span> <span class="bu">zip</span>(np.ravel(xs), np.ravel(ys))])</span>
+<span id="cb21-13"><a href="#cb21-13" aria-label="13"></a></span>
+<span id="cb21-14"><a href="#cb21-14" aria-label="14"></a>fig <span class="op">=</span> plt.figure(layout <span class="op">=</span> <span class="st">'constrained'</span>)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-label="15"></a>ax <span class="op">=</span> fig.subplot_mosaic(</span>
+<span id="cb21-16"><a href="#cb21-16" aria-label="16"></a>    [</span>
+<span id="cb21-17"><a href="#cb21-17" aria-label="17"></a>        [<span class="st">'mX'</span>, <span class="st">'unused'</span>],</span>
+<span id="cb21-18"><a href="#cb21-18" aria-label="18"></a>        [<span class="st">'joint'</span>, <span class="st">'mY'</span>]</span>
+<span id="cb21-19"><a href="#cb21-19" aria-label="19"></a>    ]</span>
+<span id="cb21-20"><a href="#cb21-20" aria-label="20"></a>)</span>
+<span id="cb21-21"><a href="#cb21-21" aria-label="21"></a></span>
+<span id="cb21-22"><a href="#cb21-22" aria-label="22"></a><span class="co"># main panel: joint distribution</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-label="23"></a>cf <span class="op">=</span> ax[<span class="st">'joint'</span>].contourf(xs, ys, zs.reshape(xs.shape[<span class="dv">0</span>], xs.shape[<span class="dv">1</span>]),</span>
+<span id="cb21-24"><a href="#cb21-24" aria-label="24"></a>    cmap <span class="op">=</span> <span class="st">'plasma'</span>,</span>
+<span id="cb21-25"><a href="#cb21-25" aria-label="25"></a>    levels <span class="op">=</span> <span class="dv">32</span>,</span>
+<span id="cb21-26"><a href="#cb21-26" aria-label="26"></a>)</span>
+<span id="cb21-27"><a href="#cb21-27" aria-label="27"></a>ax[<span class="st">'joint'</span>].set_xlabel(<span class="st">"X"</span>)</span>
+<span id="cb21-28"><a href="#cb21-28" aria-label="28"></a>ax[<span class="st">'joint'</span>].set_ylabel(<span class="st">"Y"</span>)</span>
+<span id="cb21-29"><a href="#cb21-29" aria-label="29"></a></span>
+<span id="cb21-30"><a href="#cb21-30" aria-label="30"></a><span class="co"># top: Marginal of X</span></span>
+<span id="cb21-31"><a href="#cb21-31" aria-label="31"></a>ax[<span class="st">'mX'</span>].hist(x, density <span class="op">=</span> <span class="va">True</span>, bins <span class="op">=</span> <span class="dv">32</span>)</span>
+<span id="cb21-32"><a href="#cb21-32" aria-label="32"></a></span>
+<span id="cb21-33"><a href="#cb21-33" aria-label="33"></a><span class="co"># right: Marginal of Y</span></span>
+<span id="cb21-34"><a href="#cb21-34" aria-label="34"></a>ax[<span class="st">'mY'</span>].hist(y, density <span class="op">=</span> <span class="va">True</span>, orientation <span class="op">=</span> <span class="st">'horizontal'</span>, bins <span class="op">=</span> <span class="dv">32</span>)</span>
+<span id="cb21-35"><a href="#cb21-35" aria-label="35"></a></span>
+<span id="cb21-36"><a href="#cb21-36" aria-label="36"></a><span class="co"># disable unused plotting area</span></span>
+<span id="cb21-37"><a href="#cb21-37" aria-label="37"></a>ax[<span class="st">'unused'</span>].axis(<span class="st">'off'</span>)</span>
+<span id="cb21-38"><a href="#cb21-38" aria-label="38"></a></span>
+<span id="cb21-39"><a href="#cb21-39" aria-label="39"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="matplotlib_files/figure-html/cell-20-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="683" height="491"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="images-and-heatmaps" class="level3">
+<h3 class="anchored" data-anchor-id="images-and-heatmaps">Images and heatmaps</h3>
+<p>The <code>imshow</code> plot function is a low-level function for displaying arrays. The main use case is to plot image data.</p>
+<div id="7eed10fe" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-label="1"></a><span class="co"># Read the image.</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-label="2"></a>img <span class="op">=</span> plt.imread(<span class="st">"assets/elephant.png"</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-label="3"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-label="4"></a><span class="co"># Plot it! also works with NumPy arrays.</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-label="5"></a>plt.imshow(img)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="matplotlib_files/figure-html/cell-21-output-1.png" width="450" height="416" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The <code>matshow</code> plot function should be preferred for numeric arrays. Best suited for actual heatmaps.</p>
+<p>The following uses the contour map data, bins it over a discretized 2D grid, and displays it as a heatmap.</p>
+<div id="a8ec9361" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-label="1"></a><span class="co"># Discretize: count how many points fall in each 2D bin</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-label="2"></a>counts, xedges, yedges <span class="op">=</span> np.histogram2d(x, y, bins <span class="op">=</span> <span class="dv">20</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-label="3"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-label="4"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">5</span>))</span>
+<span id="cb23-5"><a href="#cb23-5" aria-label="5"></a>im <span class="op">=</span> ax.matshow(</span>
+<span id="cb23-6"><a href="#cb23-6" aria-label="6"></a>    counts.T,         <span class="co"># histogram2d puts x along rows; transpose so x runs horizontally</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-label="7"></a>    cmap <span class="op">=</span> <span class="st">"viridis"</span>, <span class="co"># sequential: counts go from low to high</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-label="8"></a>    origin <span class="op">=</span> <span class="st">"lower"</span>, <span class="co"># put small y at the bottom, like a normal plot</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-label="9"></a>    aspect <span class="op">=</span> <span class="st">"auto"</span>,  <span class="co"># x and y ranges differ, so don't force square cells</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-label="10"></a>    extent <span class="op">=</span> [xedges[<span class="dv">0</span>], xedges[<span class="op">-</span><span class="dv">1</span>], yedges[<span class="dv">0</span>], yedges[<span class="op">-</span><span class="dv">1</span>]],  <span class="co"># label axes in data units</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-label="11"></a>)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-label="12"></a>ax.xaxis.set_ticks_position(<span class="st">"bottom"</span>)  <span class="co"># matshow puts x ticks on top by default</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-label="13"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-label="14"></a>ax.set_xlabel(<span class="st">"x"</span>)</span>
+<span id="cb23-15"><a href="#cb23-15" aria-label="15"></a>ax.set_ylabel(<span class="st">"y"</span>)</span>
+<span id="cb23-16"><a href="#cb23-16" aria-label="16"></a>ax.set_title(<span class="st">"Binned bivariate data (n = 1000)"</span>)</span>
+<span id="cb23-17"><a href="#cb23-17" aria-label="17"></a>fig.colorbar(im, ax <span class="op">=</span> ax, label <span class="op">=</span> <span class="st">"Points per bin"</span>)</span>
+<span id="cb23-18"><a href="#cb23-18" aria-label="18"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="matplotlib_files/figure-html/cell-22-output-1.png" width="507" height="450" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/UCR-STAT-206\.github\.io\/2026-Fall-MSBA\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

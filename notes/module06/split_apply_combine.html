@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.19">
+<meta name="generator" content="quarto-1.11.9">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,14 +73,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-42984134f797fdc8b1dddc8d1d96fd6e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-0dc1e8188feb0d475c79e47387ad4ecc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -116,17 +117,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../assets/styles.css">
 </head>
 
-<body class="nav-sidebar docked quarto-light">
+<body class="nav-sidebar docked quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
+  <nav class="quarto-secondary-nav" aria-label="Toolbar">
     <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module06/pandas_intro.html">Module 6 (Tabular Data)</a></li><li class="breadcrumb-item"><a href="../../notes/module06/split_apply_combine.html">Split-Apply-Combine</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="Breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module06/pandas_intro.html">Module 6 (Tabular Data)</a></li><li class="breadcrumb-item"><a href="../../notes/module06/split_apply_combine.html">Split-Apply-Combine</a></li></ol></nav>
+        <a class="flex-grow-1" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -137,7 +138,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto" aria-label="Site">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../../index.html" class="sidebar-logo-link">
       <img src="../../assets/UC_Riverside_Horiz_WhtBG.png" alt="UC Riverside monogram logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
@@ -175,13 +176,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
- <span class="menu-text">Module 1 (Fundamentals)</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-controls="quarto-sidebar-section-1" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-1-label">Module 1 (Fundamentals)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" aria-labelledby="quarto-sidebar-section-1-label" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notes/module01/unix.html" class="sidebar-item-text sidebar-link">
@@ -210,13 +208,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">Module 2 (Programming)</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-controls="quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-2-label">Module 2 (Programming)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" aria-labelledby="quarto-sidebar-section-2-label" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notes/module02/intro.html" class="sidebar-item-text sidebar-link">
@@ -251,13 +246,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">Module 3 (Beyond Basics)</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-controls="quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-3-label">Module 3 (Beyond Basics)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" aria-labelledby="quarto-sidebar-section-3-label" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notes/module03/collections.html" class="sidebar-item-text sidebar-link">
@@ -286,13 +278,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
- <span class="menu-text">Module 4 (Best Practices)</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-controls="quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-4-label">Module 4 (Best Practices)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-4" aria-labelledby="quarto-sidebar-section-4-label" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
  <span class="menu-text">Error Handling</span>
   </li>
@@ -309,13 +298,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
- <span class="menu-text">Module 5 (Numerical Python)</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-controls="quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-5-label">Module 5 (Numerical Python)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-5" aria-labelledby="quarto-sidebar-section-5-label" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notes/module05/numpy_intro.html" class="sidebar-item-text sidebar-link">
@@ -356,13 +342,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">Module 6 (Tabular Data)</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-controls="quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text" id="quarto-sidebar-section-6-label">Module 6 (Tabular Data)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-6" aria-labelledby="quarto-sidebar-section-6-label" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notes/module06/pandas_intro.html" class="sidebar-item-text sidebar-link">
@@ -395,16 +378,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-controls="quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-7-label">Module 7 (Data Visualization)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-7" aria-labelledby="quarto-sidebar-section-7-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module07/setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module07/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Plotting in Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module07/matplotlib.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matplotlib Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module07/seaborn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Seaborn Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
- <span class="menu-text">Labs</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-controls="quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-8-label">Labs</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-8" aria-labelledby="quarto-sidebar-section-8-label" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../labs/lab0-setup.html" class="sidebar-item-text sidebar-link">
@@ -439,13 +451,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
- <span class="menu-text">Homework</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-controls="quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-9-label">Homework</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-9" aria-labelledby="quarto-sidebar-section-9-label" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../hw/hw1.html" class="sidebar-item-text sidebar-link">
@@ -481,13 +490,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
- <span class="menu-text">How to…</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-controls="quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-10-label">How to…</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
       </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-10" aria-labelledby="quarto-sidebar-section-10-label" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../howto/use_docker.html" class="sidebar-item-text sidebar-link">
@@ -532,7 +538,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -576,9 +582,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content" tabindex="-1">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module06/pandas_intro.html">Module 6 (Tabular Data)</a></li><li class="breadcrumb-item"><a href="../../notes/module06/split_apply_combine.html">Split-Apply-Combine</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="Breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/module06/pandas_intro.html">Module 6 (Tabular Data)</a></li><li class="breadcrumb-item"><a href="../../notes/module06/split_apply_combine.html">Split-Apply-Combine</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Split-Apply-Combine</h1>
 </div>
@@ -608,13 +614,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="packages-and-data" class="level2">
 <h2 class="anchored" data-anchor-id="packages-and-data">Packages and data</h2>
-<div id="f1e38b3d" class="cell" data-execution_count="1">
+<div id="43328c23" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="im">import</span> os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-label="2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-label="3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We continue with the Palmer penguins: body measurements for 344 penguins of three species on three islands.</p>
-<div id="63a52db6" class="cell" data-execution_count="2">
+<div id="516235b2" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>penguins <span class="op">=</span> pd.read_csv(os.path.join(<span class="st">"assets"</span>, <span class="st">"penguins.csv"</span>))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-label="2"></a>penguins.isna().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -630,7 +636,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>Two rows have <em>no measurements at all</em>, and nine more only lack <code>sex</code>. We drop the empty rows now and handle <code>sex</code> when we need it. (Dropping every row with any missing value would discard information we can use.)</p>
-<div id="e43645cc" class="cell" data-execution_count="3">
+<div id="d53a6c7a" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a>penguins <span class="op">=</span> penguins.dropna(subset<span class="op">=</span>[<span class="st">"body_mass_g"</span>])</span>
 <span id="cb4-2"><a href="#cb4-2" aria-label="2"></a>penguins.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -653,7 +659,7 @@ dtype: int64</code></pre>
 <section id="why-not-just-loop" class="level3">
 <h3 class="anchored" data-anchor-id="why-not-just-loop">Why not just loop?</h3>
 <p>We already know enough to do this by hand: loop over the species, filter the rows, and compute.</p>
-<div id="5bfc16aa" class="cell" data-execution_count="4">
+<div id="9768fb20" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a><span class="cf">for</span> species <span class="kw">in</span> <span class="bu">sorted</span>(penguins[<span class="st">"species"</span>].unique()):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-label="2"></a>    subset <span class="op">=</span> penguins[penguins[<span class="st">"species"</span>] <span class="op">==</span> species]</span>
 <span id="cb6-3"><a href="#cb6-3" aria-label="3"></a>    <span class="bu">print</span>(species, <span class="bu">round</span>(subset[<span class="st">"body_mass_g"</span>].mean(), <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -664,7 +670,7 @@ Gentoo 5076.0</code></pre>
 </div>
 </div>
 <p>That works for one number and one grouping variable. But what if we also want the median and the count? What if we group by island too? What if we want the answers in a table we can sort or export? Every change means more bookkeeping code. <code>groupby</code> does the splitting, applying, and combining for us.</p>
-<div id="6296447d" class="cell" data-execution_count="5">
+<div id="fa2691a4" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a>penguins.groupby(<span class="st">"species"</span>)[<span class="st">"body_mass_g"</span>].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>species
@@ -678,15 +684,15 @@ Name: body_mass_g, dtype: float64</code></pre>
 </section>
 <section id="splitting" class="level2">
 <h2 class="anchored" data-anchor-id="splitting">Splitting</h2>
-<div id="e1f5402a" class="cell" data-execution_count="6">
+<div id="802aeded" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a>by_species <span class="op">=</span> penguins.groupby(<span class="st">"species"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-label="2"></a>by_species</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
-<pre><code>&lt;pandas.api.typing.DataFrameGroupBy object at 0x7f8041b8df90&gt;</code></pre>
+<pre><code>&lt;pandas.api.typing.DataFrameGroupBy object at 0x78f89f53cf50&gt;</code></pre>
 </div>
 </div>
 <p>The <code>groupby</code> object <em>represents</em> the split. Nothing is computed until we ask for a summary. We can look inside:</p>
-<div id="7b41a2ed" class="cell" data-execution_count="7">
+<div id="85b35470" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a>by_species.size()          <span class="co"># number of rows in each group</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>species
@@ -696,7 +702,7 @@ Gentoo       123
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="28cb5bae" class="cell" data-execution_count="8">
+<div id="3b297951" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-label="1"></a><span class="cf">for</span> name, group <span class="kw">in</span> by_species:</span>
 <span id="cb14-2"><a href="#cb14-2" aria-label="2"></a>    <span class="bu">print</span>(name, group.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -705,7 +711,7 @@ Chinstrap (68, 8)
 Gentoo (123, 8)</code></pre>
 </div>
 </div>
-<div id="a473cfb1" class="cell" data-execution_count="9">
+<div id="18954603" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-label="1"></a>by_species.get_group(<span class="st">"Gentoo"</span>).head(<span class="dv">3</span>)      <span class="co"># pull out one group's rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
@@ -772,7 +778,7 @@ Gentoo (123, 8)</code></pre>
 <section id="aggregation" class="level3">
 <h3 class="anchored" data-anchor-id="aggregation">Aggregation</h3>
 <p>An <strong>aggregation</strong> reduces each group to a few numbers. The <code>.agg()</code> method with <em>named aggregation</em> lets us choose the output names: each keyword is <code>new_name=("column", "function")</code>.</p>
-<div id="d35d3b27" class="cell" data-execution_count="10">
+<div id="cc3830be" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-label="1"></a>mass_summary <span class="op">=</span> (</span>
 <span id="cb17-2"><a href="#cb17-2" aria-label="2"></a>    penguins</span>
 <span id="cb17-3"><a href="#cb17-3" aria-label="3"></a>    .groupby(<span class="st">"species"</span>)</span>
@@ -846,7 +852,7 @@ Gentoo (123, 8)</code></pre>
 </div>
 <div class="callout-body-container callout-body">
 <p><code>"count"</code> counts the <strong>non-missing</strong> values in a column, while <code>"size"</code> counts <strong>rows</strong>. They differ when there are missing values:</p>
-<div id="ab2fb57a" class="cell" data-execution_count="11">
+<div id="d1ce94ab" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-label="1"></a>penguins.groupby(<span class="st">"species"</span>)[<span class="st">"sex"</span>].agg([<span class="st">"size"</span>, <span class="st">"count"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <div>
@@ -893,7 +899,7 @@ Gentoo (123, 8)</code></pre>
 <section id="grouping-by-several-keys" class="level3">
 <h3 class="anchored" data-anchor-id="grouping-by-several-keys">Grouping by several keys</h3>
 <p>Pass a list to group by combinations:</p>
-<div id="8cbf742b" class="cell" data-execution_count="12">
+<div id="bc0459e6" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a>species_island <span class="op">=</span> (</span>
 <span id="cb19-2"><a href="#cb19-2" aria-label="2"></a>  penguins</span>
 <span id="cb19-3"><a href="#cb19-3" aria-label="3"></a>  .groupby([<span class="st">"species"</span>, <span class="st">"island"</span>])</span>
@@ -967,7 +973,7 @@ Gentoo (123, 8)</code></pre>
 </div>
 </div>
 <p>The group labels become the <strong>index</strong> of the result (a <em>multi-level</em> index here). Use <code>.reset_index()</code> to turn them back into ordinary columns:</p>
-<div id="29f59330" class="cell" data-execution_count="13">
+<div id="b1cf9d88" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-label="1"></a>species_island <span class="op">=</span> species_island.reset_index()</span>
 <span id="cb20-2"><a href="#cb20-2" aria-label="2"></a>species_island</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -1033,7 +1039,7 @@ Gentoo (123, 8)</code></pre>
 </div>
 </div>
 <p>This is usually the right step before exporting, plotting, or merging the table.</p>
-<div id="34387f12" class="cell" data-execution_count="14">
+<div id="cddc5a9f" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-label="1"></a>species_island.to_csv(</span>
 <span id="cb21-2"><a href="#cb21-2" aria-label="2"></a>  os.path.join(<span class="st">"output"</span>, <span class="st">"species_island_summary.csv"</span>),</span>
 <span id="cb21-3"><a href="#cb21-3" aria-label="3"></a>  index <span class="op">=</span> <span class="va">False</span></span>
@@ -1044,7 +1050,7 @@ Gentoo (123, 8)</code></pre>
 <section id="example-sex-differences" class="level3">
 <h3 class="anchored" data-anchor-id="example-sex-differences">Example: sex differences</h3>
 <p><code>sex</code> has missing values, so we choose to drop those rows <em>for this question only</em>.</p>
-<div id="884bb9f7" class="cell" data-execution_count="15">
+<div id="1d335c6c" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-label="1"></a>sexed <span class="op">=</span> penguins.dropna(subset<span class="op">=</span>[<span class="st">"sex"</span>])</span>
 <span id="cb22-2"><a href="#cb22-2" aria-label="2"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-label="3"></a>sex_mass <span class="op">=</span> (</span>
@@ -1104,7 +1110,7 @@ Gentoo (123, 8)</code></pre>
 <section id="transformation" class="level3">
 <h3 class="anchored" data-anchor-id="transformation">Transformation</h3>
 <p>A <strong>transformation</strong> computes a value <em>for every row</em>, using information from that row’s group. The result has the same number of rows as the original, so it can be stored as a new column.</p>
-<div id="693ee40b" class="cell" data-execution_count="16">
+<div id="6c4fdbb5" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-label="1"></a><span class="kw">def</span> zscore(x):</span>
 <span id="cb23-2"><a href="#cb23-2" aria-label="2"></a>  <span class="co">"""How many standard deviations each value is from the mean."""</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-label="3"></a>  <span class="cf">return</span> (x <span class="op">-</span> x.mean()) <span class="op">/</span> x.std()</span>
@@ -1166,7 +1172,7 @@ Gentoo (123, 8)</code></pre>
 <li>A <code>mass_z</code> of 2 means “two standard deviations heavier than the average <em>of its own species</em>”. This is a different statement from “heavy compared with all penguins”.</li>
 </ul>
 <p>For common cases you can pass the name of a function:</p>
-<div id="0bec686b" class="cell" data-execution_count="17">
+<div id="43a55693" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-label="1"></a>penguins[<span class="st">"rel_mass"</span>] <span class="op">=</span> (</span>
 <span id="cb24-2"><a href="#cb24-2" aria-label="2"></a>  penguins[<span class="st">"body_mass_g"</span>]</span>
 <span id="cb24-3"><a href="#cb24-3" aria-label="3"></a>  <span class="op">/</span> penguins.groupby(<span class="st">"species"</span>)[<span class="st">"body_mass_g"</span>].transform(<span class="st">"mean"</span>)</span>
@@ -1228,7 +1234,7 @@ Gentoo (123, 8)</code></pre>
 <section id="filtering-groups" class="level2">
 <h2 class="anchored" data-anchor-id="filtering-groups">Filtering groups</h2>
 <p><code>.filter()</code> keeps or drops <em>whole groups</em> based on a condition on the group. Here we keep only species-island combinations with at least 50 penguins:</p>
-<div id="9734d9cf" class="cell" data-execution_count="18">
+<div id="e791d827" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-label="1"></a>well_sampled <span class="op">=</span> (</span>
 <span id="cb25-2"><a href="#cb25-2" aria-label="2"></a>    penguins</span>
 <span id="cb25-3"><a href="#cb25-3" aria-label="3"></a>    .groupby([<span class="st">"species"</span>, <span class="st">"island"</span>])</span>
@@ -1302,7 +1308,7 @@ dtype: int64</code></pre>
 <section id="even-labeled-groups-have-traps" class="level3">
 <h3 class="anchored" data-anchor-id="even-labeled-groups-have-traps">Even labeled groups have traps</h3>
 <p><code>groupby</code> silently ignores rows whose key is missing:</p>
-<div id="0fd42fb3" class="cell" data-execution_count="19">
+<div id="31a0b464" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-label="1"></a>penguins.groupby(<span class="st">"sex"</span>).size()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>sex
@@ -1311,7 +1317,7 @@ male      168
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="57efddc8" class="cell" data-execution_count="20">
+<div id="cd1d5478" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-label="1"></a>penguins.groupby(<span class="st">"sex"</span>, dropna<span class="op">=</span><span class="va">False</span>).size()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>sex
@@ -1326,7 +1332,7 @@ dtype: int64</code></pre>
 <section id="groups-built-from-numbers" class="level3">
 <h3 class="anchored" data-anchor-id="groups-built-from-numbers">Groups built from numbers</h3>
 <p>To compare “big” and “small” penguins we must first define <em>big</em>:</p>
-<div id="ba047cdb" class="cell" data-execution_count="21">
+<div id="2742239f" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-label="1"></a>penguins[<span class="st">"is_big"</span>] <span class="op">=</span> penguins[<span class="st">"body_mass_g"</span>] <span class="op">&gt;=</span> <span class="dv">4500</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-label="2"></a>penguins[<span class="st">"is_big"</span>].value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
@@ -1337,7 +1343,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>Averaging a <code>True</code>/<code>False</code> column gives the <strong>proportion</strong> of <code>True</code> values, so we can answer “what share of each species is big?”:</p>
-<div id="67f453a4" class="cell" data-execution_count="22">
+<div id="5b252471" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-label="1"></a>penguins.groupby(<span class="st">"species"</span>)[<span class="st">"is_big"</span>].mean().<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>species
@@ -1348,7 +1354,7 @@ Name: is_big, dtype: float64</code></pre>
 </div>
 </div>
 <p>To split a number into several named tiers, use <code>pd.cut</code> (you choose the cut points) or <code>pd.qcut</code> (cut points chosen so each tier has about the same number of rows):</p>
-<div id="6e8a7110" class="cell" data-execution_count="23">
+<div id="551b80a4" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-label="1"></a>penguins[<span class="st">"mass_tier"</span>] <span class="op">=</span> pd.qcut(</span>
 <span id="cb35-2"><a href="#cb35-2" aria-label="2"></a>  penguins[<span class="st">"body_mass_g"</span>], q<span class="op">=</span><span class="dv">3</span>, labels<span class="op">=</span>[<span class="st">"light"</span>, <span class="st">"medium"</span>, <span class="st">"heavy"</span>]</span>
 <span id="cb35-3"><a href="#cb35-3" aria-label="3"></a>)</span>
@@ -1361,7 +1367,7 @@ medium    112
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="cbb2cbd5" class="cell" data-execution_count="24">
+<div id="f1036d93" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-label="1"></a>pd.crosstab(penguins[<span class="st">"species"</span>], penguins[<span class="st">"mass_tier"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <div>
@@ -1412,7 +1418,7 @@ Name: count, dtype: int64</code></pre>
 <section id="groups-built-from-text" class="level3">
 <h3 class="anchored" data-anchor-id="groups-built-from-text">Groups built from text</h3>
 <p>Suppose we have support tickets, and the only information about the topic is the free-text subject line.</p>
-<div id="6488e1c1" class="cell" data-execution_count="25">
+<div id="a616b25a" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-label="1"></a>tickets <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb38-2"><a href="#cb38-2" aria-label="2"></a>  <span class="st">"subject"</span>: [</span>
 <span id="cb38-3"><a href="#cb38-3" aria-label="3"></a>    <span class="st">"Refund for duplicate charge"</span>,</span>
@@ -1433,7 +1439,7 @@ Name: count, dtype: int64</code></pre>
 <span id="cb38-18"><a href="#cb38-18" aria-label="18"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>There is no <code>topic</code> column, so we create one by testing each subject for keywords (see the text notes). <code>np.select</code> takes a list of conditions and a list of labels, and picks the label of the first condition that is <code>True</code>:</p>
-<div id="b40c1dc0" class="cell" data-execution_count="26">
+<div id="fb6fbaa7" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-label="1"></a>subject <span class="op">=</span> tickets[<span class="st">"subject"</span>].<span class="bu">str</span>.lower()</span>
 <span id="cb39-2"><a href="#cb39-2" aria-label="2"></a></span>
 <span id="cb39-3"><a href="#cb39-3" aria-label="3"></a>conditions <span class="op">=</span> [</span>
@@ -1530,7 +1536,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>Now the usual split-apply-combine works on the group we <em>created</em>:</p>
-<div id="7cb02bbc" class="cell" data-execution_count="27">
+<div id="e45c60c9" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-label="1"></a>(</span>
 <span id="cb40-2"><a href="#cb40-2" aria-label="2"></a>  tickets</span>
 <span id="cb40-3"><a href="#cb40-3" aria-label="3"></a>  .groupby(<span class="st">"topic"</span>)</span>
@@ -1588,7 +1594,7 @@ Name: count, dtype: int64</code></pre>
 <h3 class="anchored" data-anchor-id="groups-hidden-in-the-data">Groups hidden in the data</h3>
 <p>Now the hardest case. Imagine the <code>species</code> column had been lost before the data reached you. We would still have the measurements. Could we notice that there are groups?</p>
 <p>Consider the flipper lengths of all penguins mixed together:</p>
-<div id="16e9422d" class="cell" data-execution_count="28">
+<div id="b24553e2" class="cell" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-label="1"></a>flipper_counts <span class="op">=</span> pd.cut(penguins[<span class="st">"flipper_length_mm"</span>], bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">170</span>, <span class="dv">240</span>, <span class="dv">5</span>)).value_counts()</span>
 <span id="cb41-2"><a href="#cb41-2" aria-label="2"></a>flipper_counts.sort_index()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="27">
@@ -1610,7 +1616,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>The counts rise, dip around 200-205 mm, and rise again. A single “typical” flipper length does not describe this population, because there are (at least) two kinds of penguins. If we split at the dip, do we recover real groups?</p>
-<div id="34ff185b" class="cell" data-execution_count="29">
+<div id="68ad5653" class="cell" data-execution_count="29">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-label="1"></a>penguins[<span class="st">"flipper_group"</span>] <span class="op">=</span> np.where(</span>
 <span id="cb43-2"><a href="#cb43-2" aria-label="2"></a>  penguins[<span class="st">"flipper_length_mm"</span>] <span class="op">&gt;=</span> <span class="dv">206</span>,</span>
 <span id="cb43-3"><a href="#cb43-3" aria-label="3"></a>  <span class="st">"long"</span>,</span>
@@ -1663,7 +1669,7 @@ Name: count, dtype: int64</code></pre>
 <section id="ignoring-group-structure" class="level3">
 <h3 class="anchored" data-anchor-id="ignoring-group-structure">Ignoring group structure</h3>
 <p>What if we ignore the groups? Compare the spread of body mass overall with the spread <em>within</em> species:</p>
-<div id="f8dc0017" class="cell" data-execution_count="30">
+<div id="a424f301" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-label="1"></a><span class="bu">print</span>(<span class="st">"overall sd:"</span>, <span class="bu">round</span>(penguins[<span class="st">"body_mass_g"</span>].std(), <span class="dv">1</span>))</span>
 <span id="cb44-2"><a href="#cb44-2" aria-label="2"></a>penguins.groupby(<span class="st">"species"</span>)[<span class="st">"body_mass_g"</span>].std().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1679,7 +1685,7 @@ Name: body_mass_g, dtype: float64</code></pre>
 </div>
 <p>Much of the overall variation is just the difference <em>between</em> species.</p>
 <p>Labels can also be proxies for something else. Compare average body mass by island, then by island <em>and</em> species:</p>
-<div id="80602d2e" class="cell" data-execution_count="31">
+<div id="a17f0448" class="cell" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-label="1"></a>penguins.groupby(<span class="st">"island"</span>)[<span class="st">"body_mass_g"</span>].mean().<span class="bu">round</span>(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="30">
 <pre><code>island
@@ -1689,7 +1695,7 @@ Torgersen    3706.0
 Name: body_mass_g, dtype: float64</code></pre>
 </div>
 </div>
-<div id="dfbe987e" class="cell" data-execution_count="32">
+<div id="a8db9a72" class="cell" data-execution_count="32">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-label="1"></a>pd.crosstab(penguins[<span class="st">"island"</span>], penguins[<span class="st">"species"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="31">
 <div>
@@ -1735,7 +1741,7 @@ Name: body_mass_g, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<div id="0e2a7c48" class="cell" data-execution_count="33">
+<div id="d681fcef" class="cell" data-execution_count="33">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-label="1"></a>penguins.groupby([<span class="st">"island"</span>, <span class="st">"species"</span>])[<span class="st">"body_mass_g"</span>].mean().<span class="bu">round</span>(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
 <pre><code>island     species  
@@ -1752,7 +1758,7 @@ Name: body_mass_g, dtype: float64</code></pre>
 <section id="simpsons-paradox" class="level3">
 <h3 class="anchored" data-anchor-id="simpsons-paradox">Simpson’s Paradox</h3>
 <p>For our last example we use <code>.apply()</code>, the most general “apply” step. It runs any function on each group’s table. Here, the function computes the correlation between bill length and bill depth:</p>
-<div id="79048df5" class="cell" data-execution_count="34">
+<div id="1da6ec99" class="cell" data-execution_count="34">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-label="1"></a><span class="kw">def</span> bill_correlation(g):</span>
 <span id="cb52-2"><a href="#cb52-2" aria-label="2"></a>    <span class="cf">return</span> g[<span class="st">"bill_length_mm"</span>].corr(g[<span class="st">"bill_depth_mm"</span>])</span>
 <span id="cb52-3"><a href="#cb52-3" aria-label="3"></a></span>
@@ -1966,7 +1972,8 @@ dtype: float64</code></pre>
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
       // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
       for (var i=0; i<links.length; i++) {
         const link = links[i];
         if (!isInternal(link.href)) {
@@ -1975,8 +1982,69 @@ dtype: float64</code></pre>
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+          if (!link.classList.contains('no-external-icon')) {
+          }
         }
       }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
       const config = {
         allowHTML: true,
@@ -1990,6 +2058,7 @@ dtype: float64</code></pre>
         interactiveBorder: 10,
         theme: 'quarto',
         placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
       };
       if (contentFn) {
         config.content = contentFn;
@@ -2152,44 +2221,54 @@ dtype: float64</code></pre>
           const lineIds = lines.map((line) => {
             return targetCell + "-" + line;
           })
-          let top = null;
-          let height = null;
-          let parent = null;
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
           if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
             }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
             }
+            placeBand(gutterDiv, el, lastEl);
             selectedAnnoteEl = annoteEl;
           }
         };
@@ -2287,6 +2366,9 @@ dtype: float64</code></pre>
       }
     }
   });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
   </script>
 </div> <!-- /content -->
 
