@@ -1,0 +1,107 @@
+---
+title: "Seaborn"
+error: true
+---
+
+## Goals
+
+1. Survey various options available in `seaborn` for creating statistical graphics.
+
+## Packages and Data
+
+```{python}
+import os
+import numpy as np
+import pandas as pd
+import statsmodels.formula.api as smf
+import seaborn as sns
+```
+
+```{python}
+penguins = pd.read_csv(os.path.join("assets", "penguins.csv"))
+penguins = penguins.dropna(subset=["body_mass_g"])
+
+# COLORS is a 'constant', so I prefer to use uppercase 
+# to distinguish this variable name from others I might use
+# in a quick-prototyping context
+COLORS = {"Adelie": "#EA9839", "Chinstrap": "#984AE5", "Gentoo": "#469093"}
+sns.set_theme(style="whitegrid")
+```
+
+## Overview
+
+- Seaborn targets statistical graphics in Python.
+- Based on `matplotlib`.
+- Interacts with Pandas `DataFrame`.
+- High-level wrapper for `matplotlib` functions.
+- Great for exploratory analysis: focus on visualizing your data instead of
+  programming.
+- Based on plotting from DataFrame-like objects.
+- Excellent tutorials [here](https://seaborn.pydata.org/tutorial.html).
+
+## Statistical Graphics
+
+- `relplot()`: interface for plots displaying *statistical relationships*
+- `displot()`: interface for plots displaying *distributions*
+- `catplot()`: interface for plots involving *categorical* data
+- `joinplot()`: view multivariate data *jointly*
+- `pairplot()`: view multivariate data *pairwise*
+
+There are still functions like `scatterplot()` or `boxplot()`. These high-level
+functions map down to those specific types using the `kind` keyword.
+
+## Example: `penguins`
+
+```{python}
+#| fig-align: center
+#| code-fold: true
+sns.relplot(penguins, x = 'bill_length_mm', y = 'bill_depth_mm', style = 'species')
+```
+
+```{python}
+#| fig-align: center
+#| code-fold: true
+sns.displot(penguins, x = 'bill_length_mm')
+```
+
+```{python}
+#| fig-align: center
+#| code-fold: true
+sns.displot(penguins, x = 'bill_length_mm', y = 'bill_depth_mm', kind = 'kde', hue = 'species', palette = COLORS)
+```
+
+```{python}
+#| fig-align: center
+#| code-fold: true
+sns.catplot(penguins, x = 'species', y = 'body_mass_g', kind = 'box', palette = COLORS)
+```
+
+```{python}
+#| fig-align: center
+#| code-fold: true
+sns.catplot(penguins, x = 'species', y = 'body_mass_g', hue = 'sex', kind = 'swarm')
+```
+
+```{python}
+#| fig-align: center
+#| code-fold: true
+sns.catplot(penguins, x = 'species', kind = 'count', palette = COLORS)
+```
+
+```{python}
+#| fig-align: center
+#| code-fold: true
+sns.jointplot(penguins, x = 'bill_length_mm', y = 'bill_depth_mm', kind = 'reg')
+```
+
+```{python}
+#| fig-align: center
+#| code-fold: true
+sns.jointplot(penguins, x = 'bill_length_mm', y = "bill_depth_mm", hue = 'species', palette = COLORS)
+```
+
+```{python}
+#| fig-align: center
+#| code-fold: true
+sns.pairplot(penguins, hue = 'species', palette = COLORS)
+```

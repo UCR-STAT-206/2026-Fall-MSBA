@@ -81,6 +81,18 @@ website:
             href: notes/module06/text_processing.qmd
           - text: Split-Apply-Combine
             href: notes/module06/split_apply_combine.qmd
+      - section: Module 7 (Data Visualization)
+        contents:
+          - text: Setup
+            href: notes/module07/setup.qmd
+          - text: Introduction to Plotting in Python
+            href: notes/module07/intro.qmd
+          - text: Matplotlib Overview
+            href: notes/module07/matplotlib.qmd
+          - text: Seaborn Overview
+            href: notes/module07/seaborn.qmd
+          # - text: Effective Storytelling
+          #   href: notes/module07/storytelling.qmd
       # - section: Module 6 (Simulation)
       #   contents:
       #     - text: RNG and PRNGs
@@ -88,10 +100,6 @@ website:
       #     - text: Rejection Sampling
       #     - text: Simulating Random Variables
       #     - text: Monte Carlo Methods
-      # - section: Module 7 (Data Visualization)
-      #   contents:
-      #     - text: Introduction to Matplotlib
-      #     - text: Principles of Effective Visualization
       # - section: Module 8 (Managing Computing Environments)
       #   contents:
       #     - text: Conda/Micromamba
