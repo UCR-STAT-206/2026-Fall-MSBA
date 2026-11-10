@@ -21,4 +21,5 @@ dependencies:
   - r-tibble
   - r-tidyr
   - scipy
+  - seaborn
   - statsmodels
