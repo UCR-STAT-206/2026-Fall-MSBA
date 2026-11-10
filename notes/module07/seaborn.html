@@ -81,7 +81,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-0dc1e8188feb0d475c79e47387ad4ecc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-b74315ed01d22c90707a95761ec924a0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -577,28 +577,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="packages-and-data" class="level2">
 <h2 class="anchored" data-anchor-id="packages-and-data">Packages and Data</h2>
-<div id="dbdc5946" class="cell" data-execution_count="1">
+<div id="09f4b774" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="im">import</span> os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-label="2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-label="3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-4"><a href="#cb1-4" aria-label="4"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
 <span id="cb1-5"><a href="#cb1-5" aria-label="5"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[1]</span><span class="ansi-green-fg">, line 5</span>
-<span class="ansi-green-fg">      1</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> os
-<span class="ansi-green-fg">      2</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> numpy <span style="font-weight:bold;color:rgb(0,135,0)">as</span> np
-<span class="ansi-green-fg">      3</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> pandas <span style="font-weight:bold;color:rgb(0,135,0)">as</span> pd
-<span class="ansi-green-fg">      4</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> statsmodels.formula.api <span style="font-weight:bold;color:rgb(0,135,0)">as</span> smf
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">5</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> seaborn <span style="font-weight:bold;color:rgb(0,135,0)">as</span> sns
-
-<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'seaborn'</pre>
 </div>
-</div>
-</div>
-<div id="ea249f3d" class="cell" data-execution_count="2">
+<div id="ba009e62" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>penguins <span class="op">=</span> pd.read_csv(os.path.join(<span class="st">"assets"</span>, <span class="st">"penguins.csv"</span>))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-label="2"></a>penguins <span class="op">=</span> penguins.dropna(subset<span class="op">=</span>[<span class="st">"body_mass_g"</span>])</span>
 <span id="cb2-3"><a href="#cb2-3" aria-label="3"></a></span>
@@ -607,20 +593,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-6"><a href="#cb2-6" aria-label="6"></a><span class="co"># in a quick-prototyping context</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-label="7"></a>COLORS <span class="op">=</span> {<span class="st">"Adelie"</span>: <span class="st">"#EA9839"</span>, <span class="st">"Chinstrap"</span>: <span class="st">"#984AE5"</span>, <span class="st">"Gentoo"</span>: <span class="st">"#469093"</span>}</span>
 <span id="cb2-8"><a href="#cb2-8" aria-label="8"></a>sns.set_theme(style<span class="op">=</span><span class="st">"whitegrid"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[2]</span><span class="ansi-green-fg">, line 8</span>
-<span class="ansi-green-fg">      4</span> <span style="font-style:italic;color:rgb(95,135,135)"># COLORS is a 'constant', so I prefer to use uppercase</span>
-<span class="ansi-green-fg">      5</span> <span style="font-style:italic;color:rgb(95,135,135)"># to distinguish this variable name from others I might use</span>
-<span class="ansi-green-fg">      6</span> <span style="font-style:italic;color:rgb(95,135,135)"># in a quick-prototyping context</span>
-<span class="ansi-green-fg">      7</span> COLORS = {<span class="ansi-yellow-fg">"Adelie"</span>: <span class="ansi-yellow-fg">"#EA9839"</span>, <span class="ansi-yellow-fg">"Chinstrap"</span>: <span class="ansi-yellow-fg">"#984AE5"</span>, <span class="ansi-yellow-fg">"Gentoo"</span>: <span class="ansi-yellow-fg">"#469093"</span>}
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">8</span> sns.set_theme(style=<span class="ansi-yellow-fg">"whitegrid"</span>)
-
-<span class="ansi-red-fg">NameError</span>: name 'sns' is not defined</pre>
-</div>
-</div>
 </div>
 </section>
 <section id="overview" class="level2">
@@ -648,147 +620,134 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="example-penguins" class="level2">
 <h2 class="anchored" data-anchor-id="example-penguins">Example: <code>penguins</code></h2>
-<div id="feb026be" class="cell" data-execution_count="3">
+<div id="3b8519f6" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a>sns.relplot(penguins, x <span class="op">=</span> <span class="st">'bill_length_mm'</span>, y <span class="op">=</span> <span class="st">'bill_depth_mm'</span>, style <span class="op">=</span> <span class="st">'species'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[3]</span><span class="ansi-green-fg">, line 1</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> sns.relplot(penguins, x = <span class="ansi-yellow-fg">'bill_length_mm'</span>, y = <span class="ansi-yellow-fg">'bill_depth_mm'</span>, style = <span class="ansi-yellow-fg">'species'</span>)
-
-<span class="ansi-red-fg">NameError</span>: name 'sns' is not defined</pre>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="seaborn_files/figure-html/cell-4-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="580" height="465"></p>
+</figure>
 </div>
 </div>
 </div>
-<div id="98439f35" class="cell" data-execution_count="4">
+<div id="09a72ef6" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a>sns.displot(penguins, x <span class="op">=</span> <span class="st">'bill_length_mm'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[4]</span><span class="ansi-green-fg">, line 1</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> sns.displot(penguins, x = <span class="ansi-yellow-fg">'bill_length_mm'</span>)
-
-<span class="ansi-red-fg">NameError</span>: name 'sns' is not defined</pre>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="seaborn_files/figure-html/cell-5-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="463" height="465"></p>
+</figure>
 </div>
 </div>
 </div>
-<div id="ee081948" class="cell" data-execution_count="5">
+<div id="3c159597" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a>sns.displot(penguins, x <span class="op">=</span> <span class="st">'bill_length_mm'</span>, y <span class="op">=</span> <span class="st">'bill_depth_mm'</span>, kind <span class="op">=</span> <span class="st">'kde'</span>, hue <span class="op">=</span> <span class="st">'species'</span>, palette <span class="op">=</span> COLORS)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[5]</span><span class="ansi-green-fg">, line 1</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> sns.displot(penguins, x = <span class="ansi-yellow-fg">'bill_length_mm'</span>, y = <span class="ansi-yellow-fg">'bill_depth_mm'</span>, kind = <span class="ansi-yellow-fg">'kde'</span>, hue = <span class="ansi-yellow-fg">'species'</span>, palette = COLORS)
-
-<span class="ansi-red-fg">NameError</span>: name 'sns' is not defined</pre>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="seaborn_files/figure-html/cell-6-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="598" height="465"></p>
+</figure>
 </div>
 </div>
 </div>
-<div id="b058c3bc" class="cell" data-execution_count="6">
+<div id="52340ec8" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a>sns.catplot(penguins, x <span class="op">=</span> <span class="st">'species'</span>, y <span class="op">=</span> <span class="st">'body_mass_g'</span>, kind <span class="op">=</span> <span class="st">'box'</span>, palette <span class="op">=</span> COLORS)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[6]</span><span class="ansi-green-fg">, line 1</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> sns.catplot(penguins, x = <span class="ansi-yellow-fg">'species'</span>, y = <span class="ansi-yellow-fg">'body_mass_g'</span>, kind = <span class="ansi-yellow-fg">'box'</span>, palette = COLORS)
+<div class="cell-output cell-output-stderr">
+<pre><code>/tmp/ipykernel_4206/4002950281.py:1: FutureWarning: 
 
-<span class="ansi-red-fg">NameError</span>: name 'sns' is not defined</pre>
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.catplot(penguins, x = 'species', y = 'body_mass_g', kind = 'box', palette = COLORS)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="seaborn_files/figure-html/cell-7-output-2.png" class="quarto-figure quarto-figure-center figure-img" width="461" height="465"></p>
+</figure>
 </div>
 </div>
 </div>
-<div id="1a5180b9" class="cell" data-execution_count="7">
+<div id="15a1ce76" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-label="1"></a>sns.catplot(penguins, x <span class="op">=</span> <span class="st">'species'</span>, y <span class="op">=</span> <span class="st">'body_mass_g'</span>, hue <span class="op">=</span> <span class="st">'sex'</span>, kind <span class="op">=</span> <span class="st">'swarm'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a>sns.catplot(penguins, x <span class="op">=</span> <span class="st">'species'</span>, y <span class="op">=</span> <span class="st">'body_mass_g'</span>, hue <span class="op">=</span> <span class="st">'sex'</span>, kind <span class="op">=</span> <span class="st">'swarm'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[7]</span><span class="ansi-green-fg">, line 1</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> sns.catplot(penguins, x = <span class="ansi-yellow-fg">'species'</span>, y = <span class="ansi-yellow-fg">'body_mass_g'</span>, hue = <span class="ansi-yellow-fg">'sex'</span>, kind = <span class="ansi-yellow-fg">'swarm'</span>)
-
-<span class="ansi-red-fg">NameError</span>: name 'sns' is not defined</pre>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="seaborn_files/figure-html/cell-8-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="555" height="465"></p>
+</figure>
 </div>
 </div>
 </div>
-<div id="14bae726" class="cell" data-execution_count="8">
+<div id="7945e325" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a>sns.catplot(penguins, x <span class="op">=</span> <span class="st">'species'</span>, kind <span class="op">=</span> <span class="st">'count'</span>, palette <span class="op">=</span> COLORS)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a>sns.catplot(penguins, x <span class="op">=</span> <span class="st">'species'</span>, kind <span class="op">=</span> <span class="st">'count'</span>, palette <span class="op">=</span> COLORS)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[8]</span><span class="ansi-green-fg">, line 1</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> sns.catplot(penguins, x = <span class="ansi-yellow-fg">'species'</span>, kind = <span class="ansi-yellow-fg">'count'</span>, palette = COLORS)
+<div class="cell-output cell-output-stderr">
+<pre><code>/tmp/ipykernel_4206/2681133899.py:1: FutureWarning: 
 
-<span class="ansi-red-fg">NameError</span>: name 'sns' is not defined</pre>
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.catplot(penguins, x = 'species', kind = 'count', palette = COLORS)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="seaborn_files/figure-html/cell-9-output-2.png" class="quarto-figure quarto-figure-center figure-img" width="462" height="465"></p>
+</figure>
 </div>
 </div>
 </div>
-<div id="af21b2ab" class="cell" data-execution_count="9">
+<div id="57bf2232" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a>sns.jointplot(penguins, x <span class="op">=</span> <span class="st">'bill_length_mm'</span>, y <span class="op">=</span> <span class="st">'bill_depth_mm'</span>, kind <span class="op">=</span> <span class="st">'reg'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a>sns.jointplot(penguins, x <span class="op">=</span> <span class="st">'bill_length_mm'</span>, y <span class="op">=</span> <span class="st">'bill_depth_mm'</span>, kind <span class="op">=</span> <span class="st">'reg'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[9]</span><span class="ansi-green-fg">, line 1</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> sns.jointplot(penguins, x = <span class="ansi-yellow-fg">'bill_length_mm'</span>, y = <span class="ansi-yellow-fg">'bill_depth_mm'</span>, kind = <span class="ansi-yellow-fg">'reg'</span>)
-
-<span class="ansi-red-fg">NameError</span>: name 'sns' is not defined</pre>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="seaborn_files/figure-html/cell-10-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="554" height="561"></p>
+</figure>
 </div>
 </div>
 </div>
-<div id="a3f4f414" class="cell" data-execution_count="10">
+<div id="cef5a0e6" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a>sns.jointplot(penguins, x <span class="op">=</span> <span class="st">'bill_length_mm'</span>, y <span class="op">=</span> <span class="st">"bill_depth_mm"</span>, hue <span class="op">=</span> <span class="st">'species'</span>, palette <span class="op">=</span> COLORS)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a>sns.jointplot(penguins, x <span class="op">=</span> <span class="st">'bill_length_mm'</span>, y <span class="op">=</span> <span class="st">"bill_depth_mm"</span>, hue <span class="op">=</span> <span class="st">'species'</span>, palette <span class="op">=</span> COLORS)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[10]</span><span class="ansi-green-fg">, line 1</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> sns.jointplot(penguins, x = <span class="ansi-yellow-fg">'bill_length_mm'</span>, y = <span class="ansi-yellow-fg">"bill_depth_mm"</span>, hue = <span class="ansi-yellow-fg">'species'</span>, palette = COLORS)
-
-<span class="ansi-red-fg">NameError</span>: name 'sns' is not defined</pre>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="seaborn_files/figure-html/cell-11-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="554" height="561"></p>
+</figure>
 </div>
 </div>
 </div>
-<div id="37c0ee34" class="cell" data-execution_count="11">
+<div id="8d1048a6" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a>sns.pairplot(penguins, hue <span class="op">=</span> <span class="st">'species'</span>, palette <span class="op">=</span> COLORS)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-label="1"></a>sns.pairplot(penguins, hue <span class="op">=</span> <span class="st">'species'</span>, palette <span class="op">=</span> COLORS)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[11]</span><span class="ansi-green-fg">, line 1</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> sns.pairplot(penguins, hue = <span class="ansi-yellow-fg">'species'</span>, palette = COLORS)
-
-<span class="ansi-red-fg">NameError</span>: name 'sns' is not defined</pre>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="seaborn_files/figure-html/cell-12-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="1311" height="1179"></p>
+</figure>
 </div>
 </div>
 </div>

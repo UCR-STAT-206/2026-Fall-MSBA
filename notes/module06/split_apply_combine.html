@@ -81,7 +81,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-0dc1e8188feb0d475c79e47387ad4ecc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-b74315ed01d22c90707a95761ec924a0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -614,13 +614,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="packages-and-data" class="level2">
 <h2 class="anchored" data-anchor-id="packages-and-data">Packages and data</h2>
-<div id="43328c23" class="cell" data-execution_count="1">
+<div id="f05b7d41" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="im">import</span> os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-label="2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-label="3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We continue with the Palmer penguins: body measurements for 344 penguins of three species on three islands.</p>
-<div id="516235b2" class="cell" data-execution_count="2">
+<div id="555a04a4" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>penguins <span class="op">=</span> pd.read_csv(os.path.join(<span class="st">"assets"</span>, <span class="st">"penguins.csv"</span>))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-label="2"></a>penguins.isna().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -636,7 +636,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>Two rows have <em>no measurements at all</em>, and nine more only lack <code>sex</code>. We drop the empty rows now and handle <code>sex</code> when we need it. (Dropping every row with any missing value would discard information we can use.)</p>
-<div id="d53a6c7a" class="cell" data-execution_count="3">
+<div id="361ed304" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a>penguins <span class="op">=</span> penguins.dropna(subset<span class="op">=</span>[<span class="st">"body_mass_g"</span>])</span>
 <span id="cb4-2"><a href="#cb4-2" aria-label="2"></a>penguins.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -659,7 +659,7 @@ dtype: int64</code></pre>
 <section id="why-not-just-loop" class="level3">
 <h3 class="anchored" data-anchor-id="why-not-just-loop">Why not just loop?</h3>
 <p>We already know enough to do this by hand: loop over the species, filter the rows, and compute.</p>
-<div id="9768fb20" class="cell" data-execution_count="4">
+<div id="0f809eb5" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a><span class="cf">for</span> species <span class="kw">in</span> <span class="bu">sorted</span>(penguins[<span class="st">"species"</span>].unique()):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-label="2"></a>    subset <span class="op">=</span> penguins[penguins[<span class="st">"species"</span>] <span class="op">==</span> species]</span>
 <span id="cb6-3"><a href="#cb6-3" aria-label="3"></a>    <span class="bu">print</span>(species, <span class="bu">round</span>(subset[<span class="st">"body_mass_g"</span>].mean(), <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -670,7 +670,7 @@ Gentoo 5076.0</code></pre>
 </div>
 </div>
 <p>That works for one number and one grouping variable. But what if we also want the median and the count? What if we group by island too? What if we want the answers in a table we can sort or export? Every change means more bookkeeping code. <code>groupby</code> does the splitting, applying, and combining for us.</p>
-<div id="fa2691a4" class="cell" data-execution_count="5">
+<div id="7f5147bd" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a>penguins.groupby(<span class="st">"species"</span>)[<span class="st">"body_mass_g"</span>].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>species
@@ -684,15 +684,15 @@ Name: body_mass_g, dtype: float64</code></pre>
 </section>
 <section id="splitting" class="level2">
 <h2 class="anchored" data-anchor-id="splitting">Splitting</h2>
-<div id="802aeded" class="cell" data-execution_count="6">
+<div id="da6b44b1" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a>by_species <span class="op">=</span> penguins.groupby(<span class="st">"species"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-label="2"></a>by_species</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
-<pre><code>&lt;pandas.api.typing.DataFrameGroupBy object at 0x78f89f53cf50&gt;</code></pre>
+<pre><code>&lt;pandas.api.typing.DataFrameGroupBy object at 0x71ef9e6a8690&gt;</code></pre>
 </div>
 </div>
 <p>The <code>groupby</code> object <em>represents</em> the split. Nothing is computed until we ask for a summary. We can look inside:</p>
-<div id="85b35470" class="cell" data-execution_count="7">
+<div id="c5edff77" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a>by_species.size()          <span class="co"># number of rows in each group</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>species
@@ -702,7 +702,7 @@ Gentoo       123
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="3b297951" class="cell" data-execution_count="8">
+<div id="4b589083" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-label="1"></a><span class="cf">for</span> name, group <span class="kw">in</span> by_species:</span>
 <span id="cb14-2"><a href="#cb14-2" aria-label="2"></a>    <span class="bu">print</span>(name, group.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -711,7 +711,7 @@ Chinstrap (68, 8)
 Gentoo (123, 8)</code></pre>
 </div>
 </div>
-<div id="18954603" class="cell" data-execution_count="9">
+<div id="f08ae1f2" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-label="1"></a>by_species.get_group(<span class="st">"Gentoo"</span>).head(<span class="dv">3</span>)      <span class="co"># pull out one group's rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
@@ -778,7 +778,7 @@ Gentoo (123, 8)</code></pre>
 <section id="aggregation" class="level3">
 <h3 class="anchored" data-anchor-id="aggregation">Aggregation</h3>
 <p>An <strong>aggregation</strong> reduces each group to a few numbers. The <code>.agg()</code> method with <em>named aggregation</em> lets us choose the output names: each keyword is <code>new_name=("column", "function")</code>.</p>
-<div id="cc3830be" class="cell" data-execution_count="10">
+<div id="896ae82e" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-label="1"></a>mass_summary <span class="op">=</span> (</span>
 <span id="cb17-2"><a href="#cb17-2" aria-label="2"></a>    penguins</span>
 <span id="cb17-3"><a href="#cb17-3" aria-label="3"></a>    .groupby(<span class="st">"species"</span>)</span>
@@ -852,7 +852,7 @@ Gentoo (123, 8)</code></pre>
 </div>
 <div class="callout-body-container callout-body">
 <p><code>"count"</code> counts the <strong>non-missing</strong> values in a column, while <code>"size"</code> counts <strong>rows</strong>. They differ when there are missing values:</p>
-<div id="d1ce94ab" class="cell" data-execution_count="11">
+<div id="c44b3581" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-label="1"></a>penguins.groupby(<span class="st">"species"</span>)[<span class="st">"sex"</span>].agg([<span class="st">"size"</span>, <span class="st">"count"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <div>
@@ -899,7 +899,7 @@ Gentoo (123, 8)</code></pre>
 <section id="grouping-by-several-keys" class="level3">
 <h3 class="anchored" data-anchor-id="grouping-by-several-keys">Grouping by several keys</h3>
 <p>Pass a list to group by combinations:</p>
-<div id="bc0459e6" class="cell" data-execution_count="12">
+<div id="cd5bab18" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a>species_island <span class="op">=</span> (</span>
 <span id="cb19-2"><a href="#cb19-2" aria-label="2"></a>  penguins</span>
 <span id="cb19-3"><a href="#cb19-3" aria-label="3"></a>  .groupby([<span class="st">"species"</span>, <span class="st">"island"</span>])</span>
@@ -973,7 +973,7 @@ Gentoo (123, 8)</code></pre>
 </div>
 </div>
 <p>The group labels become the <strong>index</strong> of the result (a <em>multi-level</em> index here). Use <code>.reset_index()</code> to turn them back into ordinary columns:</p>
-<div id="b1cf9d88" class="cell" data-execution_count="13">
+<div id="2a966ff2" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-label="1"></a>species_island <span class="op">=</span> species_island.reset_index()</span>
 <span id="cb20-2"><a href="#cb20-2" aria-label="2"></a>species_island</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -1039,7 +1039,7 @@ Gentoo (123, 8)</code></pre>
 </div>
 </div>
 <p>This is usually the right step before exporting, plotting, or merging the table.</p>
-<div id="cddc5a9f" class="cell" data-execution_count="14">
+<div id="cb114c28" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-label="1"></a>species_island.to_csv(</span>
 <span id="cb21-2"><a href="#cb21-2" aria-label="2"></a>  os.path.join(<span class="st">"output"</span>, <span class="st">"species_island_summary.csv"</span>),</span>
 <span id="cb21-3"><a href="#cb21-3" aria-label="3"></a>  index <span class="op">=</span> <span class="va">False</span></span>
@@ -1050,7 +1050,7 @@ Gentoo (123, 8)</code></pre>
 <section id="example-sex-differences" class="level3">
 <h3 class="anchored" data-anchor-id="example-sex-differences">Example: sex differences</h3>
 <p><code>sex</code> has missing values, so we choose to drop those rows <em>for this question only</em>.</p>
-<div id="1d335c6c" class="cell" data-execution_count="15">
+<div id="8e04c68e" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-label="1"></a>sexed <span class="op">=</span> penguins.dropna(subset<span class="op">=</span>[<span class="st">"sex"</span>])</span>
 <span id="cb22-2"><a href="#cb22-2" aria-label="2"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-label="3"></a>sex_mass <span class="op">=</span> (</span>
@@ -1110,7 +1110,7 @@ Gentoo (123, 8)</code></pre>
 <section id="transformation" class="level3">
 <h3 class="anchored" data-anchor-id="transformation">Transformation</h3>
 <p>A <strong>transformation</strong> computes a value <em>for every row</em>, using information from that row’s group. The result has the same number of rows as the original, so it can be stored as a new column.</p>
-<div id="6c4fdbb5" class="cell" data-execution_count="16">
+<div id="47d90eae" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-label="1"></a><span class="kw">def</span> zscore(x):</span>
 <span id="cb23-2"><a href="#cb23-2" aria-label="2"></a>  <span class="co">"""How many standard deviations each value is from the mean."""</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-label="3"></a>  <span class="cf">return</span> (x <span class="op">-</span> x.mean()) <span class="op">/</span> x.std()</span>
@@ -1172,7 +1172,7 @@ Gentoo (123, 8)</code></pre>
 <li>A <code>mass_z</code> of 2 means “two standard deviations heavier than the average <em>of its own species</em>”. This is a different statement from “heavy compared with all penguins”.</li>
 </ul>
 <p>For common cases you can pass the name of a function:</p>
-<div id="43a55693" class="cell" data-execution_count="17">
+<div id="fdc07498" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-label="1"></a>penguins[<span class="st">"rel_mass"</span>] <span class="op">=</span> (</span>
 <span id="cb24-2"><a href="#cb24-2" aria-label="2"></a>  penguins[<span class="st">"body_mass_g"</span>]</span>
 <span id="cb24-3"><a href="#cb24-3" aria-label="3"></a>  <span class="op">/</span> penguins.groupby(<span class="st">"species"</span>)[<span class="st">"body_mass_g"</span>].transform(<span class="st">"mean"</span>)</span>
@@ -1234,7 +1234,7 @@ Gentoo (123, 8)</code></pre>
 <section id="filtering-groups" class="level2">
 <h2 class="anchored" data-anchor-id="filtering-groups">Filtering groups</h2>
 <p><code>.filter()</code> keeps or drops <em>whole groups</em> based on a condition on the group. Here we keep only species-island combinations with at least 50 penguins:</p>
-<div id="e791d827" class="cell" data-execution_count="18">
+<div id="333980a0" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-label="1"></a>well_sampled <span class="op">=</span> (</span>
 <span id="cb25-2"><a href="#cb25-2" aria-label="2"></a>    penguins</span>
 <span id="cb25-3"><a href="#cb25-3" aria-label="3"></a>    .groupby([<span class="st">"species"</span>, <span class="st">"island"</span>])</span>
@@ -1308,7 +1308,7 @@ dtype: int64</code></pre>
 <section id="even-labeled-groups-have-traps" class="level3">
 <h3 class="anchored" data-anchor-id="even-labeled-groups-have-traps">Even labeled groups have traps</h3>
 <p><code>groupby</code> silently ignores rows whose key is missing:</p>
-<div id="31a0b464" class="cell" data-execution_count="19">
+<div id="034fb82e" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-label="1"></a>penguins.groupby(<span class="st">"sex"</span>).size()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>sex
@@ -1317,7 +1317,7 @@ male      168
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="cd1d5478" class="cell" data-execution_count="20">
+<div id="14afad46" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-label="1"></a>penguins.groupby(<span class="st">"sex"</span>, dropna<span class="op">=</span><span class="va">False</span>).size()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>sex
@@ -1332,7 +1332,7 @@ dtype: int64</code></pre>
 <section id="groups-built-from-numbers" class="level3">
 <h3 class="anchored" data-anchor-id="groups-built-from-numbers">Groups built from numbers</h3>
 <p>To compare “big” and “small” penguins we must first define <em>big</em>:</p>
-<div id="2742239f" class="cell" data-execution_count="21">
+<div id="ee961515" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-label="1"></a>penguins[<span class="st">"is_big"</span>] <span class="op">=</span> penguins[<span class="st">"body_mass_g"</span>] <span class="op">&gt;=</span> <span class="dv">4500</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-label="2"></a>penguins[<span class="st">"is_big"</span>].value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
@@ -1343,7 +1343,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>Averaging a <code>True</code>/<code>False</code> column gives the <strong>proportion</strong> of <code>True</code> values, so we can answer “what share of each species is big?”:</p>
-<div id="5b252471" class="cell" data-execution_count="22">
+<div id="d1091cb9" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-label="1"></a>penguins.groupby(<span class="st">"species"</span>)[<span class="st">"is_big"</span>].mean().<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>species
@@ -1354,7 +1354,7 @@ Name: is_big, dtype: float64</code></pre>
 </div>
 </div>
 <p>To split a number into several named tiers, use <code>pd.cut</code> (you choose the cut points) or <code>pd.qcut</code> (cut points chosen so each tier has about the same number of rows):</p>
-<div id="551b80a4" class="cell" data-execution_count="23">
+<div id="a82c138a" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-label="1"></a>penguins[<span class="st">"mass_tier"</span>] <span class="op">=</span> pd.qcut(</span>
 <span id="cb35-2"><a href="#cb35-2" aria-label="2"></a>  penguins[<span class="st">"body_mass_g"</span>], q<span class="op">=</span><span class="dv">3</span>, labels<span class="op">=</span>[<span class="st">"light"</span>, <span class="st">"medium"</span>, <span class="st">"heavy"</span>]</span>
 <span id="cb35-3"><a href="#cb35-3" aria-label="3"></a>)</span>
@@ -1367,7 +1367,7 @@ medium    112
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="f1036d93" class="cell" data-execution_count="24">
+<div id="1d453730" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-label="1"></a>pd.crosstab(penguins[<span class="st">"species"</span>], penguins[<span class="st">"mass_tier"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <div>
@@ -1418,7 +1418,7 @@ Name: count, dtype: int64</code></pre>
 <section id="groups-built-from-text" class="level3">
 <h3 class="anchored" data-anchor-id="groups-built-from-text">Groups built from text</h3>
 <p>Suppose we have support tickets, and the only information about the topic is the free-text subject line.</p>
-<div id="a616b25a" class="cell" data-execution_count="25">
+<div id="b6ae3321" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-label="1"></a>tickets <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb38-2"><a href="#cb38-2" aria-label="2"></a>  <span class="st">"subject"</span>: [</span>
 <span id="cb38-3"><a href="#cb38-3" aria-label="3"></a>    <span class="st">"Refund for duplicate charge"</span>,</span>
@@ -1439,7 +1439,7 @@ Name: count, dtype: int64</code></pre>
 <span id="cb38-18"><a href="#cb38-18" aria-label="18"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>There is no <code>topic</code> column, so we create one by testing each subject for keywords (see the text notes). <code>np.select</code> takes a list of conditions and a list of labels, and picks the label of the first condition that is <code>True</code>:</p>
-<div id="fb6fbaa7" class="cell" data-execution_count="26">
+<div id="a6f4d407" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-label="1"></a>subject <span class="op">=</span> tickets[<span class="st">"subject"</span>].<span class="bu">str</span>.lower()</span>
 <span id="cb39-2"><a href="#cb39-2" aria-label="2"></a></span>
 <span id="cb39-3"><a href="#cb39-3" aria-label="3"></a>conditions <span class="op">=</span> [</span>
@@ -1536,7 +1536,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>Now the usual split-apply-combine works on the group we <em>created</em>:</p>
-<div id="e45c60c9" class="cell" data-execution_count="27">
+<div id="3b358ca2" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-label="1"></a>(</span>
 <span id="cb40-2"><a href="#cb40-2" aria-label="2"></a>  tickets</span>
 <span id="cb40-3"><a href="#cb40-3" aria-label="3"></a>  .groupby(<span class="st">"topic"</span>)</span>
@@ -1594,7 +1594,7 @@ Name: count, dtype: int64</code></pre>
 <h3 class="anchored" data-anchor-id="groups-hidden-in-the-data">Groups hidden in the data</h3>
 <p>Now the hardest case. Imagine the <code>species</code> column had been lost before the data reached you. We would still have the measurements. Could we notice that there are groups?</p>
 <p>Consider the flipper lengths of all penguins mixed together:</p>
-<div id="b24553e2" class="cell" data-execution_count="28">
+<div id="33137e5e" class="cell" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-label="1"></a>flipper_counts <span class="op">=</span> pd.cut(penguins[<span class="st">"flipper_length_mm"</span>], bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">170</span>, <span class="dv">240</span>, <span class="dv">5</span>)).value_counts()</span>
 <span id="cb41-2"><a href="#cb41-2" aria-label="2"></a>flipper_counts.sort_index()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="27">
@@ -1616,7 +1616,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>The counts rise, dip around 200-205 mm, and rise again. A single “typical” flipper length does not describe this population, because there are (at least) two kinds of penguins. If we split at the dip, do we recover real groups?</p>
-<div id="68ad5653" class="cell" data-execution_count="29">
+<div id="cee33eac" class="cell" data-execution_count="29">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-label="1"></a>penguins[<span class="st">"flipper_group"</span>] <span class="op">=</span> np.where(</span>
 <span id="cb43-2"><a href="#cb43-2" aria-label="2"></a>  penguins[<span class="st">"flipper_length_mm"</span>] <span class="op">&gt;=</span> <span class="dv">206</span>,</span>
 <span id="cb43-3"><a href="#cb43-3" aria-label="3"></a>  <span class="st">"long"</span>,</span>
@@ -1669,7 +1669,7 @@ Name: count, dtype: int64</code></pre>
 <section id="ignoring-group-structure" class="level3">
 <h3 class="anchored" data-anchor-id="ignoring-group-structure">Ignoring group structure</h3>
 <p>What if we ignore the groups? Compare the spread of body mass overall with the spread <em>within</em> species:</p>
-<div id="a424f301" class="cell" data-execution_count="30">
+<div id="32a60d0c" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-label="1"></a><span class="bu">print</span>(<span class="st">"overall sd:"</span>, <span class="bu">round</span>(penguins[<span class="st">"body_mass_g"</span>].std(), <span class="dv">1</span>))</span>
 <span id="cb44-2"><a href="#cb44-2" aria-label="2"></a>penguins.groupby(<span class="st">"species"</span>)[<span class="st">"body_mass_g"</span>].std().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1685,7 +1685,7 @@ Name: body_mass_g, dtype: float64</code></pre>
 </div>
 <p>Much of the overall variation is just the difference <em>between</em> species.</p>
 <p>Labels can also be proxies for something else. Compare average body mass by island, then by island <em>and</em> species:</p>
-<div id="a17f0448" class="cell" data-execution_count="31">
+<div id="8b749c41" class="cell" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-label="1"></a>penguins.groupby(<span class="st">"island"</span>)[<span class="st">"body_mass_g"</span>].mean().<span class="bu">round</span>(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="30">
 <pre><code>island
@@ -1695,7 +1695,7 @@ Torgersen    3706.0
 Name: body_mass_g, dtype: float64</code></pre>
 </div>
 </div>
-<div id="a8db9a72" class="cell" data-execution_count="32">
+<div id="e894b8c4" class="cell" data-execution_count="32">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-label="1"></a>pd.crosstab(penguins[<span class="st">"island"</span>], penguins[<span class="st">"species"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="31">
 <div>
@@ -1741,7 +1741,7 @@ Name: body_mass_g, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<div id="d681fcef" class="cell" data-execution_count="33">
+<div id="678aaaa7" class="cell" data-execution_count="33">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-label="1"></a>penguins.groupby([<span class="st">"island"</span>, <span class="st">"species"</span>])[<span class="st">"body_mass_g"</span>].mean().<span class="bu">round</span>(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
 <pre><code>island     species  
@@ -1758,7 +1758,7 @@ Name: body_mass_g, dtype: float64</code></pre>
 <section id="simpsons-paradox" class="level3">
 <h3 class="anchored" data-anchor-id="simpsons-paradox">Simpson’s Paradox</h3>
 <p>For our last example we use <code>.apply()</code>, the most general “apply” step. It runs any function on each group’s table. Here, the function computes the correlation between bill length and bill depth:</p>
-<div id="1da6ec99" class="cell" data-execution_count="34">
+<div id="c51e6b81" class="cell" data-execution_count="34">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-label="1"></a><span class="kw">def</span> bill_correlation(g):</span>
 <span id="cb52-2"><a href="#cb52-2" aria-label="2"></a>    <span class="cf">return</span> g[<span class="st">"bill_length_mm"</span>].corr(g[<span class="st">"bill_depth_mm"</span>])</span>
 <span id="cb52-3"><a href="#cb52-3" aria-label="3"></a></span>

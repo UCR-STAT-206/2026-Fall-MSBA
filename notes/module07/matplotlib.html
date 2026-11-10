@@ -81,7 +81,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-0dc1e8188feb0d475c79e47387ad4ecc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-b74315ed01d22c90707a95761ec924a0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -627,28 +627,14 @@ window.Quarto = {
 </section>
 <section id="packages-and-data" class="level2">
 <h2 class="anchored" data-anchor-id="packages-and-data">Packages and Data</h2>
-<div id="8796fbac" class="cell" data-execution_count="1">
+<div id="7c4b2908" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="im">import</span> os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-label="2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-label="3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-4"><a href="#cb1-4" aria-label="4"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-5"><a href="#cb1-5" aria-label="5"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[1]</span><span class="ansi-green-fg">, line 5</span>
-<span class="ansi-green-fg">      1</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> os
-<span class="ansi-green-fg">      2</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> numpy <span style="font-weight:bold;color:rgb(0,135,0)">as</span> np
-<span class="ansi-green-fg">      3</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> pandas <span style="font-weight:bold;color:rgb(0,135,0)">as</span> pd
-<span class="ansi-green-fg">      4</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> matplotlib.pyplot <span style="font-weight:bold;color:rgb(0,135,0)">as</span> plt
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">5</span> <span style="font-weight:bold;color:rgb(0,135,0)">import</span> seaborn <span style="font-weight:bold;color:rgb(0,135,0)">as</span> sns
-
-<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'seaborn'</pre>
 </div>
-</div>
-</div>
-<div id="07ddb96e" class="cell" data-execution_count="2">
+<div id="86a64804" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a><span class="co"># Palmer Penguins</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-label="2"></a>penguins <span class="op">=</span> pd.read_csv(os.path.join(<span class="st">"assets"</span>, <span class="st">"penguins.csv"</span>))</span>
 <span id="cb2-3"><a href="#cb2-3" aria-label="3"></a>penguins <span class="op">=</span> penguins.dropna(subset<span class="op">=</span>[<span class="st">"body_mass_g"</span>])</span>
@@ -660,25 +646,8 @@ window.Quarto = {
 <span id="cb2-9"><a href="#cb2-9" aria-label="9"></a><span class="co"># to distinguish this variable name from others I might use</span></span>
 <span id="cb2-10"><a href="#cb2-10" aria-label="10"></a><span class="co"># in a quick-prototyping context</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-label="11"></a>COLORS <span class="op">=</span> {<span class="st">"Adelie"</span>: <span class="st">"#EA9839"</span>, <span class="st">"Chinstrap"</span>: <span class="st">"#984AE5"</span>, <span class="st">"Gentoo"</span>: <span class="st">"#469093"</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[2]</span><span class="ansi-green-fg">, line 6</span>
-<span class="ansi-green-fg">      2</span> penguins = pd.read_csv(os.path.join(<span class="ansi-yellow-fg">"assets"</span>, <span class="ansi-yellow-fg">"penguins.csv"</span>))
-<span class="ansi-green-fg">      3</span> penguins = penguins.dropna(subset=[<span class="ansi-yellow-fg">"body_mass_g"</span>])
-<span class="ansi-green-fg">      4</span> 
-<span class="ansi-green-fg">      5</span> <span style="font-style:italic;color:rgb(95,135,135)"># Flights; only place we use Seaborn</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">6</span> flights = sns.load_dataset(<span class="ansi-yellow-fg">"flights"</span>)
-<span class="ansi-green-fg">      7</span> 
-<span class="ansi-green-fg">      8</span> <span style="font-style:italic;color:rgb(95,135,135)"># COLORS is a 'constant', so I prefer to use uppercase</span>
-<span class="ansi-green-fg">      9</span> <span style="font-style:italic;color:rgb(95,135,135)"># to distinguish this variable name from others I might use</span>
-
-<span class="ansi-red-fg">NameError</span>: name 'sns' is not defined</pre>
 </div>
-</div>
-</div>
-<div id="4d218971" class="cell" data-execution_count="3">
+<div id="2156d10d" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="co"># Simulated Data</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-label="2"></a><span class="kw">def</span> simulate_stock_market(y0, n):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-label="3"></a>  ts <span class="op">=</span> np.linspace(<span class="dv">0</span>, n, n<span class="op">+</span><span class="dv">1</span>)</span>
@@ -713,7 +682,7 @@ window.Quarto = {
 <section id="working-with-figure-and-axis" class="level2">
 <h2 class="anchored" data-anchor-id="working-with-figure-and-axis">Working with <code>Figure</code> and <code>Axis</code></h2>
 <p>Every figure is represented by a <a href="https://matplotlib.org/stable/users/explain/quick_start.html#figure"><code>Figure</code> object</a>. This stores everything in a visualization. There are many ways to declare one; here is an example.</p>
-<div id="d8a92c06" class="cell" data-execution_count="4">
+<div id="3eb160ff" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a>fig <span class="op">=</span> plt.figure()</span>
 <span id="cb4-2"><a href="#cb4-2" aria-label="2"></a>fig</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
@@ -724,7 +693,7 @@ window.Quarto = {
 </div>
 </div>
 <p>The <code>Figure</code> reports its size in pixels (672 by 480). But nothing is shown even though we attempt to display it. We must add an <code>Axis</code> to our <code>Figure</code>, <code>fig</code>. An <code>Axis</code> object serves as a “canvas” that we can draw on.</p>
-<div id="9a79dcf9" class="cell" data-execution_count="5">
+<div id="159c8788" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-label="1"></a>fig <span class="op">=</span> plt.figure()</span>
 <span id="cb7-2"><a href="#cb7-2" aria-label="2"></a>ax <span class="op">=</span> fig.add_subplot()</span>
 <span id="cb7-3"><a href="#cb7-3" aria-label="3"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -737,7 +706,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Once we have a <code>Figure</code> with at least one <code>Axis</code>, we can add a plot using one of many plotting commands.</p>
-<div id="8e0abac7" class="cell" data-execution_count="6">
+<div id="8a95c5e6" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a><span class="co"># create some data</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-label="2"></a>ts, ys <span class="op">=</span> simulate_stock_market(<span class="fl">100.0</span>, <span class="dv">100</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-label="3"></a></span>
@@ -763,7 +732,7 @@ window.Quarto = {
 <li>Note that the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> axes are automatically resized for us.</li>
 </ul>
 <p>Initializing a <code>Figure</code> with multiple <code>Axis</code> is common enough that it has its own interface.</p>
-<div id="06ea2ac3" class="cell" data-execution_count="7">
+<div id="68abb861" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a>fig, axs <span class="op">=</span> plt.subplots(nrows <span class="op">=</span> <span class="dv">2</span>, ncols <span class="op">=</span> <span class="dv">2</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-label="2"></a>k <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-label="3"></a><span class="cf">for</span> ax <span class="kw">in</span> np.ravel(axs):</span>
@@ -795,7 +764,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="adding-style-with-artist-objects">Adding style with <code>Artist</code> objects</h2>
 <p>Nearly every visible element in a <code>Figure</code> is governed by an <code>Artist</code>. Each <code>Axis</code> has its own <code>Artist</code> objects, cannot be shared across axes, and are responsible for drawing data to a canvas.</p>
 <p>You can specify visual elements like color or line style <em>directly</em> in a plot command. For example, the following modifies our simple line plot to have a red dotted line.</p>
-<div id="7d835f12" class="cell" data-execution_count="8">
+<div id="2d8aa925" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a><span class="co"># create some data</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-label="2"></a>ts, ys <span class="op">=</span> simulate_stock_market(<span class="fl">100.0</span>, <span class="dv">100</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-label="3"></a></span>
@@ -810,13 +779,13 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="matplotlib_files/figure-html/cell-9-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="575" height="411"></p>
+<p><img src="matplotlib_files/figure-html/cell-9-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="588" height="411"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Alternatively, each plotting command returns artist objects. You can modify the visual elements with “setters”:</p>
-<div id="d898dde1" class="cell" data-execution_count="9">
+<div id="1976f78b" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a><span class="co"># create some data</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-label="2"></a>ts, ys <span class="op">=</span> simulate_stock_market(<span class="fl">100.0</span>, <span class="dv">100</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-label="3"></a></span>
@@ -867,7 +836,7 @@ window.Quarto = {
 <li>The <code>matshow</code> plot displays data from an array (a matrix in this case).</li>
 <li>Use <code>RdBu_r</code> colormap: Ranges from blue (low end) to red (high end) because it is the <em>reversed version</em>, <code>_r</code>.</li>
 </ul>
-<div id="c67e00b8" class="cell" data-execution_count="10">
+<div id="6b51b8e2" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a>corr <span class="op">=</span> penguins.corr(numeric_only<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-label="2"></a>labels <span class="op">=</span> corr.columns</span>
 <span id="cb12-3"><a href="#cb12-3" aria-label="3"></a></span>
@@ -904,7 +873,7 @@ window.Quarto = {
 <section id="sequential-colormaps" class="level3">
 <h3 class="anchored" data-anchor-id="sequential-colormaps">Sequential colormaps</h3>
 <p>Useful for reporting continuous data without an obvious or meaningful “middle”. Need to keep in mind which colors represent “more” and “fewer”, so higher contrast is desirable.</p>
-<div id="f8b5fb93" class="cell" data-execution_count="11">
+<div id="a2ccdb83" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-label="1"></a>month_order <span class="op">=</span> [</span>
 <span id="cb13-2"><a href="#cb13-2" aria-label="2"></a>  <span class="st">"Jan"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Apr"</span>,</span>
 <span id="cb13-3"><a href="#cb13-3" aria-label="3"></a>  <span class="st">"May"</span>, <span class="st">"Jun"</span>, <span class="st">"Jul"</span>, <span class="st">"Aug"</span>,</span>
@@ -930,21 +899,11 @@ window.Quarto = {
 <span id="cb13-23"><a href="#cb13-23" aria-label="23"></a>fig.colorbar(im, ax <span class="op">=</span> ax, label <span class="op">=</span> <span class="st">"Passengers (thousands)"</span>)</span>
 <span id="cb13-24"><a href="#cb13-24" aria-label="24"></a></span>
 <span id="cb13-25"><a href="#cb13-25" aria-label="25"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[11]</span><span class="ansi-green-fg">, line 12</span>
-<span class="ansi-green-fg">      8</span> <span style="font-style:italic;color:rgb(95,135,135)">#   + Use `month` as an identifier; i.e. row labels.</span>
-<span class="ansi-green-fg">      9</span> <span style="font-style:italic;color:rgb(95,135,135)">#   + Take the unique values in the `year` column and make them columns.</span>
-<span class="ansi-green-fg">     10</span> <span style="font-style:italic;color:rgb(95,135,135)">#   + Entries in the new DataFrame has `passengers` values.</span>
-<span class="ansi-green-fg">     11</span> table = (
-<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">12</span>   flights.pivot(index = <span class="ansi-yellow-fg">"month"</span>, columns = <span class="ansi-yellow-fg">"year"</span>, values = <span class="ansi-yellow-fg">"passengers"</span>)
-<span class="ansi-green-fg">     13</span>   .reindex(month_order) <span style="font-style:italic;color:rgb(95,135,135)"># avoid accidental sorting</span>
-<span class="ansi-green-fg">     14</span> )
-<span class="ansi-green-fg">     15</span> 
-
-<span class="ansi-red-fg">NameError</span>: name 'flights' is not defined</pre>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="matplotlib_files/figure-html/cell-12-output-1.png" width="572" height="470" class="figure-img"></p>
+</figure>
 </div>
 </div>
 </div>
@@ -952,7 +911,7 @@ window.Quarto = {
 <section id="cyclic-colormaps" class="level3">
 <h3 class="anchored" data-anchor-id="cyclic-colormaps">Cyclic colormaps</h3>
 <p>Useful for reporting data that have a period because the first and last colors are similar. For example, months, hours of the day, and compass directions can all use a cyclic colormap.</p>
-<div id="42a74da4" class="cell" data-execution_count="12">
+<div id="cc263dee" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-label="1"></a>month_order <span class="op">=</span> [</span>
 <span id="cb14-2"><a href="#cb14-2" aria-label="2"></a>  <span class="st">"Jan"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Apr"</span>,</span>
 <span id="cb14-3"><a href="#cb14-3" aria-label="3"></a>  <span class="st">"May"</span>, <span class="st">"Jun"</span>, <span class="st">"Jul"</span>, <span class="st">"Aug"</span>,</span>
@@ -973,27 +932,10 @@ window.Quarto = {
 <span id="cb14-18"><a href="#cb14-18" aria-label="18"></a>ax.legend(title <span class="op">=</span> <span class="st">"Month"</span>, ncol <span class="op">=</span> <span class="dv">2</span>)</span>
 <span id="cb14-19"><a href="#cb14-19" aria-label="19"></a></span>
 <span id="cb14-20"><a href="#cb14-20" aria-label="20"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[12]</span><span class="ansi-green-fg">, line 11</span>
-<span class="ansi-green-fg">      7</span> fig, ax = plt.subplots()
-<span class="ansi-green-fg">      8</span> cyclic = plt.get_cmap(<span class="ansi-yellow-fg">"twilight"</span>)
-<span class="ansi-green-fg">      9</span> 
-<span class="ansi-green-fg">     10</span> <span style="font-weight:bold;color:rgb(0,135,0)">for</span> i, month <span style="font-weight:bold;color:rgb(0,135,0)">in</span> enumerate(month_order):
-<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">11</span>   d = flights[flights[<span class="ansi-yellow-fg">"month"</span>] == month]
-<span class="ansi-green-fg">     12</span>   ax.plot(d[<span class="ansi-yellow-fg">"year"</span>], d[<span class="ansi-yellow-fg">"passengers"</span>], color = cyclic(i / <span class="ansi-green-fg">12</span>), label = month)
-<span class="ansi-green-fg">     13</span> 
-<span class="ansi-green-fg">     14</span> ax.set(title = "Passengers by month of year",
-
-<span class="ansi-red-fg">NameError</span>: name 'flights' is not defined</pre>
-</div>
-</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="matplotlib_files/figure-html/cell-13-output-2.png" width="582" height="417" class="figure-img"></p>
+<p><img src="matplotlib_files/figure-html/cell-13-output-1.png" width="594" height="450" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1002,7 +944,7 @@ window.Quarto = {
 <section id="qualitative-colormaps" class="level3">
 <h3 class="anchored" data-anchor-id="qualitative-colormaps">Qualitative colormaps</h3>
 <p>Useful for conveying discrete, unordered categories.</p>
-<div id="e680b9e8" class="cell" data-execution_count="13">
+<div id="e2e74705" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-label="1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb15-2"><a href="#cb15-2" aria-label="2"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-label="3"></a><span class="cf">for</span> species, color <span class="kw">in</span> COLORS.items():</span>
@@ -1020,25 +962,10 @@ window.Quarto = {
 <span id="cb15-15"><a href="#cb15-15" aria-label="15"></a>ax.legend(title <span class="op">=</span> <span class="st">"Species"</span>)</span>
 <span id="cb15-16"><a href="#cb15-16" aria-label="16"></a></span>
 <span id="cb15-17"><a href="#cb15-17" aria-label="17"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[13]</span><span class="ansi-green-fg">, line 3</span>
-<span class="ansi-green-fg">      1</span> fig, ax = plt.subplots()
-<span class="ansi-green-fg">      2</span> 
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">3</span> <span style="font-weight:bold;color:rgb(0,135,0)">for</span> species, color <span style="font-weight:bold;color:rgb(0,135,0)">in</span> COLORS.items():
-<span class="ansi-green-fg">      4</span>     d = penguins[penguins[<span class="ansi-yellow-fg">"species"</span>] == species]
-<span class="ansi-green-fg">      5</span>     ax.scatter(d["bill_length_mm"], d["bill_depth_mm"],
-<span class="ansi-green-fg">      6</span>       color = color,
-
-<span class="ansi-red-fg">NameError</span>: name 'COLORS' is not defined</pre>
-</div>
-</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="matplotlib_files/figure-html/cell-14-output-2.png" width="582" height="417" class="figure-img"></p>
+<p><img src="matplotlib_files/figure-html/cell-14-output-1.png" width="585" height="451" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1062,11 +989,11 @@ window.Quarto = {
 <section id="exporting-figures" class="level2">
 <h2 class="anchored" data-anchor-id="exporting-figures">Exporting Figures</h2>
 <p>The <code>matplotlib.pyplot.savefig</code> function will save a <code>Figure</code> in many common formats. Always refers to the <em>current</em> figure (can’t pass as an argument).</p>
-<div id="1bb615fd" class="cell" data-execution_count="14">
+<div id="26a76c09" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-label="1"></a>plt.savefig(<span class="st">'myfigure.png'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If you have access to a <code>Figure</code> object directly, you can invoke the method instead:</p>
-<div id="89aa3ead" class="cell" data-execution_count="15">
+<div id="47487d2e" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-label="1"></a>fig.savefig(<span class="st">'myfigure.png'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
@@ -1080,7 +1007,7 @@ window.Quarto = {
 <section id="scatter-line-plots" class="level3">
 <h3 class="anchored" data-anchor-id="scatter-line-plots">Scatter + Line Plots</h3>
 <p>Idea: Convey change in one variable relative to another.</p>
-<div id="391ddf33" class="cell" data-execution_count="16">
+<div id="857814e2" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-label="1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb18-2"><a href="#cb18-2" aria-label="2"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-label="3"></a><span class="co"># series 1</span></span>
@@ -1097,7 +1024,7 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="matplotlib_files/figure-html/cell-17-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="566" height="412"></p>
+<p><img src="matplotlib_files/figure-html/cell-17-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="566" height="411"></p>
 </figure>
 </div>
 </div>
@@ -1111,7 +1038,7 @@ window.Quarto = {
 </section>
 <section id="bar-plots" class="level3">
 <h3 class="anchored" data-anchor-id="bar-plots">Bar Plots</h3>
-<div id="4bac962a" class="cell" data-execution_count="17">
+<div id="0f2a3ff6" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a>x <span class="op">=</span> <span class="fl">0.5</span> <span class="op">+</span> np.arange(<span class="dv">8</span>) <span class="co"># positions</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-label="2"></a>y <span class="op">=</span> [<span class="fl">4.8</span>, <span class="fl">5.5</span>, <span class="fl">3.5</span>, <span class="fl">4.6</span>, <span class="fl">6.5</span>, <span class="fl">6.6</span>, <span class="fl">2.6</span>, <span class="fl">3.0</span>] <span class="co"># values</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-label="3"></a></span>
@@ -1152,7 +1079,7 @@ window.Quarto = {
 <li>Most points concentrate near the center.</li>
 <li>As we move further away from center, along specific directions, we should see fewer points.</li>
 </ul>
-<div id="d0524161" class="cell" data-execution_count="18">
+<div id="de6ae9e4" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-label="1"></a>mu <span class="op">=</span> [<span class="op">-</span><span class="dv">2</span>, <span class="dv">10</span>]</span>
 <span id="cb20-2"><a href="#cb20-2" aria-label="2"></a>cov <span class="op">=</span> [[<span class="fl">3.0</span>, <span class="fl">2.5</span>], [<span class="fl">2.5</span>, <span class="fl">10.0</span>]]</span>
 <span id="cb20-3"><a href="#cb20-3" aria-label="3"></a>data <span class="op">=</span> np.random.multivariate_normal(mu, cov, size <span class="op">=</span> <span class="dv">1000</span>)</span>
@@ -1164,7 +1091,7 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="matplotlib_files/figure-html/cell-19-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="579" height="411"></p>
+<p><img src="matplotlib_files/figure-html/cell-19-output-1.png" class="quarto-figure quarto-figure-center figure-img" width="581" height="411"></p>
 </figure>
 </div>
 </div>
@@ -1175,7 +1102,7 @@ window.Quarto = {
 <li>Think of this as a surface with a single peak. The <span class="math inline">\(z\)</span>-values corresponding to density.</li>
 <li>We view this surface from the top and can only perceive contour lines.</li>
 </ul>
-<div id="c0a3c89e" class="cell" data-execution_count="19">
+<div id="bb9978d0" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-label="1"></a><span class="co"># Define RV we used to simulate data</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-label="2"></a><span class="im">from</span> scipy.stats <span class="im">import</span> multivariate_normal</span>
 <span id="cb21-3"><a href="#cb21-3" aria-label="3"></a>rv <span class="op">=</span> multivariate_normal(mu, cov)</span>
@@ -1227,7 +1154,7 @@ window.Quarto = {
 <section id="images-and-heatmaps" class="level3">
 <h3 class="anchored" data-anchor-id="images-and-heatmaps">Images and heatmaps</h3>
 <p>The <code>imshow</code> plot function is a low-level function for displaying arrays. The main use case is to plot image data.</p>
-<div id="7eed10fe" class="cell" data-execution_count="20">
+<div id="b4056ef0" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-label="1"></a><span class="co"># Read the image.</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-label="2"></a>img <span class="op">=</span> plt.imread(<span class="st">"assets/elephant.png"</span>)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-label="3"></a></span>
@@ -1243,7 +1170,7 @@ window.Quarto = {
 </div>
 <p>The <code>matshow</code> plot function should be preferred for numeric arrays. Best suited for actual heatmaps.</p>
 <p>The following uses the contour map data, bins it over a discretized 2D grid, and displays it as a heatmap.</p>
-<div id="a8ec9361" class="cell" data-execution_count="21">
+<div id="8271a56f" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-label="1"></a><span class="co"># Discretize: count how many points fall in each 2D bin</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-label="2"></a>counts, xedges, yedges <span class="op">=</span> np.histogram2d(x, y, bins <span class="op">=</span> <span class="dv">20</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-label="3"></a></span>
@@ -1265,7 +1192,7 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="matplotlib_files/figure-html/cell-22-output-1.png" width="507" height="450" class="figure-img"></p>
+<p><img src="matplotlib_files/figure-html/cell-22-output-1.png" width="520" height="450" class="figure-img"></p>
 </figure>
 </div>
 </div>
