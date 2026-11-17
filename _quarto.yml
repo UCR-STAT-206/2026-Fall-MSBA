@@ -53,7 +53,6 @@ website:
         contents:
           - text: Error Handling
           - text: Debugging
-          - text: Testing
           - text: Refactoring
       - section: Module 5 (Numerical Python)
         contents:
@@ -91,39 +90,24 @@ website:
             href: notes/module07/matplotlib.qmd
           - text: Seaborn Overview
             href: notes/module07/seaborn.qmd
-          # - text: Effective Storytelling
-          #   href: notes/module07/storytelling.qmd
-      # - section: Module 6 (Simulation)
-      #   contents:
-      #     - text: RNG and PRNGs
-      #     - text: Inverse Method
-      #     - text: Rejection Sampling
-      #     - text: Simulating Random Variables
-      #     - text: Monte Carlo Methods
-      # - section: Module 8 (Managing Computing Environments)
-      #   contents:
-      #     - text: Conda/Micromamba
-      #     - text: Deploying Applications
-      # - section: Module 9 (Resampling and Randomization)
-      #   contents:
-      #     - text: Randomization Techniques
-      #     - text: The Bootstrap
-      #     - text: Permutation Tests
-      #     - text: Hypothesis Testing
-      #     - text: A/B Testing
-      # - section: Module 10 (Building Analysis Pipelines)
-      #   contents:
-      #     - text: Introduction to Statsmodels
-      #     - text: Introduction to Scikit-Learn
-      #     - text: Regression Analysis in Python
-      #     - text: Using Pipelines in Scikit-Learn
-      #     - text: Model Zoo
-      # - section: Module 11 (Data Technologies)
-      #   contents:
-      #     - text: Plaintext and Binary Formats
-      #     - text: Working with Text
-      #     - text: Manipulation Frameworks for Tabular Data
-      #     - text: Databases, SQL, and DuckDB
+      - section: Module 8 (Simulation)
+        contents:
+          - text: RNG and PRNGs
+            href: notes/module08/rng.qmd
+          - text: Simulating Random Variables
+            href: notes/module08/randvar.qmd
+          - text: Applications
+            # href: notes/module08/apps.qmd
+      - section: Module 9 (Managing Computing Environments)
+        contents:
+          - text: Conda/Micromamba
+          - text: Deploying Applications
+      - section: Module 10 (Data Technologies)
+        contents:
+          - text: Plaintext and Binary Formats
+          - text: Working with Text
+          - text: Manipulation Frameworks for Tabular Data
+          - text: Databases, SQL, and DuckDB
       - text: "---"
       - section: "Labs"
         contents:
@@ -137,14 +121,8 @@ website:
             href: labs/lab3-io.qmd
           - text: Lab 4 (Pandas Intro)
             href: labs/lab4-pandas.qmd
-          # - text: Lab 5 (Code Review)
-          #   href: labs/lab5-codereview.qmd
-          # - text: Lab 6 (TBD)
-          #   href: labs/lab6-tbd.qmd
-          # - text: Lab 7 (Simulation)
-          #   href: labs/lab7-simulation.qmd
-          # - text: Lab 8 (Collaboration using Git)
-          #   href: labs/lab8-collab.qmd
+          # - text: Lab 5 (Collaboration using Git)
+          #   href: labs/lab5-collab.qmd
       - section: "Homework"
         contents:
           - text: Homework 1
@@ -159,10 +137,6 @@ website:
           #   href: hw/hw5.qmd
           # - text: Homework 6
           #   href: hw/hw6.qmd
-          # - text: Homework 7
-          #   href: hw/hw7.qmd
-          # - text: Homework 8
-          #   href: hw/hw8.qmd
       - text: "Final Project"
         href: project/project.qmd
       - text: "---"
