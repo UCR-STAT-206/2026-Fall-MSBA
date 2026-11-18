@@ -121,8 +121,8 @@ website:
             href: labs/lab3-io.qmd
           - text: Lab 4 (Pandas Intro)
             href: labs/lab4-pandas.qmd
-          # - text: Lab 5 (Collaboration using Git)
-          #   href: labs/lab5-collab.qmd
+          - text: Lab 5 (Collaboration using Git)
+            href: labs/lab5-collab.qmd
       - section: "Homework"
         contents:
           - text: Homework 1

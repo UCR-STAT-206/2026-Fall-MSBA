@@ -1,0 +1,327 @@
+---
+title: "Lab 5: Collaboration using Git"
+date: "2026-11-19"
+eval: true
+format:
+  html:
+    theme: cosmo
+    css: ../assets/styles.css
+    toc: true
+    code-copy: true
+    code-block-background: true
+    mermaid-format: js
+engine: markdown
+---
+
+## Goals
+
+1. Learn how to use a branching workflow in `git`.
+2. Recognize a merge conflict and resolve it on GitHub.
+3. Practice good `git` habits on a team project.
+
+## Before class
+
+Up to now, you have used `git` in a single user workflow.
+Working on your final projects requires collaboration with `git`.
+This assignment walks you through a collaboration loop and to work asynchronously with **branches** in `git`.
+
+Four people editing the same repository can easily cause problems for a team:
+
+- One person's changes overwrite or collide with another's.
+- Half-finished work lands on `main`, and nobody can tell which version of the analysis actually runs.
+
+**Branches** solve both problems.
+Each person works on their own branch, and work only reaches `main` after a teammate has looked at it in a pull request.
+
+### Review
+
+| Command                           | Description                                                                                         | When to use it                                                                              |
+| --------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `git status`                      | Reports which branch you are on, which files changed, and which changes are staged.                 | Before anything else. Before `git add`, before `git commit`, and before switching branches. |
+| `git diff`                        | Shows changes you have **not** staged yet. `git diff --staged` shows what is about to be committed. | Before committing, to check your work.                                                      |
+| `git add <file>`                  | Stages changes so they become part of the next commit.                                              | After finishing a small piece of work.                                                      |
+| `git commit -m "..."`             | Saves the staged changes as a commit in your *local* repository.                                    | After each small task. Write the message for your teammates.                                |
+| `git push`                        | Sends your commits from your *local* repository to GitHub (the *remote*).                           | When your teammates should be able to see your work.                                        |
+| `git pull`                        | Brings commits from GitHub to your *local* repository and working files.                            | The very first thing you do every session.                                                  |
+| `git log --oneline --graph --all` | Shows the commit history, including every branch, as a graph.                                       | To see where branches split off and where they joined back.                                 |
+
+The figure below shows where each command moves your work.
+For this lab, focus on `git add`, `git commit`, `git push`, and `git pull`.
+`git fetch` is the first half of `git pull`: it downloads what is new on GitHub without touching your local files.
+
+![Credit: [*Research Software Engineering with Python*, Chapter 6, Figure 6.5](https://third-bit.com/py-rse/git-cmdline.html#fig:git-cmdline-remote); licensed under CC-BY 4.0](assets/git-workflow.png)
+
+### Branches
+
+A **branch** is a separate history.
+When you create a branch, it starts as a copy of the branch you are on.
+Commits you make on your branch do not affect `main` or anyone else's branch.
+
+Here is an example from a team of two, Alice and Bob:
+
+```{mermaid}
+%%| fig-cap: "Two teammates working in parallel. Each pull request (PR) merges one branch back into `main`."
+%%| fig-align: "center"
+%%| fig-width: 8
+%%| fig-height: 8
+gitGraph
+  commit id: "Initial commit"
+  branch alice-load-data
+  branch bob-summary
+  checkout alice-load-data
+  commit id: "Load sales data"
+  commit id: "Fix column names"
+  checkout bob-summary
+  commit id: "Add summary table"
+  checkout main
+  merge alice-load-data id: "PR #1"
+  merge bob-summary id: "PR #2"
+  branch alice-plots
+  checkout alice-plots
+  commit id: "Plot revenue by region"
+```
+
+1. Alice and Bob both start from the same `main`.
+2. Alice creates `alice-load-data` and makes two commits. At the same time, Bob creates `bob-summary` and makes one commit. Neither affects the other.
+3. Each pushes their branch and opens a pull request. A teammate reviews it and merges it on GitHub (`PR #1`, `PR #2`).
+4. Alice's `alice-load-data` branch is now **finished**. To start the next task, Alice switches to `main`, runs `git pull` to get both merged pull requests, and creates a new branch, `alice-plots`.
+
+### Team rules
+
+1. **`main` on GitHub is your final product.** Changes reach it only through pull requests. Keep it in a working state so anyone can start a new branch from it.
+2. **Never commit on `main`.** Every task gets its own branch.
+3. **Never run `git merge`.** GitHub does all merging through pull requests. (`git pull` on `main` is safe, because `main` only moves forward when pull requests are merged.)
+4. **Do not edit files on GitHub.** Make your changes on your machine. The one exception is resolving a merge conflict in a pull request (see Exercise 2).
+5. **One branch per task, one person per branch.** Name branches `yourname-task`, for example `alice-load-data`. Do not use spaces.
+6. **Once your pull request is merged, that branch is finished.** Delete it on GitHub, then `git switch main`, `git pull`, and start a new branch.
+7. If you use an AI tool to help you with `git`, give it these rules: you use a branching workflow, never merge locally, and only merge through pull requests.
+
+### New commands
+
+#### `git switch`
+
+- `git branch` lists your local branches. A `*` marks the one you are on.
+- `git branch -a` also lists the branches on GitHub; they appear as `remotes/origin/branch-name`.
+- `git switch -c alice-load-data` **creates** a new branch and moves you onto it.
+- `git switch main` moves you to a branch that already exists.
+- Always know which branch you are on. The first line of `git status` tells you (`On branch ...`), and so does the bottom-left corner of VS Code.
+
+::: callout-warning
+## Beware uncommitted changes
+
+If you edit a file and then `git switch` without committing, your edits come with you to the new branch.
+This can lead to committing your work onto a teammate's branch, or onto `main`.
+Run `git status` before you switch: commit your work first.
+:::
+
+#### `git push` on a new branch
+
+The first time you push a new branch, `git push` fails with a message like this:
+
+```
+fatal: The current branch alice-load-data has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin alice-load-data
+```
+
+This error message states that GitHub does not have this branch yet, and it provides the exact command to fix it.
+Copy that command and run it.
+You only need to do this once per branch; after that, `git push` works as usual.
+
+#### `git fetch`
+
+`git fetch` downloads information about new changes on GitHub, including your teammates' branches, without changing any of your files.
+After `git fetch`, you can move onto a teammate's branch to look at their work:
+
+```bash
+git fetch
+git switch bob-summary
+```
+
+Git creates a local copy of `bob-summary` that tracks the one on GitHub.
+Look at the files and run the code, but **do not edit or commit** on a teammate's branch.
+Switch back to your own branch when you're done.
+
+### The session checklist
+
+Every time you sit down to work on your project:
+
+```bash
+git status                     # Anything left over from last time? Commit it first.
+git switch main
+git pull                       # Get everything your teammates merged.
+git switch -c yourname-task    # Start a new branch for this task.
+
+# Edit files. Use git add and git commit as you go.
+
+git push                       # First push of a branch: copy the command Git suggests.
+```
+
+Then open a pull request on GitHub.
+
+## Class Exercises
+
+Work in your project teams.
+You will use a practice repository.
+
+### Setup
+
+1. **One person** per team creates a new repository on GitHub.
+    + Name it `teamx-practice` and make it private.
+    + Check **Add a README file**. (A repository with no files has no `main` branch to clone.)
+2. The same person goes to **Settings → Collaborators → Add people** and adds each teammate by GitHub username.
+3. **Everyone else** accepts the invitation, either from the email GitHub sends or from the banner on the repository page. Until you accept, GitHub will reject your pushes.
+4. **Everyone**: on the repository page, click **Code → SSH** and copy the URL.
+    + In the VS Code terminal, go to the folder where you keep your course repositories. **Do not** clone inside another repository, such as your homework repository.
+    + Run `git clone <the URL you copied>`.
+5. Open the new folder in VS Code (**File → Open Folder**) and run `git status`.
+    It should say `On branch main` and `Your branch is up to date with 'origin/main'`.
+
+### Exercise 1: The full loop
+
+1. Start the session:
+
+    ```bash
+    git status
+    git switch main
+    git pull
+    ```
+2. Create your branch: `git switch -c alice-intro`.
+3. Create a file named after yourself (`alice.md`) with one line: an idea for your final project.
+    + Everyone creates a *different* file to avoid conflicts on a file.
+4. `git add alice.md` and `git commit -m "Add Alice's project idea"`.
+5. `git push`. Read the error, then copy and run the command Git suggests.
+6. On GitHub, click **Compare & pull request** in the yellow banner.
+    + Check that it says **base: main ← compare: alice-intro**.
+    + Write a short title and description, then click **Create pull request**.
+    + Not finished yet? Use the arrow next to the button to **Create draft pull request** instead. Your teammates can still see and test your branch.
+7. Review the teammate to your left. Before you start, run `git status` and make sure you have nothing uncommitted.
+
+    ```bash
+    git fetch
+    git branch -a           # Find your teammate's branch under remotes/origin/
+    git switch bob-intro    # Use your teammate's branch name
+    ```
+
+    + Open their file. In your project, this is where you would run their code to check that it works.
+    + Do not edit anything. Switch back with `git switch alice-intro`.
+8. On your teammate's pull request on GitHub:
+    + **Files changed → Review changes → Approve → Submit review.**
+    + **Merge pull request → Confirm merge.** (Use the default, *Create a merge commit*.)
+    + Click **Delete branch**.
+9. When all four pull requests are merged, everyone runs:
+
+    ```bash
+    git switch main
+    git pull
+    git log --oneline --graph --all
+    ```
+
+    You should see all four files, and the graph should show where each branch joined `main`.
+
+### Exercise 2: A merge conflict
+
+A **merge conflict** happens when two branches change the same lines of the same file, and `git` cannot resolve the changes automatically.
+
+Split your team into two pairs.
+Each pair works on its own file:
+
+- **Pair 1** changes the first line of `README.md`.
+- **Pair 2** changes the first line of one pair member's file from Exercise 1 (e.g. `bob.md`).
+
+1. Start the session as usual, then create a new branch:
+
+    ```bash
+    git status
+    git switch main
+    git pull
+    git switch -c alice-conflict
+    ```
+2. Replace the first line of your pair's file with something **different** from what your partner writes.
+    For example, Alice writes `# Our project: Customer churn` and their partner writes `# Our project: Coffee pricing`.
+3. `git add`, `git commit`, and `git push` (copy the suggested command). Open a pull request.
+4. In each pair, a teammate merges **only one** of the two pull requests and deletes that branch.
+5. Look at the other pull request. GitHub now reports **This branch has conflicts that must be resolved**.
+6. The author of that pull request clicks **Resolve conflicts**. GitHub displays a conflict with simple text formatting:
+
+    ```text
+    <<<<<<< alice-conflict
+    # Our project: Customer churn at a telecom company
+    =======
+    # Our project: Pricing at a coffee chain
+    >>>>>>> main
+    ```
+  
+    + The part between `<<<<<<<` and `=======` is one version, and the part between `=======` and `>>>>>>>` is the other. Each is labeled with its branch name.
+    + Decide, as a team, how to merge the two versions. You can keep one version, the other, or write a combination of both.
+    + Delete the three marker lines (`<<<<<<<`, `=======`, `>>>>>>>`).
+    + Click **Mark as resolved**, then **Commit merge**.
+7. The pull request can now be merged. A teammate merges it and deletes the branch.
+8. Everyone runs `git switch main` and `git pull`, then checks that the file contains the resolved version.
+    Run `git log --oneline --graph --all` and examine how the branches are merged.
+
+::: callout-important
+## After resolving a conflict on GitHub, the branch is finished
+
+Resolving the conflict added a commit to your branch *on GitHub* that your local copy does not have.
+That is fine, because the branch is finished once the pull request is merged.
+Do not keep working on it. Start your next task from an updated `main`.
+:::
+
+::: callout-note
+## When GitHub's web interface fails
+
+For complicated conflicts, such as a file that was deleted on one branch and edited on the other, GitHub may state that the conflict is too complex to resolve in the web editor.
+Do not try to fix these issues by yourself. Ask for help.
+:::
+
+### Exercise 3: Working on the wrong branch
+
+1. Switch to `main` and pull. Then edit your own file from Exercise 1, for example by adding a second line. **Do not commit.**
+2. Run `git status`. It says `On branch main`, which is the wrong place for this change.
+3. Move your edit to a new branch:
+
+    ```bash
+    git switch -c alice-fix
+    git status
+    ```
+    Your local edits carry over and keep `main` in a working state.
+    Commit, push, and open a pull request as usual.
+
+The same fix works if you notice you've been editing on a **teammate's** branch: `git switch` to your own branch (or `git switch -c` to a new one) before you commit.
+
+Sometimes Git refuses to switch:
+
+```text
+error: Your local changes to the following files would be overwritten by checkout:
+	alice.md
+Please commit your changes or stash them before you switch branches.
+Aborting
+```
+
+This happens when the file you edited is different on the branch you're switching to.
+Set your changes aside, switch, and bring them back:
+
+```bash
+git stash             # safely put your work away
+git switch alice-fix
+git stash people      # retrieve the changes you stashed away
+```
+
+::: callout-important
+## Already committed on the wrong branch?
+
+If you already **committed** on `main` or on a teammate's branch, stop and ask for help before you do anything else, and especially before you push.
+If you already **pushed** to a teammate's branch, tell your teammate. Do not try to undo it yourself.
+:::
+
+## When to ask for help
+
+| You see | What it means |
+|---|---|
+| `! [rejected]` and `Updates were rejected because ...` when you push | You are missing commits from GitHub. You may have made a commit on `main`. **Do not** follow Git's hint to `git pull`; ask for help. |
+| `Need to specify how to reconcile divergent branches` when you pull | Your local copy **and** GitHub's copy are each missing commits from one another. Do not run the `git config` commands Git suggests; ask for help. |
+| `Permission to ... denied` or a `403` error | You have not accepted the collaborator invitation yet. |
+| `Permission denied (publickey)` | There is a problem with your SSH key, or you cloned with the HTTPS URL instead of SSH. |
+| GitHub: the conflict is too complex to resolve in the web editor | Ask for help. |
