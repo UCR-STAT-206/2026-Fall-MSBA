@@ -527,6 +527,12 @@ window.Quarto = {
  <span class="menu-text">Lab 4 (Pandas Intro)</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../labs/lab5-collab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 5 (Collaboration using Git)</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -683,7 +689,7 @@ window.Quarto = {
 </section>
 <section id="packages" class="level2">
 <h2 class="anchored" data-anchor-id="packages">Packages</h2>
-<div id="81e4f4fe" class="cell" data-execution_count="1">
+<div id="b17fb651" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-label="2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -703,22 +709,22 @@ window.Quarto = {
 <section id="creating-a-generator" class="level3">
 <h3 class="anchored" data-anchor-id="creating-a-generator">Creating a generator</h3>
 <p>A <strong>generator</strong> is an object that holds the current state of a PRNG and has a well-defined rule for producing seemingly random numbers using that state.</p>
-<div id="41ce0f5b" class="cell" data-execution_count="2">
+<div id="fd4fe946" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>rng <span class="op">=</span> np.random.default_rng(seed<span class="op">=</span><span class="dv">206</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-label="2"></a>rng</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
-<pre><code>Generator(PCG64) at 0x7F6B0435F220</code></pre>
+<pre><code>Generator(PCG64) at 0x753C6424B5A0</code></pre>
 </div>
 </div>
 <p>The generator delegates the actual work to a <strong>bit generator</strong>, which implements a specific algorithm. NumPy’s default algorithm is called PCG64.</p>
-<div id="7b8acc03" class="cell" data-execution_count="3">
+<div id="1be69881" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a>rng.bit_generator</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>&lt;numpy.random._pcg64.PCG64 at 0x7f6b041c7480&gt;</code></pre>
+<pre><code>&lt;numpy.random._pcg64.PCG64 at 0x753c640cf320&gt;</code></pre>
 </div>
 </div>
 <p>Different algorithms represent their state in different ways. For PCG64 the state is a pair of large whole numbers:</p>
-<div id="4cbf58f8" class="cell" data-execution_count="4">
+<div id="0357d8b1" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a>rng.bit_generator.state</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>{'bit_generator': 'PCG64',
@@ -733,25 +739,25 @@ window.Quarto = {
 <section id="drawing-numbers" class="level3">
 <h3 class="anchored" data-anchor-id="drawing-numbers">Drawing numbers</h3>
 <p>Every draw reads the state, computes a number, and updates the state.</p>
-<div id="07caa3db" class="cell" data-execution_count="5">
+<div id="3203d70e" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a>rng.random()            <span class="co"># one uniform number in [0, 1)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>0.8620094090084607</code></pre>
 </div>
 </div>
-<div id="3a353e94" class="cell" data-execution_count="6">
+<div id="c2bdaa85" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a>rng.random(<span class="dv">5</span>)           <span class="co"># five of them</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>array([0.38843713, 0.9970794 , 0.3218525 , 0.8914218 , 0.10692511])</code></pre>
 </div>
 </div>
-<div id="dfb8bb22" class="cell" data-execution_count="7">
+<div id="775107a4" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a>rng.integers(low<span class="op">=</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">7</span>, size<span class="op">=</span><span class="dv">10</span>)    <span class="co"># ten rolls of a die</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>array([1, 6, 1, 6, 6, 4, 5, 6, 2, 5])</code></pre>
 </div>
 </div>
-<div id="9a393f30" class="cell" data-execution_count="8">
+<div id="fa694314" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-label="1"></a>rng.choice([<span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span>], size<span class="op">=</span><span class="dv">6</span>, p<span class="op">=</span>[<span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>array(['large', 'large', 'small', 'large', 'medium', 'large'], dtype='&lt;U6')</code></pre>
@@ -762,38 +768,38 @@ window.Quarto = {
 <section id="shuffling" class="level3">
 <h3 class="anchored" data-anchor-id="shuffling">Shuffling</h3>
 <p><code>.permutation(n)</code> returns the numbers <code>0, 1, ..., n-1</code> in random order. Using that as an index lets you shuffle <em>several</em> arrays in exactly the same way, which keeps related values together.</p>
-<div id="cfed8ea5" class="cell" data-execution_count="9">
+<div id="acdc3772" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-label="1"></a>customers <span class="op">=</span> np.array([<span class="st">"Ana"</span>, <span class="st">"Ben"</span>, <span class="st">"Chloe"</span>, <span class="st">"Dev"</span>, <span class="st">"Elena"</span>])</span>
 <span id="cb16-2"><a href="#cb16-2" aria-label="2"></a>spend <span class="op">=</span> np.array([<span class="dv">120</span>, <span class="dv">35</span>, <span class="dv">80</span>, <span class="dv">15</span>, <span class="dv">60</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Each customer still has their own spending amounts. Shuffling each array separately would break the pairing:</p>
-<div id="1491c258" class="cell" data-execution_count="10">
+<div id="4d2ff75c" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-label="1"></a>rng.permutation(customers)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>array(['Dev', 'Chloe', 'Elena', 'Ben', 'Ana'], dtype='&lt;U5')</code></pre>
 </div>
 </div>
-<div id="06d61c76" class="cell" data-execution_count="11">
+<div id="8a568874" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a>rng.permutation(spend)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>array([ 60,  35, 120,  80,  15])</code></pre>
 </div>
 </div>
 <p>A shared index for rows of one table, or several arrays, keeps them aligned during shuffling.</p>
-<div id="75ac9e5e" class="cell" data-execution_count="12">
+<div id="36eb9702" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-label="1"></a>idx <span class="op">=</span> rng.permutation(<span class="bu">len</span>(customers))</span>
 <span id="cb21-2"><a href="#cb21-2" aria-label="2"></a>idx</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>array([0, 3, 1, 2, 4])</code></pre>
 </div>
 </div>
-<div id="40e84431" class="cell" data-execution_count="13">
+<div id="0f5be7a0" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-label="1"></a>customers[idx]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>array(['Ana', 'Dev', 'Ben', 'Chloe', 'Elena'], dtype='&lt;U5')</code></pre>
 </div>
 </div>
-<div id="6931f58e" class="cell" data-execution_count="14">
+<div id="dc61414c" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-label="1"></a>spend[idx]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>array([120,  15,  35,  80,  60])</code></pre>
@@ -804,7 +810,7 @@ window.Quarto = {
 <section id="seeds" class="level3">
 <h3 class="anchored" data-anchor-id="seeds">Seeds</h3>
 <p>The <strong>seed</strong> sets the starting state. Two generators of the same type created with the same seed produce the same numbers:</p>
-<div id="f7250816" class="cell" data-execution_count="15">
+<div id="21f1e248" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-label="1"></a>rng_a <span class="op">=</span> np.random.default_rng(seed<span class="op">=</span><span class="dv">206</span>)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-label="2"></a>rng_b <span class="op">=</span> np.random.default_rng(seed<span class="op">=</span><span class="dv">206</span>)</span>
 <span id="cb27-3"><a href="#cb27-3" aria-label="3"></a></span>
@@ -816,7 +822,7 @@ window.Quarto = {
 </div>
 </div>
 <p>To start over from the beginning of a sequence, create a new generator with the same seed:</p>
-<div id="92f189d4" class="cell" data-execution_count="16">
+<div id="929d4cb8" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-label="1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
 <span id="cb29-2"><a href="#cb29-2" aria-label="2"></a>    rng <span class="op">=</span> np.random.default_rng(seed<span class="op">=</span><span class="dv">206</span>)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-label="3"></a>    <span class="bu">print</span>(rng.random(<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -830,7 +836,7 @@ window.Quarto = {
 <section id="the-global-generator" class="level3">
 <h3 class="anchored" data-anchor-id="the-global-generator">The global generator</h3>
 <p>The following code simulates random numbers without reference to a generator object.</p>
-<div id="3d370552" class="cell" data-execution_count="17">
+<div id="a33ea211" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-label="1"></a>np.random.seed(<span class="dv">1234</span>)</span>
 <span id="cb31-2"><a href="#cb31-2" aria-label="2"></a>np.random.rand(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
@@ -839,7 +845,7 @@ window.Quarto = {
 </div>
 <p><code>np.random.seed()</code> and <code>np.random.rand()</code> use a single, hidden, <strong>global</strong> generator shared by the whole Python session. Using a global generator can make exact reproducibility difficult because it introduces opaque dependencies between code.</p>
 <p>As an example, suppose a helper function happens to use random numbers:</p>
-<div id="430052b3" class="cell" data-execution_count="18">
+<div id="970030d6" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-label="1"></a><span class="kw">def</span> helper():</span>
 <span id="cb33-2"><a href="#cb33-2" aria-label="2"></a>    <span class="co"># Some function, perhaps from a package, that uses the global generator.</span></span>
 <span id="cb33-3"><a href="#cb33-3" aria-label="3"></a>    <span class="cf">return</span> np.random.rand()</span>
@@ -876,13 +882,13 @@ X_{n+1} = (a X_{n} + c) \bmod m.
 <section id="implementation" class="level3">
 <h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
 <p>The rule takes the current number, the <strong>state</strong>, and returns the next one:</p>
-<div id="e37adc3e" class="cell" data-execution_count="19">
+<div id="03ee3159" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-label="1"></a><span class="kw">def</span> lcg_next(state, a<span class="op">=</span><span class="dv">5</span>, c<span class="op">=</span><span class="dv">12</span>, m<span class="op">=</span><span class="dv">16</span>):</span>
 <span id="cb35-2"><a href="#cb35-2" aria-label="2"></a>    <span class="co">"""Return the next state of a linear congruential generator."""</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-label="3"></a>    <span class="cf">return</span> (a <span class="op">*</span> state <span class="op">+</span> c) <span class="op">%</span> m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>To produce a sequence, start from a <strong>seed</strong> and apply the rule repeatedly:</p>
-<div id="3f1a8f4f" class="cell" data-execution_count="20">
+<div id="b6e9f726" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-label="1"></a><span class="kw">def</span> lcg_sequence(seed, n, a<span class="op">=</span><span class="dv">5</span>, c<span class="op">=</span><span class="dv">12</span>, m<span class="op">=</span><span class="dv">16</span>):</span>
 <span id="cb36-2"><a href="#cb36-2" aria-label="2"></a>    <span class="co">"""Return the first n states of an LCG, starting from (and including) the seed."""</span></span>
 <span id="cb36-3"><a href="#cb36-3" aria-label="3"></a>    states <span class="op">=</span> [seed]</span>
@@ -906,7 +912,7 @@ X_{n+1} = (a X_{n} + c) \bmod m.
 <li><span class="math inline">\(a - 1\)</span> is a multiple of 4.</li>
 </ol>
 <p>Above, <span class="math inline">\(c = 12\)</span> is even. Changing it to <span class="math inline">\(c = 3\)</span> gives the full period of 16:</p>
-<div id="a2ad455d" class="cell" data-execution_count="21">
+<div id="291595e2" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-label="1"></a>lcg_sequence(seed<span class="op">=</span><span class="dv">10</span>, n<span class="op">=</span><span class="dv">20</span>, c<span class="op">=</span><span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>[10, 5, 12, 15, 14, 9, 0, 3, 2, 13, 4, 7, 6, 1, 8, 11, 10, 5, 12, 15]</code></pre>
@@ -921,7 +927,7 @@ X_{n+1} = (a X_{n} + c) \bmod m.
 U_{n} = \frac{X_{n}}{m}.
 \]</span></p>
 <p>With <span class="math inline">\(m = 16\)</span> there are only 16 possible values. A usable generator needs a much larger <span class="math inline">\(m\)</span>. Here is a classic choice with <span class="math inline">\(m = 2^{32}\)</span>, which also satisfies both conditions for the full period:</p>
-<div id="8c485f6c" class="cell" data-execution_count="22">
+<div id="abe17161" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-label="1"></a>m <span class="op">=</span> <span class="dv">2</span><span class="op">**</span><span class="dv">32</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-label="2"></a>states <span class="op">=</span> lcg_sequence(seed<span class="op">=</span><span class="dv">10</span>, n<span class="op">=</span><span class="dv">1000</span>, a<span class="op">=</span><span class="dv">1664525</span>, c<span class="op">=</span><span class="dv">1013904223</span>, m<span class="op">=</span>m)</span>
 <span id="cb40-3"><a href="#cb40-3" aria-label="3"></a>u <span class="op">=</span> np.array(states) <span class="op">/</span> m</span>
@@ -966,12 +972,12 @@ U_{n} = \frac{X_{n}}{m}.
 <li>Checks in <strong>higher dimensions</strong> (pairs, triples, …) become progressively harder.</li>
 </ul>
 <p>Here is an LCG with <span class="math inline">\(m = 1024\)</span>, <span class="math inline">\(a = 5\)</span>, and <span class="math inline">\(c = 1\)</span>. It meets both conditions, so it has the full period of 1024 and every value appears exactly once per period. Compare it with NumPy’s generator:</p>
-<div id="fe8a7db5" class="cell" data-execution_count="23">
+<div id="05ccf280" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-label="1"></a>small <span class="op">=</span> np.array(lcg_sequence(seed<span class="op">=</span><span class="dv">1</span>, n<span class="op">=</span><span class="dv">1001</span>, a<span class="op">=</span><span class="dv">5</span>, c<span class="op">=</span><span class="dv">1</span>, m<span class="op">=</span><span class="dv">1024</span>)) <span class="op">/</span> <span class="dv">1024</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-label="2"></a>rng <span class="op">=</span> np.random.default_rng(seed<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb41-3"><a href="#cb41-3" aria-label="3"></a>good <span class="op">=</span> rng.random(<span class="dv">1001</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="423dc74c" class="cell" data-execution_count="24">
+<div id="e7478706" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-label="1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">4</span>), sharey<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb42-2"><a href="#cb42-2" aria-label="2"></a></span>
 <span id="cb42-3"><a href="#cb42-3" aria-label="3"></a><span class="co"># LCG plot</span></span>
@@ -999,7 +1005,7 @@ U_{n} = \frac{X_{n}}{m}.
 <li>On the left: The points fall on five lines. Knowing <span class="math inline">\(U_{n}\)</span> helps us predict <span class="math inline">\(U_{n+1}\)</span>.</li>
 <li>On the right: No discernible pattern.</li>
 </ul>
-<p>The <em>correlation coefficient</em> quantifies this relationship. It’s value is 0.1901374593938424 for our LCG and 0.018980726397078304 for Numpy’s generator.</p>
+<p>The <em>correlation coefficient</em> quantifies this relationship. It’s value is 0.19013745939384263 for our LCG and 0.018980726397078315 for Numpy’s generator.</p>
 </section>
 <section id="choosing-a-generator" class="level2">
 <h2 class="anchored" data-anchor-id="choosing-a-generator">Choosing a generator</h2>
@@ -1016,7 +1022,7 @@ U_{n} = \frac{X_{n}}{m}.
 <section id="create-the-generator-once" class="level3">
 <h3 class="anchored" data-anchor-id="create-the-generator-once">Create the generator once</h3>
 <p>Because the seed fixes the sequence, creating a new generator with the same seed <em>restarts</em> the sequence. This function looks reasonable but has a bug:</p>
-<div id="b4193dc9" class="cell" data-execution_count="25">
+<div id="3ceacfca" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-label="1"></a><span class="kw">def</span> simulate_demand_bad(n_days):</span>
 <span id="cb43-2"><a href="#cb43-2" aria-label="2"></a>    rng <span class="op">=</span> np.random.default_rng(seed<span class="op">=</span><span class="dv">1</span>)    <span class="co"># restarts every time!</span></span>
 <span id="cb43-3"><a href="#cb43-3" aria-label="3"></a>    <span class="cf">return</span> rng.poisson(lam<span class="op">=</span><span class="dv">20</span>, size<span class="op">=</span>n_days)</span>
@@ -1033,7 +1039,7 @@ U_{n} = \frac{X_{n}}{m}.
 <section id="pass-the-generator-as-an-argument" class="level3">
 <h3 class="anchored" data-anchor-id="pass-the-generator-as-an-argument">Pass the generator as an argument</h3>
 <p>Create one generator near the top of your script, and hand it to every function that needs randomness.</p>
-<div id="7331c75f" class="cell" data-execution_count="26">
+<div id="50bd0747" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-label="1"></a><span class="kw">def</span> simulate_demand(rng, n_days):</span>
 <span id="cb45-2"><a href="#cb45-2" aria-label="2"></a>    <span class="co">"""Simulate daily demand using the generator `rng`."""</span></span>
 <span id="cb45-3"><a href="#cb45-3" aria-label="3"></a>    <span class="cf">return</span> rng.poisson(lam<span class="op">=</span><span class="dv">20</span>, size<span class="op">=</span>n_days)</span>
@@ -1085,7 +1091,7 @@ U_{n} = \frac{X_{n}}{m}.
 <li><p><strong>Keeping data aligned.</strong> You have arrays <code>region = np.array(["West", "East", "West", "North", "East"])</code> and <code>revenue = np.array([12.5, 8.0, 15.2, 6.1, 9.9])</code>. Use a single call to <code>rng.permutation()</code> to put both arrays in the same random order. Then use the first three positions as a “training” set and the last two as a “test” set.</p></li>
 <li><p><strong>From global to local.</strong> Rewrite the following code so that it uses a generator created with <code>np.random.default_rng()</code> in place of the global generator. Check that running your version twice gives the same output.</p></li>
 </ol>
-<div id="3e039c79" class="cell" data-execution_count="27">
+<div id="1794ce5a" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-label="1"></a>np.random.seed(<span class="dv">42</span>)</span>
 <span id="cb47-2"><a href="#cb47-2" aria-label="2"></a>daily_visits <span class="op">=</span> np.random.poisson(lam<span class="op">=</span><span class="dv">200</span>, size<span class="op">=</span><span class="dv">7</span>)</span>
 <span id="cb47-3"><a href="#cb47-3" aria-label="3"></a>conversion <span class="op">=</span> np.random.uniform(<span class="fl">0.01</span>, <span class="fl">0.05</span>, size<span class="op">=</span><span class="dv">7</span>)</span>

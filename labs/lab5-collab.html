@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-11-19">
+
+<title>Lab 5: Collaboration using Git</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-0f2e77946f0fb1c331ac7febf061e325.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" aria-label="Toolbar">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="Breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../labs/lab0-setup.html">Labs</a></li><li class="breadcrumb-item"><a href="../labs/lab5-collab.html">Lab 5 (Collaboration using Git)</a></li></ol></nav>
+        <a class="flex-grow-1" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto" aria-label="Site">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/UC_Riverside_Horiz_WhtBG.png" alt="UC Riverside monogram logo" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../assets/UC_Riverside_Horiz_WhtBG.png" alt="UC Riverside monogram logo" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">STAT 206 (MSBA)</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../office_hours.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Office Hours</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Schedule</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-controls="quarto-sidebar-section-1" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-1-label">Module 1 (Fundamentals)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-1" aria-labelledby="quarto-sidebar-section-1-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module01/unix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Unix Shell</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module01/filesystem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The File System</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module01/quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module01/git.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Git</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-controls="quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-2-label">Module 2 (Programming)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-2" aria-labelledby="quarto-sidebar-section-2-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module02/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module02/types.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Objects and Data Types</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module02/basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arithmetic, Comparisons, and Boolean Algebra</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module02/functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module02/control.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Control Flow</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-controls="quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-3-label">Module 3 (Beyond Basics)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-3" aria-labelledby="quarto-sidebar-section-3-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module03/collections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Collections</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module03/stdlib.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Python Standard Library</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module03/modules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modules, Classes, and Namespaces</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module03/io.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Input and Output</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-controls="quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-4-label">Module 4 (Best Practices)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-4" aria-labelledby="quarto-sidebar-section-4-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">Error Handling</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Debugging</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Refactoring</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-controls="quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-5-label">Module 5 (Numerical Python)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-5" aria-labelledby="quarto-sidebar-section-5-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module05/numpy_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Numpy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module05/arrays.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Numpy Arrays</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module05/vectorization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vectorization and Broadcasting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module05/random.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Probability Distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module05/numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Computer Arithmetic</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module05/computers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Computer Architecture</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-controls="quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-6-label">Module 6 (Tabular Data)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-6" aria-labelledby="quarto-sidebar-section-6-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module06/pandas_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Pandas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module06/cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Cleaning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module06/pandas_tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pandas Tutorial</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module06/text_processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Text Processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module06/split_apply_combine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Split-Apply-Combine</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-controls="quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-7-label">Module 7 (Data Visualization)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-7" aria-labelledby="quarto-sidebar-section-7-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module07/setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module07/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Plotting in Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module07/matplotlib.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matplotlib Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module07/seaborn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Seaborn Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-controls="quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-8-label">Module 8 (Simulation)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-8" aria-labelledby="quarto-sidebar-section-8-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module08/rng.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RNG and PRNGs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/module08/randvar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Simulating Random Variables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Applications</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-controls="quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-9-label">Module 9 (Managing Computing Environments)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-9" aria-labelledby="quarto-sidebar-section-9-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">Conda/Micromamba</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Deploying Applications</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-controls="quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-10-label">Module 10 (Data Technologies)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-10" aria-labelledby="quarto-sidebar-section-10-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">Plaintext and Binary Formats</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Working with Text</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Manipulation Frameworks for Tabular Data</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Databases, SQL, and DuckDB</span>
+  </li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-controls="quarto-sidebar-section-11" aria-expanded="true">
+ <span class="menu-text" id="quarto-sidebar-section-11-label">Labs</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-11" aria-labelledby="quarto-sidebar-section-11-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/lab0-setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 0 (Getting Started)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/lab1-submit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 1 (Submitting Assignments)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/lab2-debug.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 2 (Errors and Debugging)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/lab3-io.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 3 (File I/O)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/lab4-pandas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 4 (Pandas Intro)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/lab5-collab.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Lab 5 (Collaboration using Git)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-controls="quarto-sidebar-section-12" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-12-label">Homework</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-12" aria-labelledby="quarto-sidebar-section-12-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../hw/hw1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../hw/hw2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../hw/hw3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../hw/hw4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework 4</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../project/project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Final Project</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-controls="quarto-sidebar-section-13" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-13-label">How to…</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-13" aria-labelledby="quarto-sidebar-section-13-label" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../howto/use_docker.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Docker</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../howto/use_vscode.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use VSCode with a Container</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../howto/configure_git.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Configure Git</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../howto/setup_github.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Set Up Your GitHub Account</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../howto/use_git.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Use Git</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../howto/submit_hw.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Submit Assignments</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#goals" id="toc-goals" class="nav-link active" data-scroll-target="#goals">Goals</a></li>
+  <li><a href="#before-class" id="toc-before-class" class="nav-link" data-scroll-target="#before-class">Before class</a>
+  <ul class="collapse">
+  <li><a href="#review" id="toc-review" class="nav-link" data-scroll-target="#review">Review</a></li>
+  <li><a href="#branches" id="toc-branches" class="nav-link" data-scroll-target="#branches">Branches</a></li>
+  <li><a href="#team-rules" id="toc-team-rules" class="nav-link" data-scroll-target="#team-rules">Team rules</a></li>
+  <li><a href="#new-commands" id="toc-new-commands" class="nav-link" data-scroll-target="#new-commands">New commands</a></li>
+  <li><a href="#the-session-checklist" id="toc-the-session-checklist" class="nav-link" data-scroll-target="#the-session-checklist">The session checklist</a></li>
+  </ul></li>
+  <li><a href="#class-exercises" id="toc-class-exercises" class="nav-link" data-scroll-target="#class-exercises">Class Exercises</a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#exercise-1-the-full-loop" id="toc-exercise-1-the-full-loop" class="nav-link" data-scroll-target="#exercise-1-the-full-loop">Exercise 1: The full loop</a></li>
+  <li><a href="#exercise-2-a-merge-conflict" id="toc-exercise-2-a-merge-conflict" class="nav-link" data-scroll-target="#exercise-2-a-merge-conflict">Exercise 2: A merge conflict</a></li>
+  <li><a href="#exercise-3-working-on-the-wrong-branch" id="toc-exercise-3-working-on-the-wrong-branch" class="nav-link" data-scroll-target="#exercise-3-working-on-the-wrong-branch">Exercise 3: Working on the wrong branch</a></li>
+  </ul></li>
+  <li><a href="#when-to-ask-for-help" id="toc-when-to-ask-for-help" class="nav-link" data-scroll-target="#when-to-ask-for-help">When to ask for help</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="Breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../labs/lab0-setup.html">Labs</a></li><li class="breadcrumb-item"><a href="../labs/lab5-collab.html">Lab 5 (Collaboration using Git)</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Lab 5: Collaboration using Git</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 19, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="goals" class="level2">
+<h2 class="anchored" data-anchor-id="goals">Goals</h2>
+<ol type="1">
+<li>Learn how to use a branching workflow in <code>git</code>.</li>
+<li>Recognize a merge conflict and resolve it on GitHub.</li>
+<li>Practice good <code>git</code> habits on a team project.</li>
+</ol>
+</section>
+<section id="before-class" class="level2">
+<h2 class="anchored" data-anchor-id="before-class">Before class</h2>
+<p>Up to now, you have used <code>git</code> in a single user workflow. Working on your final projects requires collaboration with <code>git</code>. This assignment walks you through a collaboration loop and to work asynchronously with <strong>branches</strong> in <code>git</code>.</p>
+<p>Four people editing the same repository can easily cause problems for a team:</p>
+<ul>
+<li>One person’s changes overwrite or collide with another’s.</li>
+<li>Half-finished work lands on <code>main</code>, and nobody can tell which version of the analysis actually runs.</li>
+</ul>
+<p><strong>Branches</strong> solve both problems. Each person works on their own branch, and work only reaches <code>main</code> after a teammate has looked at it in a pull request.</p>
+<section id="review" class="level3">
+<h3 class="anchored" data-anchor-id="review">Review</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 44%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Description</th>
+<th>When to use it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>git status</code></td>
+<td>Reports which branch you are on, which files changed, and which changes are staged.</td>
+<td>Before anything else. Before <code>git add</code>, before <code>git commit</code>, and before switching branches.</td>
+</tr>
+<tr class="even">
+<td><code>git diff</code></td>
+<td>Shows changes you have <strong>not</strong> staged yet. <code>git diff --staged</code> shows what is about to be committed.</td>
+<td>Before committing, to check your work.</td>
+</tr>
+<tr class="odd">
+<td><code>git add &lt;file&gt;</code></td>
+<td>Stages changes so they become part of the next commit.</td>
+<td>After finishing a small piece of work.</td>
+</tr>
+<tr class="even">
+<td><code>git commit -m "..."</code></td>
+<td>Saves the staged changes as a commit in your <em>local</em> repository.</td>
+<td>After each small task. Write the message for your teammates.</td>
+</tr>
+<tr class="odd">
+<td><code>git push</code></td>
+<td>Sends your commits from your <em>local</em> repository to GitHub (the <em>remote</em>).</td>
+<td>When your teammates should be able to see your work.</td>
+</tr>
+<tr class="even">
+<td><code>git pull</code></td>
+<td>Brings commits from GitHub to your <em>local</em> repository and working files.</td>
+<td>The very first thing you do every session.</td>
+</tr>
+<tr class="odd">
+<td><code>git log --oneline --graph --all</code></td>
+<td>Shows the commit history, including every branch, as a graph.</td>
+<td>To see where branches split off and where they joined back.</td>
+</tr>
+</tbody>
+</table>
+<p>The figure below shows where each command moves your work. For this lab, focus on <code>git add</code>, <code>git commit</code>, <code>git push</code>, and <code>git pull</code>. <code>git fetch</code> is the first half of <code>git pull</code>: it downloads what is new on GitHub without touching your local files.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/git-workflow.png" class="img-fluid figure-img"></p>
+<figcaption>Credit: <a href="https://third-bit.com/py-rse/git-cmdline.html#fig:git-cmdline-remote"><em>Research Software Engineering with Python</em>, Chapter 6, Figure 6.5</a>; licensed under CC-BY 4.0</figcaption>
+</figure>
+</div>
+</section>
+<section id="branches" class="level3">
+<h3 class="anchored" data-anchor-id="branches">Branches</h3>
+<p>A <strong>branch</strong> is a separate history. When you create a branch, it starts as a copy of the branch you are on. Commits you make on your branch do not affect <code>main</code> or anyone else’s branch.</p>
+<p>Here is an example from a team of two, Alice and Bob:</p>
+<div class="cell" data-fig-width="8" data-fig-height="8" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+
+<pre class="mermaid mermaid-js">gitGraph
+  commit id: "Initial commit"
+  branch alice-load-data
+  branch bob-summary
+  checkout alice-load-data
+  commit id: "Load sales data"
+  commit id: "Fix column names"
+  checkout bob-summary
+  commit id: "Add summary table"
+  checkout main
+  merge alice-load-data id: "PR #1"
+  merge bob-summary id: "PR #2"
+  branch alice-plots
+  checkout alice-plots
+  commit id: "Plot revenue by region"
+</pre>
+</div>
+<p></p><figcaption> Two teammates working in parallel. Each pull request (PR) merges one branch back into <code>main</code>.</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+<ol type="1">
+<li>Alice and Bob both start from the same <code>main</code>.</li>
+<li>Alice creates <code>alice-load-data</code> and makes two commits. At the same time, Bob creates <code>bob-summary</code> and makes one commit. Neither affects the other.</li>
+<li>Each pushes their branch and opens a pull request. A teammate reviews it and merges it on GitHub (<code>PR #1</code>, <code>PR #2</code>).</li>
+<li>Alice’s <code>alice-load-data</code> branch is now <strong>finished</strong>. To start the next task, Alice switches to <code>main</code>, runs <code>git pull</code> to get both merged pull requests, and creates a new branch, <code>alice-plots</code>.</li>
+</ol>
+</section>
+<section id="team-rules" class="level3">
+<h3 class="anchored" data-anchor-id="team-rules">Team rules</h3>
+<ol type="1">
+<li><strong><code>main</code> on GitHub is your final product.</strong> Changes reach it only through pull requests. Keep it in a working state so anyone can start a new branch from it.</li>
+<li><strong>Never commit on <code>main</code>.</strong> Every task gets its own branch.</li>
+<li><strong>Never run <code>git merge</code>.</strong> GitHub does all merging through pull requests. (<code>git pull</code> on <code>main</code> is safe, because <code>main</code> only moves forward when pull requests are merged.)</li>
+<li><strong>Do not edit files on GitHub.</strong> Make your changes on your machine. The one exception is resolving a merge conflict in a pull request (see Exercise 2).</li>
+<li><strong>One branch per task, one person per branch.</strong> Name branches <code>yourname-task</code>, for example <code>alice-load-data</code>. Do not use spaces.</li>
+<li><strong>Once your pull request is merged, that branch is finished.</strong> Delete it on GitHub, then <code>git switch main</code>, <code>git pull</code>, and start a new branch.</li>
+<li>If you use an AI tool to help you with <code>git</code>, give it these rules: you use a branching workflow, never merge locally, and only merge through pull requests.</li>
+</ol>
+</section>
+<section id="new-commands" class="level3">
+<h3 class="anchored" data-anchor-id="new-commands">New commands</h3>
+<section id="git-switch" class="level4">
+<h4 class="anchored" data-anchor-id="git-switch"><code>git switch</code></h4>
+<ul>
+<li><code>git branch</code> lists your local branches. A <code>*</code> marks the one you are on.</li>
+<li><code>git branch -a</code> also lists the branches on GitHub; they appear as <code>remotes/origin/branch-name</code>.</li>
+<li><code>git switch -c alice-load-data</code> <strong>creates</strong> a new branch and moves you onto it.</li>
+<li><code>git switch main</code> moves you to a branch that already exists.</li>
+<li>Always know which branch you are on. The first line of <code>git status</code> tells you (<code>On branch ...</code>), and so does the bottom-left corner of VS Code.</li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Beware uncommitted changes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you edit a file and then <code>git switch</code> without committing, your edits come with you to the new branch. This can lead to committing your work onto a teammate’s branch, or onto <code>main</code>. Run <code>git status</code> before you switch: commit your work first.</p>
+</div>
+</div>
+</section>
+<section id="git-push-on-a-new-branch" class="level4">
+<h4 class="anchored" data-anchor-id="git-push-on-a-new-branch"><code>git push</code> on a new branch</h4>
+<p>The first time you push a new branch, <code>git push</code> fails with a message like this:</p>
+<pre><code>fatal: The current branch alice-load-data has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin alice-load-data</code></pre>
+<p>This error message states that GitHub does not have this branch yet, and it provides the exact command to fix it. Copy that command and run it. You only need to do this once per branch; after that, <code>git push</code> works as usual.</p>
+</section>
+<section id="git-fetch" class="level4">
+<h4 class="anchored" data-anchor-id="git-fetch"><code>git fetch</code></h4>
+<p><code>git fetch</code> downloads information about new changes on GitHub, including your teammates’ branches, without changing any of your files. After <code>git fetch</code>, you can move onto a teammate’s branch to look at their work:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a><span class="fu">git</span> fetch</span>
+<span id="cb2-2"><a href="#cb2-2" aria-label="2"></a><span class="fu">git</span> switch bob-summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Git creates a local copy of <code>bob-summary</code> that tracks the one on GitHub. Look at the files and run the code, but <strong>do not edit or commit</strong> on a teammate’s branch. Switch back to your own branch when you’re done.</p>
+</section>
+</section>
+<section id="the-session-checklist" class="level3">
+<h3 class="anchored" data-anchor-id="the-session-checklist">The session checklist</h3>
+<p>Every time you sit down to work on your project:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="fu">git</span> status                     <span class="co"># Anything left over from last time? Commit it first.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-label="2"></a><span class="fu">git</span> switch main</span>
+<span id="cb3-3"><a href="#cb3-3" aria-label="3"></a><span class="fu">git</span> pull                       <span class="co"># Get everything your teammates merged.</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-label="4"></a><span class="fu">git</span> switch <span class="at">-c</span> yourname-task    <span class="co"># Start a new branch for this task.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-label="5"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-label="6"></a><span class="co"># Edit files. Use git add and git commit as you go.</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-label="7"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-label="8"></a><span class="fu">git</span> push                       <span class="co"># First push of a branch: copy the command Git suggests.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then open a pull request on GitHub.</p>
+</section>
+</section>
+<section id="class-exercises" class="level2">
+<h2 class="anchored" data-anchor-id="class-exercises">Class Exercises</h2>
+<p>Work in your project teams. You will use a practice repository.</p>
+<section id="setup" class="level3">
+<h3 class="anchored" data-anchor-id="setup">Setup</h3>
+<ol type="1">
+<li><strong>One person</strong> per team creates a new repository on GitHub.
+<ul>
+<li>Name it <code>teamx-practice</code> and make it private.</li>
+<li>Check <strong>Add a README file</strong>. (A repository with no files has no <code>main</code> branch to clone.)</li>
+</ul></li>
+<li>The same person goes to <strong>Settings → Collaborators → Add people</strong> and adds each teammate by GitHub username.</li>
+<li><strong>Everyone else</strong> accepts the invitation, either from the email GitHub sends or from the banner on the repository page. Until you accept, GitHub will reject your pushes.</li>
+<li><strong>Everyone</strong>: on the repository page, click <strong>Code → SSH</strong> and copy the URL.
+<ul>
+<li>In the VS Code terminal, go to the folder where you keep your course repositories. <strong>Do not</strong> clone inside another repository, such as your homework repository.</li>
+<li>Run <code>git clone &lt;the URL you copied&gt;</code>.</li>
+</ul></li>
+<li>Open the new folder in VS Code (<strong>File → Open Folder</strong>) and run <code>git status</code>. It should say <code>On branch main</code> and <code>Your branch is up to date with 'origin/main'</code>.</li>
+</ol>
+</section>
+<section id="exercise-1-the-full-loop" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1-the-full-loop">Exercise 1: The full loop</h3>
+<ol type="1">
+<li><p>Start the session:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a><span class="fu">git</span> status</span>
+<span id="cb4-2"><a href="#cb4-2" aria-label="2"></a><span class="fu">git</span> switch main</span>
+<span id="cb4-3"><a href="#cb4-3" aria-label="3"></a><span class="fu">git</span> pull</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Create your branch: <code>git switch -c alice-intro</code>.</p></li>
+<li><p>Create a file named after yourself (<code>alice.md</code>) with one line: an idea for your final project.</p>
+<ul>
+<li>Everyone creates a <em>different</em> file to avoid conflicts on a file.</li>
+</ul></li>
+<li><p><code>git add alice.md</code> and <code>git commit -m "Add Alice's project idea"</code>.</p></li>
+<li><p><code>git push</code>. Read the error, then copy and run the command Git suggests.</p></li>
+<li><p>On GitHub, click <strong>Compare &amp; pull request</strong> in the yellow banner.</p>
+<ul>
+<li>Check that it says <strong>base: main ← compare: alice-intro</strong>.</li>
+<li>Write a short title and description, then click <strong>Create pull request</strong>.</li>
+<li>Not finished yet? Use the arrow next to the button to <strong>Create draft pull request</strong> instead. Your teammates can still see and test your branch.</li>
+</ul></li>
+<li><p>Review the teammate to your left. Before you start, run <code>git status</code> and make sure you have nothing uncommitted.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a><span class="fu">git</span> fetch</span>
+<span id="cb5-2"><a href="#cb5-2" aria-label="2"></a><span class="fu">git</span> branch <span class="at">-a</span>           <span class="co"># Find your teammate's branch under remotes/origin/</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-label="3"></a><span class="fu">git</span> switch bob-intro    <span class="co"># Use your teammate's branch name</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Open their file. In your project, this is where you would run their code to check that it works.</li>
+<li>Do not edit anything. Switch back with <code>git switch alice-intro</code>.</li>
+</ul></li>
+<li><p>On your teammate’s pull request on GitHub:</p>
+<ul>
+<li><strong>Files changed → Review changes → Approve → Submit review.</strong></li>
+<li><strong>Merge pull request → Confirm merge.</strong> (Use the default, <em>Create a merge commit</em>.)</li>
+<li>Click <strong>Delete branch</strong>.</li>
+</ul></li>
+<li><p>When all four pull requests are merged, everyone runs:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a><span class="fu">git</span> switch main</span>
+<span id="cb6-2"><a href="#cb6-2" aria-label="2"></a><span class="fu">git</span> pull</span>
+<span id="cb6-3"><a href="#cb6-3" aria-label="3"></a><span class="fu">git</span> log <span class="at">--oneline</span> <span class="at">--graph</span> <span class="at">--all</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You should see all four files, and the graph should show where each branch joined <code>main</code>.</p></li>
+</ol>
+</section>
+<section id="exercise-2-a-merge-conflict" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2-a-merge-conflict">Exercise 2: A merge conflict</h3>
+<p>A <strong>merge conflict</strong> happens when two branches change the same lines of the same file, and <code>git</code> cannot resolve the changes automatically.</p>
+<p>Split your team into two pairs. Each pair works on its own file:</p>
+<ul>
+<li><strong>Pair 1</strong> changes the first line of <code>README.md</code>.</li>
+<li><strong>Pair 2</strong> changes the first line of one pair member’s file from Exercise 1 (e.g.&nbsp;<code>bob.md</code>).</li>
+</ul>
+<ol type="1">
+<li><p>Start the session as usual, then create a new branch:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-label="1"></a><span class="fu">git</span> status</span>
+<span id="cb7-2"><a href="#cb7-2" aria-label="2"></a><span class="fu">git</span> switch main</span>
+<span id="cb7-3"><a href="#cb7-3" aria-label="3"></a><span class="fu">git</span> pull</span>
+<span id="cb7-4"><a href="#cb7-4" aria-label="4"></a><span class="fu">git</span> switch <span class="at">-c</span> alice-conflict</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Replace the first line of your pair’s file with something <strong>different</strong> from what your partner writes. For example, Alice writes <code># Our project: Customer churn</code> and their partner writes <code># Our project: Coffee pricing</code>.</p></li>
+<li><p><code>git add</code>, <code>git commit</code>, and <code>git push</code> (copy the suggested command). Open a pull request.</p></li>
+<li><p>In each pair, a teammate merges <strong>only one</strong> of the two pull requests and deletes that branch.</p></li>
+<li><p>Look at the other pull request. GitHub now reports <strong>This branch has conflicts that must be resolved</strong>.</p></li>
+<li><p>The author of that pull request clicks <strong>Resolve conflicts</strong>. GitHub displays a conflict with simple text formatting:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a>&lt;&lt;&lt;&lt;&lt;&lt;&lt; alice-conflict</span>
+<span id="cb8-2"><a href="#cb8-2" aria-label="2"></a># Our project: Customer churn at a telecom company</span>
+<span id="cb8-3"><a href="#cb8-3" aria-label="3"></a>=======</span>
+<span id="cb8-4"><a href="#cb8-4" aria-label="4"></a># Our project: Pricing at a coffee chain</span>
+<span id="cb8-5"><a href="#cb8-5" aria-label="5"></a>&gt;&gt;&gt;&gt;&gt;&gt;&gt; main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>The part between <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> and <code>=======</code> is one version, and the part between <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> is the other. Each is labeled with its branch name.</li>
+<li>Decide, as a team, how to merge the two versions. You can keep one version, the other, or write a combination of both.</li>
+<li>Delete the three marker lines (<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>).</li>
+<li>Click <strong>Mark as resolved</strong>, then <strong>Commit merge</strong>.</li>
+</ul></li>
+<li><p>The pull request can now be merged. A teammate merges it and deletes the branch.</p></li>
+<li><p>Everyone runs <code>git switch main</code> and <code>git pull</code>, then checks that the file contains the resolved version. Run <code>git log --oneline --graph --all</code> and examine how the branches are merged.</p></li>
+</ol>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>After resolving a conflict on GitHub, the branch is finished
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Resolving the conflict added a commit to your branch <em>on GitHub</em> that your local copy does not have. That is fine, because the branch is finished once the pull request is merged. Do not keep working on it. Start your next task from an updated <code>main</code>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>When GitHub’s web interface fails
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For complicated conflicts, such as a file that was deleted on one branch and edited on the other, GitHub may state that the conflict is too complex to resolve in the web editor. Do not try to fix these issues by yourself. Ask for help.</p>
+</div>
+</div>
+</section>
+<section id="exercise-3-working-on-the-wrong-branch" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3-working-on-the-wrong-branch">Exercise 3: Working on the wrong branch</h3>
+<ol type="1">
+<li><p>Switch to <code>main</code> and pull. Then edit your own file from Exercise 1, for example by adding a second line. <strong>Do not commit.</strong></p></li>
+<li><p>Run <code>git status</code>. It says <code>On branch main</code>, which is the wrong place for this change.</p></li>
+<li><p>Move your edit to a new branch:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a><span class="fu">git</span> switch <span class="at">-c</span> alice-fix</span>
+<span id="cb9-2"><a href="#cb9-2" aria-label="2"></a><span class="fu">git</span> status</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Your local edits carry over and keep <code>main</code> in a working state. Commit, push, and open a pull request as usual.</p></li>
+</ol>
+<p>The same fix works if you notice you’ve been editing on a <strong>teammate’s</strong> branch: <code>git switch</code> to your own branch (or <code>git switch -c</code> to a new one) before you commit.</p>
+<p>Sometimes Git refuses to switch:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a>error: Your local changes to the following files would be overwritten by checkout:</span>
+<span id="cb10-2"><a href="#cb10-2" aria-label="2"></a>    alice.md</span>
+<span id="cb10-3"><a href="#cb10-3" aria-label="3"></a>Please commit your changes or stash them before you switch branches.</span>
+<span id="cb10-4"><a href="#cb10-4" aria-label="4"></a>Aborting</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This happens when the file you edited is different on the branch you’re switching to. Set your changes aside, switch, and bring them back:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a><span class="fu">git</span> stash             <span class="co"># safely put your work away</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-label="2"></a><span class="fu">git</span> switch alice-fix</span>
+<span id="cb11-3"><a href="#cb11-3" aria-label="3"></a><span class="fu">git</span> stash people      <span class="co"># retrieve the changes you stashed away</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Already committed on the wrong branch?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you already <strong>committed</strong> on <code>main</code> or on a teammate’s branch, stop and ask for help before you do anything else, and especially before you push. If you already <strong>pushed</strong> to a teammate’s branch, tell your teammate. Do not try to undo it yourself.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="when-to-ask-for-help" class="level2">
+<h2 class="anchored" data-anchor-id="when-to-ask-for-help">When to ask for help</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>You see</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>! [rejected]</code> and <code>Updates were rejected because ...</code> when you push</td>
+<td>You are missing commits from GitHub. You may have made a commit on <code>main</code>. <strong>Do not</strong> follow Git’s hint to <code>git pull</code>; ask for help.</td>
+</tr>
+<tr class="even">
+<td><code>Need to specify how to reconcile divergent branches</code> when you pull</td>
+<td>Your local copy <strong>and</strong> GitHub’s copy are each missing commits from one another. Do not run the <code>git config</code> commands Git suggests; ask for help.</td>
+</tr>
+<tr class="odd">
+<td><code>Permission to ... denied</code> or a <code>403</code> error</td>
+<td>You have not accepted the collaborator invitation yet.</td>
+</tr>
+<tr class="even">
+<td><code>Permission denied (publickey)</code></td>
+<td>There is a problem with your SSH key, or you cloned with the HTTPS URL instead of SSH.</td>
+</tr>
+<tr class="odd">
+<td>GitHub: the conflict is too complex to resolve in the web editor</td>
+<td>Ask for help.</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/UCR-STAT-206\.github\.io\/2026-Fall-MSBA\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

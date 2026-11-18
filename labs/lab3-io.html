@@ -528,6 +528,12 @@ window.Quarto = {
  <span class="menu-text">Lab 4 (Pandas Intro)</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/lab5-collab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 5 (Collaboration using Git)</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -738,12 +744,12 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="streams">Streams</h3>
 <p>Python handles file interactions using file stream objects. Context managers (<code>with</code> statements) ensure that open file streams are automatically closed when you are finished.</p>
 <p>Specifically, the patterns you should commit to memory are:</p>
-<div id="d3dccee9" class="cell" data-execution_count="1">
+<div id="b5b18ae6" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="co"># to read a file</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-label="2"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"path/to/file"</span>, <span class="st">"r"</span>) <span class="im">as</span> f:</span>
 <span id="cb1-3"><a href="#cb1-3" aria-label="3"></a>    <span class="co"># do something with the file stream</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="9ae509a9" class="cell" data-execution_count="2">
+<div id="6c84bd5d" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a><span class="co"># to (over)write to a file</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-label="2"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"path/to/file"</span>, <span class="st">"w"</span>) <span class="im">as</span> f:</span>
 <span id="cb2-3"><a href="#cb2-3" aria-label="3"></a>    <span class="co"># do something with the file stream</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -759,7 +765,7 @@ window.Quarto = {
 <section id="how-to-read-a-file" class="level3">
 <h3 class="anchored" data-anchor-id="how-to-read-a-file">How to read a file</h3>
 <p>Using NumPy’s <code>loadtxt()</code> function:</p>
-<div id="d1a13121" class="cell" data-execution_count="3">
+<div id="41e53176" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-label="2"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-label="3"></a>mydata <span class="op">=</span> np.loadtxt(<span class="st">"../hw/assets/nnmf-2429-by-361-face.txt"</span>)</span>
@@ -791,7 +797,7 @@ window.Quarto = {
 <li>The data happens to be numeric floating point numbers. Is <code>np.float64</code> optimal here? Maybe we could get away with <code>np.float32</code>…</li>
 </ul>
 <p><strong>Even if a parser’s heuristic defaults work, you should practice fully specifying how you load the data</strong>:</p>
-<div id="3d2acb53" class="cell" data-execution_count="4">
+<div id="84838680" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-2"><a href="#cb6-2" aria-label="2"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-label="3"></a>mydata <span class="op">=</span> np.loadtxt(</span>
@@ -822,7 +828,7 @@ window.Quarto = {
 <li>People living in the future will thank you for your benevolence.</li>
 </ul>
 <p>If files contain missing values or inconsistent formatting, <code>np.genfromtxt()</code> is a flexible alternative in the NumPy package:</p>
-<div id="a700e704" class="cell" data-execution_count="5">
+<div id="f26fb10a" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb8-2"><a href="#cb8-2" aria-label="2"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-label="3"></a>mydata <span class="op">=</span> np.genfromtxt(</span>
@@ -835,7 +841,7 @@ window.Quarto = {
 <section id="how-to-write-a-file" class="level3">
 <h3 class="anchored" data-anchor-id="how-to-write-a-file">How to write a file</h3>
 <p>Using Numpy’s <code>savetxt()</code> function:</p>
-<div id="b50477fa" class="cell" data-execution_count="6">
+<div id="dd3f73fb" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-label="1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-label="2"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-label="3"></a><span class="co"># get the first column</span></span>
@@ -854,14 +860,14 @@ window.Quarto = {
 <section id="handling-file-paths" class="level2">
 <h2 class="anchored" data-anchor-id="handling-file-paths">Handling file paths</h2>
 <p>Earlier you encountered the relative file path <code>"../hw/assets/nnmf-2429-by-361-face.txt"</code>. This is bad because Windows and Linux-like systems use different file path separators. The better, robust alternative is to use <code>os.path.join</code> or the modern <code>pathlib</code> module:</p>
-<div id="b2f9c1c4" class="cell" data-execution_count="7">
+<div id="57b6c94f" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a><span class="im">import</span> os</span>
 <span id="cb10-2"><a href="#cb10-2" aria-label="2"></a>os.path.join(<span class="st">".."</span>, <span class="st">"hw"</span>, <span class="st">"assets"</span>, <span class="st">"nnmf-2429-by-361-face.txt"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>'../hw/assets/nnmf-2429-by-361-face.txt'</code></pre>
 </div>
 </div>
-<div id="2883ed1e" class="cell" data-execution_count="8">
+<div id="6150679f" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb12-2"><a href="#cb12-2" aria-label="2"></a>Path(<span class="st">".."</span>) <span class="op">/</span> <span class="st">"hw"</span> <span class="op">/</span> <span class="st">"assets"</span> <span class="op">/</span> <span class="st">"nnmf-2429-by-361-face.txt"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
