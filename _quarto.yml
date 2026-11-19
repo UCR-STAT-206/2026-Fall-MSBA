@@ -97,7 +97,7 @@ website:
           - text: Simulating Random Variables
             href: notes/module08/randvar.qmd
           - text: Applications
-            # href: notes/module08/apps.qmd
+            href: notes/module08/apps.qmd
       - section: Module 9 (Managing Computing Environments)
         contents:
           - text: Conda/Micromamba
