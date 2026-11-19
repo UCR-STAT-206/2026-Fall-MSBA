@@ -702,7 +702,7 @@ window.Quarto = {
 </section>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<div id="6d532d8a" class="cell" data-execution_count="1">
+<div id="869d8b2c" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="im">import</span> os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-label="2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-label="3"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -729,7 +729,7 @@ window.Quarto = {
 <section id="dataset" class="level2">
 <h2 class="anchored" data-anchor-id="dataset">Dataset</h2>
 <p>We’ll continue to explore the Palmer Penguins data. Here we define a default style and fix the penguin colors to specific values. These colors should be friendly to different forms of colorblindness.</p>
-<div id="1ad25c52" class="cell" data-execution_count="2">
+<div id="65f460b9" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>penguins <span class="op">=</span> pd.read_csv(os.path.join(<span class="st">"assets"</span>, <span class="st">"penguins.csv"</span>))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-label="2"></a>penguins <span class="op">=</span> penguins.dropna(subset<span class="op">=</span>[<span class="st">"body_mass_g"</span>])</span>
 <span id="cb2-3"><a href="#cb2-3" aria-label="3"></a></span>
@@ -754,7 +754,7 @@ window.Quarto = {
 <li>Add any annotations like axis labels, titles, or legends. Usually coupled with drawing on axes.</li>
 </ol>
 <p>The <a href="https://matplotlib.org/stable/users/explain/quick_start.html"><code>matplotlib</code> documentation</a> has an excellent quick start guide to help you become familiar with the basic elements.</p>
-<div id="0405c921" class="cell" data-execution_count="3">
+<div id="d53a8242" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="co"># INITIALIZE: Lots of ways to do this. </span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-label="2"></a>fig, ax <span class="op">=</span> plt.subplots(nrows <span class="op">=</span> <span class="dv">1</span>, ncols <span class="op">=</span> <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
 <span id="cb3-3"><a href="#cb3-3" aria-label="3"></a></span>
@@ -786,7 +786,7 @@ window.Quarto = {
 <section id="histograms" class="level2">
 <h2 class="anchored" data-anchor-id="histograms">Histograms</h2>
 <p>A <strong>histogram</strong> partitions numeric data into <em>bins</em> and counts how many observations fall in each. This allows us to visualize the distribution of a single variable within our data.</p>
-<div id="a5d8a939" class="cell" data-execution_count="4">
+<div id="364b4c0a" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a><span class="co"># INITIALIZE</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-label="2"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
 <span id="cb4-3"><a href="#cb4-3" aria-label="3"></a></span>
@@ -808,7 +808,7 @@ window.Quarto = {
 </div>
 </div>
 <p>The number of bins is a choice, and it changes what you see:</p>
-<div id="d3e4067c" class="cell" data-execution_count="5">
+<div id="8228a404" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a><span class="co"># INITIALIZE</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-label="2"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">3.2</span>), sharey<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-label="3"></a></span>
@@ -861,7 +861,7 @@ window.Quarto = {
 <li><code>hue</code> keyword: Specify what information is mapped to distinct colors. Needs <em>categorical data</em>.</li>
 <li>Can also use arrays as in <code>matplotlib</code>.</li>
 </ul>
-<div id="48180f30" class="cell" data-execution_count="6">
+<div id="a50bf5fb" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a><span class="co"># INITIALIZE</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-label="2"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="dv">4</span>), sharey<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-label="3"></a></span>
@@ -923,7 +923,7 @@ window.Quarto = {
 </ul>
 <section id="seaborn-version-1" class="level3">
 <h3 class="anchored" data-anchor-id="seaborn-version-1"><code>seaborn</code> version</h3>
-<div id="2b217283" class="cell" data-execution_count="7">
+<div id="ab3e4338" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-label="1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
 <span id="cb7-2"><a href="#cb7-2" aria-label="2"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-label="3"></a>sns.boxplot(data <span class="op">=</span> penguins, x <span class="op">=</span> <span class="st">"species"</span>, y <span class="op">=</span> <span class="st">"body_mass_g"</span>,</span>
@@ -961,7 +961,7 @@ window.Quarto = {
 <li>Any <em>points</em> or <em>dots</em> outside the whiskers are flagged as <strong>potential outliers</strong>.</li>
 </ul>
 <p>We can compute the cutoffs ourselves for one species:</p>
-<div id="bc8003ad" class="cell" data-execution_count="8">
+<div id="caf03a02" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a>adelie <span class="op">=</span> penguins.loc[penguins[<span class="st">"species"</span>] <span class="op">==</span> <span class="st">"Adelie"</span>, <span class="st">"body_mass_g"</span>]</span>
 <span id="cb8-2"><a href="#cb8-2" aria-label="2"></a>q1, q3 <span class="op">=</span> adelie.quantile([<span class="fl">0.25</span>, <span class="fl">0.75</span>])</span>
 <span id="cb8-3"><a href="#cb8-3" aria-label="3"></a>iqr <span class="op">=</span> q3 <span class="op">-</span> q1</span>
@@ -1001,7 +1001,7 @@ dtype: float64</code></pre>
 <section id="matplotlib-version" class="level3">
 <h3 class="anchored" data-anchor-id="matplotlib-version"><code>matplotlib</code> version</h3>
 <p>The imperative approach is quite verbose. It is worth seeing this once to appreciate the utility of the <code>seaborn</code> interface:</p>
-<div id="af5bc603" class="cell" data-execution_count="9">
+<div id="bddb781a" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
 <span id="cb10-2"><a href="#cb10-2" aria-label="2"></a>species_names <span class="op">=</span> <span class="bu">list</span>(COLORS)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-label="3"></a></span>
@@ -1052,7 +1052,7 @@ dtype: float64</code></pre>
 </ul>
 <section id="matplotlib-version-1" class="level3">
 <h3 class="anchored" data-anchor-id="matplotlib-version-1"><code>matplotlib</code> version</h3>
-<div id="34dae2f6" class="cell" data-execution_count="10">
+<div id="e065c4fa" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a>x <span class="op">=</span> penguins[<span class="st">"bill_length_mm"</span>]</span>
 <span id="cb11-2"><a href="#cb11-2" aria-label="2"></a>y <span class="op">=</span> penguins[<span class="st">"bill_depth_mm"</span>]</span>
 <span id="cb11-3"><a href="#cb11-3" aria-label="3"></a></span>
@@ -1084,7 +1084,7 @@ dtype: float64</code></pre>
 </section>
 <section id="seaborn-version-2" class="level3">
 <h3 class="anchored" data-anchor-id="seaborn-version-2"><code>seaborn</code> version</h3>
-<div id="4195618b" class="cell" data-execution_count="11">
+<div id="94500cf6" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-label="1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
 <span id="cb12-2"><a href="#cb12-2" aria-label="2"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-label="3"></a>sns.regplot(</span>
@@ -1118,7 +1118,7 @@ dtype: float64</code></pre>
 <section id="matplotlib-version-2" class="level3">
 <h3 class="anchored" data-anchor-id="matplotlib-version-2"><code>matplotlib</code> version</h3>
 <p>We color each point by <code>species</code> and fit separate trend lines:</p>
-<div id="53ce0382" class="cell" data-execution_count="12">
+<div id="b5a58f77" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-label="1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb13-2"><a href="#cb13-2" aria-label="2"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-label="3"></a><span class="cf">for</span> species, color <span class="kw">in</span> COLORS.items():</span>
@@ -1154,7 +1154,7 @@ dtype: float64</code></pre>
 <section id="seaborn-version-3" class="level3">
 <h3 class="anchored" data-anchor-id="seaborn-version-3"><code>seaborn</code> version</h3>
 <p>The <code>lmplot</code> function draws a scatterplot with a fitted line for each value of <code>hue</code>:</p>
-<div id="05a8bd36" class="cell" data-execution_count="13">
+<div id="774afe85" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-label="1"></a><span class="co"># No initialization; this function creates its own canvas (`Figure` and `Axis`) by default.</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-label="2"></a>sns.lmplot(data <span class="op">=</span> penguins, x <span class="op">=</span> <span class="st">"bill_length_mm"</span>, y <span class="op">=</span> <span class="st">"bill_depth_mm"</span>, hue <span class="op">=</span> <span class="st">"species"</span>,</span>
 <span id="cb14-3"><a href="#cb14-3" aria-label="3"></a>  hue_order <span class="op">=</span> <span class="bu">list</span>(COLORS),</span>
@@ -1176,7 +1176,7 @@ dtype: float64</code></pre>
 <section id="why-does-this-happen" class="level3">
 <h3 class="anchored" data-anchor-id="why-does-this-happen">Why does this happen?</h3>
 <p>The apparent trend reverses once we include group information! Each penguin species clearly shows a positive correlation between bill depth and bill length. The negative slope in the previous scatterplots came from combining three clusters that sit in different places.</p>
-<div id="1b841e19" class="cell" data-execution_count="14">
+<div id="159a78a6" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-label="1"></a>penguins[[<span class="st">"bill_length_mm"</span>, <span class="st">"bill_depth_mm"</span>]].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>bill_length_mm    43.9
@@ -1184,7 +1184,7 @@ bill_depth_mm     17.2
 dtype: float64</code></pre>
 </div>
 </div>
-<div id="811bc2b3" class="cell" data-execution_count="15">
+<div id="49d5cb98" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-label="1"></a>penguins.groupby(<span class="st">"species"</span>)[[<span class="st">"bill_length_mm"</span>, <span class="st">"bill_depth_mm"</span>]].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <div>
@@ -1244,7 +1244,7 @@ dtype: float64</code></pre>
 <section id="quick-plotting-with-pandas" class="level2">
 <h2 class="anchored" data-anchor-id="quick-plotting-with-pandas">Quick plotting with <code>pandas</code></h2>
 <p><code>pandas</code> data frames have plotting implemented as a method. It is convenient for quick prototyping and exploratory analysis in a REPL. Each call returns a customizable axis object from <code>matplotlib</code>.</p>
-<div id="2852a3ae" class="cell" data-execution_count="16">
+<div id="9a537697" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-label="1"></a>ax <span class="op">=</span> (penguins[<span class="st">"body_mass_g"</span>]</span>
 <span id="cb18-2"><a href="#cb18-2" aria-label="2"></a>  .plot(kind <span class="op">=</span> <span class="st">"hist"</span>, bins <span class="op">=</span> <span class="dv">25</span>, edgecolor <span class="op">=</span> <span class="st">"white"</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-label="3"></a>)</span>
@@ -1266,7 +1266,7 @@ dtype: float64</code></pre>
 <li>It merely suggests relationships and clusters worth a closer look.</li>
 <li>It can be misleading, even if you factor in categorical variables, because it displays data in a pairwise fashion.</li>
 </ul>
-<div id="7c156a5c" class="cell" data-execution_count="17">
+<div id="76ddc6ec" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a>numeric_cols <span class="op">=</span> [<span class="st">"bill_length_mm"</span>, <span class="st">"bill_depth_mm"</span>, <span class="st">"flipper_length_mm"</span>, <span class="st">"body_mass_g"</span>]</span>
 <span id="cb19-2"><a href="#cb19-2" aria-label="2"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-label="3"></a>pd.plotting.scatter_matrix(penguins[numeric_cols],</span>
@@ -1293,7 +1293,7 @@ dtype: float64</code></pre>
 </section>
 <section id="saving-a-figure" class="level2">
 <h2 class="anchored" data-anchor-id="saving-a-figure">Saving a figure</h2>
-<div id="a9514e79" class="cell" data-execution_count="18">
+<div id="b744d763" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-label="1"></a><span class="co"># Create a directory to store our work; don't do anything if it already exists.</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-label="2"></a>os.makedirs(<span class="st">"output"</span>, exist_ok <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-label="3"></a></span>
