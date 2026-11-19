@@ -81,7 +81,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-b74315ed01d22c90707a95761ec924a0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-171007fd54a2facec3ba0f9636846309.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -698,7 +698,7 @@ window.Quarto = {
 </section>
 <section id="packages" class="level2">
 <h2 class="anchored" data-anchor-id="packages">Packages</h2>
-<div id="8169d09b" class="cell" data-execution_count="1">
+<div id="9b9371d5" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-label="2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-label="3"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
@@ -717,7 +717,7 @@ window.Quarto = {
 P(U &lt; p) = p.
 \]</span></p>
 <p>So the comparison <code>U &lt; p</code> is <code>True</code> with probability <span class="math inline">\(p\)</span>. Suppose customers who visit a store buy something with probability 0.3:</p>
-<div id="d71f741c" class="cell" data-execution_count="2">
+<div id="ca145ac1" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a>u <span class="op">=</span> rng.random(<span class="dv">10</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-label="2"></a>buys <span class="op">=</span> u <span class="op">&lt;</span> <span class="fl">0.3</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-label="3"></a></span>
@@ -730,7 +730,7 @@ P(U &lt; p) = p.
 </div>
 <p>Each entry is one customer. This is a draw from the <strong>Bernoulli</strong> distribution.</p>
 <p>A <strong>binomial</strong> count is a sum of independent binary outcomes. Here are 5 days with 20 customers each:</p>
-<div id="dc558136" class="cell" data-execution_count="3">
+<div id="55c18144" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a>u <span class="op">=</span> rng.random((<span class="dv">5</span>, <span class="dv">20</span>))             <span class="co"># 5 rows (days), 20 columns (customers)</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-label="2"></a>purchases <span class="op">=</span> (u <span class="op">&lt;</span> <span class="fl">0.3</span>).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)   <span class="co"># count the True values in each row</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-label="3"></a>purchases</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -739,7 +739,7 @@ P(U &lt; p) = p.
 </div>
 </div>
 <p>This matches output from <code>rng.binomial(n=20, p=0.3, size=5)</code>. A check with many days:</p>
-<div id="54893ffa" class="cell" data-execution_count="4">
+<div id="7819992a" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-label="1"></a>by_hand <span class="op">=</span> (rng.random((<span class="dv">100_000</span>, <span class="dv">20</span>)) <span class="op">&lt;</span> <span class="fl">0.3</span>).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-label="2"></a>built_in <span class="op">=</span> rng.binomial(n<span class="op">=</span><span class="dv">20</span>, p<span class="op">=</span><span class="fl">0.3</span>, size<span class="op">=</span><span class="dv">100_000</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-label="3"></a></span>
@@ -759,7 +759,7 @@ P(U &lt; p) = p.
 \underbrace{[0.8,\ 1)}_{\text{large}}
 \]</span></p>
 <p>A uniform number lands in each piece with probability equal to its length. The cut points are the <strong>cumulative probabilities</strong>, and <code>np.searchsorted()</code> reports which piece each uniform number falls in:</p>
-<div id="042bb7b3" class="cell" data-execution_count="5">
+<div id="0f9a0356" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-label="1"></a>sizes <span class="op">=</span> np.array([<span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span>])</span>
 <span id="cb8-2"><a href="#cb8-2" aria-label="2"></a>cum_probs <span class="op">=</span> np.cumsum([<span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>])</span>
 <span id="cb8-3"><a href="#cb8-3" aria-label="3"></a></span>
@@ -795,7 +795,7 @@ P(X \le x) = P\big(U \le F(x)\big) = F(x),
 \]</span></p>
 <p>which is the CDF we wanted.</p>
 <p>Reading the recipe off a graph: pick a height <span class="math inline">\(u\)</span> on the vertical axis, move across to the CDF, and drop down to the horizontal axis.</p>
-<div id="2cf29a01" class="cell" data-execution_count="6">
+<div id="b4ba7608" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-label="1"></a>waits <span class="op">=</span> stats.expon(scale<span class="op">=</span><span class="dv">15</span>)          <span class="co"># waiting times with a mean of 15 minutes</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-label="2"></a>grid <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">80</span>, <span class="dv">200</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-label="3"></a>u_demo <span class="op">=</span> np.array([<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.9</span>])</span>
@@ -830,7 +830,7 @@ F(x) = 1 - e^{-x/\beta}, \qquad x \ge 0.
 <p><span class="math display">\[
 Q(u) = -\beta \, \ln(1 - u).
 \]</span></p>
-<div id="4357d782" class="cell" data-execution_count="7">
+<div id="77798dff" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-label="1"></a>beta <span class="op">=</span> <span class="dv">15</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-label="2"></a>u <span class="op">=</span> rng.random(<span class="dv">100_000</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-label="3"></a>sim_waits <span class="op">=</span> <span class="op">-</span>beta <span class="op">*</span> np.log(<span class="dv">1</span> <span class="op">-</span> u)</span>
@@ -841,7 +841,7 @@ Q(u) = -\beta \, \ln(1 - u).
 </div>
 </div>
 <p>The histogram of the draws matches the exact density curve:</p>
-<div id="d2f4e4a9" class="cell" data-execution_count="8">
+<div id="40a41000" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-label="1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
 <span id="cb13-2"><a href="#cb13-2" aria-label="2"></a>ax.hist(sim_waits, bins<span class="op">=</span><span class="dv">60</span>, density<span class="op">=</span><span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">"simulated"</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-label="3"></a>ax.plot(grid, waits.pdf(grid), label<span class="op">=</span><span class="st">"exact density"</span>)</span>
@@ -862,7 +862,7 @@ Q(u) = -\beta \, \ln(1 - u).
 <section id="the-quantile-function-does-the-work" class="level4">
 <h4 class="anchored" data-anchor-id="the-quantile-function-does-the-work">The quantile function does the work</h4>
 <p>Many distributions, including the normal, have no simple formula for <span class="math inline">\(Q(u)\)</span>. The inverse method still works, as long as we have a program that can evaluate <span class="math inline">\(Q(u)\)</span>. In <code>scipy.stats</code> that program is the <code>.ppf()</code> method, which we used in the figure above. Feeding it uniform numbers produces draws from any distribution it knows:</p>
-<div id="e8ae9e16" class="cell" data-execution_count="9">
+<div id="5a4a3a0b" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-label="1"></a>demand <span class="op">=</span> stats.norm(loc<span class="op">=</span><span class="dv">45</span>, scale<span class="op">=</span><span class="dv">8</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-label="2"></a>demand.ppf(rng.random(<span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
@@ -917,18 +917,18 @@ Q(u) = -\beta \, \ln(1 - u).
 <section id="a-distribution-as-an-object" class="level3">
 <h3 class="anchored" data-anchor-id="a-distribution-as-an-object">A distribution as an object</h3>
 <p>In <code>scipy.stats</code>, you first create an object that represents a distribution with specific parameters. The statement <span class="math inline">\(D \sim \mathcal{N}(45, 8^{2})\)</span>, daily demand that is normal with mean 45 and standard deviation 8, becomes:</p>
-<div id="f3e62a6a" class="cell" data-execution_count="10">
+<div id="c6979451" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-label="1"></a>demand <span class="op">=</span> stats.norm(loc<span class="op">=</span><span class="dv">45</span>, scale<span class="op">=</span><span class="dv">8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>You can recover the parameters:</p>
-<div id="a02051a2" class="cell" data-execution_count="11">
+<div id="5d7ae5eb" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-label="1"></a>demand.kwds</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>{'loc': 45, 'scale': 8}</code></pre>
 </div>
 </div>
 <p>Summaries of the distribution have descriptive method names:</p>
-<div id="87f74bb1" class="cell" data-execution_count="12">
+<div id="1285d891" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-label="1"></a><span class="bu">print</span>(demand.mean())</span>
 <span id="cb19-2"><a href="#cb19-2" aria-label="2"></a><span class="bu">print</span>(demand.std())</span>
 <span id="cb19-3"><a href="#cb19-3" aria-label="3"></a><span class="bu">print</span>(demand.var())</span>
@@ -940,7 +940,7 @@ Q(u) = -\beta \, \ln(1 - u).
 45.0</code></pre>
 </div>
 </div>
-<div id="239c8334" class="cell" data-execution_count="13">
+<div id="21f4124b" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-label="1"></a>demand.ppf(<span class="fl">0.25</span>)    <span class="co"># the 25th percentile (first quartile)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>np.float64(39.60408199843135)</code></pre>
@@ -950,7 +950,7 @@ Q(u) = -\beta \, \ln(1 - u).
 <section id="sampling-from-an-object" class="level3">
 <h3 class="anchored" data-anchor-id="sampling-from-an-object">Sampling from an object</h3>
 <p><code>.rvs()</code> (<em>random variates</em>) draws samples. Pass your generator through <code>random_state</code>, so that the draws come from the same reproducible stream as the rest of your code:</p>
-<div id="1bb09468" class="cell" data-execution_count="14">
+<div id="a6968ba1" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-label="1"></a>demand.rvs(size<span class="op">=</span><span class="dv">7</span>, random_state<span class="op">=</span>rng)    <span class="co"># one simulated week</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>array([46.1861524 , 52.43852645, 30.16093467, 40.65284061, 42.11009845,
@@ -1073,7 +1073,7 @@ Q(u) = -\beta \, \ln(1 - u).
 <section id="plotting-a-distribution" class="level3">
 <h3 class="anchored" data-anchor-id="plotting-a-distribution">Plotting a distribution</h3>
 <p>A distribution object can be evaluated on a grid of values and plotted. For a discrete distribution, use <code>.pmf()</code> on whole numbers:</p>
-<div id="e054ede8" class="cell" data-execution_count="15">
+<div id="3dc26a9a" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-label="1"></a>calls <span class="op">=</span> stats.poisson(mu<span class="op">=</span><span class="dv">12</span>)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-label="2"></a>k <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">31</span>)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-label="3"></a></span>
@@ -1165,7 +1165,7 @@ Q(u) = -\beta \, \ln(1 - u).
 <p><span class="math display">\[
 P(D &gt; 50).
 \]</span></p>
-<div id="46715b22" class="cell" data-execution_count="16">
+<div id="b349d749" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-label="1"></a>demand <span class="op">=</span> stats.norm(loc<span class="op">=</span><span class="dv">45</span>, scale<span class="op">=</span><span class="dv">8</span>)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-label="2"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-label="3"></a>exact <span class="op">=</span> demand.sf(<span class="dv">50</span>)</span>
@@ -1177,7 +1177,7 @@ P(D &gt; 50).
 </div>
 </div>
 <p>The shop runs out on roughly a quarter of days. How much should it stock so that it runs out on only 5% of days? That is the value <span class="math inline">\(s\)</span> with <span class="math inline">\(P(D \le s) = 0.95\)</span>, the 95th percentile:</p>
-<div id="6c68d277" class="cell" data-execution_count="17">
+<div id="bb70ffa0" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-label="1"></a>demand.ppf(<span class="fl">0.95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>np.float64(58.15882901561178)</code></pre>
@@ -1188,7 +1188,7 @@ P(D &gt; 50).
 <section id="example-call-center-capacity" class="level3">
 <h3 class="anchored" data-anchor-id="example-call-center-capacity">Example: Call center capacity</h3>
 <p>A call center receives a Poisson number of calls per hour, with a mean of 12. Capacity is planned so that all calls can be answered in at least 95% of hours.</p>
-<div id="e85de045" class="cell" data-execution_count="18">
+<div id="75f96f7f" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-label="1"></a>calls <span class="op">=</span> stats.poisson(mu<span class="op">=</span><span class="dv">12</span>)</span>
 <span id="cb30-2"><a href="#cb30-2" aria-label="2"></a>capacity <span class="op">=</span> calls.ppf(<span class="fl">0.95</span>)</span>
 <span id="cb30-3"><a href="#cb30-3" aria-label="3"></a>capacity</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1197,14 +1197,14 @@ P(D &gt; 50).
 </div>
 </div>
 <p>This indicates capacity should be planned to handle 18 calls per hour. For a discrete distribution, <code>.ppf(q)</code> returns the smallest whole number <span class="math inline">\(k\)</span> with <span class="math inline">\(P(C \le k) \ge q\)</span>. Check:</p>
-<div id="642046c5" class="cell" data-execution_count="19">
+<div id="80c9733b" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-label="1"></a>calls.cdf(capacity <span class="op">-</span> <span class="dv">1</span>), calls.cdf(capacity)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>(np.float64(0.9370337032260297), np.float64(0.962583510336608))</code></pre>
 </div>
 </div>
 <p>How often does the center receive <em>more</em> calls than that capacity?</p>
-<div id="f2fddbc6" class="cell" data-execution_count="20">
+<div id="9b1ffa7c" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-label="1"></a>calls.sf(capacity)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>np.float64(0.037416489663391915)</code></pre>
@@ -1232,7 +1232,7 @@ P(D &gt; 50).
 <li>20% are <strong>businesses</strong>, whose order values are normal with mean $150 and standard deviation $30.</li>
 </ul>
 <p>No single named distribution describes all orders, but we can simulate one in two steps using a <em>mixture</em>.</p>
-<div id="6474c802" class="cell" data-execution_count="21">
+<div id="e8d5fea0" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-label="1"></a>households <span class="op">=</span> stats.expon(scale<span class="op">=</span><span class="dv">30</span>)</span>
 <span id="cb36-2"><a href="#cb36-2" aria-label="2"></a>businesses <span class="op">=</span> stats.norm(loc<span class="op">=</span><span class="dv">150</span>, scale<span class="op">=</span><span class="dv">30</span>)</span>
 <span id="cb36-3"><a href="#cb36-3" aria-label="3"></a></span>
@@ -1249,7 +1249,7 @@ P(D &gt; 50).
 <span id="cb36-14"><a href="#cb36-14" aria-label="14"></a>orders <span class="op">=</span> simulate_orders(rng, n<span class="op">=</span><span class="dv">100_000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><code>np.where(condition, a, b)</code> takes each value from <code>a</code> where the condition is <code>True</code>, and from <code>b</code> where it is <code>False</code>. We draw both kinds of value for every order and keep the one that matches the customer, which is simple and fast.</p>
-<div id="08c14b84" class="cell" data-execution_count="22">
+<div id="b3164b12" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-label="1"></a>plt.hist(orders, bins<span class="op">=</span><span class="dv">80</span>, density<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb37-2"><a href="#cb37-2" aria-label="2"></a>plt.xlabel(<span class="st">"order value ($)"</span>)</span>
 <span id="cb37-3"><a href="#cb37-3" aria-label="3"></a>plt.xlim(<span class="dv">0</span>, <span class="dv">250</span>)</span>
@@ -1263,7 +1263,7 @@ P(D &gt; 50).
 </div>
 </div>
 <p>A distribution built this way is called a <strong>mixture</strong>. Its histogram has two peaks, one for each kind of customer. In principle, the two peaks could be obscured; for example, if the component distributions overlapped in their means.</p>
-<div id="3de033dd" class="cell" data-execution_count="23">
+<div id="2e5aec65" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-label="1"></a>np.mean(orders), np.median(orders)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <pre><code>(np.float64(53.85975170147829), np.float64(29.422403755056973))</code></pre>
@@ -1274,7 +1274,7 @@ P(D &gt; 50).
 <p><span class="math display">\[
 P(V &gt; 100) = 0.8 \, P(V_{\text{household}} &gt; 100) + 0.2 \, P(V_{\text{business}} &gt; 100).
 \]</span></p>
-<div id="ce669729" class="cell" data-execution_count="24">
+<div id="5a5b3d21" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-label="1"></a>exact <span class="op">=</span> <span class="fl">0.8</span> <span class="op">*</span> households.sf(<span class="dv">100</span>) <span class="op">+</span> <span class="fl">0.2</span> <span class="op">*</span> businesses.sf(<span class="dv">100</span>)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-label="2"></a>simulated <span class="op">=</span> (orders <span class="op">&gt;</span> <span class="dv">100</span>).mean()</span>
 <span id="cb40-3"><a href="#cb40-3" aria-label="3"></a></span>
@@ -1291,7 +1291,7 @@ P(V &gt; 100) = 0.8 \, P(V_{\text{household}} &gt; 100) + 0.2 \, P(V_{\text{busi
 <section id="one-sample-yields-a-single-realization" class="level3">
 <h3 class="anchored" data-anchor-id="one-sample-yields-a-single-realization">One sample yields a single realization</h3>
 <p>Simulation allows us to study statistics computed from data. Suppose household order values are exponential with mean <span class="math inline">\(\mu = 40\)</span> dollars. We survey <span class="math inline">\(n = 50\)</span> orders and compute the sample mean:</p>
-<div id="f6eb52ed" class="cell" data-execution_count="25">
+<div id="9172fd53" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-label="1"></a>sample <span class="op">=</span> rng.exponential(scale<span class="op">=</span><span class="dv">40</span>, size<span class="op">=</span><span class="dv">50</span>)</span>
 <span id="cb42-2"><a href="#cb42-2" aria-label="2"></a>sample.mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
@@ -1303,7 +1303,7 @@ P(V &gt; 100) = 0.8 \, P(V_{\text{household}} &gt; 100) + 0.2 \, P(V_{\text{busi
 <section id="using-simulation" class="level3">
 <h3 class="anchored" data-anchor-id="using-simulation">Using simulation</h3>
 <p>A simulation has no such limit. We can draw a new sample of 50 orders as often as we like:</p>
-<div id="94f3cb82" class="cell" data-execution_count="26">
+<div id="cc819873" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-label="1"></a><span class="kw">def</span> simulate_mean(rng, n):</span>
 <span id="cb44-2"><a href="#cb44-2" aria-label="2"></a>    <span class="co">"""Draw one sample of n order values and return its mean."""</span></span>
 <span id="cb44-3"><a href="#cb44-3" aria-label="3"></a>    sample <span class="op">=</span> rng.exponential(scale<span class="op">=</span><span class="dv">40</span>, size<span class="op">=</span>n)</span>
@@ -1319,7 +1319,7 @@ P(V &gt; 100) = 0.8 \, P(V_{\text{household}} &gt; 100) + 0.2 \, P(V_{\text{busi
 </div>
 </div>
 <p>The sample mean is itself a random quantity. Its distribution is called the <strong>sampling distribution</strong> of the mean. To see it, repeat the simulation many times and collect the results:</p>
-<div id="bd88a536" class="cell" data-execution_count="27">
+<div id="434730f0" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-label="1"></a>n_reps <span class="op">=</span> <span class="dv">1000</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-label="2"></a>means <span class="op">=</span> np.array([simulate_mean(rng, n<span class="op">=</span><span class="dv">50</span>) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_reps)])</span>
 <span id="cb46-3"><a href="#cb46-3" aria-label="3"></a></span>
@@ -1349,13 +1349,13 @@ E[\bar{X}] = \mu,
 <li>The <strong>central limit theorem</strong> adds that, for large enough <span class="math inline">\(n\)</span>, the sampling distribution is approximately normal, <em>even when the population is not</em>.</li>
 </ul>
 <p>An exponential distribution with mean 40 also has standard deviation 40, so theory predicts a center of 40 and a standard error of <span class="math inline">\(40 / \sqrt{50} \approx 5.66\)</span>.</p>
-<div id="648aeefa" class="cell" data-execution_count="28">
+<div id="395ff9a8" class="cell" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-label="1"></a>means.mean(), means.std()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="28">
 <pre><code>(np.float64(40.063405764190364), np.float64(5.81004647529873))</code></pre>
 </div>
 </div>
-<div id="09e6ee6b" class="cell" data-execution_count="29">
+<div id="628f39a9" class="cell" data-execution_count="29">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-label="1"></a>mu, sigma, n <span class="op">=</span> <span class="dv">40</span>, <span class="dv">40</span>, <span class="dv">50</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-label="2"></a>se <span class="op">=</span> sigma <span class="op">/</span> np.sqrt(n)</span>
 <span id="cb50-3"><a href="#cb50-3" aria-label="3"></a></span>
@@ -1394,7 +1394,7 @@ E[\bar{X}] = \mu,
 \hat{p} \pm 1.96 \sqrt{\frac{\hat{p}\,(1 - \hat{p})}{R}}.
 \]</span></p>
 <p>For the inventory example, where the exact answer is about 0.266:</p>
-<div id="e8f3814c" class="cell" data-execution_count="30">
+<div id="5955924f" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-label="1"></a><span class="cf">for</span> R <span class="kw">in</span> [<span class="dv">100</span>, <span class="dv">1_000</span>, <span class="dv">10_000</span>, <span class="dv">100_000</span>]:</span>
 <span id="cb51-2"><a href="#cb51-2" aria-label="2"></a>    stockout <span class="op">=</span> demand.rvs(size<span class="op">=</span>R, random_state<span class="op">=</span>rng) <span class="op">&gt;</span> <span class="dv">50</span></span>
 <span id="cb51-3"><a href="#cb51-3" aria-label="3"></a>    p_hat <span class="op">=</span> stockout.mean()</span>
