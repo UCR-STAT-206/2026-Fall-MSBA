@@ -121,7 +121,7 @@ See the Streamlit documentation on [multipage apps](https://docs.streamlit.io/de
 
 The basic workflow is:
 
-1. Create the environment (see [Conda/Micromamba](micromamba.qmd)).
+1. Create the environment (see [Conda/Micromamba](pkg.qmd)).
 2. Build the database.
 3. Start the app.
 
