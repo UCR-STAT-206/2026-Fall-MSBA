@@ -437,11 +437,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
       <ul id="quarto-sidebar-section-9" aria-labelledby="quarto-sidebar-section-9-label" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
- <span class="menu-text">Conda/Micromamba</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module09/pkg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conda/Micromamba</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
- <span class="menu-text">Deploying Applications</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module09/quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto Website</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notes/module09/streamlit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Streamlit</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -716,7 +728,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-3"><a href="#cb2-3" aria-label="3"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 <p>First, let’s check that you can load <code>matplotlib</code>. Run the following code in a Jupyter session within VSCode:</p>
-<div id="2db52934" class="cell" data-execution_count="1">
+<div id="8d290283" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-2"><a href="#cb3-2" aria-label="2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-3"><a href="#cb3-3" aria-label="3"></a></span>
@@ -736,7 +748,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If this fails, jump to <a href="#install-matplotlib">Install: <code>matplotlib</code></a>.</p>
 <hr>
 <p>Now let’s check that you can load <code>seaborn</code>. It is built on top of <code>matplotlib</code> so you will generally have to load both packages if you use <code>seaborn</code>. Enter the following in a Jupyter session:</p>
-<div id="d2de2330" class="cell" data-execution_count="2">
+<div id="1cecc80b" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-2"><a href="#cb4-2" aria-label="2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-3"><a href="#cb4-3" aria-label="3"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -751,7 +763,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="setup_files/figure-html/cell-3-output-1.png" width="596" height="416" class="figure-img"></p>
+<p><img src="setup_files/figure-html/cell-3-output-1.png" width="589" height="415" class="figure-img"></p>
 </figure>
 </div>
 </div>
