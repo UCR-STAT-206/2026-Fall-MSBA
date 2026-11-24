@@ -1,0 +1,212 @@
+---
+title: "Conda/Micromamba"
+---
+
+## Goals
+
+1. Explain what a package manager and an environment are, and why projects keep separate environments.
+2. Recognize how the course container, the `base` environment, and Micromamba fit together.
+3. Create, activate, inspect, and remove an environment with Micromamba.
+4. Record an environment in an `environment.yml` file and rebuild it from that file.
+
+## Overview
+
+- A **package** is a bundle of code that someone else wrote, such as `numpy` or `pandas`.
+- Packages depend on other packages, and on specific versions of them. `seaborn` needs `matplotlib`, which needs `numpy`, and so on.
+- A **package manager** finds a set of versions that work together, downloads them, and installs them.
+- An **environment** is a folder that contains one Python interpreter and one set of installed packages.
+- Different projects need different packages, and sometimes different versions of the same package. Separate environments keep them from interfering with each other.
+- **Conda** is a package and environment manager. It installs Python packages, and also software that is not written in Python, such as Python itself, R, and compiled libraries.
+- **Micromamba** is a small, fast program that does the same job as Conda and reads the same packages. The commands are nearly identical.
+- Packages come from **channels**, which are locations that host packages. We use **conda-forge**, a large channel maintained by a community of volunteers.
+
+## Our setup
+
+1. The **image** is a fixed snapshot of an operating system with software already installed. Ours is Debian 12 (see [The Unix Shell](../module01/unix.qmd)).
+2. The **container** is a running copy of the image. We've worked with it throughout the quarter using VSCode.
+3. Inside the container, Micromamba manages a **`base`** environment with Python 3.14, Jupyter, NumPy, pandas, SciPy, matplotlib, and the other packages we have used.
+
+The `base` environment lives in your home folder, in `~/.micromamba`.
+This is why the Jupyter kernel is listed as `.micromamba (Python 3.14.7) ~/.micromamba/bin/python` (see the Module 7 [setup note](../module07/setup.qmd)).
+
+To list the environments that Micromamba knows about:
+
+```{text}
+micromamba env list
+```
+
+To list the packages in an environment, with their versions:
+
+```{text}
+micromamba list --name base
+```
+
+To check which Python interpreter runs when you type `python`:
+
+```{text}
+which python
+```
+
+## Installing packages
+
+```{text}
+micromamba install --name base --channel conda-forge 'seaborn=0.13.2'
+```
+
+- `--name base` names the environment to change.
+- `--channel conda-forge` names the channel.
+- `'seaborn=0.13.2'` names the package and pins its version. The quotes stop the shell from interpreting special characters.
+
+Common ways to write a version:
+
+| Specification | Meaning |
+|---|---|
+| `pandas` | Any version the solver picks |
+| `pandas=2.3` | Any 2.3.x release |
+| `pandas=2.3.1` | Exactly 2.3.1 |
+| `'pandas>=2.2'` | 2.2 or later |
+
+To remove a package:
+
+```{text}
+micromamba remove --name base seaborn
+```
+
+Micromamba may also remove packages that only `seaborn` needed.
+Read the list of changes before you accept.
+
+## Creating an environment
+
+Suppose a project needs Python 3.13, `pandas`, and `matplotlib`, and nothing else.
+
+```{text}
+micromamba create --name sales-report --channel conda-forge python=3.13 pandas matplotlib-base
+```
+
+Micromamba prints the packages it plans to install and asks you to confirm.
+The new environment is a folder, `~/.micromamba/envs/sales-report`.
+
+### Activating an environment
+
+**Activating** an environment exposes tools and packages installed to it.
+For example, our `sales-report` environment has as separate `python` installation.
+
+```{text}
+micromamba activate sales-report
+which python
+python --version
+```
+
+`which python` now points into `~/.micromamba/envs/sales-report`, and the version is 3.13.
+The packages in `base` are not available here, so `import seaborn` fails in this environment.
+
+To go back to `base`:
+
+```{text}
+micromamba deactivate
+```
+
+Activation only affects the terminal you ran it in.
+A new terminal starts in `base`.
+
+### Using an environment in Jupyter
+
+VS Code needs the `ipykernel` package to run Jupyter code in an environment:
+
+```{text}
+micromamba install --name sales-report --channel conda-forge ipykernel
+```
+
+Then choose the kernel as in the Module 7 [setup note](../module07/setup.qmd), selecting `sales-report` in place of `.micromamba`.
+
+### Removing an environment
+
+```{text}
+micromamba env remove --name sales-report
+```
+
+This deletes the folder and everything installed in it.
+Your own files, such as scripts and data, are not stored in the environment and are not affected.
+
+:::::::::::::::: callout-warning
+## Do not break `base`
+
+Every note in this course assumes the `base` environment.
+Try new or conflicting packages in a separate environment.
+If an environment breaks, remove it and create it again.
+::::::::::::::::
+
+## Recording an environment
+
+An environment is easy to rebuild if you write down what is in it.
+The convention used by Conda/Micromamba is a file named `environment.yml`
+
+```{text}
+micromamba env export --name sales-report --from-history > environment.yml
+```
+
+`--from-history` lists only the packages you asked for, with the versions you specified:
+
+```{text}
+name: sales-report
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  - pandas
+  - matplotlib-base
+  - ipykernel
+```
+
+The file is short and works on other operating systems.
+Versions you did not pin may differ when the environment is rebuilt later, so pin the ones that matter.
+For Python projects, pinning the Python version is usually the most consequential choice.
+
+Anyone with Micromamba or Conda can build the same environment from this file:
+
+```{text}
+micromamba create --name sales-report --file environment.yml
+```
+
+Keep `environment.yml` in the project folder and commit it with the rest of your code (see [Git](../module01/git.qmd)).
+
+:::::::::::::::: callout-note
+## `pip` inside an environment
+
+Some packages are only available from PyPI, the Python package index, through `pip`.
+Install everything you can with Micromamba first.
+Then activate the environment and run `pip` with its Python:
+
+```{text}
+micromamba activate sales-report
+python -m pip install nycflights13
+```
+
+Packages installed with `pip` are not included in the export.
+Add them to `environment.yml` by hand under a `pip` entry:
+
+```{text}
+dependencies:
+  - python=3.13
+  - pandas
+  - matplotlib-base
+  - ipykernel
+  - pip
+  - pip:
+    - nycflights13
+```
+::::::::::::::::
+
+## Summary
+
+| Task | Command |
+|---|---|
+| List environments | `micromamba env list` |
+| List packages | `micromamba list --name NAME` |
+| Create | `micromamba create --name NAME --channel conda-forge PACKAGES` |
+| Install into | `micromamba install --name NAME --channel conda-forge PACKAGES` |
+| Remove a package | `micromamba remove --name NAME PACKAGE` |
+| Activate / deactivate | `micromamba activate NAME` / `micromamba deactivate` |
+| Export | `micromamba env export --name NAME --from-history > environment.yml` |
+| Create from file | `micromamba create --name NAME --file environment.yml` |
+| Remove an environment | `micromamba env remove --name NAME` |

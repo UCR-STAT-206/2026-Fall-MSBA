@@ -101,7 +101,11 @@ website:
       - section: Module 9 (Managing Computing Environments)
         contents:
           - text: Conda/Micromamba
-          - text: Deploying Applications
+            href: notes/module09/pkg.qmd
+          - text: Quarto Website
+            href: notes/module09/quarto.qmd
+          - text: Streamlit
+            href: notes/module09/streamlit.qmd
       - section: Module 10 (Data Technologies)
         contents:
           - text: Plaintext and Binary Formats
@@ -133,10 +137,6 @@ website:
             href: hw/hw3.qmd
           - text: Homework 4
             href: hw/hw4.qmd
-          # - text: Homework 5
-          #   href: hw/hw5.qmd
-          # - text: Homework 6
-          #   href: hw/hw6.qmd
       - text: "Final Project"
         href: project/project.qmd
       - text: "---"

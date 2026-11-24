@@ -1,0 +1,167 @@
+---
+title: "A Dashboard with Streamlit"
+---
+
+## Goals
+
+1. Describe how a Streamlit app runs and why it needs caching.
+2. Organize a small app so that analysis code is separate from display code.
+3. Explain how the files of a multipage app relate to each other.
+4. Run an app locally and deploy it from a GitHub repository.
+
+## Overview
+
+- **Streamlit** turns a Python script into an interactive web page. Calls such as `st.title()`, `st.metric()`, and `st.bar_chart()` add elements to the page in the order they run.
+- Every time a user changes a widget, Streamlit **reruns the whole script** from the top. Slow steps, such as reading a database, are **cached** so that they run once.
+- A **dashboard** summarizes a business with a few key performance indicators (KPIs), charts, and filters.
+- These notes describe the design of one example. Use the [Streamlit documentation](https://docs.streamlit.io/develop/api-reference) for the details of each command, and expect to look things up as you go.
+
+Our running example is a dashboard for a small coffee shop that sells hot coffee, iced coffee, pastries, and bags of coffee beans.
+It is a scaled-down version of Streamlit's [business intelligence demo](https://github.com/streamlit/demos/tree/main/bi-dashboard).
+
+## The example
+
+The dashboard has two pages.
+
+- **Overview.** Revenue, units sold, gross profit, and gross margin for a selected quarter, each compared with the same quarter one year earlier. A chart of revenue by quarter and product.
+- **Products.** Units and revenue by product for the selected quarter, and a monthly trend for each product.
+
+A sidebar holds two filters shared by both pages: the products to include and the quarter to report.
+
+The data are **simulated** (see [Simulating Random Variables](../module08/randvar.qmd)).
+We chose the patterns, so we can check that the dashboard shows them:
+
+- Iced coffee sells far more in summer than in winter.
+- The price of hot coffee rises in July 2024, and slightly fewer cups are sold afterwards.
+- Coffee beans are launched in April 2025. Relatively few units sell, but coffee beans bring in a lot of revenue per unit.
+
+## Project layout
+
+```{text}
+coffee-dashboard/
+├── environment.yml       # local environment
+├── requirements.txt      # packages for deployment
+├── simulate.py           # creates the database
+├── data/coffee.db        # SQLite database
+├── analytics.py          # loads data and computes every number
+├── app.py                # entry point: caching, filters, navigation
+└── app_pages/
+    ├── overview.py       # Overview page
+    └── products.py       # Products page
+```
+
+### How the files relate
+
+Data flows in one direction:
+
+```{mermaid}
+flowchart LR
+  A[simulate.py] -->|writes| B[(data/coffee.db)]
+  B -->|read by| C[analytics.py]
+  C -->|imported by| D[app.py]
+  D -->|runs| E[app_pages/overview.py]
+  D -->|runs| F[app_pages/products.py]
+  C -->|imported by| E
+  C -->|imported by| F
+```
+
+| File | Role | Uses Streamlit? |
+|---|---|---|
+| `simulate.py` | Defines the products and simulates sales. Run once. | No |
+| `data/coffee.db` | Stores two tables, `products` and `daily_sales`. | No |
+| `analytics.py` | Loads the tables and computes summaries: quarterly totals, year-over-year comparisons, totals by product. | No |
+| `app.py` | Loads the data once (cached), draws the shared filters, filters the data, and runs the selected page. | Yes |
+| `app_pages/*.py` | Display only: KPI cards, charts, and tables built from `analytics.py` results. | Yes |
+
+- `app.py` passes the filtered data to the pages through `st.session_state`, a dictionary that persists across reruns.
+- The pages never read the database. Each Python script must call `analytics.py` functions using the given inputs.
+    + The widgets' states and user clicks generate the inputs that must be passed to each function call.
+
+## Design choices
+
+### Keep analysis out of the app
+
+`analytics.py` mainly relies on Pandas.
+
+- You can import it in Jupyter or a Quarto page and check every number without starting the app.
+- The page scripts stay short: each one computes a few tables with `analytics.py` and displays them.
+
+This is the idea suggested at the end of the our [Quarto website demo](quarto.qmd): put most of the project code inside functions.
+
+### One source of truth
+
+Every fact about the products (name, price, cost) is defined once, in a table at the top of `simulate.py`, and saved to the database.
+Everything downstream reads the product list from the database.
+
+- `daily_sales` refers to products by `product_id`, not by name, so a misspelled name does not silently create a new product.
+- `analytics.py` stores `product` as a categorical column in catalog order, so tables and charts list products in the same order everywhere.
+- `app.py` assigns colors to the full product list *before* filtering, so a product keeps its color when other products are deselected.
+
+Adding a product means editing one row in `simulate.py` and running it again to populate `data/coffee.db`.
+
+### Caching
+
+`app.py` wraps the loading function with `@st.cache_data`.
+Without it, the database would be read on every click.
+This idea shows up everywhere in programming, from the design of an algorithm to building data analysis pipelines:
+
+- If you have an expensive computation whose results need to be used many times, find a way to store the results.
+- *In memory*: Use a data structure (maybe an `np.array`) to store results.
+- *On disk*: Write the results to a file (ideally with compression) if you can't afford to keep the intermediates in memory.
+
+See the Streamlit documentation on [caching](https://docs.streamlit.io/develop/concepts/architecture/caching).
+
+### Multipage apps
+
+`app.py` lists the pages with `st.Page` and `st.navigation`.
+Anything `app.py` draws before calling `.run()`, such as the sidebar filters, appears on every page.
+See the Streamlit documentation on [multipage apps](https://docs.streamlit.io/develop/concepts/multipage-apps).
+
+## Run locally
+
+The basic workflow is:
+
+1. Create the environment (see [Conda/Micromamba](micromamba.qmd)).
+2. Build the database.
+3. Start the app.
+
+The following commands illustrate the workflow:
+
+```{bash}
+micromamba create --name coffee-dashboard --file environment.yml
+micromamba activate coffee-dashboard
+python simulate.py
+streamlit run app.py --server.headless true
+```
+
+- Streamlit starts a small web server on port 8501 (default) inside the container.
+- VS Code forwards the port to your computer. Open the address it offers, or forward port 8501 yourself in the **Ports** panel.
+- `--server.headless true` stops Streamlit from trying to open a browser inside the container.
+- Save a file and the page offers to rerun the app.
+
+Run `python simulate.py` again whenever you change the products or the tables.
+
+## Deploy
+
+[Posit Connect Cloud](https://docs.posit.co/connect-cloud/) hosts Streamlit apps for free from a public GitHub repository.
+
+- Push the whole project to GitHub, including `data/coffee.db`. The deployed app cannot run `simulate.py` for you.
+- Connect Cloud installs packages from `requirements.txt`, not from `environment.yml`. Keep the two lists in agreement, and pin versions once the app works.
+    + The `environment.yml` file is for developers to test the code locally.
+    + The `requirements.txt` file is for the Streamlit app itself.
+- Sign in with GitHub, choose the repository, and select `app.py` as the entry point.
+- Free apps go to sleep after idling for about 12 hours. Restarting them takes a bit of time.
+
+Check the Connect Cloud documentation for the current steps and limits.
+
+:::::::::::::::: callout-tip
+## Building your own app with an LLM
+
+1. Write a short specification: who uses the app, and the one or two questions it answers.
+2. Give the LLM the specification, the column names of your data, and your `environment.yml`.
+3. Read the code before you run it. Ask what each Streamlit command does, and check it against the documentation.
+4. Run it, read the error messages, and fix one problem at a time.
+5. Pin the package versions that work.
+
+Streamlit itself is under active develop and therefore changes over time. LLMs may suggest commands that are outdated or not yet released.
+::::::::::::::::
